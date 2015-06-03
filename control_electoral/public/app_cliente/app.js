@@ -15,7 +15,7 @@ App.config(function($urlRouterProvider, $stateProvider) {
      })
     .state('home', {
       url: "/home",              
-      template: "inicio/home", 
+      templateUrl: "inicio/home", 
       //controller: 'HomeController'
      });
      

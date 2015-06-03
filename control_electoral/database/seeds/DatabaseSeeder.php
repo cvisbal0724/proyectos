@@ -14,7 +14,7 @@ class DatabaseSeeder extends Seeder {
 	{
 		Model::unguard();
 
-		 $this->call('ConfiguracionTableSeeder');
+		 $this->call('MenusTableSeeder');
 		 $this->command->info('Insertado correctamente.');
 	}
 

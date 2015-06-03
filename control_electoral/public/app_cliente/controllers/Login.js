@@ -9,7 +9,7 @@ confControllers.controller('LoginController', function ($scope,$location,authUsu
 
 			auth.success(function(response){
 				
-				alert(response);
+				$state.go('home');
 
 			if (response.id > 0) {
 				/*SessionSet.cacheSession(response);

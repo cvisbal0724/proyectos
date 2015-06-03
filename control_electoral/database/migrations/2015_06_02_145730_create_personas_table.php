@@ -20,6 +20,7 @@ class CreatePersonasTable extends Migration {
 			$table->string('apellido',120);
 			$table->string('telefono',100);
 			$table->string('direccion',100);
+			$table->string('correo',120);
 			$table->integer('id_alcalde')->unsigned();
 			$table->foreign('id_alcalde')->references('id')->on('alcaldes');
 			$table->timestamps();

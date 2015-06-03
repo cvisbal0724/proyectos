@@ -36,13 +36,7 @@
         <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
     <![endif]-->
 
-</head>
-
-<body>
-
-   <ui-view></ui-view>
-
-    <!-- jQuery -->
+     <!-- jQuery -->
     <script src="app_cliente/bower_components/jquery/dist/jquery.min.js"></script>
 
     <!-- Bootstrap Core JavaScript -->
@@ -51,13 +45,20 @@
     <!-- Metis Menu Plugin JavaScript -->
     <script src="app_cliente/bower_components/metisMenu/dist/metisMenu.min.js"></script>
 
+</head>
+
+<body>
+
+   <ui-view></ui-view>
+
+   
+
     <!-- Morris Charts JavaScript 
     <script src="app_cliente/bower_components/raphael/raphael-min.js"></script>
     <script src="app_cliente/bower_components/morrisjs/morris.min.js"></script>
     <script src="app_cliente/js/morris-data.js"></script>-->
 
-    <!-- Custom Theme JavaScript -->
-    <script src="app_cliente/dist/js/sb-admin-2.js"></script>
+    
 
     <script type="text/javascript" src="app_cliente/lib/angular/angular.min.js"></script>
     <script type="text/javascript" src="app_cliente/lib/angular/angular-ui-router.min.js"></script>

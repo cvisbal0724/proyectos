@@ -28,6 +28,10 @@ Route::get('inicio/login',function(){
 	return view('inicio/login');
 });
 
+Route::get('inicio/home',function(){
+	return view('inicio/home');
+});
+
 //servicios
 Blade::setContentTags('[[', ']]'); 
 Blade::setEscapedContentTags('[[[', ']]]');
@@ -36,51 +40,34 @@ Blade::setEscapedContentTags('[[[', ']]]');
 Route::post('inicio/loguear','AtenticacionController@Loguear');
 /*End login*/
 
-use App\models\Alcaldes;
-use App\models\Partidos;
-use App\models\Perfiles;
-use App\models\Usuarios;
-use App\models\Personas;
-use \Illuminate\Support\Facades\DB;
-
+use App\models\Menus;
 Route::get('test',function(){
 	
+	$lista= Menus::all();
+	$menu=array();
 
-			 DB::table('partidos')->delete();
-       
-       $par=Partidos::create(array(       		
-        	'nombre'=>'U'
-        ));
-
-       $alc=Alcaldes::create(array(
-        	'nombre'=>'Geovany Vergara',
-        	'id_partido'=>$par['id'],
-        	'numero'=>1        	
-        ));
-
-        /*$perfiles=['Administrador','Alcalde','Concejales','Lider'];
-
-		foreach ($perfiles as $key => $value) {
-			 Perfiles::create(array(
-		        	'nombre'=>$value
-		      ));
+	foreach ($lista as $key => $row) {
+		if ($row->id_padre==0) {
+			$menu[]=array(
+				'id'=>$row->id,
+				'nombre'=>$row->nombre,
+				'etiqueta'=>$row->etiqueta,
+				'id_padre'=>$row->id_padre,
+				'id_modulo'=>$row->id_modulo,
+				'url'=>$row->url,
+				'orden'=>$row->orden,
+				'imagen'=>$row->imagen,
+				'hijos'=>array());
 		}
 		
-		$per=Personas::create(array(
-			'cedula'=>'1044422259',
-			'nombre'=>'Carlos',
-			'apellido'=>'Visbal',
-			'telefono'=>'3014647797',
-			'direccion'=>'Calle 10'
-			'id_alcalde'=>$alc['id'],
-		));
+		foreach ($lista as $key2 => $row2) {
+			if ($row->id==$row2->id_padre) {
+				$menu[$key]['hijos'][]=$row2;
+				
+			}
+		}
+	}
 
-		Usuarios::create(array(
+	return $menu;
 
-			'usuario'=>'cvisbal',
-			'password'=>Hash::make('12345'),
-			'id_persona'=>$per['id'],
-			'id_perfil'=>1
-
-		));*/
 });
