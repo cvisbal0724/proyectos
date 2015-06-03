@@ -4,6 +4,9 @@ use Illuminate\Database\Eloquent\Model;
 
 class Menus extends Model {
 
-	//
+	protected $table = 'menus';
+	protected $primaryKey='id';
+	protected $guarded = array();
+	public static $rules = array();
 
 }

@@ -9,6 +9,13 @@ class PersonaTableSeeder extends Seeder
 {
     public function run()
     {
-        // TestDummy::times(20)->create('App\Post');
+        Personas::create(array(
+			'cedula'=>'1044422259',
+			'nombre'=>'Carlos',
+			'apellido'=>'Visbal',
+			'telefono'=>'3014647797',
+			'direccion'=>'Calle 10',
+			'id_alcalde'=>1
+		));
     }
 }
