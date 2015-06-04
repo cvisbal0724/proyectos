@@ -28,9 +28,8 @@ Route::get('inicio/login',function(){
 	return view('inicio/login');
 });
 
-Route::get('inicio/home',function(){
-	return view('inicio/home');
-});
+Route::get('inicio/home','HomeController@index');
+
 
 //servicios
 Blade::setContentTags('[[', ']]'); 

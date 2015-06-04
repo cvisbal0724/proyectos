@@ -21,7 +21,7 @@ confControllers.run(function($rootScope, $templateCache,$location,SessionService
         //a dejar en el formulario de login
 
         if(in_array($location.path(),rutasPrivadas) && !authUsuario.estaLogueado()){
-            $state.go("login");
+            //$state.go("login");
         }
 
         //en el caso de que intente acceder al login y ya haya iniciado sesión lo mandamos a la home

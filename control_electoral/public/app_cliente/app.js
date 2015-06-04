@@ -68,7 +68,7 @@ confControllers.factory('authUsuario',function($http,$location,SessionService,Se
             }).success(function(){
                 //eliminamos la sesión de sessionStorage
                 SessionSet.unCacheSession();
-                $state.go("login");
+                //$state.go("login");
                 //$route.reload();
             });
         },        
@@ -97,3 +97,12 @@ confControllers.factory('authUsuario',function($http,$location,SessionService,Se
 });  
 
 
+App.directive('metismenu', function() {
+   return {
+       // A = attribute, E = Element, C = Class and M = HTML Comment
+       restrict:'A',
+       link: function(scope, element, attrs) {           
+           $(element).metisMenu();
+        }
+    }
+ });   
