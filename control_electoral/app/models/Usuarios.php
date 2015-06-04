@@ -17,6 +17,7 @@ class Usuarios extends Model implements AuthenticatableContract, CanResetPasswor
 	 */
 	protected $table = 'usuarios';
 	protected $primaryKey='id';
+	protected $with=array('persona');
 	protected $guarded = array();
 	public static $rules = array();
 	/**
@@ -32,5 +33,9 @@ class Usuarios extends Model implements AuthenticatableContract, CanResetPasswor
 	 * @var array
 	 */
 	protected $hidden = ['password'];
+
+	public function Persona(){
+		return $this->belongsTo('App\models\Personas','id_persona','id');
+	}
 
 }

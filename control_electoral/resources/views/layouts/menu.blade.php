@@ -24,7 +24,7 @@
                                    @foreach($item['hijos'] as $hijo)
                                       
                                         <li>
-                                            <a href="morris.html" class=''>[[ $hijo['etiqueta'] ]]</a>
+                                            <a ui-sref='[[ $hijo["url"] ]]' href="/home">[[ $hijo['etiqueta'] ]]</a>
                                         </li>
                                       
                                     @endforeach 

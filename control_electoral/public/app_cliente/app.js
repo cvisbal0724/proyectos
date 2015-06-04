@@ -8,16 +8,21 @@ App.config(function($urlRouterProvider, $stateProvider) {
     $urlRouterProvider.otherwise('/login');
 
     $stateProvider
-    .state('login', {
-      url: "/login",              
-      templateUrl: "inicio/login", 
-      controller: 'LoginController'
-     })
-    .state('home', {
-      url: "/home",              
-      templateUrl: "inicio/home", 
-      //controller: 'HomeController'
-     });
+      .state('login', {
+        url: "/login",              
+        templateUrl: "inicio/login", 
+        controller: 'LoginController'
+       })
+      .state('home', {
+        url: "/home",              
+        templateUrl: "inicio/home", 
+        //controller: 'HomeController'
+       })
+      .state('home.registrar_partidos', {
+        url: "/registrar-partido",              
+        templateUrl: "partido/partido", 
+        controller: 'PartidoController'
+       });
      
 });
 
@@ -42,7 +47,7 @@ confControllers.factory("SessionSet", function($location,SessionService){
     return {
         //obtenemos una sesión 
         cacheSession : function(usuario){
-        SessionService.set("auth", usuario.id > 0);
+        SessionService.set("auth", usuario.auth);
         SessionService.set("nombre", usuario.nombre);  
         SessionService.set("_token", usuario._token);       
         },

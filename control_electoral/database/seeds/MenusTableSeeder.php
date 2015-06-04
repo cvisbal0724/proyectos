@@ -28,7 +28,7 @@ class MenusTableSeeder extends Seeder
         		'etiqueta'=>'Registrar',
         		'id_padre'=>$rs['id'],
         		'id_modulo'=>$key+1,
-        		'url'=>'',
+        		'url'=>'home.registrar_'.strtolower($value),
         		'orden'=>1,
         		'imagen'=>'fa fa-arrow-circle-o-right'
         	));
@@ -38,7 +38,7 @@ class MenusTableSeeder extends Seeder
         		'etiqueta'=>'Consultar',
         		'id_padre'=>$rs['id'],
         		'id_modulo'=>$key+1,
-        		'url'=>'',
+        		'url'=>'home.consultar_'.strtolower($value),
         		'orden'=>2,
         		'imagen'=>'fa fa-search'
         	));

@@ -8,14 +8,11 @@ confControllers.controller('LoginController', function ($scope,$location,authUsu
 			var auth = authUsuario.loguear($scope.loginVO);
 
 			auth.success(function(response){
-				
-				$state.go('home');
-
+								
 			if (response.id > 0) {
-				/*SessionSet.cacheSession(response);
-				$state.go("home.inicio")*/
 
-
+				SessionSet.cacheSession(response);
+				$state.go('home');
 			}	
 			});
 		}

@@ -30,6 +30,9 @@ Route::get('inicio/login',function(){
 
 Route::get('inicio/home','HomeController@index');
 
+Route::get('partido/partido',function(){
+	return view('partido/partido');
+});
 
 //servicios
 Blade::setContentTags('[[', ']]'); 
@@ -38,6 +41,10 @@ Blade::setEscapedContentTags('[[[', ']]]');
 /*Login*/
 Route::post('inicio/loguear','AtenticacionController@Loguear');
 /*End login*/
+
+/*Partido*/
+Route::post('partido/crear','PartidoController@Crear');
+/*Fin Partido*/
 
 use App\models\Menus;
 Route::get('test',function(){

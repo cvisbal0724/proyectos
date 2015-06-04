@@ -21,9 +21,14 @@ class AtenticacionController extends Controller {
 			
 			if (Auth::attempt($credenciales))
 			{
-			    return Auth::User();
+				$usuario=array(
+					'auth'=>Auth::check(),
+					'nombre'=>Auth::User()->persona->nombre . ' ' . Auth::User()->persona->apellido,
+					'_token'=>csrf_token()
+				);
+			    return $usuario;
 			}else{
-				return 'no entro';
+				return $usuario;
 			}
 
 		} catch (Exception $e) {
