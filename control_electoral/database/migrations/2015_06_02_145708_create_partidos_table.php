@@ -16,6 +16,7 @@ class CreatePartidosTable extends Migration {
 		{
 			$table->increments('id');
 			$table->string('nombre');
+			$table->string('logo');
 			$table->timestamps();
 		});
 	}

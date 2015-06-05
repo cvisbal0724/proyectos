@@ -12,6 +12,11 @@
                 <input class="form-control" type='text' ng-model='partidoVO.nombre'>
                 <p class="help-block">(*)Ingrese el partido</p>
             </div>
+            <div class="form-group">
+                <label>Logo</label>
+                <input class="form-control" type='file' ng-model='partidoVO.logo' file-model="partidoVO.logo">
+                <p class="help-block">(*)Ingrese el partido</p>
+            </div>
             <div class="alert alert-{{result.alert}} alert-dismissable" ng-show='result.show'>
                                 <button type="button" class="close" aria-hidden="true" ng-click='result.show=false'>&times;</button>
                                {{result.msg}}
@@ -42,7 +47,10 @@
            <tbody>
              <tr ng-repeat='item in listaPartidos'>
                <td>{{item.nombre}}</td>
-               <td></td>
+               <td>
+                 <img style='width:28px;' ng-if="item.logo!=''" src="app_cliente/logos_partido/{{item.logo}}">
+                 <span style='color:red;' ng-if="item.logo==''">Pendiente</span>
+               </td>
                <td>
                  <a href="" ng-click='consultar_por_codigo(item)'>
                    <i class='fa fa-pencil fa-2x'></i>

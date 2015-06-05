@@ -65,9 +65,11 @@
     <script type="text/javascript" src="app_cliente/lib/angular/angular-route.min.js"></script>
     <script type="text/javascript" src="app_cliente/lib/angular/angular-sanitize.min.js"></script>
     <script type="text/javascript" src="app_cliente/app.js"></script>
+    <script type="text/javascript" src="app_cliente/controles.js"></script>
     <!--<script type="text/javascript" src="app_cliente/run.js"></script>-->
     <script type="text/javascript" src="app_cliente/controllers/Login.js"></script>
     <script type="text/javascript" src="app_cliente/controllers/Partido.js"></script>
+    <script type="text/javascript" src="app_cliente/controllers/Alcalde.js"></script>
 
 </body>
 

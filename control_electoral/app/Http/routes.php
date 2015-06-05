@@ -20,6 +20,8 @@ Route::controllers([
 	'password' => 'Auth\PasswordController',
 ]);*/
 
+use App\models\Partidos;
+
 Route::get('/', function(){
 	return view('inicio/index');
 });
@@ -32,6 +34,13 @@ Route::get('inicio/home','HomeController@index');
 
 Route::get('partido/partido',function(){
 	return view('partido/partido');
+});
+
+Route::get('alcalde/alcalde',function(){
+
+	$lista=Partidos::all();
+
+	return view('alcalde/alcalde',array('partidos'=>$lista));
 });
 
 //servicios

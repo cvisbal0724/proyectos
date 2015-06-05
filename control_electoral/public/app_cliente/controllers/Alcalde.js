@@ -1,27 +1,19 @@
-confControllers.controller('PartidoController', function ($scope,$location,authUsuario,SessionService,SessionSet,$state,$http) {
+confControllers.controller('AlcaldeController', function ($scope,$location,authUsuario,SessionService,SessionSet,$state,$http) {
 
-	$scope.partidoVO={id:0,nombre:'',logo:null,_token:authUsuario.token()};
+	$scope.alcaldeVO={id:0,nombre:'',id_partido:0,numero:0,_token:authUsuario.token()};
 	$scope.result={};
-	$scope.listaPartidos=[];
+	$scope.listaAlcaldes=[];
 
 	
 
 	$scope.guardar=function(){
 
-		var formData= new FormData();
-
-		formData.append('id',$scope.partidoVO.id);
-		formData.append('nombre',$scope.partidoVO.nombre);
-		formData.append('logo',$scope.partidoVO.logo);
-		formData.append('_token',$scope.partidoVO._token);
-
-		$http.post("partido/crear",formData,
-			{transformRequest: angular.identity,
-            headers: {'Content-Type': undefined}}).success(function(data, status, headers, config) {
+		$http.post("partido/crear",$scope.alcaldeVO)
+		.success(function(data, status, headers, config) {
 
 		 	$scope.result=data;
 		 	if (data.alert=='success') {
-		 		$scope.listaPartidos=data.data;
+		 		$scope.listaAlcaldes=data.data;
 		 		$scope.nuevo();
 		 	};
 		 	

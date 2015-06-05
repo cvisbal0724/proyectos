@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\models\Excepciones;
 use App\models\Partidos;
+use File;
 
 class PartidoController extends Controller {
 
@@ -23,17 +24,56 @@ class PartidoController extends Controller {
 			if ($request->input('id')>0) {
 				
 				$part=Partidos::find($request->input('id'));
+
+				$nombreArchivo='';
+				
+				if ($request->hasFile('logo')) {
+					if ($request->file('logo')->isValid()) {
+						
+						$nombreArchivo=rand(11111,99999).str_replace(' ','',$request->input('nombre')).'.'.
+						$request->file('logo')->getClientOriginalExtension();
+
+						$move=$request->file('logo')->move(
+					        public_path() . '/app_cliente/logos_partido/', $nombreArchivo
+					    );
+
+						if ($part->logo!='') {
+							File::delete(public_path().'/app_cliente/logos_partido/'.$part->logo);
+						}
+
+						$part->logo=$nombreArchivo;	
+
+					}
+				}
+
 				$part->nombre=$request->input('nombre');
 				$rs=$part->save();
 				
 				$guardo=$rs > 0;
 
 			}else{
+
+				$nombreArchivo='';
+
+				if ($request->hasFile('logo')) {
+					if ($request->file('logo')->isValid()) {
+						$nombreArchivo=rand(11111,99999).str_replace(' ','',$request->input('nombre')).'.'.
+						$request->file('logo')->getClientOriginalExtension();
+
+						 $request->file('logo')->move(
+					        base_path() . '/public/app_cliente/logos_partido/', $nombreArchivo
+					    );
+					}
+				}
+				
 				$rs=Partidos::create(array(
-				'nombre'=>$request->input('nombre')
+				'nombre'=>$request->input('nombre'),
+				'logo'=>$nombreArchivo
 				));
 
 				$guardo=$rs['id'] > 0;
+				
+
 			}
 			
 

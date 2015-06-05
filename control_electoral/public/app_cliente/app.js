@@ -22,6 +22,11 @@ App.config(function($urlRouterProvider, $stateProvider) {
         url: "/registrar-partido",              
         templateUrl: "partido/partido", 
         controller: 'PartidoController'
+       })
+      .state('home.registrar_alcaldes', {
+        url: "/registrar-alcalde",              
+        templateUrl: "alcalde/alcalde", 
+        controller: 'AlcaldeController'
        });
      
 });
@@ -102,12 +107,3 @@ confControllers.factory('authUsuario',function($http,$location,SessionService,Se
 });  
 
 
-App.directive('metismenu', function() {
-   return {
-       // A = attribute, E = Element, C = Class and M = HTML Comment
-       restrict:'A',
-       link: function(scope, element, attrs) {           
-           $(element).metisMenu();
-        }
-    }
- });   
