@@ -44,12 +44,14 @@ Route::post('inicio/loguear','AtenticacionController@Loguear');
 
 /*Partido*/
 Route::post('partido/crear','PartidoController@Crear');
+Route::post('partido/consultar','PartidoController@Consultar');
+Route::get('partido/consultarporcodigo/{id}','PartidoController@ConsultarPorCodigo');
 /*Fin Partido*/
 
 use App\models\Menus;
 Route::get('test',function(){
 	
-	$lista= Menus::all();
+	/*$lista= Menus::all();
 	$menu=array();
 
 	foreach ($lista as $key => $row) {
@@ -74,6 +76,6 @@ Route::get('test',function(){
 		}
 	}
 
-	return $menu;
+	return $menu;*/
 
 });

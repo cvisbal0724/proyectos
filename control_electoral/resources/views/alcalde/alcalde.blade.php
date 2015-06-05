@@ -35,8 +35,9 @@
            <thead>
                <tr>
                    <th>Nombre</th>
-                   <th>Logo</th>  
-                   <th></th>         
+                   <th>Partido</th>  
+                   <th>Numero</th>         
+                   <th></th>
                </tr>
            </thead>
            <tbody>

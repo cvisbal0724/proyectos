@@ -8,12 +8,12 @@ confControllers.controller('LoginController', function ($scope,$location,authUsu
 			var auth = authUsuario.loguear($scope.loginVO);
 
 			auth.success(function(response){
-								
-			if (response.id > 0) {
+					
+				if (response.auth) {
 
-				SessionSet.cacheSession(response);
-				$state.go('home');
-			}	
+					SessionSet.cacheSession(response);
+					$state.go('home');
+				}	
 			});
 		}
 
