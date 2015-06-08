@@ -8,9 +8,18 @@ confControllers.controller('AlcaldeController', function ($scope,$location,authU
 
 	$scope.guardar=function(){
 
-		$http.post("partido/crear",$scope.alcaldeVO)
-		.success(function(data, status, headers, config) {
+		var formData= new FormData();
+		formData.append('id',$scope.alcaldeVO.id);
+		formData.append('nombre',$scope.alcaldeVO.nombre);
+		formData.append('id_partido',$scope.alcaldeVO.id_partido);
+		formData.append('numero',$scope.alcaldeVO.numero);
+		formData.append('foto',$scope.alcaldeVO.foto);
+		formData.append('_token',$scope.alcaldeVO._token);
 
+		$http.post("alcalde/guardar",formData,
+			{transformRequest: angular.identity,
+            headers: {'Content-Type': undefined}}).success(function(data, status, headers, config) {
+		
 		 	$scope.result=data;
 		 	if (data.alert=='success') {
 		 		$scope.listaAlcaldes=data.data;
@@ -22,21 +31,23 @@ confControllers.controller('AlcaldeController', function ($scope,$location,authU
 
 	$scope.consultar=function(){
 
-		$http.post("partido/consultar",{_token:authUsuario.token()}).success(function(data, status, headers, config) {
-			$scope.listaPartidos=data;		 	
+		$http.post("alcalde/consultar",{_token:authUsuario.token()}).success(function(data, status, headers, config) {
+			$scope.listaAlcaldes=data;		 	
 		});
 	}
 
 	$scope.nuevo=function(){
-		$scope.partidoVO.id=0;
-		$scope.partidoVO.nombre='';
-		$scope.partidoVO.logo=null;
-		$scope.partidoVO._token=authUsuario.token()
+		$scope.alcaldeVO.id=0;
+		$scope.alcaldeVO.nombre='';
+		$scope.alcaldeVO.id_partido='';
+		$scope.alcaldeVO.numero='0';
+		$scope.alcaldeVO.foto=null;
+		$scope.alcaldeVO._token=authUsuario.token()
 	}
 
 	$scope.consultar_por_codigo=function(obj){
-		$http.get("/partido/consultarporcodigo/"+obj.id).success(function(data, status, headers, config) {
-			$scope.partidoVO=data;		 	
+		$http.get("/alcalde/consultarporcodigo/"+obj.id).success(function(data, status, headers, config) {
+			$scope.alcaldeVO=data;		 	
 		});
 	}
 

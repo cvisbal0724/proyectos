@@ -6,7 +6,12 @@ class Personas extends Model {
 
 	protected $table = 'personas';
 	protected $primaryKey='id';
+	protected $with=array('alcalde');
 	protected $guarded = array();
 	public static $rules = array();
+
+	public function Alcalde(){
+		return $this->belongsTo('App\models\Alcaldes','id_alcalde','id');
+	}
 
 }

@@ -15,7 +15,7 @@ confControllers.controller('PartidoController', function ($scope,$location,authU
 		formData.append('logo',$scope.partidoVO.logo);
 		formData.append('_token',$scope.partidoVO._token);
 
-		$http.post("partido/crear",formData,
+		$http.post("partido/guardar",formData,
 			{transformRequest: angular.identity,
             headers: {'Content-Type': undefined}}).success(function(data, status, headers, config) {
 

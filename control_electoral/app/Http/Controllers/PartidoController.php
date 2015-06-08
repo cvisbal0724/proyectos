@@ -11,7 +11,7 @@ use File;
 class PartidoController extends Controller {
 
 	
-	public function Crear(Request $request){
+	public function Guardar(Request $request){
 		try {
 			
 			$guardo=false;
@@ -78,11 +78,11 @@ class PartidoController extends Controller {
 			
 
 			return $guardo > 0 ? array('show'=>true,'alert'=>'success','msg'=>'Partido guardado satisfactoriamente.','data'=>Partidos::all()) :
-					array('show'=>true,'alert'=>'warning','msg'=>'No se pudo guadar el partido.');
+					array('show'=>true,'alert'=>'warning','msg'=>'No se pudo guardar el partido.');
 
 		} catch (Exception $e) {
 			Excepciones::Crear($e,'PartidoController','Crear');
-			return array('show'=>true,'alert'=>'warning','msg'=>$e->getMessage());;
+			return array('show'=>true,'alert'=>'warning','msg'=>$e->getMessage());
 		}
 	}
 

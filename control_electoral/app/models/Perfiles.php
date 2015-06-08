@@ -9,4 +9,5 @@ class Perfiles extends Model {
 	protected $guarded = array();
 	public static $rules = array();
 
+
 }

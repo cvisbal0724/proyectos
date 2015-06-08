@@ -21,6 +21,7 @@ Route::controllers([
 ]);*/
 
 use App\models\Partidos;
+use App\models\Alcaldes;
 
 Route::get('/', function(){
 	return view('inicio/index');
@@ -43,6 +44,29 @@ Route::get('alcalde/alcalde',function(){
 	return view('alcalde/alcalde',array('partidos'=>$lista));
 });
 
+Route::get('persona/persona',function(){
+
+	$lista=Alcaldes::all();
+
+	return view('persona/persona',array('alcaldes'=>$lista));
+});
+
+Route::get('persona/consultar_persona',function(){
+	return view('persona/consultar_persona');
+});
+
+Route::get('perfiles/perfiles',function(){
+	return view('perfiles/perfiles');
+});
+
+Route::get('perfiles/perfil_modulos',function(){
+	return view('perfiles/perfil_modulos');
+});
+
+Route::get('modulos/modulos',function(){
+	return view('modulos/modulos');
+});
+
 //servicios
 Blade::setContentTags('[[', ']]'); 
 Blade::setEscapedContentTags('[[[', ']]]');
@@ -52,14 +76,44 @@ Route::post('inicio/loguear','AtenticacionController@Loguear');
 /*End login*/
 
 /*Partido*/
-Route::post('partido/crear','PartidoController@Crear');
+Route::post('partido/guardar','PartidoController@Guardar');
 Route::post('partido/consultar','PartidoController@Consultar');
 Route::get('partido/consultarporcodigo/{id}','PartidoController@ConsultarPorCodigo');
 /*Fin Partido*/
 
+/*Alcalde*/
+Route::post('alcalde/guardar','AlcaldeController@Guardar');
+Route::post('alcalde/consultar','AlcaldeController@Consultar');
+Route::get('alcalde/consultarporcodigo/{id}','AlcaldeController@ConsultarPorCodigo');
+/*Fin Alcalde*/
+
+/*Persona*/
+Route::post('persona/crear','PersonaController@Crear');
+Route::post('persona/actualizar','PersonaController@Actualizar');
+Route::post('persona/consultar','PersonaController@Consultar');
+Route::get('persona/consultarporcodigo/{id}','PersonaController@ConsultarPorCodigo');
+/*Fin persona*/
+
+/*Perfiles*/
+Route::post('perfiles/guardar','PerfilesController@Guardar');
+Route::post('perfiles/consultar','PerfilesController@Consultar');
+Route::get('perfiles/consultarporcodigo/{id}','PerfilesController@ConsultarPorCodigo');
+Route::get('perfiles/consultarmodulo/{id_perfil}','PerfilesController@ConsultarModulo');
+Route::post('perfiles/agregarmodulos','PerfilesController@AgregarModulos');
+Route::get('perfiles/consultarmodulosnoagregados/{id_perfil}','PerfilesController@ConsultarModulosNoAgregados');
+Route::post('perfiles/eliminarperfilmodulo','PerfilesController@EliminarPerfilModulo');
+/*Fin perfiles*/
+
+/*Modulos*/
+Route::post('modulos/guardar','ModulosController@Guardar');
+Route::post('modulos/consultar','ModulosController@Consultar');
+Route::get('modulos/consultarporcodigo/{id}','ModulosController@ConsultarPorCodigo');
+/*Fin modulos*/
+
+
 use App\models\Menus;
 Route::get('test',function(){
-	
+	return Menus::all();
 	/*$lista= Menus::all();
 	$menu=array();
 

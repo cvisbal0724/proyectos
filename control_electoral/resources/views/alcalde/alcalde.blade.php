@@ -29,13 +29,19 @@
                 <p class="help-block">(*)Ingrese el partido</p>
             </div>
 
+            <div class="form-group">
+                <label>Foto</label>
+                <input class="form-control" type='file' file-model='alcaldeVO.foto'>
+                <p class="help-block">(*)Ingrese el partido</p>
+            </div>
+
             <div class="alert alert-{{result.alert}} alert-dismissable" ng-show='result.show'>
                                 <button type="button" class="close" aria-hidden="true" ng-click='result.show=false'>&times;</button>
                                {{result.msg}}
              </div>
             
-			 <button ng-if='partidoVO.id==0' type="button" class="btn btn-primary" ng-click='guardar()'>Registrar</button>  
-       <button ng-if='partidoVO.id>0' type="button" class="btn btn-primary" ng-click='guardar()'>Actualizar</button>  
+			 <button ng-if='alcaldeVO.id==0' type="button" class="btn btn-primary" ng-click='guardar()'>Registrar</button>  
+       <button ng-if='alcaldeVO.id>0' type="button" class="btn btn-primary" ng-click='guardar()'>Actualizar</button>  
        <button type="button" class="btn btn-primary" ng-click='nuevo()'>Limpiar</button>           
       
       </div>
@@ -55,13 +61,17 @@
                    <th>Partido</th>  
                    <th>Numero</th>         
                    <th></th>
+                   <th></th>
                </tr>
            </thead>
            <tbody>
-             <tr ng-repeat='item in listaPartidos'>
+             <tr ng-repeat='item in listaAlcaldes'>
                <td>{{item.nombre}}</td>
-               <td></td>
-               <td></td>
+               <td>{{item.partido.nombre}}</td>
+               <td>{{item.numero}}</td>
+               <td>
+               <img style='width:28px;' ng-if="item.foto!=''" src="app_cliente/fotos_alcalde/{{item.foto}}">
+                 <span style='color:red;' ng-if="item.foto==''">Pendiente</span>
                <td>
                  <a href="" ng-click='consultar_por_codigo(item)'>
                    <i class='fa fa-pencil fa-2x'></i>

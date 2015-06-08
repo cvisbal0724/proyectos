@@ -19,6 +19,7 @@ class CreateAlcaldesTable extends Migration {
 			$table->integer('id_partido')->unsigned();
 			$table->foreign('id_partido')->references('id')->on('partidos');
 			$table->integer('numero');
+			$table->string('foto');
 			$table->timestamps();
 		});
 	}

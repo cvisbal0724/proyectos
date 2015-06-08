@@ -27,6 +27,36 @@ App.config(function($urlRouterProvider, $stateProvider) {
         url: "/registrar-alcalde",              
         templateUrl: "alcalde/alcalde", 
         controller: 'AlcaldeController'
+       })
+      .state('home.registrar_personas', {
+        url: "/registrar-persona",              
+        templateUrl: "persona/persona", 
+        controller: 'PersonaController'
+       })
+      .state('home.consultar_personas', {
+        url: "/consultar-persona",              
+        templateUrl: "persona/consultar_persona", 
+        controller: 'PersonaController'
+       })
+      .state('home.editar_personas', {
+        url: "/editar-persona/:id",              
+        templateUrl: "persona/persona", 
+        controller: 'PersonaController'
+       })
+      .state('home.registrar_perfiles', {
+        url: "/registrar-perfiles",              
+        templateUrl: "perfiles/perfiles", 
+        controller: 'PerfilesController'
+       })
+      .state('home.perfil_modulos', {
+        url: "/perfil-modulos/:id_perfil",              
+        templateUrl: "perfiles/perfil_modulos", 
+        controller: 'PerfilesController'
+       })
+      .state('home.registrar_modulos', {
+        url: "/registrar-modulo",              
+        templateUrl: "modulos/modulos", 
+        controller: 'ModulosController'
        });
      
 });
