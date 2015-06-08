@@ -67,6 +67,10 @@ Route::get('modulos/modulos',function(){
 	return view('modulos/modulos');
 });
 
+Route::get('menus/menus',function(){
+	return view('menus/menus');
+});
+
 //servicios
 Blade::setContentTags('[[', ']]'); 
 Blade::setEscapedContentTags('[[[', ']]]');
@@ -79,6 +83,7 @@ Route::post('inicio/loguear','AtenticacionController@Loguear');
 Route::post('partido/guardar','PartidoController@Guardar');
 Route::post('partido/consultar','PartidoController@Consultar');
 Route::get('partido/consultarporcodigo/{id}','PartidoController@ConsultarPorCodigo');
+Route::post('partido/eliminar','PartidoController@Eliminar');
 /*Fin Partido*/
 
 /*Alcalde*/
@@ -108,8 +113,12 @@ Route::post('perfiles/eliminarperfilmodulo','PerfilesController@EliminarPerfilMo
 Route::post('modulos/guardar','ModulosController@Guardar');
 Route::post('modulos/consultar','ModulosController@Consultar');
 Route::get('modulos/consultarporcodigo/{id}','ModulosController@ConsultarPorCodigo');
+Route::post('modulos/eliminarmodulo','ModulosController@EliminarModulo');
 /*Fin modulos*/
 
+/*Menu*/
+Route::get('menu/consultarmenupormodulo/{id_modulo}','MenuController@ConsultarMenuPorModulo');
+/*Fin menu*/
 
 use App\models\Menus;
 Route::get('test',function(){

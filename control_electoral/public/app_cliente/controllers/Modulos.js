@@ -37,4 +37,14 @@ $scope.consultar_por_codigo=function(obj){
 		});
 	}
 
+
+	$scope.eliminar_modulo=function(obj){
+
+		$http.post("modulos/eliminarmodulo",{_token:authUsuario.token(),id:obj.id})
+		.success(function(data, status, headers, config) {
+			$state.go($state.current, {}, {reload: true});
+		});
+
+	}
+
 });

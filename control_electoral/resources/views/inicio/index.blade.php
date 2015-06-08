@@ -29,6 +29,8 @@
     <!-- Custom Fonts -->
     <link href="app_cliente/bower_components/font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css">
 
+    <link href="app_cliente/css/treeview.css" rel="stylesheet">
+
     <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
     <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
     <!--[if lt IE 9]>
@@ -44,6 +46,14 @@
 
     <!-- Metis Menu Plugin JavaScript -->
     <script src="app_cliente/bower_components/metisMenu/dist/metisMenu.min.js"></script>
+
+    <style type="text/css">
+
+    .center{
+        text-align: center;
+    }
+
+    </style>
 
 </head>
 
@@ -64,6 +74,7 @@
     <script type="text/javascript" src="app_cliente/lib/angular/angular-ui-router.min.js"></script>
     <script type="text/javascript" src="app_cliente/lib/angular/angular-route.min.js"></script>
     <script type="text/javascript" src="app_cliente/lib/angular/angular-sanitize.min.js"></script>
+    <script type="text/javascript" src="app_cliente/lib/angular/angular.treeview.js"></script>
     <script type="text/javascript" src="app_cliente/app.js"></script>
     <script type="text/javascript" src="app_cliente/controles.js"></script>
     <!--<script type="text/javascript" src="app_cliente/run.js"></script>-->
@@ -73,6 +84,7 @@
     <script type="text/javascript" src="app_cliente/controllers/Persona.js"></script>
     <script type="text/javascript" src="app_cliente/controllers/Perfiles.js"></script>
     <script type="text/javascript" src="app_cliente/controllers/Modulos.js"></script>
+    <script type="text/javascript" src="app_cliente/controllers/Menu.js"></script>
 
 </body>
 

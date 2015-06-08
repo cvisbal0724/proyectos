@@ -48,4 +48,13 @@ confControllers.controller('PartidoController', function ($scope,$location,authU
 		});
 	}
 
+	$scope.eliminar=function(obj){
+
+		$http.post("partido/eliminar",{_token:authUsuario.token(),id:obj.id})
+		.success(function(data, status, headers, config) {
+			$state.go($state.current, {}, {reload: true});
+		});
+
+	}
+
 });

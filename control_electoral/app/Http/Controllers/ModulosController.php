@@ -62,4 +62,11 @@ class ModulosController extends Controller {
 		);		
 	}
 
+	public function EliminarModulo(Request $request){
+
+		$mod=Modulos::find($request->input('id'));
+
+		$mod->delete();
+	}
+
 }

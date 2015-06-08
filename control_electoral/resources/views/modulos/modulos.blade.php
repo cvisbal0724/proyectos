@@ -36,21 +36,25 @@
            <thead>
                <tr>
                    <th>Nombre</th>                  
-                   <th></th> 
-                   <th></th>        
+                   <th colspan="3" class="center">Opciones</th>                         
                </tr>
            </thead>
            <tbody>
              <tr ng-repeat='item in listaModulos'>
                <td>{{item.nombre}}</td>               
-               <td>
+               <td class="center">
                  <a href="" ng-click='consultar_por_codigo(item)'>
                    <i class='fa fa-pencil fa-2x'></i>
                  </a>
                </td>
                <td class="center">
-                 <a href="" ui-sref="home.perfil_modulos({id_perfil:item.id})" title='Ver modulos'>
-                   <i class='fa fa-eye fa-2x'></i>
+                 <a href="" ng-click="eliminar_modulo(item)" title='Eliminar'>
+                   <i class='fa fa-trash fa-2x'></i>
+                 </a>
+               </td>
+               <td class="center">
+                 <a href="" ui-sref="home.registrar_menus({id_modulo:item.id})" title='Agregar Menus'>
+                   <i class='fa fa-plus-circle fa-2x'></i>
                  </a>
                </td>
              </tr>

@@ -1,6 +1,6 @@
 'use strict';
 
-var App = angular.module('App',  ['ui.router','ngRoute','confControllers']);
+var App = angular.module('App',  ['ui.router','ngRoute','confControllers','angularTreeview']);
 var confControllers = angular.module('confControllers', []);
 
 App.config(function($urlRouterProvider, $stateProvider) {
@@ -57,6 +57,11 @@ App.config(function($urlRouterProvider, $stateProvider) {
         url: "/registrar-modulo",              
         templateUrl: "modulos/modulos", 
         controller: 'ModulosController'
+       })
+      .state('home.registrar_menus', {
+        url: "/menu/:id_modulo?",              
+        templateUrl: "menus/menus", 
+        controller: 'MenuController'
        });
      
 });

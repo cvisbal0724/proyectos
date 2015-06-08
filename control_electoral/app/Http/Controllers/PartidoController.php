@@ -97,4 +97,14 @@ class PartidoController extends Controller {
 		return array('id'=>$part->id,'nombre'=>$part->nombre,'_token'=>csrf_token());
 	}
 
+public function Eliminar(Request $request){
+
+		$part=Partidos::find($request->input('id'));
+		$nombreArchivo=$part->logo;				
+		$part->delete();
+		if (File::exists(public_path().'/app_cliente/logos_partido/'.$nombreArchivo)) {
+			File::delete(public_path().'/app_cliente/logos_partido/'.$nombreArchivo);
+		}
+	}
+
 }

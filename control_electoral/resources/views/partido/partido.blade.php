@@ -41,7 +41,7 @@
                <tr>
                    <th>Nombre</th>
                    <th>Logo</th>  
-                   <th></th>         
+                   <th colspan="2">Opciones</th>                    
                </tr>
            </thead>
            <tbody>
@@ -54,6 +54,11 @@
                <td>
                  <a href="" ng-click='consultar_por_codigo(item)'>
                    <i class='fa fa-pencil fa-2x'></i>
+                 </a>
+               </td>
+               <td>
+                 <a href="" ng-click='eliminar(item)'>
+                   <i class='fa fa-trash fa-2x'></i>
                  </a>
                </td>
              </tr>
