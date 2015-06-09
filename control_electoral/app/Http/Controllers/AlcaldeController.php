@@ -80,7 +80,7 @@ class AlcaldeController extends Controller {
 
 		} catch (Exception $e) {
 			Excepciones::Crear($e,'AlcaldeController','Crear');
-			return array('show'=>true,'alert'=>'warning','msg'=>$e->getMessage());;
+			return array('show'=>true,'alert'=>'warning','msg'=>$e->getMessage());
 		}
 	}
 

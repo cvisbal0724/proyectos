@@ -46,7 +46,8 @@ div[data-tree-model] li .normal {
 }
 
 div[data-tree-model] li i, div[data-tree-model] li span {
-  cursor: pointer;
+  cursor: pointer;  
+  color:rgb(42, 140, 221);
 }
 
 div[data-tree-model] li .selected {
@@ -54,3 +55,9 @@ div[data-tree-model] li .selected {
   font-weight: bold;
   padding: 1px 5px;
 }
+
+div[data-tree-model] li i{
+  color:rgb(42, 140, 221);
+
+}
+

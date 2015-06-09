@@ -5,22 +5,37 @@ use App\Http\Controllers\Controller;
 
 use Illuminate\Http\Request;
 use App\models\Menus;
+use App\models\Modulos;
 use App\models\Execepciones;
 
 class MenuController extends Controller {
 
-	public function Guardar(){
+	public function Crear(Request $request){
 		try {
 			
+			$rs=Menus::create(array(
+				'nombre'=>'',
+				'etiqueta'=>$request->input('etiqueta'),
+				'id_padre'=>$request->input('id_padre'),
+				'id_modulo'=>$request->input('id_modulo'),
+				'url'=>$request->input('url'),
+				'orden'=>$request->input('orden'),
+				'imagen'=>$request->input('imagen')
+			));
+
+			return $rs['id'] > 0 ? array('show'=>true,'alert'=>'success','msg'=>'Menu agregado satisfactoriamente.','data'=>Menus::all()) :
+					array('show'=>true,'alert'=>'warning','msg'=>'No se pudo guardar el menu.');
+
 		} catch (Exception $e) {
-			
+			Excepciones::Crear($e,'MenuController','Crear');
+			return array('show'=>true,'alert'=>'warning','msg'=>$e->getMessage());
 		}
 	}
 
 	public function ConsultarMenuPorModulo($id_modulo){
 
 		$lista= Menus::where('id_modulo','=',$id_modulo)->get();
-
+		$modulo=Modulos::find($id_modulo);
 		$menu=array();
 
 		$i=-1;	
@@ -61,7 +76,18 @@ class MenuController extends Controller {
 			}
 		}
 
-		return $menu;
+		$menus[]=array(
+					'id'=>0,
+					'nombre'=>$modulo->nombre,
+					'etiqueta'=>'Modulo-'.$modulo->nombre,
+					'id_padre'=>0,
+					'id_modulo'=>$id_modulo,
+					'url'=>'',
+					'orden'=>0,
+					'imagen'=>'fa fa-home',
+					'hijos'=>$menu);
+
+		return $menus;
 
 	}
 

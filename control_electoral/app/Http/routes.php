@@ -118,6 +118,7 @@ Route::post('modulos/eliminarmodulo','ModulosController@EliminarModulo');
 
 /*Menu*/
 Route::get('menu/consultarmenupormodulo/{id_modulo}','MenuController@ConsultarMenuPorModulo');
+Route::post('menu/crear','MenuController@Crear');
 /*Fin menu*/
 
 use App\models\Menus;
