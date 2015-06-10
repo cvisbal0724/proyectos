@@ -7,6 +7,7 @@ use Illuminate\Http\Request;
 use App\models\Menus;
 use App\models\Modulos;
 use App\models\Execepciones;
+use Auth;
 
 class MenuController extends Controller {
 
@@ -23,7 +24,32 @@ class MenuController extends Controller {
 				'imagen'=>$request->input('imagen')
 			));
 
-			return $rs['id'] > 0 ? array('show'=>true,'alert'=>'success','msg'=>'Menu agregado satisfactoriamente.','data'=>Menus::all()) :
+			return $rs['id'] > 0 ? array('show'=>true,'alert'=>'success','msg'=>'Menu agregado satisfactoriamente.','data'=>$this->ConsultarMenuPorModulo($request->input('id_modulo'))) :
+					array('show'=>true,'alert'=>'warning','msg'=>'No se pudo guardar el menu.');
+
+		} catch (Exception $e) {
+			Excepciones::Crear($e,'MenuController','Crear');
+			return array('show'=>true,'alert'=>'warning','msg'=>$e->getMessage());
+		}
+	}
+
+	public function Actualizar(Request $request){
+		try {
+			
+				$menu=Menus::find($request->input('id'));
+			
+				$menu->nombre= '';
+				$menu->etiqueta= $request->input('etiqueta');
+				$menu->id_padre= $request->input('id_padre');
+				$menu->id_modulo= $request->input('id_modulo');
+				$menu->url= $request->input('url');
+				$menu->orden= $request->input('orden');
+				$menu->imagen= $request->input('imagen');
+
+				$rs=$menu->save();
+			
+
+			return $rs > 0 ? array('show'=>true,'alert'=>'success','msg'=>'Menu actualizado satisfactoriamente.','data'=>$this->ConsultarMenuPorModulo($request->input('id_modulo'))) :
 					array('show'=>true,'alert'=>'warning','msg'=>'No se pudo guardar el menu.');
 
 		} catch (Exception $e) {
@@ -88,6 +114,39 @@ class MenuController extends Controller {
 					'hijos'=>$menu);
 
 		return $menus;
+
+	}
+
+	public function ConsultarPorCodigo($id){
+
+		$menu=Menus::find($id);
+
+		return array(
+			'id'=>$menu->id,
+			'nombre'=>$menu->nombre,
+			'etiqueta'=>$menu->etiqueta,
+			'id_padre'=>$menu->id_padre,
+			'id_modulo'=>$menu->id_modulo,
+			'url'=>$menu->url,
+			'orden'=>$menu->orden,
+			'imagen'=>$menu->imagen,
+			'_token'=>csrf_token()
+		);
+
+	}
+
+	public function Eliminar($id){
+
+		if (!Auth::check()) {
+			return "No puede eliminar";
+		}
+
+		$menu=Menus::find($id);
+		$id_modulo=$menu->id_modulo;
+
+		$menu->delete();
+
+		return $this->ConsultarPorCodigo($id_modulo);
 
 	}
 

@@ -21,15 +21,22 @@
       data-node-children="hijos" 
       data-node-class='imagen'>
     </div>
-  </div>  
+<br>
+<button ng-show="currentNode.id > 0" type="button" class="btn btn-primary" ng-click="consultar_por_codigo()">Editar</button>
+
+<button ng-show="currentNode.id > 0" type="button" class="btn btn-primary"  ng-click="eliminar()">Eliminar</button>
+    
+  </div> 
+
  </div>   
       
       </div>
 
-   <div class="col-lg-6" ng-init='consultar()'>
+   <div class="col-lg-6" ng-show="currentNode.id_modulo > 0">
    <div class="panel panel-default">
        <div class="panel-heading">
-           Agregar Menu
+          <span ng-if="menuVO.id==0">Agregar Menú para {{ currentNode.etiqueta }}</span>
+          <span ng-if="menuVO.id > 0">Editar Menú</span>
        </div>
 
         <div class="panel-body">
@@ -63,8 +70,9 @@
                                {{result.msg}}
              </div>
 
-             <button type="button" class="btn btn-primary" ng-click='crear()'>Registrar</button>  
-
+             <button ng-if="menuVO.id == 0" type="button" class="btn btn-primary" ng-click='crear()'>Registrar</button>  
+              <button ng-if="menuVO.id > 0" type="button" class="btn btn-primary" ng-click='actualizar()'>Actualizar</button>  
+              <button type="button" class="btn btn-primary" ng-click='nuevo()'>Limpiar</button>  
          </div>
 
    </div>

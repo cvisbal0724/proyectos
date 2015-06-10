@@ -119,6 +119,9 @@ Route::post('modulos/eliminarmodulo','ModulosController@EliminarModulo');
 /*Menu*/
 Route::get('menu/consultarmenupormodulo/{id_modulo}','MenuController@ConsultarMenuPorModulo');
 Route::post('menu/crear','MenuController@Crear');
+Route::post('menu/actualizar','MenuController@Actualizar');
+Route::get('menu/consultarporcodigo/{id}','MenuController@ConsultarPorCodigo');
+Route::get('menu/eliminar/{id}','MenuController@Eliminar');
 /*Fin menu*/
 
 use App\models\Menus;
