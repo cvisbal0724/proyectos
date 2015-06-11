@@ -58,10 +58,15 @@ class MenuController extends Controller {
 		}
 	}
 
-	public function ConsultarMenuPorModulo($id_modulo){
+	public function ConsultarMenuPorModulo($id_modulo=null){
 
-		$lista= Menus::where('id_modulo','=',$id_modulo)->get();
-		$modulo=Modulos::find($id_modulo);
+		if ($id_modulo==null) {
+			$lista= Menus::all();
+		}else{
+			$lista= Menus::where('id_modulo','=',$id_modulo)->get();
+			$modulo=Modulos::find($id_modulo);
+		}		
+		
 		$menu=array();
 
 		$i=-1;	
@@ -101,17 +106,20 @@ class MenuController extends Controller {
 				}
 			}
 		}
-
-		$menus[]=array(
-					'id'=>0,
-					'nombre'=>$modulo->nombre,
-					'etiqueta'=>'Modulo-'.$modulo->nombre,
-					'id_padre'=>0,
-					'id_modulo'=>$id_modulo,
-					'url'=>'',
-					'orden'=>0,
-					'imagen'=>'fa fa-home',
-					'hijos'=>$menu);
+		if ($id_modulo > 0) {
+			$menus[]=array(
+						'id'=>0,
+						'nombre'=>$modulo->nombre,
+						'etiqueta'=>'Modulo-'.$modulo->nombre,
+						'id_padre'=>0,
+						'id_modulo'=>$id_modulo,
+						'url'=>'',
+						'orden'=>0,
+						'imagen'=>'fa fa-home',
+						'hijos'=>$menu);
+		}else{
+			$menus=$menu;
+		}
 
 		return $menus;
 

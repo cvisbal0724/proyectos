@@ -85,6 +85,7 @@
     <script type="text/javascript" src="app_cliente/controllers/Perfiles.js"></script>
     <script type="text/javascript" src="app_cliente/controllers/Modulos.js"></script>
     <script type="text/javascript" src="app_cliente/controllers/Menu.js"></script>
+    <script type="text/javascript" src="app_cliente/controllers/Usuario.js"></script>
 
 </body>
 

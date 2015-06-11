@@ -62,6 +62,11 @@ App.config(function($urlRouterProvider, $stateProvider) {
         url: "/menu/:id_modulo?",              
         templateUrl: "menus/menus", 
         controller: 'MenuController'
+       })
+      .state('home.registrar_usuarios', {
+        url: "/usuario/registrar-usuarios",              
+        templateUrl: "usuario/usuario", 
+        controller: 'UsuarioController'
        });
      
 });

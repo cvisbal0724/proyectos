@@ -22,6 +22,7 @@ Route::controllers([
 
 use App\models\Partidos;
 use App\models\Alcaldes;
+use App\models\Perfiles;
 
 Route::get('/', function(){
 	return view('inicio/index');
@@ -71,6 +72,11 @@ Route::get('menus/menus',function(){
 	return view('menus/menus');
 });
 
+Route::get('usuario/usuario',function(){
+	$perfiles=Perfiles::all();
+	return view('usuario/usuario',array('perfiles'=>$perfiles));
+});
+
 //servicios
 Blade::setContentTags('[[', ']]'); 
 Blade::setEscapedContentTags('[[[', ']]]');
@@ -97,6 +103,7 @@ Route::post('persona/crear','PersonaController@Crear');
 Route::post('persona/actualizar','PersonaController@Actualizar');
 Route::post('persona/consultar','PersonaController@Consultar');
 Route::get('persona/consultarporcodigo/{id}','PersonaController@ConsultarPorCodigo');
+Route::post('persona/consultarporcriterios','PersonaController@ConsultarPorCriterios');
 /*Fin persona*/
 
 /*Perfiles*/
@@ -117,12 +124,16 @@ Route::post('modulos/eliminarmodulo','ModulosController@EliminarModulo');
 /*Fin modulos*/
 
 /*Menu*/
-Route::get('menu/consultarmenupormodulo/{id_modulo}','MenuController@ConsultarMenuPorModulo');
+Route::get('menu/consultarmenupormodulo/{id_modulo?}','MenuController@ConsultarMenuPorModulo');
 Route::post('menu/crear','MenuController@Crear');
 Route::post('menu/actualizar','MenuController@Actualizar');
 Route::get('menu/consultarporcodigo/{id}','MenuController@ConsultarPorCodigo');
 Route::get('menu/eliminar/{id}','MenuController@Eliminar');
 /*Fin menu*/
+
+/*Usuario*/
+
+/*Fin Usuario*/
 
 use App\models\Menus;
 Route::get('test',function(){

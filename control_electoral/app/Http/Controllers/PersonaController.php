@@ -70,7 +70,7 @@ class PersonaController extends Controller {
 			$lista=Personas::take(100)->orderBy('nombre','asc')->paginate($paginado);
 		}
 		else{
-			$lista=Personas::whereRaw("cedula like ? or nombre like ? or apellido like ? or telefono like ?",array('%'.$criterio.'%','%'.$criterio.'%','%'.$criterio.'%','%'.$criterio.'%'))
+			$lista=Personas::whereRaw("cedula like ? or concat(nombre ,' ', apellido) like ? or telefono like ?",array('%'.$criterio.'%','%'.$criterio.'%','%'.$criterio.'%'))
 			->orderBy('nombre','asc')->paginate($paginado);
 		}
 
@@ -93,6 +93,16 @@ class PersonaController extends Controller {
 			'_token'=>csrf_token()
 		);
 
+	}
+
+	public function ConsultarPorCriterios(Request $request){
+
+		$criterio=$request->input('criterio');
+		if ($criterio!='') {
+			return Personas::whereRaw("cedula like ? or concat(nombre ,' ', apellido) like ? ",array('%'.$criterio.'%','%'.$criterio.'%'))
+			->orderBy('nombre','asc')->get();
+		}		
+		return array();
 	}
 
 }
