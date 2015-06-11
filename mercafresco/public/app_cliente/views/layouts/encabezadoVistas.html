@@ -1,0 +1,34 @@
+
+    <div class="navbar-wrapper nav-principal">
+        <nav class="navbar navbar-default">
+          <div class="container-fluid">
+            <!-- Brand and toggle get grouped for better mobile display -->
+            <div class="navbar-header">
+              <a class="navbar-brand" ui-sref="productos"><img  class=" hidden-xs" src="app/img/logo-a.png"><img class="visible-xs" src="app/img/logo-phone.png" width="auto" height="80px"></a>
+            </div>
+            <!-- Collect the nav links, forms, and other content for toggling -->
+            <div class="wrapp" id="">              
+              <ul class="nav navbar-top-links pull-right">
+                <li class="hidden-xs"><a ui-sref="login" ng-if='!estaLogueado'>Ingresar</a></li>
+                <li class="hidden-xs"><a ui-sref="registrar" ng-if='!estaLogueado'>Registro</a></li>
+                <li class="dropdown" ng-if='estaLogueado'>
+                    <a class="dropdown-toggle" data-toggle="dropdown" href="">
+                        <img src="app/img/sign-in.png" alt="Accounts" height="30px" width="auto">  <i class="fa fa-caret-down"></i>
+                    </a>
+                    <ul class="dropdown-menu dropdown-user">
+                        <li><a ui-sref="cuenta"><i class="fa fa-user fa-fw"></i> {{ nombre }}</a></li>
+                        <li class="hidden-xs"><a ui-sref="historial"><i class="fa fa-list fa-fw"></i>Historial</a></li>
+                        <li><a href="" data-toggle="modal" data-target="#cupon"><i class="fa fa-gift fa-fw"></i>codigo promocinal</a></li>
+                        <li class="divider"></li>
+                        <li><a href="" ng-click='logout()'><i class="fa fa-sign-out fa-fw"></i> Logout</a>
+                        </li>
+                    </ul>
+                </li> 
+              </ul>
+            
+            </div>
+            <!-- /.navbar-collapse -->
+          </div>
+          <!-- /.container-fluid -->
+        </nav>
+      </div>
