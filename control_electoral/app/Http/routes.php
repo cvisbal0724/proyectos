@@ -77,6 +77,10 @@ Route::get('usuario/usuario',function(){
 	return view('usuario/usuario',array('perfiles'=>$perfiles));
 });
 
+Route::get('usuario/consultar_usuario',function(){	
+	return view('usuario/consultar_usuario');
+});
+
 //servicios
 Blade::setContentTags('[[', ']]'); 
 Blade::setEscapedContentTags('[[[', ']]]');
@@ -132,7 +136,10 @@ Route::get('menu/eliminar/{id}','MenuController@Eliminar');
 /*Fin menu*/
 
 /*Usuario*/
-
+Route::post('usuario/crear','UsuarioController@Crear');
+Route::post('usuario/actualizar','UsuarioController@Actualizar');
+Route::post('usuario/consultar','UsuarioController@Consultar');
+Route::get('usuario/consultarporcodigo/{id}','UsuarioController@ConsultarPorCodigo');
 /*Fin Usuario*/
 
 use App\models\Menus;

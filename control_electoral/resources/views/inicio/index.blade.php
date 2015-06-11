@@ -53,6 +53,31 @@
         text-align: center;
     }
 
+    .pop-fondo{
+    background:white;
+    opacity: 0.5;
+    z-index: 10000000;
+    left: 0;
+    top: 0;
+    position: fixed;
+    width: 100%;
+    height: 100%;
+    }
+
+     .pop-imagen{         
+        z-index: 10000001;
+        left: 0;
+        top: 0;
+        position: fixed;
+        width: 35px;
+        height: 35px;
+        margin-left: -17.5px;
+        margin-top: -17.5px;
+        left: 50%;
+        top: 50%;
+     }
+
+
     </style>
 
 </head>
@@ -86,6 +111,10 @@
     <script type="text/javascript" src="app_cliente/controllers/Modulos.js"></script>
     <script type="text/javascript" src="app_cliente/controllers/Menu.js"></script>
     <script type="text/javascript" src="app_cliente/controllers/Usuario.js"></script>
+
+ <div id='loading' loading-indicator>
+   
+   </div>   
 
 </body>
 

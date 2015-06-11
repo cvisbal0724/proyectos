@@ -17,7 +17,7 @@ class Usuarios extends Model implements AuthenticatableContract, CanResetPasswor
 	 */
 	protected $table = 'usuarios';
 	protected $primaryKey='id';
-	protected $with=array('persona');
+	protected $with=array('persona','perfil');
 	protected $guarded = array();
 	public static $rules = array();
 	/**
@@ -25,7 +25,7 @@ class Usuarios extends Model implements AuthenticatableContract, CanResetPasswor
 	 *
 	 * @var array
 	 */
-	protected $fillable = ['id_perfil','id_persona','password','usuario'];
+	protected $fillable = ['usuario','id_perfil','id_persona','usuario'];
 
 	/**
 	 * The attributes excluded from the model's JSON form.
@@ -38,4 +38,7 @@ class Usuarios extends Model implements AuthenticatableContract, CanResetPasswor
 		return $this->belongsTo('App\models\Personas','id_persona','id');
 	}
 
+	public function Perfil(){
+		return $this->belongsTo('App\models\Perfiles','id_perfil','id');
+	}
 }

@@ -44,3 +44,40 @@ App.directive('numericOnly', function(){
         }
     };
 });
+
+
+App.config(function($httpProvider) {
+
+            $httpProvider.interceptors.push(function($q, $rootScope) {
+                return {
+                    'request': function(config) {
+                        $rootScope.$broadcast('loading-started');
+                        return config || $q.when(config);
+                    },
+                    'response': function(response) {
+                        $rootScope.$broadcast('loading-complete');
+                        return response || $q.when(response);
+                    }
+                };
+            });
+
+        });
+
+
+App.directive("loadingIndicator", function($location) {
+            return {
+                restrict : "A",
+                template: '<div class="pop-fondo"></div><img class="pop-imagen" src="app_cliente/images/loader.gif">',
+                link : function(scope, element, attrs) {
+                    scope.$on("loading-started", function(e) {
+                        element.css({"display" : ""});                       
+                    });
+
+                    scope.$on("loading-complete", function(e) {
+                        element.css({"display" : "none"});     
+
+                    });
+
+                }
+            };
+        });

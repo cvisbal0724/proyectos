@@ -45,10 +45,10 @@
              <tr ng-repeat='item in listaPersonas.data'>
               	
               	<td>{{item.cedula}}</td>
-				<td>{{item.nombre}}</td>
-				<td>{{item.apellido}}</td>
-				<td>{{item.telefono}}</td>				
-				<td>{{item.alcalde.nombre}}</td>
+        				<td>{{item.nombre}}</td>
+        				<td>{{item.apellido}}</td>
+        				<td>{{item.telefono}}</td>				
+        				<td>{{item.alcalde.nombre}}</td>
                <td>
                  <a href="" ng-click='consultar_por_codigo(item)'>
                    <i ui-sref="home.editar_personas({id:item.id})" class='fa fa-pencil fa-2x'></i>

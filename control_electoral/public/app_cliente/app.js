@@ -67,6 +67,16 @@ App.config(function($urlRouterProvider, $stateProvider) {
         url: "/usuario/registrar-usuarios",              
         templateUrl: "usuario/usuario", 
         controller: 'UsuarioController'
+       })
+       .state('home.consultar_usuarios', {
+        url: "/usuario/consultar-usuarios",              
+        templateUrl: "usuario/consultar_usuario", 
+        controller: 'UsuarioController'
+       })
+       .state('home.editar_usuarios', {
+        url: "/usuario/editar-usuarios/:id",
+        templateUrl: "usuario/usuario", 
+        controller: 'UsuarioController'
        });
      
 });

@@ -15,20 +15,20 @@
        <div class="panel-body"> 
       		<div class="form-group">
                 <label>Usuario</label>
-                <input class="form-control" type='text' ng-model='usuarioVO.cedula'>
-                <p class="help-block">(*)Ingrese la cedula</p>
+                <input class="form-control" type='text' ng-model='usuarioVO.usuario'>
+                <p class="help-block">(*)Ingrese el usuario</p>
             </div>
             
            
              <div class="form-group">
                 <label>Perfil</label>
-                <select class="form-control" ng-model='usuarioVO.id_alcalde'>
+                <select class="form-control" ng-model='usuarioVO.id_perfil'>
                 	<option value="0">[Seleccionar..]</option>
                 	@foreach($perfiles as $item)
                 	<option value="[[$item->id]]">[[$item->nombre]]</option>
                 	@endforeach
                 </select>
-                <p class="help-block">(*)Seleccione el alcalde</p>
+                <p class="help-block">(*)Seleccione el perfil</p>
             </div>
         
         </div>   
@@ -55,9 +55,10 @@
                     </button>
                 </span>
              </div>
-             <select multiple="" class="form-control">
+             <select multiple="" class="form-control" ng-model="usuarioVO.id_persona">
                  <option ng-repeat="item in listaPersonas" value="{{item.id}}">{{item.cedula+' / ' + item.nombre + ' ' + item.apellido }}</option>
              </select>
+              <p class="help-block">(*)Seleccione una persona</p>
         </div>
        </div>
 
