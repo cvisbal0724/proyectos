@@ -7,13 +7,14 @@ use Illuminate\Http\Request;
 use App\models\Execepciones;
 use App\models\Personas;
 use App\models\Usuarios;
+use Hash;
 
 class UsuarioController extends Controller {
 
 	public function Crear(Request $request){
 		try {
 			
-			$usuario=Usuarios::where('usuario','=',$request->input('usuario'))->get();
+			$usuario=Usuarios::where('usuario','=',$request->input('usuario'))->first();
 			if ($usuario) {
 				return array('show'=>true,'alert'=>'warning','msg'=>'El usuario ya existe.');
 			}
