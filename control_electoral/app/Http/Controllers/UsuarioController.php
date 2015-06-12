@@ -8,6 +8,7 @@ use App\models\Execepciones;
 use App\models\Personas;
 use App\models\Usuarios;
 use Hash;
+use DB;
 
 class UsuarioController extends Controller {
 
@@ -56,13 +57,17 @@ class UsuarioController extends Controller {
 		
 		$criterio=$request->input('criterio');
 		$lista=array();
+		$consulta=DB::table('usuarios')
+			->join('personas','usuarios.id_persona','=','personas.id')
+			->join('perfiles','usuarios.id_perfil','=','perfiles.id')
+			->select('Usuarios.id','usuarios.usuario','personas.nombre','personas.apellido','perfiles.nombre as perfil');
 		$paginado=10;
 		if ($criterio=='') {
-			$lista=Usuarios::take(100)->orderBy('usuario','asc')->paginate($paginado);
+			$lista=$consulta->orderBy('personas.nombre','asc')->paginate(100);
 		}
 		else{
-			//$lista=Usuarios::whereRaw("cedula like ? or concat(nombre ,' ', apellido) like ? or telefono like ?",array('%'.$criterio.'%','%'.$criterio.'%','%'.$criterio.'%'))
-			//->orderBy('nombre','asc')->paginate($paginado);
+			$lista=$lista=$consulta->whereRaw("Usuarios.usuario like ? or concat(personas.nombre ,' ', personas.apellido) like ? or perfiles.nombre like ?",array('%'.$criterio.'%','%'.$criterio.'%','%'.$criterio.'%'))
+			->orderBy('personas.nombre','asc')->paginate($paginado);
 		}
 
 		return $lista;

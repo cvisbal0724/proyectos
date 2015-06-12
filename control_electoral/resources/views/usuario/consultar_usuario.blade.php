@@ -44,9 +44,9 @@
              <tr ng-repeat='item in listaUsuarios.data'>
               	
               	<td>{{item.usuario}}</td>
-        				<td>{{item.persona.nombre}}</td>
-        				<td>{{item.persona.apellido}}</td>
-        				<td>{{item.perfil.nombre}}</td>	
+        				<td>{{item.nombre}}</td>
+        				<td>{{item.apellido}}</td>
+        				<td>{{item.perfil}}</td>	
                <td>
                  <a href="" ng-click='consultar_por_codigo(item)'>
                    <i ui-sref="home.editar_usuarios({id:item.id})" class='fa fa-pencil fa-2x'></i>
