@@ -111,6 +111,7 @@
     <script type="text/javascript" src="app_cliente/controllers/Modulos.js"></script>
     <script type="text/javascript" src="app_cliente/controllers/Menu.js"></script>
     <script type="text/javascript" src="app_cliente/controllers/Usuario.js"></script>
+    <script type="text/javascript" src="app_cliente/controllers/Concejal.js"></script>
 
  <div id='loading' loading-indicator>
    

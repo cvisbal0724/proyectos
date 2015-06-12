@@ -22,6 +22,7 @@ $scope.consultar_por_codigo=function(id){
 	};
 
 $scope.crear=function(){
+	$scope.usuarioVO.id_persona=$scope.usuarioVO.id_persona[0];
 	$http.post("usuario/crear",$scope.usuarioVO).success(function(data, status, headers, config) {
 		
 		 	$scope.result=data;

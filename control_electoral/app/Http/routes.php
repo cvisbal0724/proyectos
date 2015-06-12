@@ -81,6 +81,15 @@ Route::get('usuario/consultar_usuario',function(){
 	return view('usuario/consultar_usuario');
 });
 
+Route::get('concejal/concejal',function(){	
+	$partidos=Partidos::all();
+	return view('concejal/concejal',array('partidos'=>$partidos));
+});
+
+Route::get('concejal/consultar_concejal',function(){
+	return view('concejal/consultar_concejal');
+});
+
 //servicios
 Blade::setContentTags('[[', ']]'); 
 Blade::setEscapedContentTags('[[[', ']]]');
@@ -141,6 +150,13 @@ Route::post('usuario/actualizar','UsuarioController@Actualizar');
 Route::post('usuario/consultar','UsuarioController@Consultar');
 Route::get('usuario/consultarporcodigo/{id}','UsuarioController@ConsultarPorCodigo');
 /*Fin Usuario*/
+
+/*Concejal*/
+Route::post('concejal/crear','ConcejalController@Crear');
+Route::post('concejal/actualizar','ConcejalController@Actualizar');
+Route::post('concejal/consultar','ConcejalController@Consultar');
+Route::get('concejal/consultarporcodigo/{id}','ConcejalController@ConsultarPorCodigo');
+/*Fin concejal*/
 
 use App\models\Menus;
 Route::get('test',function(){

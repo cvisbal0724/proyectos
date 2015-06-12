@@ -64,19 +64,34 @@ App.config(function($urlRouterProvider, $stateProvider) {
         controller: 'MenuController'
        })
       .state('home.registrar_usuarios', {
-        url: "/usuario/registrar-usuarios",              
+        url: "/registrar-usuarios",              
         templateUrl: "usuario/usuario", 
         controller: 'UsuarioController'
        })
        .state('home.consultar_usuarios', {
-        url: "/usuario/consultar-usuarios",              
+        url: "/consultar-usuarios",              
         templateUrl: "usuario/consultar_usuario", 
         controller: 'UsuarioController'
        })
        .state('home.editar_usuarios', {
-        url: "/usuario/editar-usuarios/:id",
+        url: "/editar-usuarios/:id",
         templateUrl: "usuario/usuario", 
         controller: 'UsuarioController'
+       })
+       .state('home.registrar_concejales', {
+        url: "/registrar-concejal",
+        templateUrl: "concejal/concejal", 
+        controller: 'ConcejalController'
+       })
+        .state('home.consultar_concejales', {
+        url: "/consultar-concejal",
+        templateUrl: "concejal/consultar_concejal", 
+        controller: 'ConcejalController'
+       })
+         .state('home.editar_concejales', {
+        url: "/editar-concejal/:id",
+        templateUrl: "concejal/concejal", 
+        controller: 'ConcejalController'
        });
      
 });
