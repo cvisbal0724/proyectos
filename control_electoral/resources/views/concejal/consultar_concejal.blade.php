@@ -15,7 +15,7 @@
 	        <div class="col-lg-6">
 	        	<div class="form-group input-group">
 	                <input type="text" class="form-control" ng-model='criterios.criterio'
-	                ng-keyup="$event.keyCode == 13 && consultar()">
+	                ng-keyup="$event.keyCode == 13 && consultar(1)">
 	                <span class="input-group-btn">
 	                    <button ng-click='consultar()' class="btn btn-default" type="button"><i class="fa fa-search"></i>
 	                    </button>
@@ -43,10 +43,10 @@
            <tbody>
              <tr ng-repeat='item in listaConcejal.data'>
               	
-              	<td>{{item.persona.nombre + ' ' + item.persona.apellido}}</td>
+              	<td>{{item.nombre + ' ' + item.apellido}}</td>
         				<td>{{item.numero}}</td>
-        				<td>{{item.partido.nombre}}</td>
-        				<td>{{item.persona.alcalde.nombre}}</td>	
+        				<td>{{item.partido}}</td>
+        				<td>{{item.alcalde}}</td>	
                <td>
                  <a href="" ng-click='consultar_por_codigo(item)'>
                    <i ui-sref="home.editar_concejales({id:item.id})" class='fa fa-pencil fa-2x'></i>

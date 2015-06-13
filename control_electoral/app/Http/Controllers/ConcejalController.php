@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\models\Concejales;
 use Auth;
+use DB;
 
 class ConcejalController extends Controller {
 
@@ -59,13 +60,18 @@ public function Consultar(Request $request){
 		
 		$criterio=$request->input('criterio');
 		$lista=array();
+		$consulta=DB::table('concejales')
+			->join('personas','concejales.id_persona','=','personas.id')
+			->join('partidos','concejales.id_partido','=','partidos.id')
+			->join('alcaldes','personas.id_alcalde','=','alcaldes.id')
+			->select('concejales.id','concejales.numero','personas.nombre','personas.apellido','partidos.nombre as partido','alcaldes.nombre as alcalde');
 		$paginado=10;
 		if ($criterio=='') {
-			$lista=Concejales::take(100)->orderBy('id','desc')->paginate($paginado);
+			$lista=$consulta->orderBy('personas.nombre','asc')->paginate(100);
 		}
 		else{
-			//$lista=Usuarios::whereRaw("cedula like ? or concat(nombre ,' ', apellido) like ? or telefono like ?",array('%'.$criterio.'%','%'.$criterio.'%','%'.$criterio.'%'))
-			//->orderBy('nombre','asc')->paginate($paginado);
+			$lista=$lista=$consulta->whereRaw("Usuarios.numero like ? or concat(personas.nombre ,' ', personas.apellido) like ? or partidos.nombre like ?",array('%'.$criterio.'%','%'.$criterio.'%','%'.$criterio.'%'))
+			->orderBy('personas.nombre','asc')->paginate($paginado);
 		}
 
 		return $lista;
