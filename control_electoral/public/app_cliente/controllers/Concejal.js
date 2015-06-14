@@ -22,6 +22,9 @@ $scope.consultar_por_codigo=function(id){
 	};
 
 $scope.crear=function(){
+
+	if ($scope.concejalVO.id_partido=='0') {$scope.result={show:true,alert:'warning',msg:'Seleccione el partido.'};return false;};
+
 	$scope.concejalVO.id_persona=$scope.concejalVO.id_persona[0];
 	$http.post("concejal/crear",$scope.concejalVO).success(function(data, status, headers, config) {
 		
@@ -34,6 +37,9 @@ $scope.crear=function(){
 }
 
 $scope.actualizar=function(){
+	
+	if ($scope.concejalVO.id_partido=='0') {$scope.result={show:true,alert:'warning',msg:'Seleccione el partido.'};return false;};
+
 	$scope.concejalVO.id_persona=$scope.concejalVO.id_persona[0];
 	$http.post("concejal/actualizar",$scope.concejalVO).success(function(data, status, headers, config) {
 		

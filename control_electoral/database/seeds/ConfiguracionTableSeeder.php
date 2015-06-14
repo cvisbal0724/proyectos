@@ -9,6 +9,7 @@ use App\models\Partidos;
 use App\models\Perfiles;
 use App\models\Usuarios;
 use App\models\Personas;
+use App\models\Entidades;
 use \Illuminate\Support\Facades\DB;
 
 class ConfiguracionTableSeeder extends Seeder
@@ -45,6 +46,12 @@ class ConfiguracionTableSeeder extends Seeder
 			'direccion'=>'Calle 10',
 			'id_alcalde'=>$alc['id'],
 		));
+
+		$entidades[]=array('id'=>1,'nombre'=>'Alcalde');
+		$entidades[]=array('id'=>2,'nombre'=>'Concejal');
+		$entidades[]=array('id'=>3,'nombre'=>'Lider');
+
+		Entidades::insert($entidades);
 
 		Usuarios::create(array(
 

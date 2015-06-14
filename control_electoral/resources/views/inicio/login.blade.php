@@ -12,7 +12,8 @@
                                     <input class="form-control" placeholder="Usuario" type="text" ng-model='loginVO.usuario' autofocus>
                                 </div>
                                 <div class="form-group">
-                                    <input class="form-control" placeholder="Clave" name="password" type="password" ng-model='loginVO.clave'>
+                                    <input class="form-control" placeholder="Clave" name="password" type="password" ng-model='loginVO.clave'
+                                    ng-keyup="$event.keyCode == 13 && loguear()">
                                 </div>
                                 <div class="checkbox">
                                     <label>
