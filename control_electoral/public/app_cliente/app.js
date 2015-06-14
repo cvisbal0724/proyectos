@@ -88,10 +88,15 @@ App.config(function($urlRouterProvider, $stateProvider) {
         templateUrl: "concejal/consultar_concejal", 
         controller: 'ConcejalController'
        })
-         .state('home.editar_concejales', {
+        .state('home.editar_concejales', {
         url: "/editar-concejal/:id",
         templateUrl: "concejal/concejal", 
         controller: 'ConcejalController'
+       })
+      .state('home.registrar_lideres', {
+        url: "/registrar-lider",
+        templateUrl: "lideres/lider", 
+        controller: 'LiderController'
        });
      
 });

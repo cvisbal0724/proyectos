@@ -25,7 +25,7 @@
         </div>	
         <div class="row">
         	<div class="col-lg-6">
- 				<div class="dataTables_info" role="status" aria-live="polite">Mostrando 1 a {{listaPersonas.per_page}} de {{listaPersonas.total}} registros</div>
+ 				<div class="dataTables_info" role="status" aria-live="polite">Mostrando 1 a {{listaUsuarios.per_page}} de {{listaUsuarios.total}} registros</div>
  			</div>
         </div>
         <div class="table-responsive">

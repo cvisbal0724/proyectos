@@ -90,6 +90,8 @@ Route::get('concejal/consultar_concejal',function(){
 	return view('concejal/consultar_concejal');
 });
 
+Route::get('lideres/lider','LiderController@index');
+
 //servicios
 Blade::setContentTags('[[', ']]'); 
 Blade::setEscapedContentTags('[[[', ']]]');
@@ -153,6 +155,13 @@ Route::get('usuario/consultarporcodigo/{id}','UsuarioController@ConsultarPorCodi
 
 /*Concejal*/
 Route::post('concejal/crear','ConcejalController@Crear');
+Route::post('concejal/actualizar','ConcejalController@Actualizar');
+Route::post('concejal/consultar','ConcejalController@Consultar');
+Route::get('concejal/consultarporcodigo/{id}','ConcejalController@ConsultarPorCodigo');
+/*Fin concejal*/
+
+/*Concejal*/
+Route::post('lider/crear','LiderController@Crear');
 Route::post('concejal/actualizar','ConcejalController@Actualizar');
 Route::post('concejal/consultar','ConcejalController@Consultar');
 Route::get('concejal/consultarporcodigo/{id}','ConcejalController@ConsultarPorCodigo');

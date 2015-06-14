@@ -14,4 +14,7 @@ class Personas extends Model {
 		return $this->belongsTo('App\models\Alcaldes','id_alcalde','id');
 	}
 
+	public function nombre_completo(){
+		return $this->nombre . ' ' . $this->apellido;
+	}
 }

@@ -5,6 +5,7 @@ use App\Http\Controllers\Controller;
 
 use Illuminate\Http\Request;
 use App\models\Concejales;
+use App\models\Lideres;
 use Auth;
 use DB;
 
@@ -26,8 +27,16 @@ public function Crear(Request $request){
 				'numero'=>$request->input('numero')
 			));
 
-			return $rs['id'] > 0 ? array('show'=>true,'alert'=>'success','msg'=>'Persona guardada satisfactoriamente.') :
-					array('show'=>true,'alert'=>'warning','msg'=>'No se pudo guardar la persona.');
+			$lider=Lideres::where('id_persona','=',$request->input('id_persona'))->get();
+			if (count($lider)==0) {
+				Lideres::create(array(
+				'id_persona'=>$request->input('id_persona'),
+				'id_encargado'=>Auth::user()->id				
+				));
+			}
+			
+			return $rs['id'] > 0 ? array('show'=>true,'alert'=>'success','msg'=>'Concejal guardado satisfactoriamente.') :
+					array('show'=>true,'alert'=>'warning','msg'=>'No se pudo guardar el concejal.');
 			
 		} catch (Exception $e) {
 			Excepciones::Crear($e,'ConcejalController','Crear');
@@ -41,14 +50,21 @@ public function Actualizar(Request $request){
 
 			$concejal=Concejales::find($request->input('id'));
 						
-			$concejal->id_persona=$request->input('id_persona');
-			$concejal->id_usuario=$request->input('id_usuario');
+			$concejal->id_persona=$request->input('id_persona');			
 			$concejal->id_partido=$request->input('id_partido');
 			$concejal->numero=$request->input('numero');
 			$rs=$concejal->save();
 
-			return $rs > 0 ? array('show'=>true,'alert'=>'success','msg'=>'Persona guardada satisfactoriamente.') :
-					array('show'=>true,'alert'=>'warning','msg'=>'No se pudo guardar la persona.');
+			$lider=Lideres::where('id_persona','=',$request->input('id_persona'))->get();
+			if (count($lider)==0) {
+				Lideres::create(array(
+				'id_persona'=>$request->input('id_persona'),
+				'id_encargado'=>$request->input('id_usuario')				
+				));
+			}
+
+			return $rs > 0 ? array('show'=>true,'alert'=>'success','msg'=>'Concejal guardado satisfactoriamente.') :
+					array('show'=>true,'alert'=>'warning','msg'=>'No se pudo guardar el concejal.');
 			
 		} catch (Exception $e) {
 			Excepciones::Crear($e,'ConcejalController','Actualizar');
