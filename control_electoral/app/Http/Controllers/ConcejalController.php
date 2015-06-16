@@ -12,6 +12,7 @@ use DB;
 class ConcejalController extends Controller {
 
 public function Crear(Request $request){
+	DB::beginTransaction();
 	try {
 
 			$concejal=Concejales::where('id_persona','=',$request->input('id_persona'))->first();
@@ -34,11 +35,14 @@ public function Crear(Request $request){
 				'id_encargado'=>Auth::user()->id				
 				));
 			}
+
+			DB::commit();
 			
 			return $rs['id'] > 0 ? array('show'=>true,'alert'=>'success','msg'=>'Concejal guardado satisfactoriamente.') :
 					array('show'=>true,'alert'=>'warning','msg'=>'No se pudo guardar el concejal.');
 			
 		} catch (Exception $e) {
+			DB::rollback();
 			Excepciones::Crear($e,'ConcejalController','Crear');
 			return array('show'=>true,'alert'=>'warning','msg'=>$e->getMessage());;
 		}
@@ -75,19 +79,21 @@ public function Actualizar(Request $request){
 public function Consultar(Request $request){
 		
 		$criterio=$request->input('criterio');
+		$id_alcalde=Auth::user()->persona->id_alcalde;
+
 		$lista=array();
-		$consulta=DB::table('concejales')
-			->join('personas','concejales.id_persona','=','personas.id')
-			->join('partidos','concejales.id_partido','=','partidos.id')
-			->join('alcaldes','personas.id_alcalde','=','alcaldes.id')
-			->select('concejales.id','concejales.numero','personas.nombre','personas.apellido','partidos.nombre as partido','alcaldes.nombre as alcalde');
+		$consulta=DB::table('concejales as c')
+			->join('personas as p','c.id_persona','=','p.id')
+			->join('partidos as pt','c.id_partido','=','pt.id')
+			->join('alcaldes as al','p.id_alcalde','=','al.id')
+			->select(DB::raw("c.id, c.numero, concat(p.nombre, ' ', p.apellido) as concejal, pt.nombre as partido, al.nombre as alcalde"));
 		$paginado=10;
 		if ($criterio=='') {
-			$lista=$consulta->orderBy('personas.nombre','asc')->paginate(100);
+			$lista=$consulta->where('p.id_alcalde','=',$id_alcalde)->orderBy('p.nombre','asc')->take(100)->paginate($paginado);
 		}
 		else{
-			$lista=$lista=$consulta->whereRaw("Usuarios.numero like ? or concat(personas.nombre ,' ', personas.apellido) like ? or partidos.nombre like ?",array('%'.$criterio.'%','%'.$criterio.'%','%'.$criterio.'%'))
-			->orderBy('personas.nombre','asc')->paginate($paginado);
+			$lista=$lista=$consulta->whereRaw("p.id_alcalde=? and (c.numero like ? or concat(p.nombre ,' ', p.apellido) like ? or pt.nombre like ?)",array($id_alcalde,'%'.$criterio.'%','%'.$criterio.'%','%'.$criterio.'%'))
+			->orderBy('p.nombre','asc')->paginate($paginado);
 		}
 
 		return $lista;
@@ -107,5 +113,7 @@ public function ConsultarPorCodigo($id){
 		'_token'=>csrf_token()
 	);
 }
+
+
 
 }

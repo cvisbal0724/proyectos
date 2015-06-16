@@ -97,6 +97,21 @@ App.config(function($urlRouterProvider, $stateProvider) {
         url: "/registrar-lider",
         templateUrl: "lideres/lider", 
         controller: 'LiderController'
+       })
+       .state('home.consultar_lideres', {
+        url: "/consultar-lider",
+        templateUrl: "lideres/consultar_lider", 
+        controller: 'LiderController'
+       })
+       .state('home.asociar_concejales', {
+        url: "/asociar-concejales/:id_lider",
+        templateUrl: "lideres/asociar_concejales", 
+        controller: 'LiderController'
+       })
+       .state('home.registrar_votantes', {
+        url: "/registrar-votante",
+        templateUrl: "votantes/votante", 
+        controller: 'VotanteController'
        });
      
 });

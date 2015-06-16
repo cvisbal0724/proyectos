@@ -11,6 +11,9 @@ use App\models\Usuarios;
 use App\models\Personas;
 use App\models\Entidades;
 use \Illuminate\Support\Facades\DB;
+use App\models\TipoVoto;
+use App\models\LugaresDeVotacion;
+use App\models\CategoriaVotacion;
 
 class ConfiguracionTableSeeder extends Seeder
 {
@@ -62,6 +65,22 @@ class ConfiguracionTableSeeder extends Seeder
 
 		));
 
+		$tipoVoto=[array('nombre'=>'Confianza'),array('nombre'=>'Otro')];
+		TipoVoto::insert($tipoVoto);
+
+		$lugaresVotacion=[
+		array('nombre'=>'Francisco J. Cisneros'),
+		array('nombre'=>'Maria Mancilla Sanchez'),
+		array('nombre'=>'Simon Bolivar')];
+
+		LugaresDeVotacion::insert($lugaresVotacion);
+
+		$categoriaVotacion=[
+		array('nombre'=>'Concejo'),
+		array('nombre'=>'Alcaldia'),
+		array('nombre'=>'Concejo y Alcaldia')];
+
+		CategoriaVotacion::insert($categoriaVotacion);
 		      
        
     }

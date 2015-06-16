@@ -1,7 +1,7 @@
 <div class="col-lg-12">
  <div class="panel panel-default">
  	 <div class="panel-heading">
-         Registrar Usuario
+         Registrar Lider
       </div>
 
        <div class="panel-body">
@@ -9,15 +9,22 @@
 
         <div class="panel panel-default">
        <div class="panel-heading">
-          Informacion de usuario 
+          Informacion del lider 
        </div>  
 
        <div class="panel-body"> 
-      		<div class="form-group">
+
+          <div class="form-group">
                 <label>Encargado:</label>
                 <span>[[$usuario->persona->nombre_completo()]]</span>
-            </div>            
-           
+            </div>   
+            
+         <div class="form-group">
+              <label>Meta</label>
+              <input type="text" class="form-control" ng-model="liderVO.meta" numeric-only>
+              <p></p>
+            </div>  
+ 
         </div>   
        </div>     
             

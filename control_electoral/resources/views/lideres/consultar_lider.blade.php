@@ -33,20 +33,26 @@
                	   <th>Meta</th>
                	   <th>Nombre Lider</th>               	   
                	   <th>Concejal</th>               	                 	   
-                   <th>Alcalde</th>         
+                   <th>Alcalde</th>  
+                   <th colspan="2"></th> 
+                       
                </tr>
            </thead>
            <tbody>
              <tr ng-repeat='item in listaLideres.data'>
               	
               	<td>{{item.meta}}</td>
-        				<td>{{item.nombre}}</td>
-        				<td>{{item.apellido}}</td>
+        				<td>{{item.lider}}</td>        				
         				<td>{{item.concejal}}</td>	
                 <td>{{item.alcalde}}</td>  
                <td>
                  <a href="" ng-click='consultar_por_codigo(item)'>
                    <i ui-sref="home.editar_usuarios({id:item.id})" class='fa fa-pencil fa-2x'></i>
+                 </a>
+               </td>
+               <td class="center">
+                  <a href="" title="Asociar concejales">
+                   <i ui-sref="home.asociar_concejales({id_lider:item.id})" class='fa fa-users fa-2x'></i>
                  </a>
                </td>
              </tr>

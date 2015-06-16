@@ -22,7 +22,11 @@ $scope.consultar_por_codigo=function(id){
 	};
 
 $scope.crear=function(){
+
 	$scope.usuarioVO.id_persona=$scope.usuarioVO.id_persona[0];
+
+	if (!$scope.usuarioVO.id_persona > 0) {$scope.result={"show":true,"alert":"warning","msg":"Seleccione la persona."}; return false;};
+
 	$http.post("usuario/crear",$scope.usuarioVO).success(function(data, status, headers, config) {
 		
 		 	$scope.result=data;
@@ -35,6 +39,7 @@ $scope.crear=function(){
 
 $scope.actualizar=function(){
 	$scope.usuarioVO.id_persona=$scope.usuarioVO.id_persona[0];
+	if (!$scope.usuarioVO.id_persona > 0) {$scope.result={"show":true,"alert":"warning","msg":"Seleccione la persona."}; return false;};
 	$http.post("usuario/actualizar",$scope.usuarioVO).success(function(data, status, headers, config) {
 		
 		 	$scope.result=data;

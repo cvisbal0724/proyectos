@@ -25,7 +25,7 @@
         </div>	
         <div class="row">
         	<div class="col-lg-6">
- 				<div class="dataTables_info" role="status" aria-live="polite">Mostrando 1 a {{listaPersonas.per_page}} de {{listaPersonas.total}} registros</div>
+ 				<div class="dataTables_info" role="status" aria-live="polite">Mostrando 1 a {{listaConcejales.per_page}} de {{listaConcejales.total}} registros</div>
  			</div>
         </div>
         <div class="table-responsive">
@@ -41,9 +41,9 @@
                </tr>
            </thead>
            <tbody>
-             <tr ng-repeat='item in listaConcejal.data'>
+             <tr ng-repeat='item in listaConcejales.data'>
               	
-              	<td>{{item.nombre + ' ' + item.apellido}}</td>
+              	<td>{{item.concejal}}</td>
         				<td>{{item.numero}}</td>
         				<td>{{item.partido}}</td>
         				<td>{{item.alcalde}}</td>	
@@ -60,27 +60,27 @@
  		
          <div class="dataTables_paginate paging_simple_numbers">
               <ul class="pagination">
-              <li tabindex="0" aria-controls="dataTables-example" class="paginate_button previous {{listaConcejal.current_page==1 ? 'disabled' : ''}}">
-                <a href="" ng-if='listaConcejal.current_page > 1' ng-click="consultar(1)">Inicio</a>
-                <span ng-if='listaConcejal.current_page==1'>Inicio</span>
+              <li tabindex="0" aria-controls="dataTables-example" class="paginate_button previous {{listaConcejales.current_page==1 ? 'disabled' : ''}}">
+                <a href="" ng-if='listaConcejales.current_page > 1' ng-click="consultar(1)">Inicio</a>
+                <span ng-if='listaConcejales.current_page==1'>Inicio</span>
               </li>
-              <li tabindex="0" aria-controls="dataTables-example" class="paginate_button previous {{listaConcejal.current_page==1 ? 'disabled' : ''}}">
-                <a ng-if='listaConcejal.current_page > 1' href="" ng-click="consultar(listaConcejal.current_page-1)">Anterior</a>
-                <span ng-if='listaConcejal.current_page==1'>Anterior</span>
+              <li tabindex="0" aria-controls="dataTables-example" class="paginate_button previous {{listaConcejales.current_page==1 ? 'disabled' : ''}}">
+                <a ng-if='listaConcejales.current_page > 1' href="" ng-click="consultar(listaConcejales.current_page-1)">Anterior</a>
+                <span ng-if='listaConcejales.current_page==1'>Anterior</span>
               </li> 
             
-              <li ng-repeat="n in paginas" class="paginate_button {{listaConcejal.current_page==n ? 'active' : ''}}">
+              <li ng-repeat="n in paginas" class="paginate_button {{listaConcejales.current_page==n ? 'active' : ''}}">
                 <a href="" ng-click="consultar(n)">{{n}}</a>
               </li>
              
-              <li tabindex="0" aria-controls="dataTables-example" class="paginate_button previous {{listaConcejal.current_page==listaConcejal.last_page ? 'disabled' : ''}}">
-                <a ng-if='listaConcejal.current_page < listaConcejal.last_page' href="" ng-click="consultar(listaConcejal.current_page+1)">Siguiente</a>
-                 <span ng-if='listaConcejal.current_page==listaConcejal.last_page'>Siguiente</span>
+              <li tabindex="0" aria-controls="dataTables-example" class="paginate_button previous {{listaConcejales.current_page==listaConcejales.last_page ? 'disabled' : ''}}">
+                <a ng-if='listaConcejales.current_page < listaConcejales.last_page' href="" ng-click="consultar(listaConcejales.current_page+1)">Siguiente</a>
+                 <span ng-if='listaConcejales.current_page==listaConcejales.last_page'>Siguiente</span>
               </li> 
               <li tabindex="0" aria-controls="dataTables-example" 
-              class="paginate_button previous {{listaConcejal.current_page==listaConcejal.last_page ? 'disabled' : ''}}">
-                <a href="" ng-if='listaConcejal.current_page < listaConcejal.last_page' ng-click="consultar(listaConcejal.last_page)">Fin</a>
-                 <span ng-if='listaConcejal.current_page==listaConcejal.last_page'>Fin</span>
+              class="paginate_button previous {{listaConcejales.current_page==listaConcejales.last_page ? 'disabled' : ''}}">
+                <a href="" ng-if='listaConcejales.current_page < listaConcejales.last_page' ng-click="consultar(listaConcejales.last_page)">Fin</a>
+                 <span ng-if='listaConcejales.current_page==listaConcejales.last_page'>Fin</span>
                </li>
                
               </ul>

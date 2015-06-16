@@ -57,17 +57,17 @@ class UsuarioController extends Controller {
 		
 		$criterio=$request->input('criterio');
 		$lista=array();
-		$consulta=DB::table('usuarios')
-			->join('personas','usuarios.id_persona','=','personas.id')
-			->join('perfiles','usuarios.id_perfil','=','perfiles.id')
-			->select('Usuarios.id','usuarios.usuario','personas.nombre','personas.apellido','perfiles.nombre as perfil');
+		$consulta=DB::table('usuarios as u')
+			->join('personas as p','u.id_persona','=','p.id')
+			->join('perfiles as pf','u.id_perfil','=','pf.id')
+			->select('u.id','u.usuario','p.nombre','p.apellido','pf.nombre as perfil');
 		$paginado=10;
 		if ($criterio=='') {
-			$lista=$consulta->orderBy('personas.nombre','asc')->paginate(100);
+			$lista=$consulta->orderBy('p.nombre','asc')->take(100)->paginate($paginado);
 		}
 		else{
-			$lista=$lista=$consulta->whereRaw("Usuarios.usuario like ? or concat(personas.nombre ,' ', personas.apellido) like ? or perfiles.nombre like ?",array('%'.$criterio.'%','%'.$criterio.'%','%'.$criterio.'%'))
-			->orderBy('personas.nombre','asc')->paginate($paginado);
+			$lista=$lista=$consulta->whereRaw("Usuarios.usuario like ? or concat(p.nombre ,' ', p.apellido) like ? or pf.nombre like ?",array('%'.$criterio.'%','%'.$criterio.'%','%'.$criterio.'%'))
+			->orderBy('p.nombre','asc')->paginate($paginado);
 		}
 
 		return $lista;

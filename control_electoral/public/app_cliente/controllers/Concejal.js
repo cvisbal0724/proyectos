@@ -2,7 +2,7 @@ confControllers.controller('ConcejalController', function ($scope,$location,auth
 
 $scope.concejalVO={id:0,numero:'',id_persona:0,id_partido:0,_token:authUsuario.token()};
 $scope.result={};
-$scope.listaConcejal=[];
+$scope.listaConcejales=[];
 $scope.criterio='';
 $scope.listaPersonas=[];
 
@@ -26,6 +26,9 @@ $scope.crear=function(){
 	if ($scope.concejalVO.id_partido=='0') {$scope.result={show:true,alert:'warning',msg:'Seleccione el partido.'};return false;};
 
 	$scope.concejalVO.id_persona=$scope.concejalVO.id_persona[0];
+
+	if (!$scope.concejalVO.id_persona > 0) {$scope.result={"show":true,"alert":"warning","msg":"Seleccione la persona."}; return false;};
+
 	$http.post("concejal/crear",$scope.concejalVO).success(function(data, status, headers, config) {
 		
 		 	$scope.result=data;
@@ -41,6 +44,9 @@ $scope.actualizar=function(){
 	if ($scope.concejalVO.id_partido=='0') {$scope.result={show:true,alert:'warning',msg:'Seleccione el partido.'};return false;};
 
 	$scope.concejalVO.id_persona=$scope.concejalVO.id_persona[0];
+
+	if (!$scope.concejalVO.id_persona > 0) {$scope.result={"show":true,"alert":"warning","msg":"Seleccione la persona."}; return false;};
+
 	$http.post("concejal/actualizar",$scope.concejalVO).success(function(data, status, headers, config) {
 		
 		 	$scope.result=data;
@@ -64,9 +70,9 @@ $scope.consultar=function(page){
 
 		if (page==undefined) {page=1};
 		$http.post("concejal/consultar?page="+page,$scope.criterios).success(function(data, status, headers, config) {
-			$scope.listaConcejal=data;	
+			$scope.listaConcejales=data;	
 			$scope.paginas=Array();
-			for (var i = 1; i <= $scope.listaConcejal.last_page; i++) {
+			for (var i = 1; i <= $scope.listaConcejales.last_page; i++) {
 				 	$scope.paginas.push(i);
 			};	 	
 		});

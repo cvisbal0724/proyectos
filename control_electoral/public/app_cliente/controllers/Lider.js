@@ -5,6 +5,8 @@ $scope.result={};
 $scope.listaLideres=[];
 $scope.criterio='';
 $scope.listaPersonas=[];
+$scope.listaConcejales=[];
+$scope.criterios={criterio:''};
 
 
 $scope.consultar_por_codigo=function(id){
@@ -22,7 +24,11 @@ $scope.consultar_por_codigo=function(id){
 	};
 
 $scope.crear=function(){
+
 	$scope.liderVO.id_persona=$scope.liderVO.id_persona[0];
+
+	if (!$scope.liderVO.id_persona > 0) {$scope.result={"show":true,"alert":"warning","msg":"Seleccione la persona."}; return false;};
+
 	$http.post("lider/crear",$scope.liderVO).success(function(data, status, headers, config) {
 		
 		 	$scope.result=data;
@@ -35,6 +41,7 @@ $scope.crear=function(){
 
 $scope.actualizar=function(){
 	$scope.liderVO.id_persona=$scope.liderVO.id_persona[0];
+	if (!$scope.liderVO.id_persona > 0) {$scope.result={"show":true,"alert":"warning","msg":"Seleccione la persona."}; return false;};
 	$http.post("usuario/actualizar",$scope.liderVO).success(function(data, status, headers, config) {
 		
 		 	$scope.result=data;
@@ -57,7 +64,7 @@ $scope.consultar_persona_por_criterios=function(){
 $scope.consultar=function(page){
 
 		if (page==undefined) {page=1};
-		$http.post("usuario/consultar?page="+page,$scope.criterios).success(function(data, status, headers, config) {
+		$http.post("lider/consultar?page="+page,$scope.criterios).success(function(data, status, headers, config) {
 			$scope.listaLideres=data;	
 			$scope.paginas=Array();
 			for (var i = 1; i <= $scope.listaLideres.last_page; i++) {
@@ -69,5 +76,17 @@ $scope.consultar=function(page){
 $scope.nuevo=function(){
 	$scope.liderVO={id:0,id_persona:0,_token:authUsuario.token()};
 }
+
+$scope.consultar_concejal=function(page){
+
+		if (page==undefined) {page=1};
+		$http.post("concejal/consultar?page="+page,$scope.criterios).success(function(data, status, headers, config) {
+			$scope.listaConcejales=data;	
+			$scope.paginas=Array();
+			for (var i = 1; i <= $scope.listaConcejales.last_page; i++) {
+				 	$scope.paginas.push(i);
+			};	 	
+		});
+	}
 
 });

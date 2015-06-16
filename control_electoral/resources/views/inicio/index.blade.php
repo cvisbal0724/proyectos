@@ -113,6 +113,7 @@
     <script type="text/javascript" src="app_cliente/controllers/Usuario.js"></script>
     <script type="text/javascript" src="app_cliente/controllers/Concejal.js"></script>
     <script type="text/javascript" src="app_cliente/controllers/Lider.js"></script>
+    <script type="text/javascript" src="app_cliente/controllers/Votante.js"></script>
 
  <div id='loading' loading-indicator>
    

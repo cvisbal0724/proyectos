@@ -92,6 +92,16 @@ Route::get('concejal/consultar_concejal',function(){
 
 Route::get('lideres/lider','LiderController@index');
 
+Route::get('lideres/consultar_lider',function(){
+	return view('lideres/consultar_lider');
+});
+
+Route::get('votantes/votante','VotanteController@index');
+
+Route::get('lideres/asociar_concejales',function(){
+	return view('lideres/asociar_concejales');
+});
+
 //servicios
 Blade::setContentTags('[[', ']]'); 
 Blade::setEscapedContentTags('[[[', ']]]');
@@ -163,7 +173,7 @@ Route::get('concejal/consultarporcodigo/{id}','ConcejalController@ConsultarPorCo
 /*Concejal*/
 Route::post('lider/crear','LiderController@Crear');
 Route::post('concejal/actualizar','ConcejalController@Actualizar');
-Route::post('concejal/consultar','ConcejalController@Consultar');
+Route::post('lider/consultar','LiderController@Consultar');
 Route::get('concejal/consultarporcodigo/{id}','ConcejalController@ConsultarPorCodigo');
 /*Fin concejal*/
 

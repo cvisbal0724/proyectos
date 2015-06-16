@@ -46,11 +46,11 @@ class LiderController extends Controller {
 			   	));
 			}else{			
 
-				DB::rollback();
-				return array('show'=>true,'alert'=>'warning','msg'=>'Usted no tiene permitido crear lider, consulte su administrador.');
+				//DB::rollback();
+				//return array('show'=>true,'alert'=>'warning','msg'=>'Usted no tiene permitido crear lider, consulte su administrador.');
 			}
 		  
-	   
+	   		DB::commit();
 
 		  return $rs['id'] > 0 ? array('show'=>true,'alert'=>'success','msg'=>'Lider guardado satisfactoriamente.') :
 					array('show'=>true,'alert'=>'warning','msg'=>'No se pudo guardar el lider.');
@@ -91,25 +91,26 @@ public function Consultar(Request $request){
 		
 		$criterio=$request->input('criterio');
 		$lista=array();
-		/*$consulta=DB::table('lideres')
-			->join('personas','concejales.id_persona','=','personas.id')
-			->join('partidos','concejales.id_partido','=','partidos.id')
-			->join('alcaldes','personas.id_alcalde','=','alcaldes.id')
-			->select('concejales.id','concejales.numero','personas.nombre','personas.apellido','partidos.nombre as partido','alcaldes.nombre as alcalde');*/
-
-		$consulta=DB::table('lideres')
-			->join('personas','concejales.id_persona','=','personas.id')
-			->join('partidos','concejales.id_partido','=','partidos.id')
-			->join('alcaldes','personas.id_alcalde','=','alcaldes.id')
-			->select('concejales.id','concejales.numero','personas.nombre','personas.apellido','partidos.nombre as partido','alcaldes.nombre as alcalde');	
-
+		
+		$consulta=DB::table('lideres as l')
+			->join('personas as p','l.id_persona','=','p.id')			
+			->join('usuarios as u','l.id_encargado','=','u.id')
+			->join('personas as p2','u.id_persona','=','p2.id')
+			->join('alcaldes as al','p.id_alcalde','=','al.id')
+			->leftJoin('lider_concejales as lc','lc.id_lider','=','l.id')
+			->leftJoin('concejales as c','lc.id_concejal','=','c.id')
+			->leftJoin('personas as p3','c.id_persona','=','p3.id')
+			->select(DB::raw("ifnull(lc.meta,'N/A') as meta,concat(p.nombre,' ',p.apellido) as lider,
+			concat(p2.nombre,' ',p2.apellido) as encargado,ifnull(concat(p3.nombre,' ', p3.apellido),'N/A') as concejal,
+			al.nombre as alcalde"))
+			->groupBy(DB::raw('lc.meta,p.cedula,p2.cedula,p3.cedula'));
 		$paginado=10;
 		if ($criterio=='') {
-			$lista=$consulta->orderBy('personas.nombre','asc')->paginate(100);
+			$lista=$consulta->where('l.id_encargado','=',Auth::user()->id)->orderBy('p.nombre','asc')->take(100)->paginate($paginado);
 		}
 		else{
-			$lista=$lista=$consulta->whereRaw("Usuarios.numero like ? or concat(personas.nombre ,' ', personas.apellido) like ? or partidos.nombre like ?",array('%'.$criterio.'%','%'.$criterio.'%','%'.$criterio.'%'))
-			->orderBy('personas.nombre','asc')->paginate($paginado);
+			$lista=$lista=$consulta->whereRaw("l.id_encargado=? and concat(p.nombre ,' ', p.apellido) like ?",array(Auth::user()->id,'%'.$criterio.'%'))
+			->orderBy('p.nombre','asc')->paginate($paginado);
 		}
 
 		return $lista;
@@ -131,21 +132,5 @@ public function ConsultarPorCodigo($id){
 }
 
 
-
 }
 
-/*
-select ifnull(lc.meta,0) as meta,concat(p.nombre,' ',p.apellido) as lider,
-concat(p2.nombre,' ',p2.apellido) as encargado,ifnull(concat(p3.nombre,' ', p3.apellido),'Ninguno') as concejal,
-al.nombre as alcalde
-from lideres l 
-inner join personas p on l.id_persona=p.id
-inner join usuarios u on l.id_encargado=u.id
-inner join personas p2 on u.id_persona=p2.id
-inner join alcaldes al on p.id_alcalde=al.id
-left join lider_concejales lc on lc.id_lider=l.id
-left join concejales c on lc.id_concejal=c.id
-left join personas p3 on c.id_persona=p3.id
-group by meta,p.nombre,p.apellido,p2.nombre,p2.apellido,
-p3.nombre,p3.apellido
-*/
