@@ -31,7 +31,7 @@ confControllers.controller('PersonaController', function ($scope,$location,authU
 		if ($scope.personaVO.cedula=='') {$scope.result={"show":true,"alert":"warning","msg":"Ingrese la cedula."}; return false;};	
 		if ($scope.personaVO.nombre=='') {$scope.result={"show":true,"alert":"warning","msg":"Ingrese el nombre."}; return false;};	
 		if ($scope.personaVO.apellido=='') {$scope.result={"show":true,"alert":"warning","msg":"Ingrese el apellido."}; return false;};	
-		if ($scope.personaVO.id_alcalde=='') {$scope.result={"show":true,"alert":"warning","msg":"Seleccione el alcalde."}; return false;};	
+		if ($scope.personaVO.id_alcalde=='0') {$scope.result={"show":true,"alert":"warning","msg":"Seleccione el alcalde."}; return false;};	
 
 		$http.post("persona/crear",$scope.personaVO).success(function(data, status, headers, config) {
 		

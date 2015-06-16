@@ -45,11 +45,11 @@
         				<td>{{item.lider}}</td>        				
         				<td>{{item.concejal}}</td>	
                 <td>{{item.alcalde}}</td>  
-               <td>
+               <!--<td>
                  <a href="" ng-click='consultar_por_codigo(item)'>
                    <i ui-sref="home.editar_usuarios({id:item.id})" class='fa fa-pencil fa-2x'></i>
                  </a>
-               </td>
+               </td>-->
                <td class="center">
                   <a href="" title="Asociar concejales">
                    <i ui-sref="home.asociar_concejales({id_lider:item.id})" class='fa fa-users fa-2x'></i>

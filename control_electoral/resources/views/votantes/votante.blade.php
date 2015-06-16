@@ -96,7 +96,7 @@
                     </button>
                 </span>
              </div>
-             <select multiple="" class="form-control" ng-model="usuarioVO.id_persona" ng-multiple="true">
+             <select multiple="" class="form-control" ng-model="votanteVO.id_persona" ng-multiple="true">
                  <option ng-repeat="item in listaPersonas" value="{{item.id}}">{{item.cedula+' / ' + item.nombre + ' ' + item.apellido }}</option>
              </select>
               <p class="help-block">(*)Seleccione una persona</p>
@@ -114,8 +114,8 @@
                                {{result.msg}}
              </div>
             
-       <button ng-if='usuarioVO.id==0' type="button" class="btn btn-primary" ng-click='crear()'>Registrar</button>  
-       <button ng-if='usuarioVO.id>0' type="button" class="btn btn-primary" ng-click='actualizar()'>Actualizar</button>  
+       <button ng-if='votanteVO.id==0' type="button" class="btn btn-primary" ng-click='crear()'>Registrar</button>  
+       <button ng-if='votanteVO.id>0' type="button" class="btn btn-primary" ng-click='actualizar()'>Actualizar</button>  
        <button type="button" class="btn btn-primary" ng-click='nuevo()'>Limpiar</button>           
 
         </div>

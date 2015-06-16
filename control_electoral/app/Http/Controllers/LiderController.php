@@ -100,7 +100,7 @@ public function Consultar(Request $request){
 			->leftJoin('lider_concejales as lc','lc.id_lider','=','l.id')
 			->leftJoin('concejales as c','lc.id_concejal','=','c.id')
 			->leftJoin('personas as p3','c.id_persona','=','p3.id')
-			->select(DB::raw("ifnull(lc.meta,'N/A') as meta,concat(p.nombre,' ',p.apellido) as lider,
+			->select(DB::raw("l.id,ifnull(lc.meta,'N/A') as meta,concat(p.nombre,' ',p.apellido) as lider,
 			concat(p2.nombre,' ',p2.apellido) as encargado,ifnull(concat(p3.nombre,' ', p3.apellido),'N/A') as concejal,
 			al.nombre as alcalde"))
 			->groupBy(DB::raw('lc.meta,p.cedula,p2.cedula,p3.cedula'));
@@ -131,6 +131,15 @@ public function ConsultarPorCodigo($id){
 	);
 }
 
+public function AgregarLiderConcejales(Request $request){
+	$lista=$request->input('lista');
+	LiderConcejales::insert($lista);
+	return LiderConcejales::where('id_lider','=',$id_lider)->get();
+}
+
+public function ConsultarLiderConcejales($id_lider){
+	return LiderConcejales::where('id_lider','=',$id_lider)->get();
+}
 
 }
 

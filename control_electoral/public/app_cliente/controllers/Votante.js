@@ -1,14 +1,14 @@
 confControllers.controller('VotanteController', function ($scope,$location,authUsuario,SessionService,SessionSet,$state,$http) {
 
 $scope.votanteVO={id:'',
-				  id_persona:'0',				  
-				  id_concejal:'0',
+				  id_persona:0,				  
+				  id_concejal:0,
 				  voto:false,
-				  id_tipo_voto:'0',
-				  id_categoria_votacion:'0',
+				  id_tipo_voto:0,
+				  id_categoria_votacion:0,
 				  comentario:'',
-				  id_lugar_de_votacion:'0',
-				  numero_mesa:'0',
+				  id_lugar_de_votacion:0,
+				  numero_mesa:0,
 				  dar_de_baja:false,
 				  comentario_de_baja:'',
 				  _token:authUsuario.token()};
@@ -35,7 +35,7 @@ $scope.consultar_por_codigo=function(id){
 $scope.crear=function(){
 	$scope.votanteVO.id_persona=$scope.votanteVO.id_persona[0];
 	if (!$scope.votanteVO.id_persona > 0) {$scope.result={"show":true,"alert":"warning","msg":"Seleccione la persona."}; return false;};
-	$http.post("usuario/crear",$scope.votanteVO).success(function(data, status, headers, config) {
+	$http.post("votanteVO/crear",$scope.votanteVO).success(function(data, status, headers, config) {
 		
 		 	$scope.result=data;
 		 	if (data.alert=='success') {		 		

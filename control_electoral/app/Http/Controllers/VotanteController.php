@@ -26,9 +26,12 @@ class VotanteController extends Controller {
 	 select(DB::raw("p.id, concat(p.nombre,' ',p.apellido) as concejal"))->get();
 
 	 $tipoVoto=TipoVoto::all();
-	 $lugarVotacion=LugaresDeVotacion::all();
-	 $categoriaVotacion=CategoriaVotacion::all();
-
+	 $lugarVotacion=LugaresDeVotacion::all();	 
+	 if ($concejales) {
+	 	$categoriaVotacion=CategoriaVotacion::all();
+	 }else{
+	 	$categoriaVotacion=CategoriaVotacion::where('id','=',2)->get();
+	 }
 	 $variables=array('concejales'=>$concejales,'tipovoto'=>$tipoVoto,'lugarVotacion'=>$lugarVotacion,'categoriaVotacion'=>$categoriaVotacion);
 
 	 return view('votantes/votante',$variables);

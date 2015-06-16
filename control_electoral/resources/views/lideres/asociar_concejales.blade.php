@@ -27,13 +27,15 @@
              <thead>
                  <tr>                               
                      <th><input type='checkbox' ng-model="seleccionarModulo" ng-click="selecionar_modulos(seleccionarModulo)"></th>   
-                      <th>Nombre</th>                         
+                      <th>Nombre</th> 
+                      <th>Meta</th>                        
                  </tr>
              </thead>
              <tbody>
                <tr ng-repeat='item in listaConcejales.data'>
                  <td><input type='checkbox' ng-model="item.procesar"></td>
                  <td>{{item.concejal}}</td> 
+                 <td><input type="text" style="width:70px;" ng-model="item.meta" only-numeric></td>
                </tr>
              </tbody>
            </table>
