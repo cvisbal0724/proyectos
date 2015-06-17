@@ -1,53 +1,59 @@
 
-<div class="navbar-default sidebar" role="navigation">
-                <div class="sidebar-nav navbar-collapse">
-                    <ul class="nav" id="side-menu" metismenu>
-                       
-                       <li>
-                            <a ui-sref='home' href="/home">
-                                <i class="fa fa-dashboard fa-fw"></i> 
-                                Inicio
-                            </a>
+<aside>
+ <div id="sidebar" class="nav-collapse ">
+    <ul class="sidebar-menu" id="nav-accordion">
+        <p class="centered">
+            <a ui-sref='home' href="/home">
+                <img src="app_cliente/img/ui-sam.jpg" class="img-circle" width="60">
+            </a>
+        </p>
+        <h5 class="centered">Control</h5>
+
+        <li class="mt">
+            <a class="active" ui-sref='home' href="/home">
+                <i class="fa fa-dashboard"></i>
+                <span>Inicio</span>
+            </a>
+        </li>
+
+        @foreach($menu as $key=>$item)
+             @if(count($item['hijos'])>0)
+                <li class="sub-menu">
+                  <a ui-sref='home' href="morris.html">
+                    <i class="fa fa-bar-chart-o fa-fw"></i> 
+                    <span>[[ $item['etiqueta'] ]]</span>
+                    <span class="fa arrow"></span>
+                  </a>
+                
+                <ul class="sub">
+                   @foreach($item['hijos'] as $hijo)
+                      
+                        <li>
+                            <a ui-sref='[[ $hijo["url"] ]]' href="/home">[[ $hijo['etiqueta'] ]]</a>
                         </li>
+                      
+                    @endforeach 
+                </ul>
 
+                </li>                      
 
-                         @foreach($menu as $key=>$item)
-                             @if(count($item['hijos'])>0)
-                                <li>
-                                  <a ui-sref='home' href="morris.html">
-                                    <i class="fa fa-bar-chart-o fa-fw"></i> 
-                                    [[ $item['etiqueta'] ]]
-                                    <span class="fa arrow"></span>
-                                  </a>
-                                
-                                <ul class="nav nav-second-level">
-                                   @foreach($item['hijos'] as $hijo)
-                                      
-                                        <li>
-                                            <a ui-sref='[[ $hijo["url"] ]]' href="/home">[[ $hijo['etiqueta'] ]]</a>
-                                        </li>
-                                      
-                                    @endforeach 
-                                </ul>
+            @endif
+            @if(count($item['hijos'])==0)
+            <li class="mt">
+            <a ui-sref='[[ $item["url"] ]]' href="/home">
+                <i class="fa fa-dashboard fa-fw"></i> 
+                <span>[[ $item['etiqueta'] ]]</span>
+                </a>
+            </li>
+             @endif
+        @endforeach
 
-                                </li>                      
+    </ul>
+ </div>
+</aside>
 
-                            @endif
-                            @if(count($item['hijos'])==0)
-                            <li>
-                            <a ui-sref='[[ $item["url"] ]]' href="/home">
-                                <i class="fa fa-dashboard fa-fw"></i> 
-                                [[ $item['etiqueta'] ]]
-                                </a>
-                            </li>
-                             @endif
-                        @endforeach
-
-                    </ul>
-                </div>
-                <!-- /.sidebar-collapse -->
-            </div>
-            <!-- /.navbar-static-side -->
+     
+            
 
 
 

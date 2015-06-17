@@ -4,10 +4,10 @@
 <head>
 
     <meta charset="utf-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="description" content="">
-    <meta name="author" content="">
+    <meta name="author" content="Dashboard">
+    <meta name="keyword" content="Dashboard, Bootstrap, Admin, Template, Theme, Responsive, Fluid, Retina">
 
     <title>SB Admin 2 - Bootstrap Admin Theme</title>
 
@@ -75,11 +75,6 @@
 
    
 
-    <!-- Morris Charts JavaScript 
-    <script src="app_cliente/bower_components/raphael/raphael-min.js"></script>
-    <script src="app_cliente/bower_components/morrisjs/morris.min.js"></script>
-    <script src="app_cliente/js/morris-data.js"></script>-->
-
     <script src="app_cliente/js/jquery.js"></script>
     <script src="app_cliente/js/jquery-1.8.3.min.js"></script>
     <script src="app_cliente/js/bootstrap.min.js"></script>
@@ -87,6 +82,16 @@
     <script src="app_cliente/js/jquery.scrollTo.min.js"></script>
     <script src="app_cliente/js/jquery.nicescroll.js" type="text/javascript"></script>
     <script src="app_cliente/js/jquery.sparkline.js"></script>
+
+      <!--common script for all pages-->
+    <script src="app_cliente/js/common-scripts.js"></script>
+    
+    <script type="text/javascript" src="app_cliente/js/gritter/js/jquery.gritter.js"></script>
+    <script type="text/javascript" src="app_cliente/js/gritter-conf.js"></script>
+
+    <!--script for this page-->
+    <script src="app_cliente/js/sparkline-chart.js"></script>    
+    <script src="app_cliente/js/zabuto_calendar.js"></script>       
 
     <script type="text/javascript" src="app_cliente/lib/angular/angular.min.js"></script>
     <script type="text/javascript" src="app_cliente/lib/angular/angular-ui-router.min.js"></script>
@@ -111,6 +116,8 @@
  <div id='loading' loading-indicator>
    
    </div>   
+
+
 
 </body>
 
