@@ -19,7 +19,7 @@
         @foreach($menu as $key=>$item)
              @if(count($item['hijos'])>0)
                 <li class="sub-menu">
-                  <a ui-sref='home' href="morris.html">
+                  <a href="">
                     <i class="fa fa-bar-chart-o fa-fw"></i> 
                     <span>[[ $item['etiqueta'] ]]</span>
                     <span class="fa arrow"></span>
