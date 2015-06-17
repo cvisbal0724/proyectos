@@ -21,8 +21,8 @@ class VotanteController extends Controller {
 	
 
 	 $concejales=Db::table('lider_concejales as lc')->
-	 join('lideres as l','lc.id_lider','=','l.id')->
-	 join('personas as p','l.id_persona','=','p.id')->
+	 join('concejales as c','lc.id_concejal','=','c.id')->
+	 join('personas as p','c.id_persona','=','p.id')->
 	 select(DB::raw("p.id, concat(p.nombre,' ',p.apellido) as concejal"))->get();
 
 	 $tipoVoto=TipoVoto::all();

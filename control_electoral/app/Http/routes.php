@@ -170,12 +170,14 @@ Route::post('concejal/consultar','ConcejalController@Consultar');
 Route::get('concejal/consultarporcodigo/{id}','ConcejalController@ConsultarPorCodigo');
 /*Fin concejal*/
 
-/*Concejal*/
+/*Lider*/
 Route::post('lider/crear','LiderController@Crear');
-Route::post('concejal/actualizar','ConcejalController@Actualizar');
+//Route::post('concejal/actualizar','ConcejalController@Actualizar');
 Route::post('lider/consultar','LiderController@Consultar');
-Route::get('concejal/consultarporcodigo/{id}','ConcejalController@ConsultarPorCodigo');
-/*Fin concejal*/
+Route::post('lider/agregarliderconcejales','LiderController@AgregarLiderConcejales');
+Route::post('lider/consultarliderconcejales','LiderController@ConsultarLiderConcejales');
+//Route::get('concejal/consultarporcodigo/{id}','ConcejalController@ConsultarPorCodigo');
+/*Fin Lider*/
 
 use App\models\Menus;
 Route::get('test',function(){

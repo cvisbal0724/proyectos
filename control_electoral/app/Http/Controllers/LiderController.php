@@ -132,13 +132,25 @@ public function ConsultarPorCodigo($id){
 }
 
 public function AgregarLiderConcejales(Request $request){
-	$lista=$request->input('lista');
-	LiderConcejales::insert($lista);
-	return LiderConcejales::where('id_lider','=',$id_lider)->get();
+	try {
+
+		$lista=$request->input('listaConcejales');
+		
+		foreach ($lista as $key => $item) {
+			$liderConc=LiderConcejales::where('id_lider','=',$item['id_lider'])->where('id_concejal','=',$item['id_concejal'])->get();			
+			if (count($liderConc)==0) {
+				LiderConcejales::create($item);
+			}			
+		}
+		return LiderConcejales::where('id_lider','=',$lista[0]['id_lider'])->get();	
+	} catch (Exception $e) {
+		
+	}	
 }
 
-public function ConsultarLiderConcejales($id_lider){
-	return LiderConcejales::where('id_lider','=',$id_lider)->get();
+public function ConsultarLiderConcejales(Request $request){
+
+	return LiderConcejales::where('id_lider','=',$request->input('id_lider'))->get();
 }
 
 }

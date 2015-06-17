@@ -89,4 +89,33 @@ $scope.consultar_concejal=function(page){
 		});
 	}
 
+$scope.agregar_lider_concejales=function(){
+	
+	var lista=[];
+
+	angular.forEach($scope.listaConcejales.data,function(prop,i){
+		if (prop.procesar==true) {
+			lista.push({meta:prop.meta,id_lider:$state.params.id_lider,id_concejal:prop.id});	
+		};		
+	});
+
+	if (lista.length==0) {$scope.result={"show":true,"alert":"warning","msg":"Seleccione los concejales a agregar."}; return false;};
+
+	$http.post("lider/agregarliderconcejales",{listaConcejales:lista,_token:authUsuario.token()})
+	.success(function(data, status, headers, config) {
+		
+		 //$scope.list=data;
+		 	
+	 });
+}
+
+$scope.consultar_lider_concejales=function(){
+	$http.post("lider/consultarliderconcejales",{id_lider:$state.params.id_lider,_token:authUsuario.token()})
+	.success(function(data, status, headers, config) {
+		
+		 $scope.listaLiderConcejales=data;
+		 	
+	 });
+}
+
 });
