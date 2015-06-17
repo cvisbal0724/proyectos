@@ -11,41 +11,28 @@
 
     <title>SB Admin 2 - Bootstrap Admin Theme</title>
 
-    <!-- Bootstrap Core CSS -->
-    <link href="app_cliente/bower_components/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Bootstrap core CSS -->
+    <link href="app_cliente/css/bootstrap.css" rel="stylesheet">
+    <!--external css-->
+    <link href="app_cliente/font-awesome/css/font-awesome.css" rel="stylesheet" />
+    <link rel="stylesheet" type="text/css" href="app_cliente/css/zabuto_calendar.css">
+    <link rel="stylesheet" type="text/css" href="app_cliente/js/gritter/css/jquery.gritter.css" />
+    <link rel="stylesheet" type="text/css" href="app_cliente/lineicons/style.css">    
+    
+    <!-- Custom styles for this template -->
+    <link href="app_cliente/css/style.css" rel="stylesheet">
+    <link href="app_cliente/css/style-responsive.css" rel="stylesheet">
 
-    <!-- MetisMenu CSS -->
-    <link href="app_cliente/bower_components/metisMenu/dist/metisMenu.min.css" rel="stylesheet">
-
-    <!-- Timeline CSS -->
-    <link href="app_cliente/dist/css/timeline.css" rel="stylesheet">
-
-    <!-- Custom CSS -->
-    <link href="app_cliente/dist/css/sb-admin-2.css" rel="stylesheet">
-
-    <!-- Morris Charts CSS -->
-    <link href="app_cliente/bower_components/morrisjs/morris.css" rel="stylesheet">
-
-    <!-- Custom Fonts -->
-    <link href="app_cliente/bower_components/font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+    <script src="app_cliente/js/chart-master/Chart.js"></script>
+    
+    <!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!--[if lt IE 9]>
+      <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+      <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+    <![endif]-->
 
     <link href="app_cliente/css/treeview.css" rel="stylesheet">
 
-    <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
-    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
-    <!--[if lt IE 9]>
-        <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
-        <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
-    <![endif]-->
-
-     <!-- jQuery -->
-    <script src="app_cliente/bower_components/jquery/dist/jquery.min.js"></script>
-
-    <!-- Bootstrap Core JavaScript -->
-    <script src="app_cliente/bower_components/bootstrap/dist/js/bootstrap.min.js"></script>
-
-    <!-- Metis Menu Plugin JavaScript -->
-    <script src="app_cliente/bower_components/metisMenu/dist/metisMenu.min.js"></script>
 
     <style type="text/css">
 
@@ -93,7 +80,13 @@
     <script src="app_cliente/bower_components/morrisjs/morris.min.js"></script>
     <script src="app_cliente/js/morris-data.js"></script>-->
 
-    
+    <script src="app_cliente/js/jquery.js"></script>
+    <script src="app_cliente/js/jquery-1.8.3.min.js"></script>
+    <script src="app_cliente/js/bootstrap.min.js"></script>
+    <script class="include" type="text/javascript" src="app_cliente/js/jquery.dcjqaccordion.2.7.js"></script>
+    <script src="app_cliente/js/jquery.scrollTo.min.js"></script>
+    <script src="app_cliente/js/jquery.nicescroll.js" type="text/javascript"></script>
+    <script src="app_cliente/js/jquery.sparkline.js"></script>
 
     <script type="text/javascript" src="app_cliente/lib/angular/angular.min.js"></script>
     <script type="text/javascript" src="app_cliente/lib/angular/angular-ui-router.min.js"></script>
