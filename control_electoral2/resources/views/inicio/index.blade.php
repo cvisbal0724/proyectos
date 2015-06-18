@@ -67,14 +67,6 @@
 
     </style>
 
-</head>
-
-<body>
-
-   <ui-view></ui-view>
-
-   
-
     <script src="app_cliente/js/jquery.js"></script>
     <script src="app_cliente/js/jquery-1.8.3.min.js"></script>
     <script src="app_cliente/js/bootstrap.min.js"></script>
@@ -91,7 +83,17 @@
 
     <!--script for this page-->
     <script src="app_cliente/js/sparkline-chart.js"></script>    
-    <script src="app_cliente/js/zabuto_calendar.js"></script>       
+    <script src="app_cliente/js/zabuto_calendar.js"></script>    
+
+</head>
+
+<body>
+
+   <ui-view></ui-view>
+
+   
+
+       
 
     <script type="text/javascript" src="app_cliente/lib/angular/angular.min.js"></script>
     <script type="text/javascript" src="app_cliente/lib/angular/angular-ui-router.min.js"></script>

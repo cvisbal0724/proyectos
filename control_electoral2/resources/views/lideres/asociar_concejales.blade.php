@@ -1,8 +1,10 @@
 <div class="col-lg-12">
- <div class="panel panel-default">
- 	 <div class="panel-heading">
-         Perfil Modulos
-      </div>
+  <div class="form-panel">
+  
+   <h4 class="mb"><i class="fa fa-angle-right"></i> 
+   Asociar Concejales
+   </h4>
+ 	 
 
       <div class="panel-body">
 

@@ -1,8 +1,9 @@
 <div class="col-lg-12" ng-init='consultar()'>
- <div class="panel panel-default">
- 	 <div class="panel-heading">
-         Consultar Concejales
-      </div>
+ <div class="form-panel">
+  
+   <h4 class="mb"><i class="fa fa-angle-right"></i> 
+   Consultar Concejal
+   </h4>
 
    	      	
         <div class="panel-body">
@@ -17,7 +18,7 @@
 	                <input type="text" class="form-control" ng-model='criterios.criterio'
 	                ng-keyup="$event.keyCode == 13 && consultar(1)">
 	                <span class="input-group-btn">
-	                    <button ng-click='consultar()' class="btn btn-default" type="button"><i class="fa fa-search"></i>
+	                    <button ng-click='consultar()' class="btn btn-success" type="button"><i class="fa fa-search"></i>
 	                    </button>
 	                </span>
 	            </div>

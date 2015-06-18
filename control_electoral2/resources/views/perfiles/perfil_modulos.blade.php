@@ -1,8 +1,8 @@
 <div class="col-lg-12">
- <div class="panel panel-default">
- 	 <div class="panel-heading">
-         Perfil Modulos
-      </div>
+ <div class="form-panel">  
+   <h4 class="mb"><i class="fa fa-angle-right"></i> 
+   Perfil Modulos
+   </h4>
 
       <div class="panel-body">
       	<div class="col-lg-5" ng-init='consultar_modulos()'>

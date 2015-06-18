@@ -1,8 +1,7 @@
 <div class="col-lg-12">
- <div class="panel panel-default">
- 	 <div class="panel-heading">
-         Registrar de Alcaldes
-      </div>
+  <div class="form-panel">
+  
+ 	 <h4 class="mb"><i class="fa fa-angle-right"></i> Registrar de Alcaldes</h4>
 
       <div class="panel-body">
       	<div class="col-lg-6">
@@ -40,9 +39,9 @@
                                {{result.msg}}
              </div>
             
-			 <button ng-if='alcaldeVO.id==0' type="button" class="btn btn-primary" ng-click='guardar()'>Registrar</button>  
-       <button ng-if='alcaldeVO.id>0' type="button" class="btn btn-primary" ng-click='guardar()'>Actualizar</button>  
-       <button type="button" class="btn btn-primary" ng-click='nuevo()'>Limpiar</button>           
+			 <button ng-if='alcaldeVO.id==0' type="button" class="btn btn-warning" ng-click='guardar()'>Registrar</button>  
+       <button ng-if='alcaldeVO.id>0' type="button" class="btn btn-warning" ng-click='guardar()'>Actualizar</button>  
+       <button type="button" class="btn btn-danger" ng-click='nuevo()'>Limpiar</button>           
       
       </div>
 

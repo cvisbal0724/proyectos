@@ -1,8 +1,8 @@
 <div class="col-lg-12">
- <div class="panel panel-default">
-   <div class="panel-heading">
-         Registrar Modulo
-      </div>
+ <div class="form-panel">  
+   <h4 class="mb"><i class="fa fa-angle-right"></i> 
+   Registrar Menu
+   </h4>
 
       <div class="panel-body">
         <div class="col-lg-6" ng-init="consultar_por_modulo()">
@@ -22,9 +22,9 @@
       data-node-class='imagen'>
     </div>
 <br>
-<button ng-show="currentNode.id > 0" type="button" class="btn btn-primary" ng-click="consultar_por_codigo()">Editar</button>
+<button ng-show="currentNode.id > 0" type="button" class="btn btn-default" ng-click="consultar_por_codigo()">Editar</button>
 
-<button ng-show="currentNode.id > 0" type="button" class="btn btn-primary"  ng-click="eliminar()">Eliminar</button>
+<button ng-show="currentNode.id > 0" type="button" class="btn btn-danger"  ng-click="eliminar()">Eliminar</button>
     
   </div> 
 
@@ -70,9 +70,9 @@
                                {{result.msg}}
              </div>
 
-             <button ng-if="menuVO.id == 0" type="button" class="btn btn-primary" ng-click='crear()'>Registrar</button>  
-              <button ng-if="menuVO.id > 0" type="button" class="btn btn-primary" ng-click='actualizar()'>Actualizar</button>  
-              <button type="button" class="btn btn-primary" ng-click='nuevo()'>Limpiar</button>  
+             <button ng-if="menuVO.id == 0" type="button" class="btn btn-warning" ng-click='crear()'>Registrar</button>  
+              <button ng-if="menuVO.id > 0" type="button" class="btn btn-warning" ng-click='actualizar()'>Actualizar</button>  
+              <button type="button" class="btn btn-danger" ng-click='nuevo()'>Limpiar</button>  
          </div>
 
    </div>

@@ -178,6 +178,7 @@
     <!-- /.row -->
       <section id="main-content">
           <section class="wrapper">
+                <
        		   <ui-view></ui-view>
           </section>
       </section>
