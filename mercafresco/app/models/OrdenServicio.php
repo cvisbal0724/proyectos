@@ -3,7 +3,7 @@
 class OrdenServicio extends \Eloquent {
 	protected $table = 'orden_servicio';
 	protected $primaryKey='ID';
-	protected $with = array('Proveedor','Usuario','EstadoEntrega','EstadoPago','TipoMetodoPago','BarrioPersona','Bono');	
+	protected $with = array('proveedor','usuario','estadoentrega','estadopago','tipometodopago','barriopersona','bono');	
 	protected $guarded = array();
 	public static $rules = array();
 	public $timestamps = false;
@@ -59,6 +59,20 @@ class OrdenServicio extends \Eloquent {
 							where hc.ID_ORDEN_SERVICIO='.$this->ID.' and ec.id in (select ID_EMPRESA_CONVENIO from historial_compra where ID_ORDEN_SERVICIO='.$this->ID.')');		
 		
 		return $result[0]->convenio;
+		
+	}
+
+	public function DescuentoBono(){
+
+		$result=DB::select('select 
+							ifnull(sum(hc.precio * (b.descuento / 100)),0) as decuento
+							from historial_compra hc
+              				inner join orden_servicio os on hc.id_orden_servicio=os.id
+							inner join
+							usuario_bono ub on os.id_bono=ub.id_bono and os.id_usuario=ub.id_usuario
+							inner join bonos b on ub.id_bono=b.id
+							where hc.id_orden_servicio='.$this->ID);
+		return $result[0]->decuento;
 		
 	}
 

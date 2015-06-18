@@ -10,10 +10,17 @@ public function Crear(){
 	}	
 	else{
 
+	/*$consecutivo=Consecutivo::find(1);
+	$consecutivo->CONSECUTIVO+=1;
+	$consecutivo->save();
+	$numeroConsecutivo=	$consecutivo->CONSECUTIVO;*/
+	
 	DB::beginTransaction();
 	
 	try {
 	
+
+
 	$id_user=Cookie::get('id_user');
 	$usuario=Usuario::find($id_user);
 	Session::put('usuario',$usuario);
@@ -21,12 +28,12 @@ public function Crear(){
     $cedula=$usuario->persona->NO_IDENTIFICACION;
    
 	$funcionario=Funcionario::where('CEDULA','=',$cedula)->first();
-	
+	$bonoUsuario=UsuarioBono::where('ID_USUARIO','=',$usuario->ID)->where('USADO','=',0)->first();
 	$rs=OrdenServicio::create(array(
 	  
 	"ID_TIPO_METODO_PAGO"=>Input::get('id_metodo_pago'),	
 	"ID_BARRIO_PERSONA"=>Session::get('id_direccion'),
-	"ID_BONO"=>DB::raw('NULL'),
+	"ID_BONO"=>$bonoUsuario!=null ? $bonoUsuario->ID_BONO : DB::raw('NULL'),
 	"PROG_FECHA"=>Session::get('fecha'),
 	"PROG_HORA"=>Session::get('hora'),
 	//"FECHA_ENTREGA"=>Input::get("fecha_entrega"),
@@ -36,9 +43,10 @@ public function Crear(){
 	"ID_USUARIO"=>$id_user,
 	"ID_ESTADO_ENTREGA"=>1,
 	"ESTADO"=>1,
-	"ID_ESTADO_PAGO"=>1		
-	));
- 	
+	"ID_ESTADO_PAGO"=>1,
+	//"CONSECUTIVO"=>$numeroConsecutivo	
+
+	)); 	
  	
  	$listaTempComp=TemporalCompra::where('ID_USUARIO','=', $id_user)->get();
 
@@ -85,7 +93,7 @@ public function Crear(){
  	TemporalCompra::where('ID_USUARIO','=', $id_user)->delete();
  	
  	$item=OrdenServicio::find($rs["ID"]);
-
+	
  	$data=array(
  		'id'=>$rs["ID"],
 		'cliente'=>$usuario->persona->NOMBRES . ' ' . $usuario->persona->APELLIDOS,
@@ -99,7 +107,8 @@ public function Crear(){
 		'productos'=>$item->CantidadProductos(),
 		'domicilio'=>$item->VALOR_DOMICILIO,
 		'total'=>$item->Total(),
-		'convenio'=>$item->Convenio()
+		'convenio'=>$item->Convenio(),
+		'descuentobono'=>$item->DescuentoBono()
  	);
 
     $respuesta=null;
@@ -116,11 +125,32 @@ public function Crear(){
 			$item->ESTADO_TRANSACCION= $respuesta!=null ? $respuesta->transactionResponse->state : DB::raw('NULL');
 			$item->CODIGO_RESPUESTA= $respuesta!=null ? $respuesta->transactionResponse->responseCode : DB::raw('NULL');
 			$item->RAZON_PENDIENTE=  $respuesta!=null && $respuesta->transactionResponse->state=='PENDING' ? $respuesta->transactionResponse->pendingReason : DB::raw('NULL');
-	   		$item->save();
+	   		$item->ID_ESTADO_PAGO=2;
+	   		$item->save();	   		
 	   }
 	}
- 	
+	else if (Input::get('id_metodo_pago')=='4') {
 
+		$respuesta=$this->PagoTransferenciasBancarias($item);
+		
+		$item->ID_TRANSACCION= $respuesta->transactionResponse!=null ? $respuesta->transactionResponse->transactionId : DB::raw('NULL');
+		$item->ID_ORDEN_TRANSACCION= $respuesta->transactionResponse!=null ? $respuesta->transactionResponse->orderId : DB::raw('NULL');
+		$item->ESTADO_TRANSACCION= $respuesta->transactionResponse!=null ? $respuesta->transactionResponse->state : DB::raw('NULL');
+		$item->CODIGO_RESPUESTA= $respuesta->transactionResponse!=null ? $respuesta->transactionResponse->responseCode : DB::raw('NULL');
+		$item->RAZON_PENDIENTE=  $respuesta->transactionResponse!=null && $respuesta->transactionResponse->state=='PENDING' ? $respuesta->transactionResponse->pendingReason : DB::raw('NULL');
+	   	$item->ID_ESTADO_PAGO=5;
+	   	$item->save();	 
+	   	
+	   	DB::commit();	   	
+	   	Session::put('OrderServicio',$item);
+	   	Session::put('id_orden',$rs["ID"]);
+	 	Session::forget('id_direccion');
+	 	Session::forget('fecha');
+		Session::forget('hora');
+		
+		return array('ID'=>'url','msg'=>'','url'=>$respuesta->transactionResponse->extraParameters->BANK_URL);	
+			
+	}
 
  	/*Mail::send('orden/orden', $data, function($message){
  		$usuario=Session::get('usuario');
@@ -185,11 +215,13 @@ public function Finalizar(){
 		Session::forget('id_direccion');
 		Session::forget('hora');
 		Session::forget('fecha');
+		//print_r($lista);
 		return $lista;
 
 	}
-		
-	} catch (Exception $e) {
+
+	}		
+	 catch (Exception $e) {
 		Excepciones::Crear($e,'OrdenServicio','Finalizar');
 	}	
 
@@ -381,15 +413,18 @@ public function ObtenerTodos(){
 
  public function PagoTarjetaCredito($item){
 
-		if (Session::has('usuario')) {
-		 	
-			PayU::$isTest = true; //Dejarlo True cuando sean pruebas.
+		if (!Session::has('usuario')) {
+		 	$usuario=Usuario::find(Cookie::get('id_user'));
+		 	Session::put('usuario',$usuario);
+		}	
+		
+			PayU::$isTest = false; //Dejarlo True cuando sean pruebas.
 			$usuario=Session::get('usuario');
 			$dir=BarrioPersona::find(Session::get('id_direccion'));
 			$direccion=$dir ? $dir->DIRECCION : '';
 
-			$reference = "mercafresco_pago_" . $item->ID;
-			$value = $item->Total()-$item->Convenio();
+			$reference = "mercafresco_pago_" . substr('0000000'.$item->ID,-8);
+			$value = $item->Total() - $item->Convenio() - $item->DescuentoBono();
 			$num=(int)substr(Input::get('tarjeta'), 0,2);
 			$tarjeta='';
 			//51 y 55
@@ -406,11 +441,11 @@ public function ObtenerTodos(){
 
 			$parameters = array(
 			//Ingrese aquí el identificador de la cuenta.
-			PayUParameters::ACCOUNT_ID => "500538",
+			PayUParameters::ACCOUNT_ID => "532774",//"500538",
 			//Ingrese aquí el código de referencia.
 			PayUParameters::REFERENCE_CODE => $reference,
 			//Ingrese aquí la descripción.
-			PayUParameters::DESCRIPTION => "Compras de productos mercafresco.",
+			PayUParameters::DESCRIPTION => "Compras de productos Mercafresco.",
 			
 			// -- Valores --
 			//Ingrese aquí el valor.        
@@ -438,7 +473,7 @@ public function ObtenerTodos(){
 			
 			// -- pagador --
 			//Ingrese aquí el nombre del pagador.
-			PayUParameters::PAYER_NAME => 'APPROVED',//Input::get('nombre'),
+			PayUParameters::PAYER_NAME =>Input::get('nombre'),// 'APPROVED'
 			//Ingrese aquí el email del pagador.
 			PayUParameters::PAYER_EMAIL => $usuario->persona->EMAIL,
 			//Ingrese aquí el teléfono de contacto del pagador.
@@ -466,7 +501,7 @@ public function ObtenerTodos(){
 			PayUParameters::CREDIT_CARD_SECURITY_CODE=> Input::get('codigo_seguridad'),
 			//Ingrese aquí el nombre de la tarjeta de crédito
 			//PaymentMethods::VISA||PaymentMethods::MASTERCARD||PaymentMethods::AMEX||PaymentMethods::DINERS
-			PayUParameters::PAYMENT_METHOD => PaymentMethods::VISA,
+			PayUParameters::PAYMENT_METHOD => $tarjeta,//PaymentMethods::MASTERCARD,
 			
 			//Ingrese aquí el número de cuotas.
 			PayUParameters::INSTALLMENTS_NUMBER => Input::get('numero_cuotas'),
@@ -487,53 +522,84 @@ public function ObtenerTodos(){
 		
 		return $response;
 			
-
-		 }
- 	
 }
 
 
-public function HecerReembolsoPorExecpcion($id_orden, $id_transaccion){
-	try {
-
-		PayU::$isTest = true;
-
-		$parameters = array(
-
-		//Ingrese aquí el identificador de la orden.
-		PayUParameters::ORDER_ID => $id_orden,
-
-		//Ingrese aquí el identificador de la transacción.
-		PayUParameters::TRANSACTION_ID => $id_transaccion,
-
-		//Ingrese aquí el motivo del reembolso.
-		PayUParameters::REASON => "Hubo una excepcion en el proceso de pago",
-		);
-
-		//PayUPayments::doRefund($parameters);
-		$response = PayUPayments::doVoid($parameters);
-
-		/*if ($response) {
-			$response->transactionResponse->orderId;
-			$response->transactionResponse->state;
-			$response->transactionResponse->pendingReason;
-			$response->transactionResponse->responseMessage; 
-		}*/
-
-	} catch (Exception $e) {
-		
+public function PagoTransferenciasBancarias($item){
+	
+	if (!Session::has('usuario')) {
+	 	$usuario=Usuario::find(Cookie::get('id_user'));
+	 	Session::put('usuario',$usuario);
 	}
-}
+	Session::put('nombre_pagador',Input::get('nombre'));
+	Session::put('id_banco',Input::get('id_banco'));
+	Session::put('telefono',Input::get('telefono'));
+	PayU::$isTest = false;
+	$usuario=Session::get('usuario');
+	$reference = "mercafresco_pago_" . substr('0000000'.$item->ID,-8);
+	$value = $item->Total() - $item->Convenio() - $item->DescuentoBono();
 
-public function PagoTransferenciasBancarias(){
+	$parameters = array(
+	//Ingrese aquí el identificador de la cuenta.
+	PayUParameters::ACCOUNT_ID => "532774",//"500538",
+	//Ingrese aquí el código de referencia.
+	PayUParameters::REFERENCE_CODE => $reference,
+	//Ingrese aquí la descripción.
+	PayUParameters::DESCRIPTION => "Compras de productos Mercafresco.",
+	
+	// -- Valores --
+	//Ingrese aquí el valor.        
+	PayUParameters::VALUE => $value,
+	//Ingrese aquí la moneda.
+	PayUParameters::CURRENCY => "COP",
+	
+	//Ingrese aquí el email del comprador.
+	PayUParameters::BUYER_EMAIL => $usuario->persona->EMAIL,
+	//Ingrese aquí el nombre del pagador.
+	PayUParameters::PAYER_NAME => Input::get('nombre'),
+	//Ingrese aquí el email del pagador.
+	PayUParameters::PAYER_EMAIL => $usuario->persona->EMAIL,
+	//Ingrese aquí el teléfono de contacto del pagador.
+	PayUParameters::PAYER_CONTACT_PHONE=> $usuario->persona->TELEFONO,
+		   
+	// -- infarmación obligatoria para PSE --
+	//Ingrese aquí el código pse del banco.
+	PayUParameters::PSE_FINANCIAL_INSTITUTION_CODE => Input::get('id_banco'),
+	//Ingrese aquí el tipo de persona (N natural o J jurídica)
+	PayUParameters::PAYER_PERSON_TYPE => "N",
+	//Ingrese aquí el documento de contacto del pagador.
+	PayUParameters::PAYER_DNI => Input::get('cedula'),
+	//Ingrese aquí el tipo de documento del pagador: CC, CE, NIT, TI, PP,IDC, CEL, RC, DE.
+	PayUParameters::PAYER_DOCUMENT_TYPE => "CC",
+
+	//Ingrese aquí el nombre del método de pago
+	PayUParameters::PAYMENT_METHOD => PaymentMethods::PSE,
+   
+	//Ingrese aquí el nombre del pais.
+	PayUParameters::COUNTRY => PayUCountries::CO,
+	
+	//IP del pagadador
+	PayUParameters::IP_ADDRESS => Request::getClientIp(),
+	//Cookie de la sesión actual.
+	PayUParameters::PAYER_COOKIE=>Cookie::get('laravel_session'),
+	//Cookie de la sesión actual.        
+	PayUParameters::USER_AGENT=>$_SERVER['HTTP_USER_AGENT'],
+	
+	//Página de respuesta a la cual será redirigido el pagador.     
+	PayUParameters::RESPONSE_URL=>Request::root()."/ordenservicio/respuestadelbanco"
+	
+);
+	
+$response = PayUPayments::doAuthorizationAndCapture($parameters);
+
+return $response;	
 
 }
 
 public function GuardarUsuarioCupon($codigo){
-
 try {
 	
-		$id_user=Cookie::get('id_user');
+	$id_user=Cookie::get('id_user');
 	$bono=Bonos::whereRaw("lower(CODIGO)='".strtolower($codigo)."'")->first();	
 
 	$id=0;
@@ -569,5 +635,185 @@ try {
 
 }
 
+
+public function HecerReembolsoPorExecpcion($id_orden, $id_transaccion){
+	try {
+
+		PayU::$isTest = false;
+
+		$parameters = array(
+
+		//Ingrese aquí el identificador de la orden.
+		PayUParameters::ORDER_ID => $id_orden,
+
+		//Ingrese aquí el identificador de la transacción.
+		PayUParameters::TRANSACTION_ID => $id_transaccion,
+
+		//Ingrese aquí el motivo del reembolso.
+		PayUParameters::REASON => "Hubo una excepcion en el proceso de pago",
+		);
+
+		//PayUPayments::doRefund($parameters);
+		$response = PayUPayments::doVoid($parameters);
+
+		/*if ($response) {
+			$response->transactionResponse->orderId;
+			$response->transactionResponse->state;
+			$response->transactionResponse->pendingReason;
+			$response->transactionResponse->responseMessage; 
+		}*/
+
+	} catch (Exception $e) {
+		
+	}
 }
 
+public function RespuestaDelBanco(){
+	try {
+
+		$item=Session::get('OrderServicio');
+		Session::get('nombre_pagador');
+	    Session::get('id_banco');
+	    Session::get('telefono');
+	   if (Input::get('polTransactionState')==6 && Input::get('polResponseCode')==4) {
+
+	   		$item->ID_TRANSACCION=Input::get('transactionId');			
+			$item->ESTADO_TRANSACCION= 'REJECTED';
+			$item->CODIGO_RESPUESTA= Input::get('lapResponseCode');			
+	   		$item->ID_ESTADO_PAGO=3;
+	   		$item->save();	 
+	   		
+	   		Session::put('respuestabanco',array('ID'=>0,'msg'=>'Lo sentimos su transacción fue rechazada.'));
+	   		return Redirect::to(Request::root().'/#/respuesta-banco/'.Input::get('pseReference3').'/'.Session::get('nombre_pagador').
+	   			'/'.Session::get('id_banco').'/'. Session::get('telefono'));
+
+	   }elseif (Input::get('polTransactionState')==6 && Input::get('polResponseCode')==5) {
+	   		$item->ID_TRANSACCION=Input::get('transactionId');			
+			$item->ESTADO_TRANSACCION= 'ERROR';
+			$item->CODIGO_RESPUESTA= Input::get('lapResponseCode');
+			$item->RAZON_PENDIENTE=  '';
+	   		$item->ID_ESTADO_PAGO=4;
+	   		$item->save();	 
+	   		Session::put('respuestabanco',array('ID'=>0,'msg'=>'Lo sentimos ocurrio un error.'));
+	   		return Redirect::to(Request::root().'/#/respuesta-banco/'.Input::get('pseReference3').'/'.Session::get('nombre_pagador').
+	   			'/'.Session::get('id_banco').'/'. Session::get('telefono'));
+
+	   }elseif (Input::get('polTransactionState')==12 && Input::get('polResponseCode')==9994) {
+	   		$item->ID_TRANSACCION=Input::get('transactionId');
+			$item->ESTADO_TRANSACCION= 'PENDING';
+			$item->CODIGO_RESPUESTA= Input::get('lapResponseCode');
+			$item->RAZON_PENDIENTE=  'Transacción pendiente, por favor revisar si el débito fue realizado en el banco.';
+	   		$item->ID_ESTADO_PAGO=6;
+	   		$item->save();	 
+	   		Session::put('respuestabanco',array('ID'=>0,'msg'=>'Transacción pendiente, por favor revisar si el débito fue realizado en el banco.'));
+	   		return Redirect::to(Request::root().'/#/respuesta-banco/'.Input::get('pseReference3').'/'.Session::get('nombre_pagador').
+	   			'/'.Session::get('id_banco').'/'. Session::get('telefono'));
+
+	   }else if (Input::get('polTransactionState')==4 && Input::get('polResponseCode')==1) {
+	   		$item->ID_TRANSACCION=Input::get('transactionId');
+			$item->ESTADO_TRANSACCION= 'APPROVED';
+			$item->CODIGO_RESPUESTA= Input::get('lapResponseCode');			
+	   		$item->ID_ESTADO_PAGO=2;
+	   		$item->save();	
+	   		DB::commit();
+	   		Session::forget('OrderServicio');
+	   		return Redirect::to(Request::root().'/#/finalizar');
+
+	   }
+
+	   //return Input::get('transactionId');
+
+	} catch (Exception $e) {
+		return $e;
+	}
+}
+
+public function ReintertarPagoBancario(){
+	try {
+
+		$item=Session::get('OrderServicio');
+
+		$this->PagoTransferenciasBancarias($item);
+
+		$respuesta=$this->PagoTransferenciasBancarias($item);
+		
+		$item->ID_TRANSACCION= $respuesta->transactionResponse!=null ? $respuesta->transactionResponse->transactionId : DB::raw('NULL');
+		$item->ID_ORDEN_TRANSACCION= $respuesta->transactionResponse!=null ? $respuesta->transactionResponse->orderId : DB::raw('NULL');
+		$item->ESTADO_TRANSACCION= $respuesta->transactionResponse!=null ? $respuesta->transactionResponse->state : DB::raw('NULL');
+		$item->CODIGO_RESPUESTA= $respuesta->transactionResponse!=null ? $respuesta->transactionResponse->responseCode : DB::raw('NULL');
+		$item->RAZON_PENDIENTE=  $respuesta->transactionResponse!=null && $respuesta->transactionResponse->state=='PENDING' ? $respuesta->transactionResponse->pendingReason : DB::raw('NULL');
+	   	$item->ID_ESTADO_PAGO=5;
+	   	$item->save();
+
+	   	return $respuesta->transactionResponse->extraParameters->BANK_URL;
+
+	} catch (Exception $e) {
+		return $e;
+	}	
+}
+
+	public function TerminarProcesoDePagoBancario(){
+		DB::beginTransaction();
+		try {
+			
+			$item=Session::get('OrderServicio');
+
+			HistorialCompra::where('ID_ORDEN_SERVICIO','=',$item->ID)->delete();
+
+			$item->delete();
+
+			DB::commit();
+			return 'success';
+
+		} catch (Exception $e) {
+			DB::rollback();
+			Excepciones::Crear($e,'OrdenServicio','TerminarProcesoDePagoBancario');
+			return array('ID'=>0,'msg'=>$e->getMessage());	
+		}		
+
+	}
+
+}
+
+/*merchantId=530880
+merchant_name=Inversiones+y+Obras+S.A.S
+merchant_address=Cra+76+no+81a-15
+telephone=3014422246
+merchant_url=http%3A%2F%2Fwww.mercafresco.co%2F
+transactionState=6
+lapTransactionState=DECLINED
+message=Declinada
+referenceCode=mercafresco_pago_00000001
+reference_pol=92192550
+transactionId=34776422-8bd2-402c-adec-b924f231fff5
+description=Pago+en+mercafresco
+trazabilityCode=152919330
+cus=152919330
+orderLanguage=es
+extra1=
+extra2=
+extra3=
+polTransactionState=6
+signature=bbdf55344edde6756685380e0f2d5cae
+polResponseCode=4
+lapResponseCode=PAYMENT_NETWORK_REJECTED
+risk=.00
+polPaymentMethod=25
+lapPaymentMethod=PSE
+polPaymentMethodType=4
+lapPaymentMethodType=PSE
+installmentsNumber=1
+TX_VALUE=10000.00
+TX_TAX=1379.00
+currency=COP
+lng=es
+pseCycle=-1
+buyerEmail=cvisbal0724%40gmail.com
+pseBank=
+pseReference1=127.0.0.1
+pseReference2=CC
+pseReference3=1044422259
+authorizationCode=
+TX_ADMINISTRATIVE_FEE=.00
+TX_TAX_ADMINISTRATIVE_FEE=.00
+TX_TAX_ADMINISTRATIVE_FEE_RETURN_BASE=.00*/

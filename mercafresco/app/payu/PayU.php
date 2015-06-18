@@ -76,22 +76,22 @@ abstract class PayU {
 	/**
 	 * The method invocation is for testing purposes
 	 */
-	public static $isTest = true;
+	public static $isTest = false;
 
 	/**
 	 * The merchant API key
 	 */
-	public static  $apiKey = "6u39nqhq8ftd0hlvnjfs66eh8c";
+	public static  $apiKey = "qpSj45qwwalsECbe21zzjCPVw8";//"6u39nqhq8ftd0hlvnjfs66eh8c";
 
 	/**
 	 * The merchant API Login
 	 */
-	public static  $apiLogin = "11959c415b33d0c";
+	public static  $apiLogin = "0941S69Zch1Auql"; //"11959c415b33d0c";
 
 	/**
 	 * The merchant Id
 	 */
-	public static  $merchantId = "500238";
+	public static  $merchantId = "530880";//"500238";
 
 	/**
 	 * The request language
@@ -105,9 +105,10 @@ abstract class PayU {
 /** validates Environment before begin any operation */
 	Environment::validate();
 
-// URL de Pagos
-Environment::setPaymentsCustomUrl("https://stg.api.payulatam.com/payments-api/4.0/service.cgi");
-// URL de Consultas
+
+/*Environment::setPaymentsCustomUrl("https://stg.api.payulatam.com/payments-api/4.0/service.cgi");
 Environment::setReportsCustomUrl("https://stg.api.payulatam.com/reports-api/4.0/service.cgi");
-// URL de Suscripciones para Pagos Recurrentes
-Environment::setSubscriptionsCustomUrl("https://stg.api.payulatam.com/payments-api/rest/v4.3/");
+Environment::setSubscriptionsCustomUrl("https://stg.api.payulatam.com/payments-api/rest/v4.3/");*/
+
+Environment::setPaymentsCustomUrl("https://api.payulatam.com/payments-api/4.0/service.cgi");
+Environment::setReportsCustomUrl("https://api.payulatam.com/reports-api/4.0/service.cgi");

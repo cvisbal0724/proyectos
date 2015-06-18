@@ -45,12 +45,34 @@
               <td>{{OrdenServicio.id}}</td>
             </tr>
 
-              <tr>
+              <tr ng-if="OrdenServicio.convenio == 0">
               <td>
-               <label>Valor:</label>
+              <label>Total:</label>
               </td>
               <td>{{OrdenServicio.total | currency:'$':0}}</td>
             </tr>
+
+            <tr ng-if="OrdenServicio.convenio > 0">
+              <td>
+              <label>Descuento por convenio:</label>
+              </td>
+              <td>{{OrdenServicio.convenio | currency:'$':0}}</td>
+            </tr>
+
+             <tr ng-if="OrdenServicio.descuentobono > 0">
+              <td>
+              <label>Descuento por cupon:</label>
+              </td>
+              <td>{{OrdenServicio.descuentobono | currency:'$':0}}</td>
+            </tr>
+
+              <tr ng-if="OrdenServicio.convenio > 0">
+              <td>
+              <label>Total a pagar:</label>
+              </td>
+              <td>{{(OrdenServicio.total - OrdenServicio.convenio - OrdenServicio.descuentobono) | currency:'$':0}}</td>
+            </tr>
+
 
             <tr>
               <td>

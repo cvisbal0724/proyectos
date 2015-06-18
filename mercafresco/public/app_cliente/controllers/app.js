@@ -100,6 +100,13 @@ App.config(function($urlRouterProvider, $stateProvider) {
                  "header": { templateUrl: "layouts/headervistas"}
                  }           
               })
+   .state('respuesta_banco', {
+                url: "/respuesta-banco/:cedula/:nombre/:id_banco/:telefono",
+                views: {
+                 "contenedor": { templateUrl: 'pasos_para_pago/respuesta_banco', controller: 'OrdenServicioController'},
+                 "header": { templateUrl: "layouts/headervistas"}
+                 }           
+              })
     .state('cuenta', {
                 url: "/cuenta",
                 views: {

@@ -1,9 +1,10 @@
 confControllers.controller('OrdenServicioController', function ($scope,$http,$routeParams,$filter,filterFilter,$route,$location, $state) {
 
 	   $scope.metodo_seleccionado='';
-	   $scope.pago_credito={id_metodo_pago:3,nombre:'Carlos Visbal',tarjeta:'4097440000000004',ano:'2015',mes:'12',codigo_seguridad:'321',numero_cuotas:'1'};
+	   $scope.pago_credito={id_metodo_pago:3,nombre:'',tarjeta:'',ano:'',mes:'',codigo_seguridad:'',numero_cuotas:'1'};;//{id_metodo_pago:3,nombre:'Carlos Visbal',tarjeta:'4097440000000004',ano:'2015',mes:'12',codigo_seguridad:'321',numero_cuotas:'1'};
 	   $scope.mensaje='';
 	   $scope.codigo='';
+	   $scope.pago_pse={id_metodo_pago:4,id_banco:'0',nombre:'',cedula:'',telefono:''};
 	   
 	   if ($state.current.name=='metodos_de_pago.credito') {
 
@@ -45,6 +46,20 @@ confControllers.controller('OrdenServicioController', function ($scope,$http,$ro
        	
        }
 
+       $scope.pago_con_pse=function(){
+           
+            $http.post("ordenservicio/crear",$scope.pago_pse)
+			 .success(function(data, status, headers, config) {			     
+			     if (data['ID']==0) {
+			     	$scope.mensaje=data['msg'];//'Por favor selecciones la hora en la que desea la entrega de su pedido.';
+			     	$('#modalMetodoPagoPSE').modal('show');
+			     }else if (data['ID']=='url') {
+			     	window.location.href=data['url'];
+			     };
+			});
+              
+       }
+
        $scope.pago_con_tarjeta_credito=function(){
            
             $http.post("ordenservicio/crear",$scope.pago_credito)
@@ -73,5 +88,21 @@ confControllers.controller('OrdenServicioController', function ($scope,$http,$ro
               
        }
 
+       $scope.reintentar_pago=function(){
+       		$http.get("ordenservicio/reintertarpagobancario?id_banco="+$state.params.id_banco +"&nombre="+
+       			$state.params.nombre+"&cedula="+$state.params.cedula+"&telefono="+$state.params.telefono)
+			 .success(function(data, status, headers, config) {
+			    window.location.href=data;
+			});
+       }
+
+	    $scope.terminar_proceso_de_pago_bancario=function(){
+       		$http.post("ordenservicio/terminarprocesodepagobancario")
+			 .success(function(data, status, headers, config) {
+			    if (data=='success') {
+			    	$state.go('productos');
+			    };
+			});
+       }
 
 });

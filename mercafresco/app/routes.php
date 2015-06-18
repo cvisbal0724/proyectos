@@ -10,7 +10,7 @@
 | and give it the Closure to execute when that URI is requested.
 |
 */
-PayU::$isTest =true;
+PayU::$isTest =false;
 
 Route::get('/', function()
 {  
@@ -94,6 +94,10 @@ Route::get('pasos_para_pago/finalizar', function()
 Route::get('pasos_para_pago/metodos_de_pago', function()
 {  
 	return View::make('pasos_para_pago/metodos_de_pago');	
+});
+Route::get('pasos_para_pago/respuesta_banco', function()
+{  
+	return View::make('pasos_para_pago/respuesta_banco',array('respuestabanco'=>Session::get('respuestabanco')));	
 });
 Route::get('mas_informacion/nosotros', function()
 {  
@@ -261,6 +265,7 @@ Route::post('ordenservicio/crear','OrdenServicioController@Crear');
 Route::post('ordenservicio/obtenerporcriterios','OrdenServicioController@ObtenerPorCriterios');
 Route::post('ordenservicio/obtenerlosultimostres','OrdenServicioController@ObtenerLosUltimosTres');
 Route::post('ordenservicio/pagotarjetacredito','OrdenServicioController@PagoTarjetaCredito');
+Route::post('ordenservicio/terminarprocesodepagobancario','OrdenServicioController@TerminarProcesoDePagoBancario');
 /*Fin Orden de servicio*/
 
 
@@ -315,35 +320,67 @@ Route::get('bono/guardar/{codigo}','OrdenServicioController@GuardarUsuarioCupon'
 
 /*Fin cupon*/
 
-Route::get('test', function(){
 
-});
-
-
-Route::get('payu', function(){
-
-	//return date();//$_SERVER['HTTP_USER_AGENT'];
-
-});
 
 //https://github.com/noiselabs/NoiselabsNuSOAPBundle //web service
 
-	
 
 Route::get('test2', function(){
 
+$date = '2007/10/31';
+ 
+$weekday = date('l', strtotime($date)); // note: first arg to date() is lower-case L
+ 
+return $weekday; // SHOULD display Wednesday
 
-/*PayU::$language = SupportedLanguages::ES;
-
-$parameters = array(
-	//Ingrese aquí el identificador de la cuenta.
-	PayUParameters::PAYMENT_METHOD => PaymentMethods::PSE,
-	//Ingrese aquí el nombre del pais.
-	PayUParameters::COUNTRY => PayUCountries::CO,
-);
-$array=PayUPayments::getPSEBanks($parameters);
-$banks=$array->banks;
-return $banks;*/
-return '<img src="app_cliente/img/mercafrescohor.jpg">';
 });
 
+//Route::get('pagobancario','OrdenServicioController@PagoTransferenciasBancarias');
+
+Route::get('ordenservicio/respuestadelbanco','OrdenServicioController@RespuestaDelBanco');
+Route::get('ordenservicio/reintertarpagobancario','OrdenServicioController@ReintertarPagoBancario');
+
+/*merchantId=530880
+merchant_name=Inversiones+y+Obras+S.A.S
+merchant_address=Cra+76+no+81a-15
+telephone=3014422246
+merchant_url=http%3A%2F%2Fwww.mercafresco.co%2F
+transactionState=6
+lapTransactionState=DECLINED
+message=Declinada
+referenceCode=mercafresco_pago_00000001
+reference_pol=92192550
+transactionId=34776422-8bd2-402c-adec-b924f231fff5
+description=Pago+en+mercafresco
+trazabilityCode=152919330
+cus=152919330
+orderLanguage=es
+extra1=
+extra2=
+extra3=
+polTransactionState=6
+signature=bbdf55344edde6756685380e0f2d5cae
+polResponseCode=4
+lapResponseCode=PAYMENT_NETWORK_REJECTED
+risk=.00
+polPaymentMethod=25
+lapPaymentMethod=PSE
+polPaymentMethodType=4
+lapPaymentMethodType=PSE
+installmentsNumber=1
+TX_VALUE=10000.00
+TX_TAX=1379.00
+currency=COP
+lng=es
+pseCycle=-1
+buyerEmail=cvisbal0724%40gmail.com
+pseBank=
+pseReference1=127.0.0.1
+pseReference2=CC
+pseReference3=1044422259
+authorizationCode=
+TX_ADMINISTRATIVE_FEE=.00
+TX_TAX_ADMINISTRATIVE_FEE=.00
+TX_TAX_ADMINISTRATIVE_FEE_RETURN_BASE=.00*/
+
+//?merchantId=530880&merchant_name=Inversiones+y+Obras+S.A.S&merchant_address=Cra+76+no+81a-15&telephone=3014422246&merchant_url=http%3A%2F%2Fwww.mercafresco.co%2F&transactionState=6&lapTransactionState=DECLINED&message=Declinada&referenceCode=mercafresco_pago_00000001&reference_pol=92192550&transactionId=34776422-8bd2-402c-adec-b924f231fff5&description=Pago+en+mercafresco&trazabilityCode=152919330&cus=152919330&orderLanguage=es&extra1=&extra2=&extra3=&polTransactionState=6&signature=bbdf55344edde6756685380e0f2d5cae&polResponseCode=4&lapResponseCode=PAYMENT_NETWORK_REJECTED&risk=.00&polPaymentMethod=25&lapPaymentMethod=PSE&polPaymentMethodType=4&lapPaymentMethodType=PSE&installmentsNumber=1&TX_VALUE=10000.00&TX_TAX=1379.00&currency=COP&lng=es&pseCycle=-1&buyerEmail=cvisbal0724%40gmail.com&pseBank=&pseReference1=127.0.0.1&pseReference2=CC&pseReference3=1044422259&authorizationCode=&TX_ADMINISTRATIVE_FEE=.00&TX_TAX_ADMINISTRATIVE_FEE=.00&TX_TAX_ADMINISTRATIVE_FEE_RETURN_BASE=.00

@@ -124,7 +124,8 @@ class TiemposController extends BaseController {
 		}
 
 		//return $tiempos;
-		return View::make('pasos_para_pago/tiempos',array('listaTiempos'=>$tiempos));
+		$semana=array('Lun','Mar','Mie','Jue','Vie','Sab','Dom');
+		return View::make('pasos_para_pago/tiempos',array('listaTiempos'=>$tiempos,'semana'=>$semana));
 
 	}
 

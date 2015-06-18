@@ -95,9 +95,20 @@
               <td>
                 <label>Descuento por convenio:</label>
               </td>
-              <td>$[[$convenio]]</td>
+              <td>$[[$descuentobono]]</td>
             </tr>    
             <?php endif ?>
+
+
+            <?php if ($descuentobono > 0): ?>
+             <tr>
+              <td>
+                <label>Descuento por cupon:</label>
+              </td>
+              <td>$[[$descuentobono]]</td>
+            </tr>    
+            <?php endif ?>
+
            
             <?php if ($convenio > 0): ?>
                <tr>

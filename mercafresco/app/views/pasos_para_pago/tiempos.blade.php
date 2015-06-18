@@ -8,7 +8,7 @@
             </div>
             <!-- /.panel-heading -->
             <div class="panel-body">
-              <p>Seleccione una fecha para realizar la entrega de su pedido.</p>
+              <h4>¿Cuando desea que le entreguemos su pedido?</h4>
               <div class="row">
                 <!--<div class="col-xs-6">
                 <a class="btn btn-primary btn-lg pull-left" >Fecha Ant..</a>
@@ -31,13 +31,14 @@
                 @foreach($listaTiempos as $key=>$item)
                 <div class="panel panel-default dia">
                   <div class="panel-heading">
-                    <h3 class="panel-title">[[$item['encabezado'] ]]</h3>
+
+                    <h3 class="panel-title">[[ $semana[date('w',strtotime($item['encabezado']))-1].' '.date('d',strtotime($item['encabezado'])) ]]</h3>
                   </div>
                   <div class="panel-body">
                     @foreach($item['horas'] as $key2=> $h)
                       <div class="radio radio-success" style='text-align:left;'>
-                          <input type="radio" name="radio2" id="radio[[$key.''.$key2]]" [[$h["chequeado"]==true ? 'checked' : '' ]] value="option1" [[!$h["mostrar"]==true ? 'disabled' : ''  ]] ng-click='seleccionar_tiempo($event,e.id,"[[$h["hora"] ]]","[[$h["fecha"] ]]")'/>
-                          <label for="radio[[$key . '' . $key2]]" checked="[[$h['chequeado'] ]]" style='font-size:13px;'>[[$h['estimado'] ]]</label>
+                          <input type="radio" name="radio2" id="radio[[$key.''.$key2]]" [[$h["chequeado"]==true ? 'checked' : '' ]] value="option1" [[$h["mostrar"]!=true ? 'disabled' : ''  ]] ng-click='seleccionar_tiempo($event,e.id,"[[$h["hora"] ]]","[[$h["fecha"] ]]")'/>
+                          <label for="radio[[$key . '' . $key2]]" checked="[[$h['chequeado'] ]]" style='font-size:13px;'>[[ $h["mostrar"]!=true ? ' ' : $h['estimado'] ]]</label>
                       </div>   
                        @endforeach                   
                   </div>

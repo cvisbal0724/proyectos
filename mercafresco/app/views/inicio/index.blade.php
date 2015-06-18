@@ -2,8 +2,8 @@
 <html lang="en" ng-app='App' ng-controller="AppController" style='overflow:auto;'>
    <head>
      <meta charset="utf-8">
-      <meta http-equiv="X-UA-Compatible" content="IE=edge">
-      <meta name="viewport" content="width=device-width, initial-scale=1">
+     <meta http-equiv="X-UA-Compatible" content="IE=edge">
+      <meta name="viewport" content="initial-scale=1.0, user-scalable=no" />
       <meta name="description" content="">
       <meta name="author" content="">
       <title>Merca Fresco</title>
@@ -12,7 +12,7 @@
       [[ HTML::style('app_cliente/css/sb-admin-2.css') ]]
       [[ HTML::style('app_cliente/css/fonts.css') ]]
       [[ HTML::style('app_cliente/css/bootstrap.min.css') ]]
-      [[ HTML::style('app_cliente/css/carousel.css?v=1') ]]
+      [[ HTML::style('app_cliente/css/carousel.css?v=2') ]]
       [[ HTML::style('app_cliente/css/font-awesome.min.css') ]]
       [[ HTML::style('app_cliente/css/sb-admin-2.css') ]]
       [[ HTML::style('app_cliente/css/bootstrap-datetimepicker.min.css') ]]

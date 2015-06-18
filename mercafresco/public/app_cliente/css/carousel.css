@@ -635,8 +635,76 @@ transition: all 0.3s ease-out;
   padding:  0 10px;
   color: #fff;
 }
+
 .metodos {
-  min-height: 156px;
+  text-align: center;
+  margin-top: 20px;
+}
+.metodos td {
+  background-image: url(../img/check.png);
+  background-position: 10px;
+  background-size: 20px;
+  background-repeat: no-repeat;
+  border: none;
+  vertical-align: middle;
+  opacity: 1; 
+  font-weight: 400;
+  
+  -webkit-transition: all 0.25s ease-in-out;
+  -ms-transition: all 0.25s ease-in-out;
+  transition: all 0.25s ease-in-out;
+}
+
+.metodo-seleccionado{
+  background-color: #89B159;
+  background-color: rgba(137, 177, 89, 1);
+  background-image: url(../img/checked.png)!important;
+  background-position: 10px;
+  background-size: 20px;
+  background-repeat: no-repeat;
+  border: none !important;
+  color: #fff;
+  opacity: 1;
+}
+.metodo-vista .panel-title{
+  text-align: center;
+  font-size: 20px;
+  width: 98%;
+  margin: 0 auto;
+  background-color: #89B159;
+  background-color: rgba(137, 177, 89, 1);
+  padding: 10px 0;
+  color: #fff;
+}
+.metodos label {
+    display: block;
+    padding-left: 30px !important;
+    
+  }
+.mt-20{
+  margin-top: 20px;
+}
+@media only screen and (max-width: 480px) {
+  .metodos-pagos .panel-body {
+    padding: 0;
+  }
+  .metodos td {
+    background-position: 5px;
+  }
+  .metodos label {
+    max-width: 80px;
+  }
+  .panel-heading h2 {
+    margin-top: 10px;
+  }
+}
+.metodo-vista .panel-body {
+    padding: 10px 15px;
+    font-weight: 300;
+}
+.metodos  input[type=radio] {
+  position:fixed;
+  opacity:0;
 }
 .metodos-pago {
   text-align: center;
