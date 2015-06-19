@@ -112,6 +112,11 @@ App.config(function($urlRouterProvider, $stateProvider) {
         url: "/registrar-votante",
         templateUrl: "votantes/votante", 
         controller: 'VotanteController'
+       })
+       .state('home.consultar_votantes', {
+        url: "/consultar-votante",
+        templateUrl: "votantes/consultar_votante", 
+        controller: 'VotanteController'
        });
      
 });

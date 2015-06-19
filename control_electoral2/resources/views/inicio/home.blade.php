@@ -203,13 +203,25 @@
       <!--footer end-->
   </section>
 
+<script src="app_cliente/js/jquery.js"></script>
+    <script src="app_cliente/js/jquery-1.8.3.min.js"></script>
+    <script src="app_cliente/js/bootstrap.min.js"></script>
+    <script class="include" type="text/javascript" src="app_cliente/js/jquery.dcjqaccordion.2.7.js"></script>
+    <script src="app_cliente/js/jquery.scrollTo.min.js"></script>
+    <script src="app_cliente/js/jquery.nicescroll.js" type="text/javascript"></script>
+    <script src="app_cliente/js/jquery.sparkline.js"></script>
 
   
     <!--common script for all pages-->
 
     <script src="app_cliente/js/common-scripts.js"></script>
     
-   
+   <script type="text/javascript" src="app_cliente/js/gritter/js/jquery.gritter.js"></script>
+    <script type="text/javascript" src="app_cliente/js/gritter-conf.js"></script>
+
+    <!--script for this page-->
+    <script src="app_cliente/js/sparkline-chart.js"></script>    
+    <script src="app_cliente/js/zabuto_calendar.js"></script>    
 
   <script type="text/javascript">
         $(document).ready(function () {
@@ -268,5 +280,5 @@
     </script>
 
     <script type="text/javascript">
-      $('.backstretch').remove();
+     $('.backstretch').remove();
     </script>

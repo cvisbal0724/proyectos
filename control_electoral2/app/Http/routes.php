@@ -96,10 +96,14 @@ Route::get('lideres/consultar_lider',function(){
 	return view('lideres/consultar_lider');
 });
 
-Route::get('votantes/votante','VotanteController@index');
-
 Route::get('lideres/asociar_concejales',function(){
 	return view('lideres/asociar_concejales');
+});
+
+Route::get('votantes/votante','VotanteController@index');
+
+Route::get('votantes/consultar_votante',function(){
+	return view('votantes/consultar_votante');
 });
 
 //servicios
@@ -179,34 +183,14 @@ Route::post('lider/consultarliderconcejales','LiderController@ConsultarLiderConc
 //Route::get('concejal/consultarporcodigo/{id}','ConcejalController@ConsultarPorCodigo');
 /*Fin Lider*/
 
+/*Votante*/
+Route::post('votante/crear','VotanteController@Crear');
+Route::post('votante/consultar','VotanteController@Consultar');
+/*Fin votante*/
+
 use App\models\Menus;
+use App\Enums\EnumPerfiles;
 Route::get('test',function(){
-	return Menus::all();
-	/*$lista= Menus::all();
-	$menu=array();
-
-	foreach ($lista as $key => $row) {
-		if ($row->id_padre==0) {
-			$menu[]=array(
-				'id'=>$row->id,
-				'nombre'=>$row->nombre,
-				'etiqueta'=>$row->etiqueta,
-				'id_padre'=>$row->id_padre,
-				'id_modulo'=>$row->id_modulo,
-				'url'=>$row->url,
-				'orden'=>$row->orden,
-				'imagen'=>$row->imagen,
-				'hijos'=>array());
-		}
-		
-		foreach ($lista as $key2 => $row2) {
-			if ($row->id==$row2->id_padre) {
-				$menu[$key]['hijos'][]=$row2;
-				
-			}
-		}
-	}
-
-	return $menu;*/
-
+	
+echo EnumPerfiles::Alcalde;
 });

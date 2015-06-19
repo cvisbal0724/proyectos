@@ -86,7 +86,8 @@ public function Consultar(Request $request){
 			->join('personas as p','c.id_persona','=','p.id')
 			->join('partidos as pt','c.id_partido','=','pt.id')
 			->join('alcaldes as al','p.id_alcalde','=','al.id')
-			->select(DB::raw("c.id, c.numero, concat(p.nombre, ' ', p.apellido) as concejal, pt.nombre as partido, al.nombre as alcalde"));
+			->select(DB::raw("c.id, c.numero, concat(p.nombre, ' ', p.apellido) as concejal, pt.nombre as partido, al.nombre as alcalde,
+				(select count(id) from votantes v where v.id_concejal=c.id) as votos"));
 		$paginado=10;
 		if ($criterio=='') {
 			$lista=$consulta->where('p.id_alcalde','=',$id_alcalde)->orderBy('p.nombre','asc')->take(100)->paginate($paginado);

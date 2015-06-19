@@ -37,7 +37,8 @@
                	   <th>Nombre</th>
                	   <th>Numero</th>
                	   <th>Partido</th>
-               	   <th>Alcalde</th>               	                 	   
+               	   <th>Alcalde</th> 
+                   <th class="center">Votos</th>               	                 	   
                    <th></th>         
                </tr>
            </thead>
@@ -48,6 +49,7 @@
         				<td>{{item.numero}}</td>
         				<td>{{item.partido}}</td>
         				<td>{{item.alcalde}}</td>	
+                <td class="center"><a href="">{{item.votos}}</a></td> 
                <td>
                  <a href="" ng-click='consultar_por_codigo(item)'>
                    <i ui-sref="home.editar_concejales({id:item.id})" class='fa fa-pencil fa-2x'></i>

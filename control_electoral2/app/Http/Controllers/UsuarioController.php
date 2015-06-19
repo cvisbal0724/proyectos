@@ -66,7 +66,7 @@ class UsuarioController extends Controller {
 			$lista=$consulta->orderBy('p.nombre','asc')->take(100)->paginate($paginado);
 		}
 		else{
-			$lista=$lista=$consulta->whereRaw("Usuarios.usuario like ? or concat(p.nombre ,' ', p.apellido) like ? or pf.nombre like ?",array('%'.$criterio.'%','%'.$criterio.'%','%'.$criterio.'%'))
+			$lista=$lista=$consulta->whereRaw("usuarios.usuario like ? or concat(p.nombre ,' ', p.apellido) like ? or pf.nombre like ?",array('%'.$criterio.'%','%'.$criterio.'%','%'.$criterio.'%'))
 			->orderBy('p.nombre','asc')->paginate($paginado);
 		}
 

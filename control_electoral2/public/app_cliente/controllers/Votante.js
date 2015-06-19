@@ -35,7 +35,7 @@ $scope.consultar_por_codigo=function(id){
 $scope.crear=function(){
 	$scope.votanteVO.id_persona=$scope.votanteVO.id_persona[0];
 	if (!$scope.votanteVO.id_persona > 0) {$scope.result={"show":true,"alert":"warning","msg":"Seleccione la persona."}; return false;};
-	$http.post("votanteVO/crear",$scope.votanteVO).success(function(data, status, headers, config) {
+	$http.post("votante/crear",$scope.votanteVO).success(function(data, status, headers, config) {
 		
 		 	$scope.result=data;
 		 	if (data.alert=='success') {		 		
@@ -70,7 +70,7 @@ $scope.consultar_persona_por_criterios=function(){
 $scope.consultar=function(page){
 
 		if (page==undefined) {page=1};
-		$http.post("usuario/consultar?page="+page,$scope.criterios).success(function(data, status, headers, config) {
+		$http.post("votante/consultar?page="+page,$scope.criterios).success(function(data, status, headers, config) {
 			$scope.listaVotantes=data;	
 			$scope.paginas=Array();
 			for (var i = 1; i <= $scope.listaVotantes.last_page; i++) {

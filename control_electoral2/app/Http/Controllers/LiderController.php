@@ -9,6 +9,7 @@ use App\models\Lideres;
 use App\models\LiderConcejales;
 use App\models\Concejales;
 use DB;
+use App\Enums\EnumPerfiles;
 
 class LiderController extends Controller {
 
@@ -89,6 +90,8 @@ public function Actualizar(Request $request){
 
 public function Consultar(Request $request){
 		
+		$usuario=Auth::User();
+
 		$criterio=$request->input('criterio');
 		$lista=array();
 		
@@ -105,11 +108,25 @@ public function Consultar(Request $request){
 			al.nombre as alcalde"))
 			->groupBy(DB::raw('lc.meta,p.cedula,p2.cedula,p3.cedula'));
 		$paginado=10;
+
+			if ($usuario->id_perfil==EnumPerfiles::Administrador) {
+				$consulta=$consulta->where('p.id_alcalde','=',$usuario->persona->id_alcalde);				
+			}
+			else if ($usuario->id_perfil==EnumPerfiles::Alcalde) {						
+				$consulta=$consulta->whereRaw('p.id_alcalde=? and v.id_encargado ?',array($usuario->persona->id_alcalde,$usuario->id));				
+			}
+			else if ($usuario->id_perfil==EnumPerfiles::Concejal) {
+				$consulta=$consulta->whereRaw('p.id_alcalde=? and v.id_encargado ?',array($usuario->persona->id_alcalde,$usuario->id));			
+			}
+			else if ($usuario->id_perfil==EnumPerfiles::Lider) {
+				$consulta=$consulta->whereRaw('p.id_alcalde=? and v.id_encargado ?',array($usuario->persona->id_alcalde,$usuario->id));
+			}
+
 		if ($criterio=='') {
-			$lista=$consulta->where('l.id_encargado','=',Auth::user()->id)->orderBy('p.nombre','asc')->take(100)->paginate($paginado);
+			$lista=$consulta->orderBy('p.nombre','asc')->take(100)->paginate($paginado);
 		}
 		else{
-			$lista=$lista=$consulta->whereRaw("l.id_encargado=? and concat(p.nombre ,' ', p.apellido) like ?",array(Auth::user()->id,'%'.$criterio.'%'))
+			$lista=$lista=$consulta->whereRaw(" (concat(p.nombre ,' ', p.apellido) like ? )",array(Auth::user()->id,'%'.$criterio.'%'))
 			->orderBy('p.nombre','asc')->paginate($paginado);
 		}
 

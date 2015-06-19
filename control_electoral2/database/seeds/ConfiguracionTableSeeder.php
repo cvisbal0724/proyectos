@@ -33,7 +33,7 @@ class ConfiguracionTableSeeder extends Seeder
         	'numero'=>1        	
         ));
 
-        $perfiles=['Administrador','Alcalde','Concejales','Lider'];
+        $perfiles=['Administrador','Alcalde','Concejal','Lider'];
 
 		foreach ($perfiles as $key => $value) {
 			 Perfiles::create(array(
