@@ -29,6 +29,11 @@ public function Crear(){
    
 	$funcionario=Funcionario::where('CEDULA','=',$cedula)->first();
 	$bonoUsuario=UsuarioBono::where('ID_USUARIO','=',$usuario->ID)->where('USADO','=',0)->first();
+
+	if ($bonoUsuario) {
+		$bonoUsuario->USADO=1;
+	}
+
 	$rs=OrdenServicio::create(array(
 	  
 	"ID_TIPO_METODO_PAGO"=>Input::get('id_metodo_pago'),	
@@ -107,8 +112,8 @@ public function Crear(){
 		'productos'=>$item->CantidadProductos(),
 		'domicilio'=>$item->VALOR_DOMICILIO,
 		'total'=>$item->Total(),
-		'convenio'=>$item->Convenio(),
-		'descuentobono'=>$item->DescuentoBono()
+		'convenio'=>(double)$item->Convenio(),
+		'descuentobono'=>(double)$item->DescuentoBono()
  	);
 
     $respuesta=null;
@@ -152,12 +157,12 @@ public function Crear(){
 			
 	}
 
- 	/*Mail::send('orden/orden', $data, function($message){
+ 	Mail::send('plantilla_correo/crear_pedido', $data, function($message){
  		$usuario=Session::get('usuario');
  		$email=$usuario->persona->EMAIL;
  		$cliente=$usuario->persona->NOMBRES.' '.$usuario->persona->APELLIDOS;
-		$message->to($email, $cliente)->subject('Detalle de pedido');
-	});*/
+		$message->to($email, $cliente)->subject('PEDIDO REALIZADO CORRECTAMENTE!!!');
+	});
 
 	DB::commit();
 

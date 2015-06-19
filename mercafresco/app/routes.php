@@ -335,10 +335,18 @@ return $weekday; // SHOULD display Wednesday
 
 });
 
+
+
 //Route::get('pagobancario','OrdenServicioController@PagoTransferenciasBancarias');
 
 Route::get('ordenservicio/respuestadelbanco','OrdenServicioController@RespuestaDelBanco');
 Route::get('ordenservicio/reintertarpagobancario','OrdenServicioController@ReintertarPagoBancario');
+
+Route::get('correo', function()
+{
+	return View::make('plantilla_correo/crear_cuenta');	
+	
+});
 
 /*merchantId=530880
 merchant_name=Inversiones+y+Obras+S.A.S

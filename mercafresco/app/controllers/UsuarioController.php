@@ -72,7 +72,7 @@ class UsuarioController extends BaseController {
 			 $data=array('usuario'=>$usuario->USUARIO,'nombres'=>Input::get("nombres"),
 			 	'apellidos'=>Input::get("apellidos"),'clave'=>Input::get('clave'),'key'=>Request::root().'/#/activar/'.$arrayString);
 
-			 Mail::send('mensaje/mensaje', $data, function($message){
+			 Mail::send('plantilla_correo/crear_cuenta', $data, function($message){
 		        $message->to(Input::get('correo'), Input::get('nombres').' '.Input::get('apellidos'))->subject('Registro de Usuario');
 		     });
 
@@ -199,7 +199,7 @@ class UsuarioController extends BaseController {
 				$data=array('nombres'=>$usuario->persona->NOMBRES,'key'=>Request::root().'/#/cambiar-contrasena/'.$arrayString);
 				Session::put('correo',$correo);
 
-				Mail::send('mensaje/recordar_clave', $data, function($message){
+				Mail::send('plantilla_correo/recordar_clave', $data, function($message){
 		        	$message->to(Session::get('correo'));
 		        	$message->subject('Recordar Contraseña');
 		     	});
