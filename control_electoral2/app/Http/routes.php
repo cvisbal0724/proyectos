@@ -32,6 +32,18 @@ Route::get('inicio/login',function(){
 	return view('inicio/login');
 });
 
+Route::get('layouts/nombre_proyecto',function(){
+	return view('layouts/nombre_proyecto');
+});
+
+Route::get('inicio/dashboard',function(){
+	return view('inicio/dashboard');
+});
+
+Route::get('layouts/notificaciones',function(){
+	return view('layouts/notificaciones');
+});
+
 Route::get('inicio/home','HomeController@index');
 
 Route::get('partido/partido',function(){

@@ -14,109 +14,178 @@ App.config(function($urlRouterProvider, $stateProvider) {
         controller: 'LoginController'
        })
       .state('home', {
-        url: "/home",              
+        url: "/inicio",              
         templateUrl: "inicio/home", 
         //controller: 'HomeController'
        })
+      .state('home.inicio', {
+        url: "/",        
+        views:{
+          'contenedor':{templateUrl: "inicio/dashboard",},
+          'notificaciones':{templateUrl:'layouts/notificaciones'}
+        }              
+         
+        //controller: 'HomeController'
+       })
       .state('home.registrar_partidos', {
-        url: "/registrar-partido",              
-        templateUrl: "partido/partido", 
-        controller: 'PartidoController'
+        url: "/registrar-partido", 
+         views:{
+          'contenedor':{templateUrl: "partido/partido",controller: 'PartidoController'},
+          'titulo':{template:'Registrar Partido'},
+          'nombre-proyecto':{templateUrl:'layouts/nombre_proyecto'}
+        }  
        })
       .state('home.registrar_alcaldes', {
-        url: "/registrar-alcalde",              
-        templateUrl: "alcalde/alcalde", 
-        controller: 'AlcaldeController'
+        url: "/registrar-alcalde", 
+         views:{
+          'contenedor':{templateUrl: "alcalde/alcalde",controller: 'AlcaldeController'},
+          'titulo':{template:'Registrar Alcalde'},
+          'nombre-proyecto':{templateUrl:'layouts/nombre_proyecto'}
+        }  
        })
       .state('home.registrar_personas', {
-        url: "/registrar-persona",              
-        templateUrl: "persona/persona", 
-        controller: 'PersonaController'
+        url: "/registrar-persona", 
+        views:{
+          'contenedor':{templateUrl: "persona/persona",controller: 'PersonaController'},
+          'titulo':{template:'Registrar Persona'},
+          'nombre-proyecto':{templateUrl:'layouts/nombre_proyecto'}
+        }  
        })
       .state('home.consultar_personas', {
-        url: "/consultar-persona",              
-        templateUrl: "persona/consultar_persona", 
-        controller: 'PersonaController'
+        url: "/consultar-persona",
+        views:{
+          'contenedor':{templateUrl: "persona/consultar_persona",controller: 'PersonaController'},
+          'titulo':{template:'Consultar Persona'},
+          'nombre-proyecto':{templateUrl:'layouts/nombre_proyecto'}
+        }  
        })
       .state('home.editar_personas', {
-        url: "/editar-persona/:id",              
-        templateUrl: "persona/persona", 
-        controller: 'PersonaController'
+        url: "/editar-persona/:id",
+         views:{
+          'contenedor':{templateUrl: "persona/persona",controller: 'PersonaController'},
+          'titulo':{template:'Actualizar Persona'},
+          'nombre-proyecto':{templateUrl:'layouts/nombre_proyecto'}
+        }  
        })
       .state('home.registrar_perfiles', {
-        url: "/registrar-perfiles",              
-        templateUrl: "perfiles/perfiles", 
-        controller: 'PerfilesController'
+        url: "/registrar-perfiles", 
+        views:{
+          'contenedor':{templateUrl: "perfiles/perfiles",controller: 'PerfilesController'},
+          'titulo':{template:'Registrar Perfil'},
+          'nombre-proyecto':{templateUrl:'layouts/nombre_proyecto'}
+        }  
        })
       .state('home.perfil_modulos', {
-        url: "/perfil-modulos/:id_perfil",              
-        templateUrl: "perfiles/perfil_modulos", 
-        controller: 'PerfilesController'
+        url: "/perfil-modulos/:id_perfil", 
+        views:{
+          'contenedor':{templateUrl: "perfiles/perfil_modulos",controller: 'PerfilesController'},
+          'titulo':{template:'Perfil Modulos'},
+          'nombre-proyecto':{templateUrl:'layouts/nombre_proyecto'}
+        }  
        })
       .state('home.registrar_modulos', {
-        url: "/registrar-modulo",              
-        templateUrl: "modulos/modulos", 
-        controller: 'ModulosController'
+        url: "/registrar-modulo",             
+        views:{
+          'contenedor':{templateUrl: "modulos/modulos",controller: 'ModulosController'},
+          'titulo':{template:'Registrar Modulo'},
+          'nombre-proyecto':{templateUrl:'layouts/nombre_proyecto'}
+        }  
        })
       .state('home.registrar_menus', {
-        url: "/menu/:id_modulo?",              
-        templateUrl: "menus/menus", 
-        controller: 'MenuController'
+        url: "/menu/:id_modulo?",
+         views:{
+          'contenedor':{templateUrl: "menus/menus",controller: 'MenuController'},
+          'titulo':{template:'Registrar Menu'},
+          'nombre-proyecto':{templateUrl:'layouts/nombre_proyecto'}
+        }  
        })
       .state('home.registrar_usuarios', {
-        url: "/registrar-usuarios",              
-        templateUrl: "usuario/usuario", 
-        controller: 'UsuarioController'
+        url: "/registrar-usuarios",
+         views:{
+          'contenedor':{templateUrl: "usuario/usuario",controller: 'UsuarioController'},
+          'titulo':{template:'Registrar Usuario'},
+          'nombre-proyecto':{templateUrl:'layouts/nombre_proyecto'}
+        }  
        })
        .state('home.consultar_usuarios', {
-        url: "/consultar-usuarios",              
-        templateUrl: "usuario/consultar_usuario", 
-        controller: 'UsuarioController'
+        url: "/consultar-usuarios", 
+         views:{
+          'contenedor':{templateUrl: "usuario/consultar_usuario",controller: 'UsuarioController'},
+          'titulo':{template:'Consultar Usuario'},
+          'nombre-proyecto':{templateUrl:'layouts/nombre_proyecto'}
+        }  
        })
        .state('home.editar_usuarios', {
-        url: "/editar-usuarios/:id",
-        templateUrl: "usuario/usuario", 
-        controller: 'UsuarioController'
+        url: "/editar-usuarios/:id",       
+         views:{
+          'contenedor':{templateUrl: "usuario/usuario",controller: 'UsuarioController'},
+          'titulo':{template:'Actualizar Usuario'},
+          'nombre-proyecto':{templateUrl:'layouts/nombre_proyecto'}
+        }  
        })
        .state('home.registrar_concejales', {
-        url: "/registrar-concejal",
-        templateUrl: "concejal/concejal", 
-        controller: 'ConcejalController'
+        url: "/registrar-concejal",        
+         views:{
+          'contenedor':{templateUrl: "concejal/concejal",controller: 'ConcejalController'},
+          'titulo':{template:'Registrar Concejal'},
+          'nombre-proyecto':{templateUrl:'layouts/nombre_proyecto'}
+        }  
        })
         .state('home.consultar_concejales', {
-        url: "/consultar-concejal",
-        templateUrl: "concejal/consultar_concejal", 
-        controller: 'ConcejalController'
+        url: "/consultar-concejal",       
+         views:{
+          'contenedor':{templateUrl: "concejal/consultar_concejal",controller: 'ConcejalController'},
+          'titulo':{template:'Consultar Concejal'},
+          'nombre-proyecto':{templateUrl:'layouts/nombre_proyecto'}
+        }  
        })
         .state('home.editar_concejales', {
-        url: "/editar-concejal/:id",
-        templateUrl: "concejal/concejal", 
-        controller: 'ConcejalController'
+        url: "/editar-concejal/:id",       
+        views:{
+          'contenedor':{templateUrl: "concejal/concejal",controller: 'ConcejalController'},
+          'titulo':{template:'Actualizar Concejal'},
+          'nombre-proyecto':{templateUrl:'layouts/nombre_proyecto'}
+        }  
        })
       .state('home.registrar_lideres', {
-        url: "/registrar-lider",
-        templateUrl: "lideres/lider", 
-        controller: 'LiderController'
+        url: "/registrar-lider",        
+        views:{
+          'contenedor':{templateUrl: "lideres/lider",controller: 'LiderController'},
+          'titulo':{template:'Registrar Lider'},
+          'nombre-proyecto':{templateUrl:'layouts/nombre_proyecto'}
+        }  
        })
        .state('home.consultar_lideres', {
-        url: "/consultar-lider",
-        templateUrl: "lideres/consultar_lider", 
-        controller: 'LiderController'
+        url: "/consultar-lider",       
+         views:{
+          'contenedor':{templateUrl: "lideres/consultar_lider",controller: 'LiderController'},
+          'titulo':{template:'Consultar Lider'},
+          'nombre-proyecto':{templateUrl:'layouts/nombre_proyecto'}
+        }  
        })
        .state('home.asociar_concejales', {
-        url: "/asociar-concejales/:id_lider",
-        templateUrl: "lideres/asociar_concejales", 
-        controller: 'LiderController'
+        url: "/asociar-concejales/:id_lider",       
+        views:{
+          'contenedor':{templateUrl: "lideres/asociar_concejales",controller: 'LiderController'},
+          'titulo':{template:'Asociar Concejales'},
+          'nombre-proyecto':{templateUrl:'layouts/nombre_proyecto'}
+        }  
        })
        .state('home.registrar_votantes', {
-        url: "/registrar-votante",
-        templateUrl: "votantes/votante", 
-        controller: 'VotanteController'
+        url: "/registrar-votante",        
+        views:{
+          'contenedor':{templateUrl: "votantes/votante",controller: 'VotanteController'},
+          'titulo':{template:'Registrar Votante'},
+          'nombre-proyecto':{templateUrl:'layouts/nombre_proyecto'}
+        }  
        })
        .state('home.consultar_votantes', {
-        url: "/consultar-votante",
-        templateUrl: "votantes/consultar_votante", 
-        controller: 'VotanteController'
+        url: "/consultar-votante",        
+         views:{
+          'contenedor':{templateUrl: "votantes/consultar_votante",controller: 'VotanteController'},
+          'titulo':{template:'Consultar Votante'},
+          'nombre-proyecto':{templateUrl:'layouts/nombre_proyecto'}
+        }  
        });
      
 });

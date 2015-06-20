@@ -8,7 +8,7 @@
                   <div class="fa fa-bars tooltips" data-placement="right" data-original-title="Toggle Navigation"></div>
               </div>
             <!--logo start-->
-            <a href="index.html" class="logo"><b>DASHGUM FREE</b></a>
+            <a ui-sref="home.inicio" class="logo"><b>Inicio</b></a>
             <!--logo end-->
             <div class="nav notify-row" id="top_menu">
                 <!--  notification start -->
@@ -171,11 +171,18 @@
       <!--main content start-->
       <section id="main-content">
           <section class="wrapper">
-          <h3><i class="fa fa-angle-right"></i> Control Electoral</h3>
-              <div class="row mt">
-              
-                  
-                <ui-view></ui-view>
+          <!--<ui-view name="titulo"></ui-view>-->
+          <ui-view name="nombre-proyecto"></ui-view>
+
+            <!--<ol class="breadcrumb">
+              <li><a href="../home.php"><i class="icon-dashboard"></i> Inicio</a></li>
+              <li class="active"><i class="icon-dashboard"></i>Registrar</li>
+              <li><a href="consultar.php"><i class="icon-dashboard"></i> Consultar</a></li>              
+            </ol>-->
+
+              <div class="row">
+                               
+                <ui-view name="contenedor"></ui-view>
             
              
                   
@@ -184,7 +191,7 @@
       RIGHT SIDEBAR CONTENT
       *********************************************************************************************************************************************************** -->                  
                  <!--Notificaciones--> 
-
+                 <ui-view name="notificaciones"></ui-view>
                  <!--fin Notificaciones--> 
              </div><! --/row -->
           </section>
