@@ -3,6 +3,7 @@
 use App\models\Menus;
 use App\models\PerfilModulos;
 use Auth;
+use App\Enums\EnumPerfiles;
 
 class HomeController extends Controller {
 
@@ -86,5 +87,7 @@ class HomeController extends Controller {
 	return view('inicio/home',array('menu'=>$menu));
 
 	}
+
+	
 
 }

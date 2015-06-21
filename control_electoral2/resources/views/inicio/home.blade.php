@@ -152,7 +152,7 @@
             </div>
             <div class="top-menu">
               <ul class="nav pull-right top-menu">
-                    <li><a class="logout" href="login.html">Logout</a></li>
+                    <li><a class="logout" ng-click="desloguear()" href="">Salir</a></li>
               </ul>
             </div>
         </header>
@@ -229,6 +229,7 @@
     <!--script for this page-->
     <script src="app_cliente/js/sparkline-chart.js"></script>    
     <script src="app_cliente/js/zabuto_calendar.js"></script>    
+
 
   <script type="text/javascript">
         $(document).ready(function () {

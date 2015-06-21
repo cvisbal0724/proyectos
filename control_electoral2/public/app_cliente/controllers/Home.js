@@ -18,8 +18,8 @@ confControllers.controller('HomeController', function ($scope,$location,authUsua
 
 	}
 
-	$scope.desloguear=function(){
-	     authUsuario.desloguear();	    
+	$scope.desloguear=function(){		
+	   authUsuario.desloguear();
     }  
 
 

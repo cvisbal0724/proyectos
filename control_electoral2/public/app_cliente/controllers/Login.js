@@ -19,5 +19,6 @@ confControllers.controller('LoginController', function ($scope,$location,authUsu
 				}	
 			});
 		}
+		
 
 });

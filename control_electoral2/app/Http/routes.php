@@ -36,10 +36,8 @@ Route::get('layouts/nombre_proyecto',function(){
 	return view('layouts/nombre_proyecto');
 });
 
-Route::get('inicio/dashboard',function(){
-	return view('inicio/dashboard');
-});
-
+Route::get('inicio/dashboard','DashBoardController@index');
+	
 Route::get('layouts/notificaciones',function(){
 	return view('layouts/notificaciones');
 });
@@ -121,6 +119,10 @@ Route::get('votantes/votante','VotanteController@index');
 
 Route::get('votantes/consultar_votante',function(){
 	return view('votantes/consultar_votante');
+});
+
+Route::get('graficos/graficos',function(){
+	return view('graficos/graficos');
 });
 
 //servicios

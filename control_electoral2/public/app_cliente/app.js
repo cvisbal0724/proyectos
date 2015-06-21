@@ -16,12 +16,12 @@ App.config(function($urlRouterProvider, $stateProvider) {
       .state('home', {
         url: "/inicio",              
         templateUrl: "inicio/home", 
-        //controller: 'HomeController'
+        controller: 'HomeController'
        })
       .state('home.inicio', {
         url: "/",        
         views:{
-          'contenedor':{templateUrl: "inicio/dashboard",},
+          'contenedor':{templateUrl: "inicio/dashboard",controller:'HomeController'},
           'notificaciones':{templateUrl:'layouts/notificaciones'}
         }              
          
@@ -192,6 +192,14 @@ App.config(function($urlRouterProvider, $stateProvider) {
           'titulo':{template:'Consultar Votante'},
           'nombre-proyecto':{templateUrl:'layouts/nombre_proyecto'}
         }  
+       })
+       .state('home.graficos', {
+        url: "/graficos",        
+         views:{
+          'contenedor':{templateUrl: "graficos/graficos",controller: 'VotanteController'},
+          'titulo':{template:'Consultar Votante'},
+          'nombre-proyecto':{templateUrl:'layouts/nombre_proyecto'}
+        }  
        });
      
 });
@@ -243,7 +251,7 @@ confControllers.factory('authUsuario',function($http,$location,SessionService,Se
             }).success(function(){
                 //eliminamos la sesión de sessionStorage
                 SessionSet.unCacheSession();
-                //$state.go("login");
+                $state.go("login");
                 //$route.reload();
             });
         },        

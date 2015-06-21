@@ -105,7 +105,7 @@ public function Consultar(Request $request){
 			->leftJoin('personas as p3','c.id_persona','=','p3.id')
 			->select(DB::raw("l.id,ifnull(lc.meta,'N/A') as meta,concat(p.nombre,' ',p.apellido) as lider,
 			concat(p2.nombre,' ',p2.apellido) as encargado,ifnull(concat(p3.nombre,' ', p3.apellido),'N/A') as concejal,
-			al.nombre as alcalde"))
+			al.nombre as alcalde,(select count(v.id) from votantes v where v.id_lider=l.id) as votos"))
 			->groupBy(DB::raw('lc.meta,p.cedula,p2.cedula,p3.cedula'));
 		$paginado=10;
 

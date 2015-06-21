@@ -1,10 +1,12 @@
 
                   <div class="col-lg-9 main-chart">
-                  
+                   <h4 class="mb"><i class="fa fa-angle-right"></i> 
+                     Inicio
+                     </h4>
                   	<div class="row mtbox">
-                  		<div class="col-md-2 col-sm-2 col-md-offset-1 box0">
+                  		<!--<div class="col-md-2 col-sm-2 col-md-offset-1 box0">
                   			<div class="box1">
-					  			<!--<span class="li_heart"></span>-->
+					  			
                                                 <i class="fa fa-user-plus fa-5x"></i>
 					  			<h3>933</h3>
                   			</div>
@@ -37,8 +39,31 @@
 					  			<h3>OK!</h3>
                   			</div>
 					  			<p>Your server is working perfectly. Relax & enjoy.</p>
-                  		</div>
+                  		</div>-->
                   	
+                              @foreach($lista as $key=>$item)
+                              @if($key==0)
+                              <div class="col-md-2 col-sm-2 col-md-offset-1 box0">
+                                    <div class="box1">
+                                                <i class="fa fa-user-plus fa-5x" style="color:#ec971f"></i>
+                                                <h3>[[$item->votos]]</h3>
+                                                <h6>Lider, [[$item->lider]]</h6>
+                                    </div>
+                                                 <p>Cantidad de votos</p>
+                              </div>
+                              @endif
+                              @if($key>0)
+                               <div class="col-md-2 col-sm-2 box0">
+                                    <div class="box1">
+                                                <i class="fa fa-user-plus fa-5x" style="color:#ec971f"></i>
+                                                <h3>[[$item->votos]]</h3>
+                                                <h6>Lider, [[$item->lider]]</h6>
+                                    </div>
+                                                <p>Cantidad de votos</p>
+                              </div>
+                              @endif
+                              @endforeach
+
                   	</div><!-- /row mt -->	
 
                       </div>  
