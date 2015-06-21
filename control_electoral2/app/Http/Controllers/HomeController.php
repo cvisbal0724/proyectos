@@ -1,6 +1,8 @@
 <?php namespace App\Http\Controllers;
 
 use App\models\Menus;
+use App\models\PerfilModulos;
+use Auth;
 
 class HomeController extends Controller {
 
@@ -32,7 +34,15 @@ class HomeController extends Controller {
 	 */
 	public function index()
 	{
-		$lista= Menus::all();
+		$usuario=Auth::User();
+		$perfilMod= PerfilModulos::where('id_perfil','=',$usuario->id_perfil)->get();
+		$modulos=array();
+		foreach ($perfilMod as $key => $item) {
+			$modulos[$key]=$item->id_modulo;
+		}
+
+		$lista=Menus::whereIn('id_modulo',$modulos)->get();
+
 		$menu=array();
 
 	$i=-1;	

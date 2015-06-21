@@ -239,7 +239,7 @@ confControllers.factory('authUsuario',function($http,$location,SessionService,Se
 		  desloguear : function(){
             return $http({
                 method:'GET',
-                url : "usuario/desloguear"
+                url : "inicio/desloguear"
             }).success(function(){
                 //eliminamos la sesión de sessionStorage
                 SessionSet.unCacheSession();
@@ -248,10 +248,10 @@ confControllers.factory('authUsuario',function($http,$location,SessionService,Se
             });
         },        
 		    verificarLogueo : function(){               
-            var authUser = $http({method:'GET',url:'usuario/verificarlogueo'});
+            var authUser = $http({method:'GET',url:'inicio/verificarlogueo'});
             authUser.success(function(response){
 
-              if (response.id > 0) {
+              if (response.auth) {
                   SessionSet.cacheSession(response);                 
                   return SessionService.get("auth");
               }

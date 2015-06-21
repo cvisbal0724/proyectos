@@ -28,12 +28,50 @@ class AtenticacionController extends Controller {
 				);
 			    return $usuario;
 			}else{
-				return $usuario;
+				return array('show'=>true,'alert'=>'warning','msg'=>'Creadenciales invalidas.');
 			}
 
 		} catch (Exception $e) {
-			return $e;
+			return array('show'=>true,'alert'=>'warning','msg'=>$e->getMessage());
 		}
+	}
+
+	public function Desloguear(){
+		try {
+			Auth::logout();
+			$usuario=array(
+					'auth'=>false,
+					'nombre'=>'',
+					'_token'=>csrf_token()
+				);
+			return $usuario;
+		} catch (Exception $e) {
+			return $e;
+		}		
+	}
+
+	public function VerificarLogueo(){
+		try {
+			
+			$usuario=array();
+			if (Auth::check()) {				
+				$usuario=array(
+					'auth'=>Auth::check(),
+					'nombre'=>Auth::User()->persona->nombre . ' ' . Auth::User()->persona->apellido,
+					'_token'=>csrf_token()
+				);
+			}else{
+				$usuario=array(
+					'auth'=>false,
+					'nombre'=>'',
+					'_token'=>csrf_token()
+				);
+			}
+			
+			return $usuario;
+		} catch (Exception $e) {
+			return $e;
+		}		
 	}
 	
 }

@@ -2,7 +2,7 @@
  <div class="form-panel">  
   
   <h4 class="mb"><i class="fa fa-angle-right"></i> 
-   Registrar Persona
+   Agregar nueva persona Persona
    </h4>
 
        <div class="panel-body">

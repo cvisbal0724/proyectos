@@ -2,6 +2,7 @@ confControllers.controller('LoginController', function ($scope,$location,authUsu
 
 		
 		$scope.loginVO={usuario:'', clave:'',_token:angular.element('#hd_token').val()};
+		$scope.result={};
 
 		$scope.loguear = function(){
 
@@ -13,6 +14,8 @@ confControllers.controller('LoginController', function ($scope,$location,authUsu
 
 					SessionSet.cacheSession(response);
 					$state.go('home.inicio');
+				}else{
+					$scope.result=response;
 				}	
 			});
 		}

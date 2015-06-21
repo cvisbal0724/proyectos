@@ -43,6 +43,22 @@ confControllers.controller('PersonaController', function ($scope,$location,authU
 	      });
 	}
 
+$scope.crear_nueva_persona=function(){
+		
+		if ($scope.personaVO.cedula=='') {$scope.result={"show":true,"alert":"warning","msg":"Ingrese la cedula."}; return false;};	
+		if ($scope.personaVO.nombre=='') {$scope.result={"show":true,"alert":"warning","msg":"Ingrese el nombre."}; return false;};	
+		if ($scope.personaVO.apellido=='') {$scope.result={"show":true,"alert":"warning","msg":"Ingrese el apellido."}; return false;};	
+		
+		$http.post("persona/crearnuevapersona",$scope.personaVO).success(function(data, status, headers, config) {
+		
+		 	$scope.result=data;
+		 	if (data.alert=='success') {		 		
+		 		$scope.nuevo();
+		 	};
+		 	
+	      });
+	}
+
 	$scope.actualizar=function(){
 		
 		if ($scope.personaVO.cedula=='') {$scope.result={"show":true,"alert":"warning","msg":"Ingrese la cedula."}; return false;};	
@@ -51,6 +67,22 @@ confControllers.controller('PersonaController', function ($scope,$location,authU
 		if ($scope.personaVO.id_alcalde=='') {$scope.result={"show":true,"alert":"warning","msg":"Seleccione el alcalde."}; return false;};	
 	
 		$http.post("persona/actualizar",$scope.personaVO).success(function(data, status, headers, config) {
+		
+		 	$scope.result=data;
+		 	if (data.alert=='success') {		 		
+		 		$state.go('home.consultar_personas');
+		 	};
+		 	
+	      });
+	}
+
+$scope.actualizar_nueva_persona=function(){
+		
+		if ($scope.personaVO.cedula=='') {$scope.result={"show":true,"alert":"warning","msg":"Ingrese la cedula."}; return false;};	
+		if ($scope.personaVO.nombre=='') {$scope.result={"show":true,"alert":"warning","msg":"Ingrese el nombre."}; return false;};	
+		if ($scope.personaVO.apellido=='') {$scope.result={"show":true,"alert":"warning","msg":"Ingrese el apellido."}; return false;};	
+			
+		$http.post("persona/actualizarnuevapersona",$scope.personaVO).success(function(data, status, headers, config) {
 		
 		 	$scope.result=data;
 		 	if (data.alert=='success') {		 		

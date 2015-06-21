@@ -129,6 +129,7 @@ Blade::setEscapedContentTags('[[[', ']]]');
 
 /*Login*/
 Route::post('inicio/loguear','AtenticacionController@Loguear');
+Route::get('inicio/desloguear','AtenticacionController@Desloguear');
 /*End login*/
 
 /*Partido*/

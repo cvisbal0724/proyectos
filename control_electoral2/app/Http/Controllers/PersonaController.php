@@ -7,6 +7,7 @@ use Illuminate\Http\Request;
 use App\models\Excepciones;
 use App\models\Personas;
 use File;
+use Auth;
 
 class PersonaController extends Controller {
 
@@ -103,6 +104,57 @@ class PersonaController extends Controller {
 			->orderBy('nombre','asc')->get();
 		}		
 		return array();
+	}
+
+	public function CrearNuevaPersona(Request $request){
+		try {
+
+			$usuario=Auth::User();
+			$persona=Personas::where('cedula','=',$request->input('cedula'))->where('id_alcalde','=',$usuario->persona->id_alcalde)->get();
+
+			if (count($persona)>0) {
+				return array('show'=>true,'alert'=>'warning','msg'=>'Ya existe una persona con esta cedula.');	
+			}
+
+			$rs=Personas::create(array(
+				'cedula'=>$request->input('cedula'),
+				'nombre'=>$request->input('nombre'),
+				'apellido'=>$request->input('apellido'),
+				'telefono'=>$request->input('telefono'),
+				'direccion'=>$request->input('direccion'),
+				'correo'=>$request->input('correo'),
+				'id_alcalde'=>$usuario->persona->id_alcalde
+			));
+
+			return $rs['id'] > 0 ? array('show'=>true,'alert'=>'success','msg'=>'Persona guardada satisfactoriamente.') :
+					array('show'=>true,'alert'=>'warning','msg'=>'No se pudo guardar la persona.');
+			
+		} catch (Exception $e) {
+			Excepciones::Crear($e,'PersonaController','CrearNuevaPersona');
+			return array('show'=>true,'alert'=>'warning','msg'=>$e->getMessage());;
+		}
+	}
+
+	public function ActualizarNuevaPersona(Request $request){
+		try {
+
+				$persona=Personas::find($request->input('id'));
+			
+				$persona->cedula=$request->input('cedula');
+				$persona->nombre=$request->input('nombre');
+				$persona->apellido=$request->input('apellido');
+				$persona->telefono=$request->input('telefono');
+				$persona->direccion=$request->input('direccion');
+				$persona->correo=$request->input('correo');				
+				$rs=$persona->save();
+
+			return $rs > 0 ? array('show'=>true,'alert'=>'success','msg'=>'Persona guardada satisfactoriamente.') :
+					array('show'=>true,'alert'=>'warning','msg'=>'No se pudo guardar la persona.');
+			
+		} catch (Exception $e) {
+			Excepciones::Crear($e,'PersonaController','Actualizar');
+			return array('show'=>true,'alert'=>'warning','msg'=>$e->getMessage());
+		}
 	}
 
 }

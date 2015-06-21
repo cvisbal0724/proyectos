@@ -8,6 +8,7 @@
     <meta name="description" content="">
     <meta name="author" content="Dashboard">
     <meta name="keyword" content="Dashboard, Bootstrap, Admin, Template, Theme, Responsive, Fluid, Retina">
+    <meta name="_token" content="[[csrf_token()]]">
 
     <title>SB Admin 2 - Bootstrap Admin Theme</title>
 
