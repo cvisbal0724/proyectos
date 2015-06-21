@@ -104,7 +104,8 @@ App.config(function($urlRouterProvider, $stateProvider) {
          views:{
           'contenedor':{templateUrl: "usuario/usuario",controller: 'UsuarioController'},
           'titulo':{template:'Registrar Usuario'},
-          'nombre-proyecto':{templateUrl:'layouts/nombre_proyecto'}
+          'nombre-proyecto':{templateUrl:'layouts/nombre_proyecto'},
+          'persona':{templateUrl:'persona/nueva_persona',controller:'PersonaController'}
         }  
        })
        .state('home.consultar_usuarios', {
@@ -120,7 +121,8 @@ App.config(function($urlRouterProvider, $stateProvider) {
          views:{
           'contenedor':{templateUrl: "usuario/usuario",controller: 'UsuarioController'},
           'titulo':{template:'Actualizar Usuario'},
-          'nombre-proyecto':{templateUrl:'layouts/nombre_proyecto'}
+          'nombre-proyecto':{templateUrl:'layouts/nombre_proyecto'},
+          'persona':{templateUrl:'persona/nueva_persona',controller:'PersonaController'}
         }  
        })
        .state('home.registrar_concejales', {
@@ -128,7 +130,8 @@ App.config(function($urlRouterProvider, $stateProvider) {
          views:{
           'contenedor':{templateUrl: "concejal/concejal",controller: 'ConcejalController'},
           'titulo':{template:'Registrar Concejal'},
-          'nombre-proyecto':{templateUrl:'layouts/nombre_proyecto'}
+          'nombre-proyecto':{templateUrl:'layouts/nombre_proyecto'},
+          'persona':{templateUrl:'persona/nueva_persona',controller:'PersonaController'}
         }  
        })
         .state('home.consultar_concejales', {
@@ -144,7 +147,8 @@ App.config(function($urlRouterProvider, $stateProvider) {
         views:{
           'contenedor':{templateUrl: "concejal/concejal",controller: 'ConcejalController'},
           'titulo':{template:'Actualizar Concejal'},
-          'nombre-proyecto':{templateUrl:'layouts/nombre_proyecto'}
+          'nombre-proyecto':{templateUrl:'layouts/nombre_proyecto'},
+          'persona':{templateUrl:'persona/nueva_persona',controller:'PersonaController'}
         }  
        })
       .state('home.registrar_lideres', {
@@ -152,7 +156,8 @@ App.config(function($urlRouterProvider, $stateProvider) {
         views:{
           'contenedor':{templateUrl: "lideres/lider",controller: 'LiderController'},
           'titulo':{template:'Registrar Lider'},
-          'nombre-proyecto':{templateUrl:'layouts/nombre_proyecto'}
+          'nombre-proyecto':{templateUrl:'layouts/nombre_proyecto'},
+          'persona':{templateUrl:'persona/nueva_persona',controller:'PersonaController'}
         }  
        })
        .state('home.consultar_lideres', {
@@ -176,7 +181,8 @@ App.config(function($urlRouterProvider, $stateProvider) {
         views:{
           'contenedor':{templateUrl: "votantes/votante",controller: 'VotanteController'},
           'titulo':{template:'Registrar Votante'},
-          'nombre-proyecto':{templateUrl:'layouts/nombre_proyecto'}
+          'nombre-proyecto':{templateUrl:'layouts/nombre_proyecto'},
+          'persona':{templateUrl:'persona/nueva_persona',controller:'PersonaController'}
         }  
        })
        .state('home.consultar_votantes', {

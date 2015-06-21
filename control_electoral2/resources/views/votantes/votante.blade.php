@@ -83,9 +83,14 @@
             <div class="panel panel-default">
        <div class="panel-heading">
           Informacion de la persona 
-       </div>  
+       </div> 
+      
+       <div class="panel-body">   
 
-       <div class="panel-body">         
+       <a href="" data-toggle="modal" data-target="#modalPersona" title="Agregar Persona">
+         <i class="fa fa-plus fa-2x"></i>
+       </a>
+       
         <div class="form-group">
 
             <div class="form-group input-group">
@@ -123,3 +128,4 @@
 
  </div>
 </div>
+

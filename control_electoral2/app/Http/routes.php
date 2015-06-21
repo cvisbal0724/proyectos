@@ -64,6 +64,11 @@ Route::get('persona/persona',function(){
 	return view('persona/persona',array('alcaldes'=>$lista));
 });
 
+Route::get('persona/nueva_persona',function(){
+
+	return view('persona/nueva_persona');
+});
+
 Route::get('persona/consultar_persona',function(){
 	return view('persona/consultar_persona');
 });
@@ -141,7 +146,9 @@ Route::get('alcalde/consultarporcodigo/{id}','AlcaldeController@ConsultarPorCodi
 
 /*Persona*/
 Route::post('persona/crear','PersonaController@Crear');
+Route::post('persona/crearnuevapersona','PersonaController@CrearNuevaPersona');
 Route::post('persona/actualizar','PersonaController@Actualizar');
+Route::post('persona/actualizarnuevapersona','PersonaController@ActualizarNuevaPersona');
 Route::post('persona/consultar','PersonaController@Consultar');
 Route::get('persona/consultarporcodigo/{id}','PersonaController@ConsultarPorCodigo');
 Route::post('persona/consultarporcriterios','PersonaController@ConsultarPorCriterios');

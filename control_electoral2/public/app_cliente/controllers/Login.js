@@ -12,7 +12,7 @@ confControllers.controller('LoginController', function ($scope,$location,authUsu
 				if (response.auth) {
 
 					SessionSet.cacheSession(response);
-					$state.go('home');
+					$state.go('home.inicio');
 				}	
 			});
 		}
