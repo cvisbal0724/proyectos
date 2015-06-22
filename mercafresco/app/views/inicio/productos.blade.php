@@ -24,9 +24,9 @@
             
                <div class="ruler with-header" ng-repeat-start='prod in listaProductos'>
                   <header class="">
-                     <h2><a href="" ng-click='buscarporcategoria_2(prod.id_categoria,prod.categoria)'>{{ prod.categoria.toLowerCase().capitalizeFirstLetter() }}</a></h2>
+                     <h2><a class="link-categoria" ng-click='buscarporcategoria_2(prod.id_categoria,prod.categoria)'>{{ prod.categoria.toLowerCase().capitalizeFirstLetter() }}</a></h2>
                       
-                       <a ng-if='!idcategoria > 0' class="btn btn-default" ng-click='buscarporcategoria_2(prod.id_categoria,prod.categoria)' role="button">Ver más</a>
+                       <a ng-if='!idcategoria > 0' class="btn btn-default link-categoria" ng-click='buscarporcategoria_2(prod.id_categoria,prod.categoria)' role="button">Ver más</a>
                     
                   </header>
                </div>

@@ -2,7 +2,7 @@
         <div class="container-fluid">
           <ul class="nav navbar-nav">
             <li><a ui-sref="productos" class="home-icon"> <span class="glyphicon glyphicon-home"></span></a></li>
-            <li><a href="" id="categoria-toggle" ng-click='abrirCategorias()'> Categorias<span class="sr-only">(current)</span></a></li>
+            <li><a href="" id="categoria-toggle" ng-click='abrirCategorias()'> Categorías<span class="sr-only">(current)</span></a></li>
            @include('layouts.masInformacion')
           </ul>
           <div class="pull-right">

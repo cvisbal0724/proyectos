@@ -8,7 +8,7 @@
             </div>
             <!-- /.panel-heading -->
             <div class="panel-body">
-              <p>Seleccione una dirección donde desee que llegue sus productos. Solo mostrará las direcciones que el proveedor tiene disponible.</p>
+              <h4>¿Donde desea que le entreguemos su pedido?</h4>
               <div class="row">
                 <hr>
                 <div class="col-md-4" ng-repeat='item in listaDirecciones'>
@@ -89,8 +89,8 @@
               <!-- /.row -->
               <hr>
               <p>
-              <a class="btn btn-primary btn-lg pull-left" ui-sref='productos'>Atras</a>
-                <a class="btn btn-primary btn-lg pull-right" data-toggle="modal" data-target="#modalDireccion">Agregar Direccion</a>
+              <a class="btn btn-primary btn-lg pull-left" ui-sref='productos'>Atrás</a>
+                <a class="btn btn-primary btn-lg pull-right" data-toggle="modal" data-target="#modalDireccion">Crear Dirección</a>
               </p>
             </div>
           </div>

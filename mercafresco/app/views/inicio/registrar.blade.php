@@ -16,7 +16,7 @@
                     </div>
                     <!--<div class="col-md-6"><a href="" class="btn btn-lg btn-danger btn-block"><span class="fa  fa-google"></span>       Ingresar con Google</a></div>-->
                   </div>
-                  <h4 class="text-center btn-block">Ó registrate con email</h4>
+                  <h4 class="text-center btn-block">Ó regístrate con email</h4>
                   <!--<h4 class="text-warning btn-block">Datos personales</h4>-->
 
                  
@@ -28,7 +28,7 @@
                       </div>
                    
                       <div class="form-group">
-                        <label>Numero Documento</label>
+                        <label>Número Documento</label>
                         <input class="form-control" ng-model='cuenta.no_identificacion'>
                         <p>(*) Ingrese su documento de identidad</p>                        
                       </div>

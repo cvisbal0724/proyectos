@@ -3,7 +3,7 @@
 class PQR extends \Eloquent {
 	protected $table = 'pqr';
 	protected $primaryKey='ID';
-	protected $with = array('TipoPQR');	
+	protected $with = array('tipopqr');	
 	protected $guarded = array();
 	public static $rules = array();
 	public $timestamps = false;

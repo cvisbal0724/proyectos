@@ -24,7 +24,7 @@
             </tr>
              <tr>
               <td>
-               <label>DIRECCION:</label>
+               <label>DIRECCIÓN:</label>
               </td>
               <td>Cra 76 No. 81ª-15 Barrio Paraíso, Barranquilla - Colombia</td>
             </tr>   
@@ -48,4 +48,5 @@
          	 </div>
 		</div>
       </div>
+       @include('layouts.footer')
 </div>

@@ -2,7 +2,7 @@
       <div class="row">
 		<div class="col-md-8 col-md-offset-2">
          	<div class='panel-body'>
-					<h3 class="text-center btn-block color-texto">POLITICAS DE PRIVACIDAD</h3>
+					<h3 class="text-center btn-block color-texto">POLÍTICAS DE PRIVACIDAD</h3>
 					<br>
 					<br>
 					<br>
@@ -149,4 +149,5 @@
          	 </div>
 		</div>
       </div>
+       @include('layouts.footer')
 </div>

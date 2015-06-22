@@ -48,9 +48,9 @@
               </div>
               <hr>
               <p>
-                <a class="btn btn-primary btn-lg pull-left" ui-sref='direcciones'>Atras</a>
+                <a class="btn btn-primary btn-lg pull-left" ui-sref='direcciones'>Atrás</a>
                 <!--<a class="btn btn-danger btn-lg pull-right" ng-controller='OrdenServicioController' ng-click='crear_ordenservicio()'>Pon tu orden aquí</a>-->
-                <a class="btn btn-danger btn-lg pull-right" ng-click='irMetodos_de_pago()'>Metodos de pagos</a>
+                <a class="btn btn-danger btn-lg pull-right" ng-click='irMetodos_de_pago()'>Siguiente</a>
 
               </p>
             </div>

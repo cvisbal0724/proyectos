@@ -76,3 +76,12 @@
   background-color:rgba(118, 147, 71, 0.9) !important;
   color: white !important;
  }
+
+ .link-categoria{
+  color:rgb(131,152,76) !important;
+  cursor: pointer;  
+ }
+
+ .link-categoria:hover{
+  color:rgb(93, 131, 47) !important;
+ }

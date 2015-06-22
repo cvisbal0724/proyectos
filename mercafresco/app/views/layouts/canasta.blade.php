@@ -8,7 +8,7 @@
             <li class="sidebar-brand">
               <a href="">
               <span class="pull-right"><span class="label label-warning">{{ totalCanasta | currency:'$':0 }}</span></span>
-              <span class="pull-left"><span class="label label-warning">{{totalUnidades}}</span> articulos</span>
+              <span class="pull-left"><span class="label label-warning">{{totalUnidades}}</span> artículos</span>
               </a>
             </li>
             <table class="table table-hover" data-height="299" ng-init='total=item.precio'>

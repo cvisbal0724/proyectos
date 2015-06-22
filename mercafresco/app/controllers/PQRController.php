@@ -19,6 +19,20 @@ class PQRController extends \BaseController {
 			'ESTADO'=>1,
 		));
 
+		$pqr=PQR::find($rs['ID']);
+
+		$data=array(			
+			'nombre'=>$pqr->NOMBRES . ' ' . $pqr->APELLIDOS,			
+			'correo'=>$pqr->EMAIL,
+			'telefono'=>$pqr->TELEFONO,
+			'comentario'=>$pqr->COMENTARIO,			
+			'sujerencia'=>$pqr->tipopqr->NOMBRE
+			);
+
+		 Mail::send('mas_informacion/plantilla_pqr', $data, function($message){
+		        $message->to('cvisbal0724@gmail.com', Input::get('nombres').' '.Input::get('apellidos'))->subject('Mensaje PQR');
+		 });
+
 		DB::commit();
 		return $rs['ID'] > 0 ? array('alert'=>'success','msg'=>'Susugerencia fue enviada satisfactoriamente.','show'=>true) :
 		array('alert'=>'danger','msg'=>'Su Susugerencia no pudo ser enviada estamos trabajando para mejorar nuestro servicio.','show'=>true);

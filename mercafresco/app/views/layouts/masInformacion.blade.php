@@ -1,5 +1,5 @@
 <li class="dropdown">
-              <a href="" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">Mas informacion<span class="caret"></span></a>
+              <a href="" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">Mas información<span class="caret"></span></a>
               <ul class="dropdown-menu" role="menu">
                 <li><a ui-sref="nosotros">Nosotros</a></li>
                 <li><a ui-sref="donde_llegamos">Donde llegamos</a></li>

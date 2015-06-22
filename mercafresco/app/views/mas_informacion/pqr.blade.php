@@ -70,7 +70,7 @@
              
         </div>
      </div>
-     <ng-include src="'layouts/footer'"></ng-include>
+      @include('layouts.footer')
 </div>
 
  
