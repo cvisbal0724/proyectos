@@ -38,7 +38,7 @@
 
             @endif
             @if(count($item['hijos'])==0)
-            <li class="mt">
+            <li class="sub-menu">
             <a ui-sref='[[ $item["url"] ]]' href="/home">
                 <i class="fa fa-dashboard fa-fw"></i> 
                 <span>[[ $item['etiqueta'] ]]</span>

@@ -38,17 +38,13 @@ class LiderController extends Controller {
 			   'id_encargado'=>Auth::user()->id				
 		   ));
 			
-			$concejal=Concejales::where('id_persona','=',Auth::user()->persona->id)->first();
-			if ($concejal) {
+			$concejal=Concejales::where('id_persona','=',Auth::user()->persona->id)->get();
+			if (count($concejal)>0) {
 				 LiderConcejales::create(array(
 			   	'meta'=>$request->input('meta'),
 			   	'id_lider'=>$rs['id'],
-			   	'id_concejal'=>$concejal->id
+			   	'id_concejal'=>$concejal[0]->id
 			   	));
-			}else{			
-
-				//DB::rollback();
-				//return array('show'=>true,'alert'=>'warning','msg'=>'Usted no tiene permitido crear lider, consulte su administrador.');
 			}
 		  
 	   		DB::commit();

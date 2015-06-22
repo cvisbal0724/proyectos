@@ -35,6 +35,9 @@ class HomeController extends Controller {
 	 */
 	public function index()
 	{
+		try {
+			
+		
 		$usuario=Auth::User();
 		$perfilMod= PerfilModulos::where('id_perfil','=',$usuario->id_perfil)->get();
 		$modulos=array();
@@ -85,7 +88,9 @@ class HomeController extends Controller {
 	}
 
 	return view('inicio/home',array('menu'=>$menu));
-
+		} catch (Exception $e) {
+			return $e;
+		}
 	}
 
 	

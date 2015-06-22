@@ -121,9 +121,8 @@ Route::get('votantes/consultar_votante',function(){
 	return view('votantes/consultar_votante');
 });
 
-Route::get('graficos/graficos',function(){
-	return view('graficos/graficos');
-});
+Route::get('graficos/graficos','GraficosController@index');
+
 
 //servicios
 Blade::setContentTags('[[', ']]'); 
