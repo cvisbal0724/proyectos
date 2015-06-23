@@ -71,6 +71,11 @@
    
    </div>   
 @include('inicio.cupon')
+
+<span id="siteseal">
+        <script type="text/javascript" src="https://seal.godaddy.com/getSeal?sealID=etzfCu8l1WRRWnfSPxh3ICRPGMZElLi5DiH48GH32F7IsYkqzXcuHKMpKRiJ"></script>
+ </span>
+
 </body>
 
   <!-- /#wrapper -->
