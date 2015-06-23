@@ -5,6 +5,7 @@ use App\Http\Controllers\Controller;
 
 use Illuminate\Http\Request;
 use DB;
+
 class GraficosController extends Controller {
 
 	
@@ -26,6 +27,9 @@ class GraficosController extends Controller {
 		return view('graficos/graficos',array('lista'=>$consulta));
 	}
 
-	
+	public function test(){
+		$request= new Request();
+		return redirect(fullUrl().'/#/inicio/graficos');
+	}
 
 }

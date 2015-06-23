@@ -123,7 +123,7 @@ Route::get('votantes/consultar_votante',function(){
 
 Route::get('graficos/graficos','GraficosController@index');
 
-
+Route::get('tt','GraficosController@test');
 //servicios
 Blade::setContentTags('[[', ']]'); 
 Blade::setEscapedContentTags('[[[', ']]]');

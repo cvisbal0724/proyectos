@@ -2,17 +2,19 @@
  <section class="wrapper site-min-height">
  
  <div class="row mt">
-  <div class="col-lg-6">
+ <div class="col-lg-6">
     <div id="pie-chart"></div>
  </div>
   <div class="col-lg-6">    
-    <div id="column-chart" style="min-width: 310px; height: 400px; margin: 0 auto"></div>
+    <div id="column-chart"></div>
  </div>
  </div>                      
 
  
 </section>
- 
+ <script src="app_cliente/js/charts/highcharts.js"></script>
+<script src="app_cliente/js/charts/modules/exporting.js"></script>
+
 <script type="text/javascript">
 $(function () {
     $('#pie-chart').highcharts({
@@ -22,7 +24,7 @@ $(function () {
             plotShadow: false
         },
         title: {
-            text: 'Votacion por partidos 2015'
+            text: 'Votación por partidos 2015'
         },
         tooltip: {
             pointFormat: '{series.name}: <b>{point.percentage:.1f}%</b>'
@@ -50,15 +52,59 @@ $(function () {
             ]
         }]
     });
+
+    $('#column-chart').highcharts({
+        chart: {
+            type: 'column'
+        },
+        title: {
+            text: 'Votación 2015'
+        },
+        subtitle: {
+            text: 'Source: <a href="http://en.wikipedia.org/wiki/List_of_cities_proper_by_population">Wikipedia</a>'
+        },
+        xAxis: {
+            type: 'category',
+            labels: {
+                rotation: -45,
+                style: {
+                    fontSize: '13px',
+                    fontFamily: 'Verdana, sans-serif'
+                }
+            }
+        },
+        yAxis: {
+            min: 0,
+            title: {
+                text: 'Population (millions)'
+            }
+        },
+        legend: {
+            enabled: false
+        },
+        tooltip: {
+            pointFormat: 'Population in 2008: <b>{point.y:.1f} millions</b>'
+        },
+        series: [{
+            name: 'Population',
+            data: [
+                @foreach ($lista as $key => $item)
+                   [ '[[$item->nombre]]', [[$item->votos]] ],
+                @endforeach
+            ],
+            dataLabels: {
+                enabled: true,
+                rotation: -90,
+                color: '#ffd777',
+                align: 'right',
+                format: '{point.y:.1f}', // one decimal
+                y: 10, // 10 pixels down from the top
+                style: {
+                    fontSize: '13px',
+                    fontFamily: 'Verdana, sans-serif'
+                }
+            }
+        }]
+    });
 });
-
-
-    </script>
-
-<script src="app_cliente/js/charts/highcharts.js"></script>
-<script src="app_cliente/js/charts/modules/exporting.js"></script>
-
-
-
-
-               
+        </script>   
