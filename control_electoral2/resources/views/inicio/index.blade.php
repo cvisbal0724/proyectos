@@ -86,7 +86,7 @@
     <script src="app_cliente/js/sparkline-chart.js"></script>    
     <script src="app_cliente/js/zabuto_calendar.js"></script>    
 
-        
+       
 
 </head>
 
@@ -95,8 +95,7 @@
    <ui-view></ui-view>
 
    
-
-       
+      
 
     <script type="text/javascript" src="app_cliente/lib/angular/angular.min.js"></script>
     <script type="text/javascript" src="app_cliente/lib/angular/angular-ui-router.min.js"></script>
@@ -118,6 +117,8 @@
     <script type="text/javascript" src="app_cliente/controllers/Concejal.js"></script>
     <script type="text/javascript" src="app_cliente/controllers/Lider.js"></script>
     <script type="text/javascript" src="app_cliente/controllers/Votante.js"></script>
+  
+     <script type="text/javascript" src="app_cliente/controllers/Graficos.js"></script>
 
  <div id='loading' loading-indicator>
    

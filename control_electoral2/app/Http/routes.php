@@ -209,6 +209,10 @@ Route::post('votante/crear','VotanteController@Crear');
 Route::post('votante/consultar','VotanteController@Consultar');
 /*Fin votante*/
 
+/*graficos*/
+Route::get('graficos/consultar','GraficosController@Consultar');
+/*fin graficos*/
+
 use App\models\Menus;
 use App\Enums\EnumPerfiles;
 Route::get('test',function(){

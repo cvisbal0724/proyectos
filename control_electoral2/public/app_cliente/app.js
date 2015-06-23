@@ -196,7 +196,7 @@ App.config(function($urlRouterProvider, $stateProvider) {
        .state('home.graficos', {
         url: "/graficos",        
          views:{
-          'contenedor':{templateUrl: "graficos/graficos"},
+          'contenedor':{templateUrl: "graficos/graficos" /*, controller:'GraficosController'*/},
           'titulo':{template:'Consultar Votante'},
           'nombre-proyecto':{templateUrl:'layouts/nombre_proyecto'}
         }  
