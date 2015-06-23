@@ -221,7 +221,7 @@ $scope.vistaactual=$state.current.name;
   $scope.checkout=function(){
 
       if (authUsuario.isLoggedIn()) {
-        if ($scope.totalCanasta > 30000 && $scope.totalCanasta > 0) {          
+        if ($scope.totalCanasta < 2000 && $scope.totalCanasta > 0) {          
           $scope.mensaje='Lo sentimos, el valor minimo para realizar la compra es de $30.000.';
           $('#modalValidarProducto').modal('show');
         }
