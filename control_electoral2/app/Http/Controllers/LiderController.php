@@ -178,6 +178,7 @@ public function EliminarLiderConcejal(Request $request){
 	$obj=LiderConcejales::where('id_lider','=',$request->input('id_lider'))
 	->where('id_concejal','=',$request->input('id_concejal'))->first();
 	$obj->delete();
+	
 }
 
 }

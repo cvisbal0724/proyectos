@@ -7,7 +7,7 @@ $scope.criterio='';
 $scope.listaPersonas=[];
 $scope.listaConcejales=[];
 $scope.criterios={criterio:''};
-
+$scope.lider_concejal={};
 
 $scope.consultar_por_codigo=function(id){
 		
@@ -116,6 +116,22 @@ $scope.consultar_lider_concejales=function(){
 		 $scope.listaLiderConcejales=data;
 		 	
 	 });
+}
+
+$scope.eliminal_lider_concejales=function(){
+	$http.post("lider/eliminarliderconcejal",
+		{id_lider:$scope.lider_concejal.id_lider,
+			id_concejal:$scope.lider_concejal.id_concejal,
+			_token:authUsuario.token()})
+	.success(function(data, status, headers, config) {
+		
+		 $scope.listaLiderConcejales=data;
+		 	
+	 });
+}
+
+$scope.abrir_modal=function(item){
+	$scope.lider_concejal=item;
 }
 
 });

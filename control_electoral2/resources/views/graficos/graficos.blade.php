@@ -12,11 +12,12 @@
 
  
 </section>
- <script src="app_cliente/js/charts/highcharts.js"></script>
-<script src="app_cliente/js/charts/modules/exporting.js"></script>
+
 
 <script type="text/javascript">
+
 $(function () {
+    
     $('#pie-chart').highcharts({
         chart: {
             plotBackgroundColor: null,
@@ -107,4 +108,7 @@ $(function () {
         }]
     });
 });
-        </script>   
+        </script>  
+
+ <script src="app_cliente/js/charts/highcharts.js"></script>
+<script src="app_cliente/js/charts/modules/exporting.js"></script>       

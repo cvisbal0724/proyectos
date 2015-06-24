@@ -201,7 +201,7 @@ Route::post('lider/crear','LiderController@Crear');
 Route::post('lider/consultar','LiderController@Consultar');
 Route::post('lider/agregarliderconcejales','LiderController@AgregarLiderConcejales');
 Route::post('lider/consultarliderconcejales','LiderController@ConsultarLiderConcejales');
-//Route::get('concejal/consultarporcodigo/{id}','ConcejalController@ConsultarPorCodigo');
+Route::post('lider/eliminarliderconcejal','LiderController@EliminarLiderConcejal');
 /*Fin Lider*/
 
 /*Votante*/
