@@ -10,7 +10,7 @@ class ModulosTableSeeder extends Seeder
 {
     public function run()
     {
-    	$lista=['Partidos','Alcaldes','Personas','Perfiles','Modulos','Menus','Usuarios','Concejales','Lideres','Votantes'];
+    	$lista=['Partidos','Alcaldes','Personas','Perfiles','Modulos','Menus','Usuarios','Concejales','Lideres','Votantes','Graficos'];
 
     	foreach ($lista as $key => $value) {
     		 Modulos::create(array(

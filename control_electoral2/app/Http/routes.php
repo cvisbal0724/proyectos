@@ -129,8 +129,8 @@ Blade::setContentTags('[[', ']]');
 Blade::setEscapedContentTags('[[[', ']]]');
 
 /*Login*/
-Route::post('inicio/loguear','AtenticacionController@Loguear');
-Route::get('inicio/desloguear','AtenticacionController@Desloguear');
+Route::post('inicio/loguear','AutenticacionController@Loguear');
+Route::get('inicio/desloguear','AutenticacionController@Desloguear');
 /*End login*/
 
 /*Partido*/
@@ -219,3 +219,5 @@ Route::get('test',function(){
 	
 echo EnumPerfiles::Alcalde;
 });
+
+Route::get('test','AutenticacionController@test');

@@ -1,7 +1,7 @@
 <div class="container">
       <div class="row">
       <div class="panel-body">
-        <div class="col-md-8 col-md-offset-2">
+        <div class="col-md-10 col-md-offset-1">
           <div class="panel panel-default  resumen-canasta">
             <div class="panel-heading">
               <h2>Direcciones</h2>
@@ -16,7 +16,7 @@
                     <a href="" ng-click='seleccionarDireccion(item)'>
                       <div class="panel-heading clearfix">
                       <h4 class="pull-left">{{ item.NOMBRE_SITIO.toLowerCase().capitalizeFirstLetter()}}</h4>
-                      <!--<h4 class="pull-right" ng-click='seleccionarDireccion(item)'>[ seleccionar ]</h4>-->
+                      <h4 class="btn btn-danger pull-right" ng-click='seleccionarDireccion(item)'>Confirmar</h4>
                       </div>
                       <div class="panel-body">
                         <address>

@@ -7,8 +7,8 @@
                 <li><a ui-sref="preguntas_frecuentes">Preguntas frecuentes</a></li>
                 <li><a ui-sref="aliados_estrategicos">Aliados Estrategicos</a></li>
                 <li class="divider"></li>
-                <li><a ui-sref="terminos_y_condiciones">Terminos y condiciones</a></li>
-                <li><a ui-sref="politicas_de_privacidad">Politicas de privacidad</a></li>
+                <li><a ui-sref="terminos_y_condiciones">Términos y condiciones</a></li>
+                <li><a ui-sref="politicas_de_privacidad">Políticas de privacidad</a></li>
                 <li><a ui-sref="pqr">PQR</a></li>
                 <li class="divider"></li>
               </ul>

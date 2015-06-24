@@ -9,7 +9,8 @@ class LiderConcejales extends Model {
 	protected $guarded = array();
 	public static $rules = array();
 	protected $with=array('concejal','lider');
-
+	public $timestamps = false;
+	
 	public function Concejal(){
 		return $this->belongsTo('App\models\Concejales','id_concejal','id');
 	}

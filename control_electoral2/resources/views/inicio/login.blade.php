@@ -20,7 +20,7 @@
                                 <button type="button" class="close" aria-hidden="true" ng-click='result.show=false'>&times;</button>
                                {{result.msg}}
                     </div>
-                     <input id='hd_token' type='hidden' value='[[csrf_token()]]'>
+                     <input id='hd_token' type='hidden' value='<?php echo csrf_token(); ?>'>
                     <a class="btn btn-theme btn-block" href="" ng-click='loguear()'><i class="fa fa-lock"></i> ENTRAR</a>
                     
                     <!--<hr>

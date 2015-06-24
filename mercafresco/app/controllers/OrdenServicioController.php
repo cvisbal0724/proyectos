@@ -157,12 +157,12 @@ public function Crear(){
 			
 	}
 
- 	Mail::send('plantilla_correo/crear_pedido', $data, function($message){
+ 	/*Mail::send('plantilla_correo/crear_pedido', $data, function($message){
  		$usuario=Session::get('usuario');
  		$email=$usuario->persona->EMAIL;
  		$cliente=$usuario->persona->NOMBRES.' '.$usuario->persona->APELLIDOS;
 		$message->to($email, $cliente)->subject('PEDIDO REALIZADO CORRECTAMENTE!!!');
-	});
+	});*/
 
 	DB::commit();
 
@@ -612,7 +612,7 @@ try {
 
 		$usubono=UsuarioBono::where('ID_USUARIO','=',$id_user)->where('ID_BONO','=',$bono->ID)->first();
 		if ($usubono) {
-			return array('show'=>true,'alert'=>'warning','msg'=>'El cupon ya existe, ingrese uno diferente.');
+			return array('show'=>true,'alert'=>'warning','msg'=>'El cupon ya fué utilizado.');
 		}
 		$rs=UsuarioBono::create(array(
 			'ID_USUARIO'=>$id_user,

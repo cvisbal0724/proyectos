@@ -9,7 +9,7 @@ use Illuminate\Foundation\Auth\AuthenticatesAndRegistersUsers;
 use Illuminate\Http\Request;
 use Auth;
 
-class AtenticacionController extends Controller {
+class AutenticacionController extends Controller {
 
 
 	use AuthenticatesAndRegistersUsers;
@@ -73,5 +73,9 @@ class AtenticacionController extends Controller {
 			return $e;
 		}		
 	}
-	
+
+public function test(){
+	return Auth::User();
+}
+
 }
