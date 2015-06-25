@@ -20,10 +20,12 @@ class VotanteController extends Controller {
 
 	public function index(){
 	
-
+	 $lider=Lideres::where('id_persona','=',Auth::user()->id_persona)->first();
+	 	
 	 $concejales=Db::table('lider_concejales as lc')->
 	 join('concejales as c','lc.id_concejal','=','c.id')->
 	 join('personas as p','c.id_persona','=','p.id')->
+	 where('lc.id_lider','=',$lider->id)->
 	 select(DB::raw("c.id, concat(p.nombre,' ',p.apellido) as concejal"))->get();
 
 	 $tipoVoto=TipoVoto::all();
@@ -75,6 +77,30 @@ class VotanteController extends Controller {
 		}
 	}
 
+	public function Actualizar(Request $request)
+	{
+		try {
+			
+			$votante=Votantes::find($request->input('id'));
+
+			$votante->id_persona=$request->input('id_persona');
+			$votante->id_lider=$request->input('id_lider');
+			$votante->id_concejal=$request->input('id_concejal');
+			$votante->id_tipo_voto=$request->input('id_tipo_voto');
+			$votante->id_categoria_votacion=$request->input('id_categoria_votacion');
+			$votante->comentario=$request->input('comentario');
+			$votante->id_lugar_de_votacion=$request->input('id_lugar_de_votacion');
+			$votante->numero_mesa=$request->input('numero_mesa');
+			$rs=$votante->save();
+
+			return $rs > 0 ? array('show'=>true,'alert'=>'success','msg'=>'Votante actualizado satisfactoriamente.','data'=>'') :
+						array('show'=>true,'alert'=>'warning','msg'=>'No se pudo actualizar el votante.');
+
+		} catch (Exception $e) {
+			Excepciones::Crear($e,'VotanteController','Actualizar');
+			return array('show'=>true,'alert'=>'warning','msg'=>$e->getMessage());
+		}
+	}
 
 	public function Consultar(Request $request){
 		
@@ -85,7 +111,7 @@ class VotanteController extends Controller {
 		$consulta=DB::table('votantes as v')
 			->join('personas as p','v.id_persona','=','p.id')			
 			->join('lideres as l','v.id_lider','=','l.id')
-			->join('personas as p2','v.id_persona','=','p2.id')			
+			->join('personas as p2','l.id_persona','=','p2.id')			
 			->join('categoria_votacion as cv','v.id_categoria_votacion','=','cv.id')
 			->join('tipo_voto as tv','v.id_tipo_voto','=','tv.id')	
 			->leftJoin('concejales as c','v.id_concejal','=','c.id')
@@ -123,6 +149,28 @@ class VotanteController extends Controller {
 		}
 
 		return $lista;
+	}
+
+	public function ConsultarPorCodigo($id){
+		
+		$votante=Votantes::find($id);
+
+		return array(
+			'id'=>$votante->id,
+			'id_persona'=>$votante->id_persona,
+			'id_lider'=>$votante->id_lider,
+			'id_concejal'=>$votante->id_concejal,
+			'voto'=>$votante->voto,
+			'id_tipo_voto'=>$votante->id_tipo_voto,
+			'id_categoria_votacion'=>$votante->id_categoria_votacion,
+			'comentario'=>$votante->comentario,
+			'id_lugar_de_votacion'=>$votante->id_lugar_de_votacion,
+			'numero_mesa'=>$votante->numero_mesa,
+			'dar_de_baja'=>$votante->dar_de_baja,
+			'comentario_de_baja'=>$votante->comentario_de_baja,
+			'persona'=>$votante->persona,
+			'_token'=>csrf_token()
+		);
 	}
 
 }

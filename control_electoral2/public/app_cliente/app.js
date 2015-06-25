@@ -193,6 +193,15 @@ App.config(function($urlRouterProvider, $stateProvider) {
           'nombre-proyecto':{templateUrl:'layouts/nombre_proyecto'}
         }  
        })
+       .state('home.editar_votantes', {
+        url: "/editar-votante/:id",        
+        views:{
+          'contenedor':{templateUrl: "votantes/votante",controller: 'VotanteController'},
+          'titulo':{template:'Actualizar Votante'},
+          'nombre-proyecto':{templateUrl:'layouts/nombre_proyecto'},
+          'persona':{templateUrl:'persona/nueva_persona',controller:'PersonaController'}
+        }  
+       })
        .state('home.graficos', {
         url: "/graficos",        
          views:{
@@ -280,3 +289,11 @@ confControllers.factory('authUsuario',function($http,$location,SessionService,Se
 });  
 
 
+confControllers.run(function($rootScope, $templateCache,$location,SessionService, authUsuario,SessionSet/*,$route*/,$http,$state){
+
+  //borra cache
+     $rootScope.$on('$viewContentLoaded', function() {
+        $templateCache.removeAll();
+      });
+     
+});

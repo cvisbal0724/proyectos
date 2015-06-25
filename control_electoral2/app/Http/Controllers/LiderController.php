@@ -85,8 +85,8 @@ public function Actualizar(Request $request){
 
 
 public function Consultar(Request $request){
-		
-		$usuario=Auth::User();
+		try {
+			$usuario=Auth::User();
 
 		$criterio=$request->input('criterio');
 		$lista=array();
@@ -127,6 +127,9 @@ public function Consultar(Request $request){
 		}
 
 		return $lista;
+		} catch (Exception $e) {
+			return $e;
+		}		
 	}
 
 public function ConsultarPorCodigo($id){

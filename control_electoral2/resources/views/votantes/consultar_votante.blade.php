@@ -50,8 +50,8 @@
         				<td>{{item.votar_por}}</td>
                 <td>{{item.tipo_voto}}</td>	
                <td>
-                 <a href="" ng-click='consultar_por_codigo(item)'>
-                   <i ui-sref="home.editar_usuarios({id:item.id})" class='fa fa-pencil fa-2x'></i>
+                 <a href="" ui-sref="home.editar_votantes({id:item.id})">
+                   <i class='fa fa-pencil fa-2x'></i>
                  </a>
                </td>
              </tr>

@@ -12,6 +12,7 @@
 
  
 </section>
+   
 
 
 <script type="text/javascript">
@@ -25,7 +26,7 @@ $(function () {
             plotShadow: false
         },
         title: {
-            text: 'Votación por partidos 2015'
+            text: 'Votación 2015'
         },
         tooltip: {
             pointFormat: '{series.name}: <b>{point.percentage:.1f}%</b>'
@@ -110,5 +111,3 @@ $(function () {
 });
         </script>  
 
- <script src="app_cliente/js/charts/highcharts.js"></script>
-<script src="app_cliente/js/charts/modules/exporting.js"></script>       

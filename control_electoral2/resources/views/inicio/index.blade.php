@@ -120,6 +120,7 @@
   
      <script type="text/javascript" src="app_cliente/controllers/Graficos.js"></script>
 
+   
  <div id='loading' loading-indicator>
    
    </div>   

@@ -20,13 +20,13 @@ $scope.listaPersonas=[];
 
 $scope.consultar_por_codigo=function(id){
 		
-		$http.get("usuario/consultarporcodigo/"+id).success(function(data, status, headers, config) {
-			$scope.votanteVO=data;		 	
-			$scope.listaPersonas.push(data.persona);
-			$scope.votanteVO.id_persona=data.id_persona;
-		});
+    $http.get("votante/consultarporcodigo/"+id).success(function(data, status, headers, config) {
+    	$scope.votanteVO=data;		 	
+    	$scope.listaPersonas.push(data.persona);
+    	$scope.votanteVO.id_persona=data.id_persona;
+    });
 
-	}
+}
 
 	if ($state.params.id>0) {
 		$scope.consultar_por_codigo($state.params.id);
@@ -48,7 +48,7 @@ $scope.crear=function(){
 $scope.actualizar=function(){
 	$scope.votanteVO.id_persona=$scope.votanteVO.id_persona[0];
 	if (!$scope.votanteVO.id_persona > 0) {$scope.result={"show":true,"alert":"warning","msg":"Seleccione la persona."}; return false;};
-	$http.post("usuario/actualizar",$scope.votanteVO).success(function(data, status, headers, config) {
+	$http.post("votante/actualizar",$scope.votanteVO).success(function(data, status, headers, config) {
 		
 		 	$scope.result=data;
 		 	if (data.alert=='success') {		 		

@@ -14,6 +14,11 @@ class AutenticacionController extends Controller {
 
 	use AuthenticatesAndRegistersUsers;
 
+	public function index()
+	{
+		return view('inicio/login',array('_token'=>csrf_token()));
+	}
+
 	public function Loguear(Request $request){
 		try {
 

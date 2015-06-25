@@ -28,9 +28,7 @@ Route::get('/', function(){
 	return view('inicio/index');
 });
 
-Route::get('inicio/login',function(){
-	return view('inicio/login');
-});
+Route::get('inicio/login','AutenticacionController@index');
 
 Route::get('layouts/nombre_proyecto',function(){
 	return view('layouts/nombre_proyecto');
@@ -207,6 +205,8 @@ Route::post('lider/eliminarliderconcejal','LiderController@EliminarLiderConcejal
 /*Votante*/
 Route::post('votante/crear','VotanteController@Crear');
 Route::post('votante/consultar','VotanteController@Consultar');
+Route::get('votante/consultarporcodigo/{id}','VotanteController@ConsultarPorCodigo');
+Route::post('votante/actualizar','VotanteController@Actualizar');
 /*Fin votante*/
 
 /*graficos*/

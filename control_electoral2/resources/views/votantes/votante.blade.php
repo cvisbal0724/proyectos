@@ -9,7 +9,7 @@
 
         <div class="panel panel-default">
        <div class="panel-heading">
-          Informacion de usuario 
+          Informacion del votante 
        </div>  
 
        <div class="panel-body"> 
