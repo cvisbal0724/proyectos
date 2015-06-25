@@ -109,20 +109,20 @@ public function Consultar(Request $request){
 				$consulta=$consulta->where('p.id_alcalde','=',$usuario->persona->id_alcalde);				
 			}
 			else if ($usuario->id_perfil==EnumPerfiles::Alcalde) {						
-				$consulta=$consulta->whereRaw('p.id_alcalde=? and v.id_encargado ?',array($usuario->persona->id_alcalde,$usuario->id));				
+				$consulta=$consulta->whereRaw('p.id_alcalde=? and l.id_encargado=?',array($usuario->persona->id_alcalde,$usuario->id));				
 			}
 			else if ($usuario->id_perfil==EnumPerfiles::Concejal) {
-				$consulta=$consulta->whereRaw('p.id_alcalde=? and v.id_encargado ?',array($usuario->persona->id_alcalde,$usuario->id));			
+				$consulta=$consulta->whereRaw('p.id_alcalde=? and l.id_encargado=?',array($usuario->persona->id_alcalde,$usuario->id));			
 			}
 			else if ($usuario->id_perfil==EnumPerfiles::Lider) {
-				$consulta=$consulta->whereRaw('p.id_alcalde=? and v.id_encargado ?',array($usuario->persona->id_alcalde,$usuario->id));
+				$consulta=$consulta->whereRaw('p.id_alcalde=? and l.id_encargado=?',array($usuario->persona->id_alcalde,$usuario->id));
 			}
 
 		if ($criterio=='') {
 			$lista=$consulta->orderBy('p.nombre','asc')->take(100)->paginate($paginado);
 		}
 		else{
-			$lista=$lista=$consulta->whereRaw(" (concat(p.nombre ,' ', p.apellido) like ? )",array(Auth::user()->id,'%'.$criterio.'%'))
+			$lista=$consulta->whereRaw(" concat(p.nombre ,' ', p.apellido) like ?",array('%'.$criterio.'%'))
 			->orderBy('p.nombre','asc')->paginate($paginado);
 		}
 

@@ -230,8 +230,7 @@
     <script src="app_cliente/js/sparkline-chart.js"></script>    
     <script src="app_cliente/js/zabuto_calendar.js"></script>    
 
-<script src="app_cliente/js/charts/highcharts.js"></script>
-<script src="app_cliente/js/charts/modules/exporting.js"></script>       
+    
 
   <script type="text/javascript">
         $(document).ready(function () {
@@ -293,6 +292,8 @@
      $('.backstretch').remove();
     </script>
 
+<script src="app_cliente/js/charts/highcharts.js"></script>
+<script src="app_cliente/js/charts/modules/exporting.js"></script>   
 
     <!-- Modal -->
             <div class="modal fade" id="modalPersona" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
