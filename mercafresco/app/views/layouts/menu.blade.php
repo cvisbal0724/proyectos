@@ -10,3 +10,6 @@
      <li><a href="" ng-click='logout()'><i class="fa fa-sign-out fa-fw"></i>Cerrar Sesión</a>
      </li>
  </ul>
+
+
+ @include('inicio.cupon')

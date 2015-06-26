@@ -55,7 +55,7 @@
           </div>
           </ul>
           <div class="checkout">
-            <button type="button" class="btn btn-danger btn-lg btn-block" ng-click='checkout()'>Pedir</button>
+            <button type="button" class="btn btn-danger btn-lg btn-block" ng-click='checkout()'>Siguiente</button>
           </div>
         </div>
 

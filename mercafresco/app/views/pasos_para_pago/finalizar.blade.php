@@ -45,12 +45,12 @@
               <td>{{OrdenServicio.id}}</td>
             </tr>
 
-              <tr ng-if="OrdenServicio.convenio == 0">
+              <!--<tr ng-if="OrdenServicio.convenio == 0">
               <td>
               <label>Total:</label>
               </td>
               <td>{{OrdenServicio.total | currency:'$':0}}</td>
-            </tr>
+            </tr>-->
 
             <tr ng-if="OrdenServicio.convenio > 0">
               <td>
@@ -66,7 +66,7 @@
               <td>{{OrdenServicio.descuentobono | currency:'$':0}}</td>
             </tr>
 
-              <tr ng-if="OrdenServicio.convenio > 0">
+              <tr>
               <td>
               <label>Total a pagar:</label>
               </td>
@@ -90,7 +90,11 @@
                  
             </table>   
              <div class="col-md-12"> 
-               <a ui-sref="productos" class="btn btn-primary btn-lg pull-left">Ir a Inicio</a>      
+               <a ui-sref="productos" class="btn btn-primary btn-lg pull-left">Ir a Inicio</a>    
+                <a onclick="window.print();" class="btn btn-success btn-lg pull-right">
+                <!--<i class="fa fa-print fa-5x"></i>-->
+                Imprimir
+                </a>  
              </div>
 
          </div>
@@ -100,3 +104,4 @@
       </div>
        @include('layouts.footer')
     </div>
+

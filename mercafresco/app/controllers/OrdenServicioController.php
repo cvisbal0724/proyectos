@@ -610,10 +610,38 @@ try {
 	$id=0;
 	if ($bono) {
 
-		$usubono=UsuarioBono::where('ID_USUARIO','=',$id_user)->where('ID_BONO','=',$bono->ID)->first();
-		if ($usubono) {
-			return array('show'=>true,'alert'=>'warning','msg'=>'El cupon ya fué utilizado.');
+		//$usubono=UsuarioBono::whereRaw('ID_USUARIO=? and ID_BONO=? and ',array($id_user,$bono->ID))->first();
+		if ($bono->ID_CARACTERISICA_BONO==1/*PRIMERA COMPRA*/) {
+
+			$compras=OrdenServicio::where('ID_USUARIO','=',$id_user)->count();
+			$usubono=UsuarioBono::whereRaw('ID_USUARIO=? and ID_BONO=? ',array($id_user,$bono->ID))->first();
+
+			if ($compras > 0) {
+				return array('show'=>true,'alert'=>'warning','msg'=>'Lo sentimos no puede utilizar el cupon porque es solo para la primera compra.');
+			}
+			if ($usubono) {
+				return array('show'=>true,'alert'=>'warning','msg'=>'El cupon ya fué utilizado.');
+			}
 		}
+
+		if ($bono->ID_CARACTERISICA_BONO==2/*CUPON UNICO*/) {
+
+			$usubono=UsuarioBono::whereRaw('ID_USUARIO=? and ID_BONO=? ',array($id_user,$bono->ID))->first();
+
+			if ($usubono) {
+				return array('show'=>true,'alert'=>'warning','msg'=>'El cupon ya fué utilizado.');
+			}
+		}
+
+		if ($bono->ID_CARACTERISICA_BONO==3/*CUPON LIBRE*/) {
+			
+			$usubono=UsuarioBono::whereRaw('ID_USUARIO=? and ID_BONO=? and USADO=0',array($id_user,$bono->ID))->first();
+
+			if ($usubono) {
+				return array('show'=>true,'alert'=>'warning','msg'=>'Ya tiene un cupon de este tipo sin usar..');
+			}
+		}
+				
 		$rs=UsuarioBono::create(array(
 			'ID_USUARIO'=>$id_user,
 			'ID_BONO'=>$bono->ID,

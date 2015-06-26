@@ -30,8 +30,12 @@ class PQRController extends \BaseController {
 			);
 
 		 Mail::send('mas_informacion/plantilla_pqr', $data, function($message){
-		        $message->to('cvisbal0724@gmail.com', Input::get('nombres').' '.Input::get('apellidos'))->subject('Mensaje PQR');
+		        $message->to('contacto@mercafresco.co', Input::get('nombres').' '.Input::get('apellidos'))->subject('Mensaje PQR');
 		 });
+
+		  /*Mail::send('mas_informacion/plantilla_pqr', $data, function($message){
+		        $message->to('contacto@mercafresco.co', Input::get('nombres').' '.Input::get('apellidos'))->subject('Mensaje PQR');
+		 });*/
 
 		DB::commit();
 		return $rs['ID'] > 0 ? array('alert'=>'success','msg'=>'Susugerencia fue enviada satisfactoriamente.','show'=>true) :
