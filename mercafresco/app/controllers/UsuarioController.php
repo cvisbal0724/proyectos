@@ -201,7 +201,7 @@ class UsuarioController extends BaseController {
 
 				Mail::send('plantilla_correo/recordar_clave', $data, function($message){
 		        	$message->to(Session::get('correo'));
-		        	$message->subject('Recordar Contraseña');
+		        	$message->subject('Recordar Clave');
 		     	});
 
 				return array('alert'=>'success','msg'=>'Hemos enviado un mensaje a su correo para restablecer su contraseña.','show'=>true);

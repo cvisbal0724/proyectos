@@ -4,17 +4,16 @@
       <meta charset="utf-8">
       <meta http-equiv="X-UA-Compatible" content="IE=edge">
       <meta name="viewport" content="width=device-width, initial-scale=1">
-      <title>Recordar Clave</title>
-     <style>
-          @import url([[ asset('app_cliente/img_email/fonts.css')]]);
+      <title>{{ titulo del correo}}</title>
+      <style>
+          @import url(fonts.css);
          /* All your usual CSS here */
          @media (min-width: 480px) {
                .header{
-                     background:url([[ asset('app_cliente/img_email/header-left.png')]])
-                     left center no-repeat,url([[ asset('app_cliente/img_email/header-right.png')]]) right top no-repeat, #69A15B;
+                     background:url(header-left.png)left center no-repeat,url(header-right.png)right top no-repeat, #69A15B;
                }
                .footer {
-                     background:url([[ asset('app_cliente/img_email/header-left.png')]]) left center no-repeat,url([[ asset('header-right.png')]])right top no-repeat, #69A15B;
+                     background:url(header-left.png)left center no-repeat,url(header-right.png)right top no-repeat, #69A15B;
                }
                
          }
@@ -41,7 +40,7 @@
                                     <tbody>
                                        <tr>
                                           <td width="50%" align="left" valign="middle" style="padding-bottom:10px;padding-top:10px;padding-left:40px;">
-                                             <div align="center"><a href="" target="_blank"><img src="[[ asset('app_cliente/img_email/mercafresco.png')]]" width="auto" height="150px" border="0" alt="" style="display:block;" class="logo"></a></div>
+                                             <div align="center"><a href="" target="_blank"><img src="mercafresco.png" width="auto" height="150px" border="0" alt="" style="display:block;" class="logo"></a></div>
                                           </td>
                                        </tr>
                                     </tbody>
@@ -58,15 +57,14 @@
                                     <tbody>
                                        <tr>
                                           <td align="center" style="padding-top:40px;padding-left:40px;padding-right:40px;font-size:40px;line-height:40px">
-                                             <font face="'bebasregular'" color="#90A04A" style="font-size:50px;line-height:40px">
-                                              RESTABLCER CLAVE</font>
+                                             <font face="'bebasregular'" color="#90A04A" style="font-size:50px;line-height:40px">TU PEDIDO ESTA</font>
                                           </td>
                                        </tr>
-                                       <!--<tr>
+                                       <tr>
                                           <td align="center" style="padding-bottom:20px;padding-left:40px;padding-right:40px;font-size:40px;line-height:40px">
                                              <font face="'bebasregular'" color="#69A15B" style="font-size:50px;line-height:40px">¡CONFIRMADO!</font>
                                           </td>
-                                       </tr>-->
+                                       </tr>
                                     </tbody>
                                  </table>
                               </td>
@@ -82,12 +80,8 @@
                                        <tr>
                                           <td align="center" style="padding-top:20px;padding-bottom:20px;padding-left:40px;padding-right:40px">
                                              <font face="Helvetica, sans-serif" color="#333333" style="font-family: Arial, Helvetica, sans-serif;font-size:18px;line-height:20px">
-                                             Hola, [[ $nombres ]],
-                                             <br><br>
-                                             Usted ha solicitado recordar su clave.
-                                             <br><br>
-                                            Para continuar y restablecer su contraseña haga clic <a href="[[$key]]" target="_blank">aquí.</a>
-                                             <br>
+                                             primera linea <br>
+                                             segunda linea
                                              </font>
                                           </td>
                                        </tr>
@@ -97,7 +91,23 @@
                            </tr>
                         </tbody>
                      </table>
-                    
+                     <table width="100%" border="0" cellspacing="0" cellpadding="0">
+                        <tbody>
+                           <tr>
+                              <td align="center" valign="top" style="padding-left:20px;padding-right:20px">
+                                 <table width="100%" border="0" cellpadding="0" cellspacing="0" align="center" bgcolor="#FFFFFF">
+                                    <tbody>
+                                       <tr>
+                                          <td align="center" style="padding-top:20px;padding-bottom:40px;padding-left:40px;padding-right:40px">
+                                             <font face="'bebasregular'" color="#90A04A" style="font-size:32px;line-height:40px; font-weight: 300;">¡GRACIAS POR PREFERIRNOS!</font>
+                                          </td>
+                                       </tr>
+                                    </tbody>
+                                 </table>
+                              </td>
+                           </tr>
+                        </tbody>
+                     </table>
                      <!-- seccion de destacados -->
                      <table width="100%" border="0" cellspacing="0" cellpadding="0" >
                         <tbody>
@@ -107,7 +117,25 @@
                                     <tbody>
                                        <tr>
                                           <td  align="center" style="padding-top:20px;padding-bottom:20px;padding-left:0px;padding-right:0px">
-                                             
+                                             <table border="0" cellspacing="0" cellpadding="0">
+                                                <tbody>
+                                                   <tr>
+                                                      <td align="right" valign="middle" style="padding-left:0px;padding-right:0px;padding-top:20px;padding-bottom:5px">
+                                                            <font face="'bebasregular'" color="#FFFFFF" style="font-size:28px;line-height:30px; display: block;">
+                                                             INGRESA EL CODIGO
+                                                            </font>
+                                                            <font face="'bebasregular'" color="#FFFFFF" style="font-size:20px;line-height:22px">
+                                                            EN TU PROXIMA COMPRA Y RECIBE EL
+                                                            </font>
+                                                       </td>
+                                                       <td align="left" valign="middle" style="padding-left:20px;padding-right:20px;padding-top:20px;padding-bottom:5px"> 
+                                                            <font face="'bebasregular'" color="#FFFFFF" style="font-size:50px;line-height:30px">
+                                                            10%
+                                                            </font> 
+                                                       </td>
+                                                   </tr>
+                                                </tbody>
+                                             </table>
                                           </td>
                                        </tr>
                                     </tbody>
@@ -140,13 +168,13 @@
                                                                          <td valign="middle" align="left" style="padding-top:30px;padding-bottom:3px;padding-left:0;padding-right:40px;height:50px;line-height:1.4">
                                                                               
                                                                               <a style="padding:0;margin:0 auto!important; text-decoration:none;" href="" target="_blank">
-                                                                              <img width="27" border="0" style="width:27px;min-height:24px" alt="facebook" src="[[asset('app_cliente/img_email/icon-facebook.png')]]" class="CToWUd">
+                                                                              <img width="27" border="0" style="width:27px;min-height:24px" alt="facebook" src="icon-facebook.png" class="CToWUd">
                                                                               </a>
                                                                               <a style="padding:0;margin:0 auto!important;text-decoration:none;" href="" target="_blank">
-                                                                              <img width="27" border="0" style="width:27px;min-height:24px" alt="twitter" src="[[ asset('app_cliente/img_email/icon-instagram.png')]]" class="CToWUd">
+                                                                              <img width="27" border="0" style="width:27px;min-height:24px" alt="twitter" src="icon-instagram.png" class="CToWUd">
                                                                               </a>
                                                                               <a style="padding:0;margin:0 auto!important;text-decoration:none;" href="" target="_blank">
-                                                                              <img width="27" border="0" style="width:27px;min-height:24px" alt="googlemas" src="[[ asset('app_cliente/img_email/icon-mail.png')]]" class="CToWUd">
+                                                                              <img width="27" border="0" style="width:27px;min-height:24px" alt="googlemas" src="icon-mail.png" class="CToWUd">
                                                                               </a>
                                                                         </td>
                                                                         </tr>

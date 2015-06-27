@@ -4,43 +4,44 @@
       <meta charset="utf-8">
       <meta http-equiv="X-UA-Compatible" content="IE=edge">
       <meta name="viewport" content="width=device-width, initial-scale=1">
-      <title>PEDIDO REALIZADO CORRECTAMENTE!!!</title>
+      <title>Recordar Contraseña</title>
+      <style>
+          @import url([[ asset('app_cliente/img_email/fonts.css')]]);
+         /* All your usual CSS here */
+         @media (min-width: 480px) {
+               .header{
+                     background:url([[ asset('app_cliente/img_email/header-left.png')]])
+                     left center no-repeat,url([[ asset('app_cliente/img_email/header-right.png')]]) right top no-repeat, #69A15B;
+               }
+               .footer {
+                     background:url([[ asset('app_cliente/img_email/header-left.png')]]) left center no-repeat,url([[ asset('header-right.png')]])right top no-repeat, #69A15B;
+               }
+               
+         }
+         @media (max-width: 480px) {
+               .logo{
+                    height: 100px;
+                    width: auto;
+               }
+               
+         }
+      </style>
    </head>
-   <body style="width:100%;max-width:100%; margin:0">
-      <div bgcolor="#ffffff" style="min-width:100%;margin:0">
-         <table width="100%" border="0" cellspacing="0" cellpadding="0" bgcolor="#ffffff" align="center" style="background:url([[ asset('app_cliente/img_email/Fruit-bg.png') ]]);">
+   <body style="width:100%;max-width:100%; margin:0;background-color:#FFF;">
+      <div style="margin:0 auto;background-color:#eeeeee;width: 100%;max-width: 930px;">
+         <table width="100%" border="0" cellspacing="0" cellpadding="0" bgcolor="#ffffff" align="center">
             <tbody>
                <tr>
                   <td align="center" valign="top">
-                     <table width="100%" border="0" cellspacing="0" cellpadding="0" bgcolor="#ffffff">
+                     <table width="100%" class="header" height="177px" border="0" cellspacing="0" cellpadding="0" bgcolor="#69A15B" >
                         <tbody>
                            <tr>
-                              <td align="center" valign="top">
+                              <td align="center" valign="middle">
                                  <table width="100%" border="0" cellpadding="0" cellspacing="0" align="center">
                                     <tbody>
                                        <tr>
-                                          <td>
-                                            <!-- logo y redes sociales -->
-                                             <table width="100%" border="0" cellspacing="0" cellpadding="0">
-                                                <tbody>
-                                                   <tr>
-                                                      <td width="50%" align="left" valign="middle" style="padding-bottom:10px;padding-top:10px;padding-left:40px;">
-                                                         <div align="left"><a href="" target="_blank"><img src="[[ asset('app_cliente/img_email/mercafresco.png') ]]" width="auto" height="60px" border="0" alt="" style="display:block" class="CToWUd"></a></div>
-                                                      </td>
-                                                      <td valign="middle" align="right" style="padding-top:30px;padding-bottom:3px;padding-left:0;padding-right:40px;text-align:center!important;height:50px;line-height:1.4">
-                                                         <a style="float:right;padding:0;margin:0 auto!important" href="" target="_blank">
-                                                         <img width="27" border="0" style="width:27px;min-height:24px" alt="facebook" src="[[ asset('app_cliente/img_email/icon-facebook.png') ]]" class="CToWUd">
-                                                         </a>
-                                                         <a style="float:right;padding:0;margin:0 auto!important" href="" target="_blank">
-                                                         <img width="27" border="0" style="width:27px;min-height:24px" alt="twitter" src="[[ asset('app_cliente/img_email/icon-instagram.png') ]]" class="CToWUd">
-                                                         </a>
-                                                         <a style="float:right;padding:0;margin:0 auto!important" href="" target="_blank">
-                                                         <img width="27" border="0" style="width:27px;min-height:24px" alt="googlemas" src="[[ asset('app_cliente/img_email/icon-mail.png') ]]" class="CToWUd">
-                                                         </a>
-                                                      </td>
-                                                   </tr>
-                                                </tbody>
-                                             </table>
+                                          <td width="50%" align="left" valign="middle" style="padding-bottom:10px;padding-top:10px;padding-left:40px;">
+                                             <div align="center"><a href="" target="_blank"><img src="[[ asset('app_cliente/img_email/mercafresco.png')]]" width="auto" height="150px" border="0" alt="" style="display:block;" class="logo"></a></div>
                                           </td>
                                        </tr>
                                     </tbody>
@@ -48,15 +49,22 @@
                               </td>
                            </tr>
                         </tbody>
-                     <table width="100%" border="0" cellspacing="0" cellpadding="0" bgcolor="#89B159">
+                     </table>
+                     <table width="100%" border="0" cellspacing="0" cellpadding="0" bgcolor="#FFFFFF">
                         <tbody>
                            <tr>
                               <td align="center" valign="top" style="padding-top:40px;padding-left:20px;padding-right:20px">
                                  <table width="100%" border="0" cellpadding="0" cellspacing="0" align="center" bgcolor="#FFFFFF">
                                     <tbody>
                                        <tr>
-                                          <td align="left" style="padding-top:40px;padding-bottom:20px;padding-left:40px;padding-right:40px;font-size:40px;line-height:40px">
-                                                <font face="'Walsheim-Bold', Arial Black, Arial, sans-serif" color="#333333" style="font-size:40px;line-height:40px">Bienvenido a MercaFresco</font>
+                                          <td align="center" style="padding-top:40px;padding-left:40px;padding-right:40px;font-size:40px;line-height:40px">
+                                             <font face="'bebasregular'" color="#90A04A" style="font-size:50px;line-height:40px">
+                                             TU PEDIDO ESTA</font>
+                                          </td>
+                                       </tr>
+                                       <tr>
+                                          <td align="center" style="padding-bottom:20px;padding-left:40px;padding-right:40px;font-size:40px;line-height:40px">
+                                             <font face="'bebasregular'" color="#69A15B" style="font-size:50px;line-height:40px">¡CONFIRMADO!</font>
                                           </td>
                                        </tr>
                                     </tbody>
@@ -72,40 +80,10 @@
                                  <table width="100%" border="0" cellpadding="0" cellspacing="0" align="center" bgcolor="#FFFFFF">
                                     <tbody>
                                        <tr>
-                                          <td align="left" style="padding-top:20px;padding-bottom:20px;padding-left:40px;padding-right:40px"><font face="Arial, sans-serif
-                                             " color="#333333" style="font-size:14px;line-height:20px">
-                                            Estimado cliente su pedido realizado correctamente!!!
-                                             <br><br>
-                                             Información de su pedido
-                                             <br><br>
-                                               @include('plantilla_correo.informacion_pedido')
-                                             </font>
-                                          </td>
-                                       </tr>
-                                    </tbody>
-                                 </table>
-                              </td>
-                           </tr>
-                        </tbody>
-                     </table>
-                     <table width="100%" border="0" cellspacing="0" cellpadding="0" >
-                        <tbody>
-                           <tr>
-                              <td align="center" valign="top" style="padding-left:20px;padding-right:20px">
-                                 <table width="100%" border="0" cellpadding="0" cellspacing="0" align="center" bgcolor="#FFFFFF">
-                                    <tbody>
-                                       <tr>
                                           <td align="center" style="padding-top:20px;padding-bottom:20px;padding-left:40px;padding-right:40px">
-                                             <table border="0" cellspacing="0" cellpadding="0" bgcolor="#008a32">
-                                                <tbody>
-                                                   <tr>
-                                                      <td align="center" style="padding:5px">
-                                                      <a style="color:#ffffff;text-decoration:none;background-color:#008a32;border-top:10px solid #008a32;border-bottom:10px solid #008a32;border-left:10px solid #008a32;border-right:10px solid #008a32;display:inline-block" 
-                                                      href="mercafresco.com" target="_blank">
-                                                      <font face="'Walsheim-Medium', Arial, sans-serif" color="#ffffff" style="font-size:18px;line-height:20px">SITIO</font></a></td>
-                                                   </tr>
-                                                </tbody>
-                                             </table>
+                                             <font face="Helvetica, sans-serif" color="#333333" style="font-family: Arial, Helvetica, sans-serif;font-size:18px;line-height:20px">
+                                                @include('plantilla_correo.informacion_pedido')
+                                             </font>
                                           </td>
                                        </tr>
                                     </tbody>
@@ -121,11 +99,8 @@
                                  <table width="100%" border="0" cellpadding="0" cellspacing="0" align="center" bgcolor="#FFFFFF">
                                     <tbody>
                                        <tr>
-                                          <td align="left" style="padding-top:20px;padding-bottom:40px;padding-left:40px;padding-right:40px"><font face="Arial, sans-serif
-                                             " color="#333333" style="font-size:14px;line-height:20px">Si tienes alguna duda o pregunta escribenos a nuestro correo de contacto <a href="mailto:contacto@mercafresco.co">contacto@mercafresco.co</a>
-                                             <br>
-                                             <br>
-                                             </font>
+                                          <td align="center" style="padding-top:20px;padding-bottom:40px;padding-left:40px;padding-right:40px">
+                                             <font face="'bebasregular'" color="#90A04A" style="font-size:32px;line-height:40px; font-weight: 300;">¡GRACIAS POR PREFERIRNOS!</font>
                                           </td>
                                        </tr>
                                     </tbody>
@@ -138,40 +113,27 @@
                      <table width="100%" border="0" cellspacing="0" cellpadding="0" >
                         <tbody>
                            <tr>
-                              <td align="center" valign="top" style="padding-left:20px;padding-right:20px">
-                                 <table width="100%" border="0" cellpadding="0" cellspacing="0" align="center" bgcolor="#FFFFFF">
+                              <td align="center" valign="top" style="padding-bottom:0px">
+                                 <table width="100%" border="0" cellpadding="0" cellspacing="0" align="center" bgcolor="#90A04A">
                                     <tbody>
                                        <tr>
-                                          <td align="left">
-                                             <table width="100%" border="0" cellspacing="0" cellpadding="0" bgcolor="#ffffff">
+                                          <td  align="center" style="padding-top:20px;padding-bottom:20px;padding-left:0px;padding-right:0px">
+                                             <table border="0" cellspacing="0" cellpadding="0">
                                                 <tbody>
                                                    <tr>
-                                                      <td align="center" valign="top" style="padding-bottom:40px">
-                                                         <table width="100%" border="0" cellpadding="0" cellspacing="0" align="center" bgcolor="#fedc45">
-                                                            <tbody>
-                                                               <tr>
-                                                                  <td style="padding-top:20px;padding-bottom:20px;padding-left:40px;padding-right:40px">
-                                                                     <table width="100%" border="0" cellspacing="0" cellpadding="0">
-                                                                        <tbody>
-                                                                           <tr>
-                                                                              <td align="left" valign="middle" style="padding-left:0px;padding-right:0px;padding-top:0px;padding-bottom:5px"><font face="Arial, sans-serif
-                                                                                 " color="#333333" style="font-size:20px;line-height:22px"><strong><font color="#333333">Ahora podras disfrutar de descuentos y promociones para nuevas compras.</font></strong></font></td>
-                                                                           </tr>
-                                                                        </tbody>
-                                                                     </table>
-                                                                     <table width="100%" border="0" cellspacing="0" cellpadding="0">
-                                                                        <tbody>
-                                                                           <tr>
-                                                                              <td align="left" valign="middle" style="padding-left:0px;padding-right:0px;padding-top:5px;padding-bottom:0px"><font face="Arial, sans-serif
-                                                                                 " color="#333333" style="font-size:14px;line-height:20px">Codigo</font></td>
-                                                                           </tr>
-                                                                        </tbody>
-                                                                     </table>
-                                                                  </td>
-                                                               </tr>
-                                                            </tbody>
-                                                         </table>
-                                                      </td>
+                                                      <td align="right" valign="middle" style="padding-left:0px;padding-right:0px;padding-top:20px;padding-bottom:5px">
+                                                            <font face="'bebasregular'" color="#FFFFFF" style="font-size:28px;line-height:30px; display: block;">
+                                                             INGRESA EL CODIGO
+                                                            </font>
+                                                            <font face="'bebasregular'" color="#FFFFFF" style="font-size:20px;line-height:22px">
+                                                            EN TU PROXIMA COMPRA Y RECIBE EL
+                                                            </font>
+                                                       </td>
+                                                       <td align="left" valign="middle" style="padding-left:20px;padding-right:20px;padding-top:20px;padding-bottom:5px"> 
+                                                            <font face="'bebasregular'" color="#FFFFFF" style="font-size:50px;line-height:30px">
+                                                            10%
+                                                            </font> 
+                                                       </td>
                                                    </tr>
                                                 </tbody>
                                              </table>
@@ -184,22 +146,48 @@
                         </tbody>
                      </table>
                      <!-- fin de destacada-->
-                     <table width="100%" border="0" cellspacing="0" cellpadding="0" bgcolor="#eeeeee">
+                     <table width="100%" border="0" cellspacing="0" cellpadding="0" bgcolor="#69A15B"  class="footer">
                         <tbody>
                            <tr>
                               <td align="center" valign="top">
                                  <table width="100%" border="0" cellpadding="0" cellspacing="0" align="center">
                                     <tbody>
                                        <tr>
-                                          <td style="padding-top:5px;padding-bottom:40px;padding-left:20px;padding-right:20px">
-                                             <table width="100%" border="0" cellspacing="0" cellpadding="0">
+                                          <td align="center" style="padding-top:5px;padding-bottom:40px;padding-left:20px;padding-right:20px">
+                                             <table border="0" cellspacing="0" cellpadding="0">
                                                 <tbody>
                                                    <tr>
-                                                      <td align="left" valign="middle" style="padding-left:0px;padding-right:0px;padding-top:5px;padding-bottom:0px">
-                                                            <font face="Arial, sans-serif
-                                                         " color="#333333" style="font-size:12px;line-height:18px">
-                                                                        
-                                                            </font>
+                                                     <td valign="middle" align="center">
+                                                            <table border="0" cellspacing="0" cellpadding="0">
+                                                                  <tbody>
+                                                                        <tr>
+                                                                                <td valign="middle" align="right" style="padding-top:30px;padding-bottom:3px;padding-left:0;padding-right:40px;height:50px;line-height:1.4">
+                                                                               <font face="Helvetica, sans-serif" color="#FFFFFF" style="font-size:16px;line-height:18px">
+                                                                                Síguenos:          
+                                                                              </font>
+                                                                         </td>  
+                                                                         <td valign="middle" align="left" style="padding-top:30px;padding-bottom:3px;padding-left:0;padding-right:40px;height:50px;line-height:1.4">
+                                                                              
+                                                                              <a style="padding:0;margin:0 auto!important; text-decoration:none;" href="" target="_blank">
+                                                                              <img width="27" border="0" style="width:27px;min-height:24px" alt="facebook" src="[[asset('app_cliente/img_email/icon-facebook.png')]]" class="CToWUd">
+                                                                              </a>
+                                                                              <a style="padding:0;margin:0 auto!important;text-decoration:none;" href="" target="_blank">
+                                                                              <img width="27" border="0" style="width:27px;min-height:24px" alt="twitter" src="[[ asset('app_cliente/img_email/icon-instagram.png')]]" class="CToWUd">
+                                                                              </a>
+                                                                              <a style="padding:0;margin:0 auto!important;text-decoration:none;" href="" target="_blank">
+                                                                              <img width="27" border="0" style="width:27px;min-height:24px" alt="googlemas" src="[[ asset('app_cliente/img_email/icon-mail.png')]]" class="CToWUd">
+                                                                              </a>
+                                                                        </td>
+                                                                        </tr>
+                                                                  </tbody>
+                                                             </table>
+                                                     </td>    
+                                                   </tr>
+                                                   <tr>
+                                                      <td align="center" valign="middle" style="padding-left:0px;padding-right:0px;padding-top:5px;padding-bottom:0px">
+                                                         <font face="Helvetica, sans-serif" color="#FFFFFF" style="font-size:18px;line-height:18px">
+                                                             Escríbenos a contacto@mercafresco.co         
+                                                         </font>
                                                       </td>
                                                    </tr>
                                                 </tbody>
@@ -216,7 +204,6 @@
                </tr>
             </tbody>
          </table>
-         <img src="https://ci3.googleusercontent.com/proxy/JZVZdaLHeE2UjitLcIJkq8oROq_GCJaX7ScBrWj7TTCOa-NAKhMngkUjx-fSz9qMfbK0Is8OLDeP-x8h41pKOm2Z3ItJ0BEbwFKn3hVC4x0RVllY0lnhIyGyMVyX0fkRYO8lXdUW4toqSAR0BOO74bU73iu93iuxqdt-NnWCUgB06WGf_LqMiN3yOAQb9jkLXACoSzSj6rvi7oPeF9_tbU5DIp4WEiiJ0W8nnpM4xBSK=s0-d-e1-ft#http://img.securepaynet.net/bbimage.aspx?pl=1&amp;isc=gdbbj1005&amp;e=jorgetorres5210%40gmail.com&amp;tid=1005&amp;eid=1894487763&amp;mid=cbbc245a-d20c-4548-9178-74741b210911" alt="" border="0" height="0" width="0" class="CToWUd">
       </div>
    </body>
 </html>

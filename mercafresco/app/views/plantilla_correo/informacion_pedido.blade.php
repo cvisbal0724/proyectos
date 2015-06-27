@@ -1,5 +1,6 @@
            
-              
+              Información de su pedido
+               <br>
                <br>
                No. Orden: [[$id]]         
            

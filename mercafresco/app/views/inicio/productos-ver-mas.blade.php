@@ -40,7 +40,7 @@
                         </div>
                         <a href="" data-toggle="modal" ng-click='modalProducto(obj)' class="clearfix">
                            <div class="item-image"> 
-                              <img class="" src="productos/{{obj.imagen}}" alt="Generic placeholder image" >
+                              <img class="" src="{{obj.imagen}}" alt="Generic placeholder image" >
                            </div>
                         </a>   
                         <div class="item-caption">
@@ -112,7 +112,7 @@
                         <span class="glyphicon glyphicon-shopping-cart"></span>
                         {{ buscarenJsonporid(producto.id,listaCanasta)[0].cantidad || 0 | setDecimal:2 }}                       
                         </div>
-            <img class="" src="productos/{{producto.imagen}}" alt="Generic placeholder image" height="150px">
+            <img class="" src="{{producto.imagen}}" alt="Generic placeholder image" height="150px">
             <h2>{{ producto.productos_ofrecidos + ' ' + producto.unidad.toLowerCase().capitalizeFirstLetter() + ' ' + producto.nombre }}</h2>
             <p>{{ producto.descripcion }}</p>
             <span class="item-price">{{ producto.precio | currency:'$':0 }}</span>

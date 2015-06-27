@@ -71,7 +71,7 @@
    
    </div>   
 
-<span id="siteseal">
+<span id="siteseal" class="hidden-xs">
         <script type="text/javascript" src="https://seal.godaddy.com/getSeal?sealID=etzfCu8l1WRRWnfSPxh3ICRPGMZElLi5DiH48GH32F7IsYkqzXcuHKMpKRiJ"></script>
  </span>
 

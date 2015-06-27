@@ -157,12 +157,13 @@ public function Crear(){
 			
 	}
 
- 	/*Mail::send('plantilla_correo/crear_pedido', $data, function($message){
+ 	Mail::send('plantilla_correo/crear_pedido', $data, function($message){
  		$usuario=Session::get('usuario');
+ 		$id_orden=Session::get('id_orden');
  		$email=$usuario->persona->EMAIL;
  		$cliente=$usuario->persona->NOMBRES.' '.$usuario->persona->APELLIDOS;
-		$message->to($email, $cliente)->subject('PEDIDO REALIZADO CORRECTAMENTE!!!');
-	});*/
+		$message->to($email, $cliente)->subject('PEDIDO Nº '.$id_orden.' REALIZADO CORRECTAMENTE!!!');
+	});
 
 	DB::commit();
 
@@ -401,7 +402,7 @@ public function ObtenerTodos(){
  			'id'=>$row->ID,
  			'fecha_orden'=>date('Y-m-d',strtotime($row->FECHA_CREACION)),
  			'estado'=>$row->estado_entrega->NOMBRE,
- 			'total'=>$row->Total()-$item->Convenio(),
+ 			'total'=>$row->Total()- $row->Convenio(),
  			'detalle'=>$detalle
  		);
  	}

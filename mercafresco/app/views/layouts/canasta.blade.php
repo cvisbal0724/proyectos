@@ -36,7 +36,7 @@
                     </table>
                   </td>
                   <td>                          
-                    <img ng-click='buscarProductoporid(item)' style="cursor:pointer;" src="productos/{{ item.imagen }}" alt="Generic placeholder image" class="card-item-img">                       
+                    <img ng-click='buscarProductoporid(item)' style="cursor:pointer;" src="{{ item.imagen }}" alt="Generic placeholder image" class="card-item-img">                       
                   </td>
                   <td class="ng-binding"><a href="" ng-click='buscarProductoporid(item)'>{{ item.nombre }} </a></td>
                   <td class="ng-binding">{{ (item.cantidad * item.precio) | currency:'$':0  }}</td>

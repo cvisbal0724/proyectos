@@ -2,6 +2,8 @@
 
 class ProductoProveedorController extends BaseController {
 
+	protected $rutaImagen = 'productos/';
+
 	/**
 	 * Display a listing of the resource.
 	 * GET /productoproveedor
@@ -430,7 +432,7 @@ public function ObtenerTodos(){
 					'id_unidad'=>$prodProv->ID_UNIDAD,
 					'nombre'=>$prodProv->Producto->NOMBRE,
 					'precio'=>$prodProv->PRECIO,
-					'imagen'=>$prodProv->ARCHIVO_FOTO
+					'imagen'=>$this->rutaImagen.$prodProv->ARCHIVO_FOTO
 					);	
 			}
 
@@ -472,8 +474,8 @@ public function ObtenerTodos(){
 		$lista=DB::table('temporal_compra')->
 			join('productos_proveedor','temporal_compra.ID_PRODUCTO_PROVEEDOR','=','productos_proveedor.ID')->
 			join('producto','productos_proveedor.ID_PRODUCTO','=','producto.ID')->
-			select('productos_proveedor.id','temporal_compra.cantidad','productos_proveedor.id_unidad',
-				'producto.nombre','productos_proveedor.precio','productos_proveedor.archivo_foto as imagen')
+			select(DB::raw("productos_proveedor.id,temporal_compra.cantidad,productos_proveedor.id_unidad,
+				producto.nombre,productos_proveedor.precio,concat('".$this->rutaImagen."' , productos_proveedor.archivo_foto) as imagen"))
 			->where('temporal_compra.id_usuario',$id_user)->get();
 		return $lista;	
 	}
@@ -514,16 +516,16 @@ public function ObtenerTodos(){
 		 	->join('categoria','producto.id_categoria', '=', 'categoria.id')
 		 	->join('unidad','productos_proveedor.id_unidad', '=', 'unidad.id')	 
 		 	->join('barrio_proveedor','barrio_proveedor.id_proveedor', '=', 'productos_proveedor.id_proveedor')	
-		 	->select(DB::Raw('productos_proveedor.id, producto.nombre,productos_proveedor.id_unidad,productos_proveedor.descripcion,productos_proveedor.productos_ofrecidos,
-	 				categoria.nombre as categoria, productos_proveedor.precio,unidad.id as id_unidad, unidad.nombre as unidad, 1 as cantidad,productos_proveedor.archivo_foto as imagen'))
+		 	->select(DB::Raw("productos_proveedor.id, producto.nombre,productos_proveedor.id_unidad,productos_proveedor.descripcion,productos_proveedor.productos_ofrecidos,
+	 				categoria.nombre as categoria, productos_proveedor.precio,unidad.id as id_unidad, unidad.nombre as unidad, 1 as cantidad, concat('".$this->rutaImagen."', productos_proveedor.archivo_foto) as imagen"))
 		 	->where('productos_proveedor.INVENTARIO','>',0);
 		 }else{
 		 	return DB::table('productos_proveedor')
 		 	->join('producto','productos_proveedor.id_producto', '=', 'producto.id')
 		 	->join('categoria','producto.id_categoria', '=', 'categoria.id')
 		 	->join('unidad','productos_proveedor.id_unidad', '=', 'unidad.id')	 		 	
-		 	->select(DB::Raw('productos_proveedor.id, producto.nombre,productos_proveedor.id_unidad,productos_proveedor.descripcion,productos_proveedor.productos_ofrecidos,
-	 				categoria.nombre as categoria, productos_proveedor.precio,unidad.id as id_unidad,unidad.nombre as unidad, 1 as cantidad,productos_proveedor.archivo_foto as imagen'))
+		 	->select(DB::Raw("productos_proveedor.id, producto.nombre,productos_proveedor.id_unidad,productos_proveedor.descripcion,productos_proveedor.productos_ofrecidos,
+	 				categoria.nombre as categoria, productos_proveedor.precio,unidad.id as id_unidad,unidad.nombre as unidad, 1 as cantidad,concat('".$this->rutaImagen."', productos_proveedor.archivo_foto) as imagen"))
 		 	->where('productos_proveedor.INVENTARIO','>',0);
 
 		 }

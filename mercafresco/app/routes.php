@@ -42,7 +42,7 @@ Route::get('inicio/registrar', function()
 });
 Route::get('historial/historial', function()
 {  
-	return View::make('historial/historial');	
+	return View::make('historial/historial',array('rutaImagen'=>'productos/'));	
 });
 Route::get('mi_perfil/cuenta', function()
 {  

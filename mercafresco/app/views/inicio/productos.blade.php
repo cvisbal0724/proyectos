@@ -43,7 +43,7 @@ ng-style="{height:idcategoria > 0 || (criterio!='' && criterio!=undefined) ? '' 
                         </div>
                         <a href="" data-toggle="modal" ng-click='modalProducto(obj)' class="clearfix">
                            <div class="item-image"> 
-                              <img class="" src="productos/{{obj.imagen}}" alt="Generic placeholder image" >
+                              <img class="" src="{{obj.imagen}}" alt="Generic placeholder image" >
                            </div>
                         </a>   
                         <div class="item-caption">
@@ -113,7 +113,7 @@ ng-style="{height:idcategoria > 0 || (criterio!='' && criterio!=undefined) ? '' 
                         <span class="glyphicon glyphicon-shopping-cart"></span>
                         {{ buscarenJsonporid(producto.id,listaCanasta)[0].cantidad || 0 | setDecimal:2 }}                       
                         </div>
-            <img class="" src="productos/{{producto.imagen}}" alt="Generic placeholder image" height="150px">
+            <img class="" src="{{producto.imagen}}" alt="Generic placeholder image" height="150px">
             <h2>{{ producto.productos_ofrecidos + ' ' + (producto.productos_ofrecidos <= 1 ? producto.unidad : producto.unidad+(producto.id_unidad==16 ? 'es' : 's')).toLowerCase().capitalizeFirstLetter() + ' de ' + producto.nombre.toLowerCase().capitalizeFirstLetter() }}</h2>
              
             <p>{{ producto.descripcion }}</p>
