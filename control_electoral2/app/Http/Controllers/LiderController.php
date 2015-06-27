@@ -153,20 +153,31 @@ public function AgregarLiderConcejales(Request $request){
 		$lista=$request->input('listaConcejales');
 		//dd($lista);
 		//exit();
+		$liderConcejalArray=array();
 		foreach ($lista as $key => $item) {
 			$liderConc=LiderConcejales::where('id_lider','=',$item['id_lider'])->where('id_concejal','=',$item['id_concejal'])->get();			
 			if (count($liderConc)==0) {
 
-				$liderConcejal= new LiderConcejales();
+				$liderConcejalArray[]=array(
+					'meta'=>$item['meta'],
+					'id_lider'=>$item['id_lider'],
+					'id_concejal'=>$item['id_concejal'],
+				);	
+				
+				/*$liderConcejal= new LiderConcejales();
 				
 				$liderConcejal->meta=$item['meta'];
 				$liderConcejal->id_lider=$item['id_lider'];
 				$liderConcejal->id_concejal=$item['id_concejal'];
 				
-				$liderConcejal->save();
+				$liderConcejal->save();*/
 
 			}			
 		}
+		if (count($liderConcejalArray)>0) {
+			DB::table('lider_concejales')->insert($liderConcejalArray);
+		}		
+
 		return LiderConcejales::where('id_lider','=',$lista[0]['id_lider'])->get();	
 	} catch (Exception $e) {
 		
@@ -177,10 +188,13 @@ public function ConsultarLiderConcejales(Request $request){
 	return LiderConcejales::where('id_lider','=',$request->input('id_lider'))->get();
 }
 
-public function EliminarLiderConcejal(Request $request){
+public function EliminarLiderConcejales(Request $request){
+   //return $request->input();
+	//exit();
 	$obj=LiderConcejales::where('id_lider','=',$request->input('id_lider'))
 	->where('id_concejal','=',$request->input('id_concejal'))->first();
 	$obj->delete();
+	return ($obj);
 	
 }
 

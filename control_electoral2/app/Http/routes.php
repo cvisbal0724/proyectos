@@ -199,7 +199,7 @@ Route::post('lider/crear','LiderController@Crear');
 Route::post('lider/consultar','LiderController@Consultar');
 Route::post('lider/agregarliderconcejales','LiderController@AgregarLiderConcejales');
 Route::post('lider/consultarliderconcejales','LiderController@ConsultarLiderConcejales');
-Route::post('lider/eliminarliderconcejal','LiderController@EliminarLiderConcejal');
+Route::post('lider/eliminarliderconcejales','LiderController@EliminarLiderConcejales');
 /*Fin Lider*/
 
 /*Votante*/

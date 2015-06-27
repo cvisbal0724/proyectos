@@ -104,7 +104,7 @@ $scope.agregar_lider_concejales=function(){
 	$http.post("lider/agregarliderconcejales",{listaConcejales:lista,_token:authUsuario.token()})
 	.success(function(data, status, headers, config) {
 		
-		 //$scope.list=data;
+		 $scope.listaLiderConcejales=data;
 		 	
 	 });
 }
@@ -118,16 +118,28 @@ $scope.consultar_lider_concejales=function(){
 	 });
 }
 
-$scope.eliminal_lider_concejales=function(){
-	$http.post("lider/eliminarliderconcejal",
-		{id_lider:$scope.lider_concejal.id_lider,
-			id_concejal:$scope.lider_concejal.id_concejal,
-			_token:authUsuario.token()})
-	.success(function(data, status, headers, config) {
+$scope.eliminal_lider_concejales=function(item){
+
+	swal({   
+	title: "Esta seguro?",   
+	text: "Desea eliminar el concejal!",   
+	type: "warning",   
+	showCancelButton: true,   
+	confirmButtonColor: "#DD6B55",  
+	confirmButtonText: "Si!", 
+	cancelButtonText:'No',  
+	closeOnConfirm: false }, function(){   
 		
+		$http.post("lider/eliminarliderconcejales",{id_lider:item.id_lider,id_concejal:item.id_concejal,_token:authUsuario.token()})
+			.success(function(data, status, headers, config) {
+
+		swal("Eliminado!", "El concejal fue removido del lider satisfactoriamente", "success"); 
 		 $scope.listaLiderConcejales=data;
 		 	
 	 });
+	
+	});
+	
 }
 
 $scope.abrir_modal=function(item){

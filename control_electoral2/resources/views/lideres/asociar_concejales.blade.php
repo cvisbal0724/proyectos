@@ -88,7 +88,7 @@
                <td>{{item.lider.persona.nombre + ' ' + item.lider.persona.apellido}}</td>  
                <td>{{item.concejal.persona.nombre + ' ' + item.concejal.persona.apellido }}</td>               
                <td>
-                 <a href="" ng-click="eliminar_perfil_modulo(item)">
+                 <a href="" ng-click="eliminal_lider_concejales(item)">
                    <i class='fa fa-trash fa-2x'></i>
                  </a>
                </td>              

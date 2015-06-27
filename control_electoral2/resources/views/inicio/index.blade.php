@@ -33,7 +33,7 @@
     <![endif]-->
 
     <link href="app_cliente/css/treeview.css" rel="stylesheet">
-
+    <link rel="stylesheet" href="app_cliente/css/sweetalert.css">
 
     <style type="text/css">
 
@@ -86,7 +86,9 @@
     <script src="app_cliente/js/sparkline-chart.js"></script>    
     <script src="app_cliente/js/zabuto_calendar.js"></script>    
 
-       
+     <!-- This is what you need -->
+  <script src="app_cliente/js/sweetalert.min.js"></script>
+
 
 </head>
 
