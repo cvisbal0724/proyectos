@@ -170,15 +170,15 @@ confControllers.controller('CuentaController', function ($scope,$http,$routePara
      	 $http.post("usuario/cambiarclave",{ key:$state.params.key,clave:$scope.cuenta.clave })
           .success(function(data, status, headers, config) {
 
-          	if (data=='success') {
+          	if (data.alert=='success') {
           		
-          		$scope.result={alert:'success',msg:'Su contraseña ha sido cambiada satisfactoriamente.',show:true};
+          		$scope.result=data;
           		$scope.cuenta.clave='';
           		$scope.cuenta.conf_clave='';
           		//$('#modalMensaje').modal('show');
           	}else{
 
-          		$scope.result={alert:'danger',msg:'Un error ha ocurrido al cambiar su contraseña.',show:true};
+          		$scope.result=data;//{alert:'danger',msg:'Un error ha ocurrido al cambiar su contraseña.',show:true};
           		//$('#modalMensaje').modal('show');
 
           	}

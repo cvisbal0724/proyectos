@@ -196,7 +196,10 @@ class UsuarioController extends BaseController {
 
 				$key=array('ID'=>$usuario->ID);
 				$arrayString=Encriptacion::encrypt($key, Encriptacion::ENCRYPTION_KEY);
-				$data=array('nombres'=>$usuario->persona->NOMBRES,'key'=>Request::root().'/#/cambiar-contrasena/'.$arrayString);
+				$data=array(
+					'nombres'=>$usuario->persona->NOMBRES,
+					'key'=>Request::root().'/#/cambiar-contrasena/'.$arrayString
+				);
 				Session::put('correo',$correo);
 
 				Mail::send('plantilla_correo/recordar_clave', $data, function($message){
@@ -224,16 +227,17 @@ class UsuarioController extends BaseController {
 		 	$clave=md5(Input::get('clave'));
 			$obj=Encriptacion::decrypt($key, Encriptacion::ENCRYPTION_KEY);		
 			$usuario=Usuario::find($obj['ID']);
-
+			$rs=0;
 			if ($usuario) {
 				$usuario->CLAVE=$clave;
-				$usuario->save();
+				$rs=$usuario->save();
 			}
 
-			return 'success';
+			return  $rs > 0 ? array('alert'=>'success','msg'=>'Su contraseña ha sido cambiada satisfactoriamente.','show'=>true) : 
+			 array('alert'=>'danger','msg'=>'Un error ha ocurrido al cambiar su contraseña.','show'=>true);
 
 	 	} catch (Exception $e) {
-	 		return 'error';
+	 		return array('alert'=>'danger','msg'=>$e .'Un error ha ocurrido consulte al administrador.','show'=>true);
 	 	}
 	 	
 	 }

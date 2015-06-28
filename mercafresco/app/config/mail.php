@@ -28,8 +28,8 @@ return array(
 	|
 	*/
 
-	'host' => 'mail.mercafresco.co',
-
+	'host' => 'mail.mercafresco.co',	
+	
 	/*
 	|--------------------------------------------------------------------------
 	| SMTP Host Port
@@ -42,7 +42,7 @@ return array(
 	*/
 
 	'port' => 25,
-
+	
 	/*
 	|--------------------------------------------------------------------------
 	| Global "From" Address
@@ -81,7 +81,7 @@ return array(
 	*/
 
 	'username' => 'informacion@mercafresco.co',
-
+	
 	/*
 	|--------------------------------------------------------------------------
 	| SMTP Server Password
@@ -94,7 +94,7 @@ return array(
 	*/
 
 	'password' => '123123',
-
+	
 	/*
 	|--------------------------------------------------------------------------
 	| Sendmail System Path

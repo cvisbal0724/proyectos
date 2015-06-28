@@ -38,8 +38,8 @@ class PQRController extends \BaseController {
 		 });*/
 
 		DB::commit();
-		return $rs['ID'] > 0 ? array('alert'=>'success','msg'=>'Susugerencia fue enviada satisfactoriamente.','show'=>true) :
-		array('alert'=>'danger','msg'=>'Su Susugerencia no pudo ser enviada estamos trabajando para mejorar nuestro servicio.','show'=>true);
+		return $rs['ID'] > 0 ? array('alert'=>'success','msg'=>'Su sugerencia fue enviada satisfactoriamente.','show'=>true) :
+		array('alert'=>'danger','msg'=>'Su sugerencia no pudo ser enviada estamos trabajando para mejorar nuestro servicio.','show'=>true);
 		
 		} catch (Exception $e) {
 			DB::rollback();

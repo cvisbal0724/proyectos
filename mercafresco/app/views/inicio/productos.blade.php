@@ -22,7 +22,7 @@
 <div class="marketing">
 
             
-               <div class="ruler with-header" ng-repeat-start='prod in listaProductos'>
+               <div class="ruler with-header" ng-repeat-start='prod in listaProductos' ng-if="prod.productos.length > 0">
                   <header class="">
                      <h2><a class="link-categoria" ng-click='buscarporcategoria_2(prod.id_categoria,prod.categoria)'>{{ prod.categoria.toLowerCase().capitalizeFirstLetter() }}</a></h2>
                       
@@ -31,7 +31,7 @@
                   </header>
                </div>
                <!-- 4 Columnas de productos style='height:281px;overflow:hidden' -->
-               <div class="row" 
+               <div class="row" ng-if="prod.productos.length > 0"
 ng-style="{height:idcategoria > 0 || (criterio!='' && criterio!=undefined) ? '' : '281px', overflow: idcategoria > 0 || (criterio!='' && criterio!=undefined) ? '' : 'hidden' }"
                ng-repeat-end>
                   

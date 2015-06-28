@@ -77,7 +77,7 @@ return array(
 		'sqlsrv' => array(
 			'driver'   => 'sqlsrv',
 			'host'     => 'localhost',
-			'database' => 'mercafresco2',
+			'database' => 'mercafresco3',
 			'username' => 'root',
 			'password' => '',
 			'prefix'   => '',

@@ -86,7 +86,7 @@
                                              <br><br>
                                              Usted ha solicitado recordar su clave.
                                              <br><br>
-                                            Para continuar y restablecer su contraseña haga clic <a href="[[$key]]" target="_blank">aquí.</a>
+                                            Para continuar y restablecer su clave haga clic <a href="[[$key]]" target="_blank">aquí.</a>
                                              <br>
                                              </font>
                                           </td>

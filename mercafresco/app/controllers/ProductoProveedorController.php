@@ -2,7 +2,8 @@
 
 class ProductoProveedorController extends BaseController {
 
-	protected $rutaImagen = 'productos/';
+	//protected $rutaImagen = 'productos/';
+	protected $rutaImagen ='administrador/source/imagen_productos/';
 
 	/**
 	 * Display a listing of the resource.
@@ -300,7 +301,7 @@ public function ObtenerTodos(){
 				'id_unidad'=>$prodProv->ID_UNIDAD,
 				'nombre'=>$prodProv->Producto->NOMBRE,
 				'precio'=>$prodProv->PRECIO,
-				'imagen'=>$prodProv->ARCHIVO_FOTO
+				'imagen'=>$this->rutaImagen . $prodProv->ARCHIVO_FOTO
 				);			
 				Session::put('productos',$lista);
 			}else{
@@ -323,7 +324,7 @@ public function ObtenerTodos(){
 						'id_unidad'=>$prodProv->ID_UNIDAD,
 						'nombre'=>$prodProv->Producto->NOMBRE,
 						'precio'=>$prodProv->PRECIO,
-						'imagen'=>$prodProv->ARCHIVO_FOTO
+						'imagen'=>$this->rutaImagen . $prodProv->ARCHIVO_FOTO
 						);			
 					}
 							

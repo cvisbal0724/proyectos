@@ -80,7 +80,7 @@
                                  <table width="100%" border="0" cellpadding="0" cellspacing="0" align="center" bgcolor="#FFFFFF">
                                     <tbody>
                                        <tr>
-                                          <td align="center" style="padding-top:20px;padding-bottom:20px;padding-left:40px;padding-right:40px">
+                                          <td style="padding-top:20px;padding-bottom:20px;padding-left:40px;padding-right:40px">
                                              <font face="Helvetica, sans-serif" color="#333333" style="font-family: Arial, Helvetica, sans-serif;font-size:18px;line-height:20px">
                                                 @include('plantilla_correo.informacion_pedido')
                                              </font>

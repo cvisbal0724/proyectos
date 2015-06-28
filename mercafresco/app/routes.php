@@ -42,7 +42,7 @@ Route::get('inicio/registrar', function()
 });
 Route::get('historial/historial', function()
 {  
-	return View::make('historial/historial',array('rutaImagen'=>'productos/'));	
+	return View::make('historial/historial',array('rutaImagen'=>'administrador/source/imagen_productos/'));	
 });
 Route::get('mi_perfil/cuenta', function()
 {  
@@ -346,6 +346,20 @@ Route::get('correo', function()
 {
 	return View::make('plantilla_correo/crear_cuenta');	
 	
+});
+
+Route::get('admin',function(){
+
+	return Redirect::to(Request::root().'/administrador/login.php');
+
+});
+
+Route::get('recordar',function(){
+	$data=array(
+					'nombres'=>'Carlos',
+					'key'=>Request::root().'/#/cambiar-contrasena/12365'
+				);
+	return View::make('plantilla_correo/recordar_clave',$data);	
 });
 
 /*merchantId=530880
