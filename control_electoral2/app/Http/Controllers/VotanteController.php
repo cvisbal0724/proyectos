@@ -21,24 +21,27 @@ class VotanteController extends Controller {
 	public function index(){
 	
 	 $lider=Lideres::where('id_persona','=',Auth::user()->id_persona)->first();
-	 	
-	 $concejales=Db::table('lider_concejales as lc')->
-	 join('concejales as c','lc.id_concejal','=','c.id')->
-	 join('personas as p','c.id_persona','=','p.id')->
-	 where('lc.id_lider','=',$lider->id)->
-	 select(DB::raw("c.id, concat(p.nombre,' ',p.apellido) as concejal"))->get();
+	 $variables=array();
+	 if ($lider) {
+	 		$concejales=Db::table('lider_concejales as lc')->
+			 join('concejales as c','lc.id_concejal','=','c.id')->
+			 join('personas as p','c.id_persona','=','p.id')->
+			 where('lc.id_lider','=',$lider->id)->
+			 select(DB::raw("c.id, concat(p.nombre,' ',p.apellido) as concejal"))->get();
 
-	 $tipoVoto=TipoVoto::all();
-	 $lugarVotacion=LugaresDeVotacion::all();	 
-	 if ($concejales) {
-	 	$categoriaVotacion=CategoriaVotacion::all();
-	 }else{
-	 	$categoriaVotacion=CategoriaVotacion::where('id','=',2)->get();
-	 }
-	 $variables=array('concejales'=>$concejales,'tipovoto'=>$tipoVoto,'lugarVotacion'=>$lugarVotacion,'categoriaVotacion'=>$categoriaVotacion);
+			 $tipoVoto=TipoVoto::all();
+			 $lugarVotacion=LugaresDeVotacion::all();	 
+			 if ($concejales) {
+			 	$categoriaVotacion=CategoriaVotacion::all();
+			 }else{
+			 	$categoriaVotacion=CategoriaVotacion::where('id','=',2)->get();
+			 }
+			 $variables=array('concejales'=>$concejales,'tipovoto'=>$tipoVoto,'lugarVotacion'=>$lugarVotacion,'categoriaVotacion'=>$categoriaVotacion);
 
-	 return view('votantes/votante',$variables);
+			 return view('votantes/votante',$variables);
 
+	}	
+	 return 'Usted no tiene acceso a esta pagina porque no esta registrado como lider.';
 	}
 
 	public function Crear(Request $request){

@@ -6,9 +6,10 @@
 
                      @if(count($concejales)>0)
                      <div class="row mtbox">
+                            <div class="panel-body">
                       @foreach($concejales as $key=>$item)
                               @if($key==0)
-                              <div class="col-md-2 col-sm-2 col-md-offset-1 box0">
+                              <div class="col-md-2 col-sm-2 box0">
                                     <div class="box1">
                                                 <i class="fa fa-male fa-5x" style="color:#ec971f"></i>
                                                 <h3>[[$item->votos]]</h3>
@@ -28,14 +29,15 @@
                               </div>
                               @endif
                               @endforeach
+                              </div>
                      </div>
                      @endif
                      @if(count($lideres)>0)
                   	<div class="row mtbox">
-                  		                  	
+                  		              <div class="panel-body">     	
                               @foreach($lideres as $key=>$item)
                               @if($key==0)
-                              <div class="col-md-2 col-sm-2 col-md-offset-1 box0">
+                              <div class="col-md-2 col-sm-2 box0">
                                     <div class="box1">
                                                 <i class="fa fa-user-plus fa-5x" style="color:#ec971f"></i>
                                                 <h3>[[$item->votos]]</h3>
@@ -59,5 +61,5 @@
 
                   	</div><!-- /row mt -->	
                       @endif
-
+                        </div>
                       </div>  

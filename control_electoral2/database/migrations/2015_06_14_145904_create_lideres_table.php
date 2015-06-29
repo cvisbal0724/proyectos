@@ -16,7 +16,8 @@ class CreateLideresTable extends Migration {
 		{	
 			$table->increments('id');
 			$table->integer('id_persona')->unsigned();
-			$table->integer('id_encargado')->unsigned();							
+			$table->integer('id_encargado')->unsigned();
+			$table->string('foto');
 			$table->foreign('id_persona')->references('id')->on('personas');
 			$table->foreign('id_encargado')->references('id')->on('usuarios');
 			$table->timestamps();

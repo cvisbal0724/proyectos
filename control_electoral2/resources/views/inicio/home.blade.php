@@ -291,9 +291,9 @@
     <script type="text/javascript">
      $('.backstretch').remove();
     </script>
-
+    
 <script src="app_cliente/js/charts/highcharts.js"></script>
-<script src="app_cliente/js/charts/modules/exporting.js"></script>   
+<script src="app_cliente/js/charts/modules/exporting.js"></script> 
 
     <!-- Modal -->
             <div class="modal fade" id="modalPersona" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
