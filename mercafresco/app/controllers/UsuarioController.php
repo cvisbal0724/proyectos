@@ -269,22 +269,24 @@ class UsuarioController extends BaseController {
 
 		$id_user=Cookie::get('id_user');
 		$usuario=Usuario::find($id_user);
-		
-		$cuenta=array(
-			'id'=>$usuario->ID,
-			'fecha_registro'=>date('Y-m-d',strtotime($usuario->FECHA_CREACION)),
-			'usuario'=>$usuario->USUARIO,
-			'cortesia'=>$usuario->Persona->CORTESIA,
-			'no_identificacion'=>$usuario->Persona->NO_IDENTIFICACION,
-			'id_tipo_identificacion'=>$usuario->Persona->ID_TIPO_IDENTIFICACION,
-			'nombres'=>$usuario->Persona->NOMBRES,
-			'apellidos'=>$usuario->Persona->APELLIDOS,
-			'correo'=>$usuario->Persona->EMAIL,
-			'telefono'=>$usuario->Persona->TELEFONO,
-			'celular'=>$usuario->Persona->CELULAR,
-			'fecha_nacimiento'=>$usuario->Persona->FECHA_NACIMIENTO,
-			'id_persona'=>$usuario->ID_PERSONA
-		);
+		$cuenta=array();
+		if ($usuario) {
+			$cuenta=array(
+				'id'=>$usuario->ID,
+				'fecha_registro'=>date('Y-m-d',strtotime($usuario->FECHA_CREACION)),
+				'usuario'=>$usuario->USUARIO,
+				'cortesia'=>$usuario->Persona->CORTESIA,
+				'no_identificacion'=>$usuario->Persona->NO_IDENTIFICACION,
+				'id_tipo_identificacion'=>$usuario->Persona->ID_TIPO_IDENTIFICACION,
+				'nombres'=>$usuario->Persona->NOMBRES,
+				'apellidos'=>$usuario->Persona->APELLIDOS,
+				'correo'=>$usuario->Persona->EMAIL,
+				'telefono'=>$usuario->Persona->TELEFONO,
+				'celular'=>$usuario->Persona->CELULAR,
+				'fecha_nacimiento'=>$usuario->Persona->FECHA_NACIMIENTO,
+				'id_persona'=>$usuario->ID_PERSONA
+			);
+		}	
 
 		return $cuenta;
 	} 

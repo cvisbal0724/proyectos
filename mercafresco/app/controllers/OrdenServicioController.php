@@ -657,7 +657,7 @@ try {
 		}
 		
 	}else{
-		return array('show'=>true,'alert'=>'warning','msg'=>'El cupon no existe.');	
+		return array('show'=>true,'alert'=>'warning','msg'=>'Lo sentimos la palabra clave del cupon no existe, ingresela nuevamente o consulte su administrador.');	
 	}
 
 	return array('show'=>true,'alert'=>'danger','msg'=>'Error al guardar cupon.');
@@ -791,6 +791,12 @@ public function ReintertarPagoBancario(){
 		try {
 			
 			$item=Session::get('OrderServicio');
+			$historial=HistorialCompra::where('ID_ORDEN_SERVICIO','=',$item->ID)->get();
+			foreach ($historial as $key => $row) {
+				$producto_proveedor=ProductosProveedor::find($row->ID_PRODUCTO_PROVEEDOR);
+				$producto_proveedor->INVENTARIO=$producto_proveedor->INVENTARIO + $row->CANTIDAD_COMPRADOS;
+				$producto_proveedor->save();
+			}
 
 			HistorialCompra::where('ID_ORDEN_SERVICIO','=',$item->ID)->delete();
 
