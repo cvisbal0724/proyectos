@@ -31,6 +31,12 @@
                 </select>
                 <p class="help-block">(*)Seleccione el perfil</p>
             </div>
+
+            <div class="form-group">
+                <label>Foto</label>
+                <input class="form-control" type='file' file-model='concejalVO.foto'>
+                <p class="help-block">(*)Ingrese el partido</p>
+            </div>
         
         </div>   
        </div>     

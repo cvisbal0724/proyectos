@@ -24,7 +24,12 @@
               <input type="text" class="form-control" ng-model="liderVO.meta" numeric-only>
               <p></p>
             </div>  
- 
+          <div class="form-group">
+                <label>Foto</label>
+                <input class="form-control" type='file' file-model='liderVO.foto'>
+                <p class="help-block">(*)Ingrese el partido</p>
+            </div>
+             
         </div>   
        </div>     
             

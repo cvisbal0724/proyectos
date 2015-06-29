@@ -1,6 +1,6 @@
 confControllers.controller('LiderController', function ($scope,$location,authUsuario,SessionService,SessionSet,$state,$http) {
 
-$scope.liderVO={id:0,id_persona:0,_token:authUsuario.token()};
+$scope.liderVO={id:0,id_persona:0,foto:null,_token:authUsuario.token()};
 $scope.result={};
 $scope.listaLideres=[];
 $scope.criterio='';
@@ -29,7 +29,17 @@ $scope.crear=function(){
 
 	if (!$scope.liderVO.id_persona > 0) {$scope.result={"show":true,"alert":"warning","msg":"Seleccione la persona."}; return false;};
 
-	$http.post("lider/crear",$scope.liderVO).success(function(data, status, headers, config) {
+	var formData= new FormData();
+
+	formData.append('id',$scope.liderVO.id);
+	formData.append('id_persona',$scope.liderVO.id_persona);
+	formData.append('foto',$scope.liderVO.foto);
+	formData.append('_token',$scope.liderVO._token);
+
+	$http.post("lider/crear",formData,
+		{transformRequest: angular.identity,
+            headers: {'Content-Type': undefined}})
+	.success(function(data, status, headers, config) {
 		
 		 	$scope.result=data;
 		 	if (data.alert=='success') {		 		
@@ -42,7 +52,18 @@ $scope.crear=function(){
 $scope.actualizar=function(){
 	$scope.liderVO.id_persona=$scope.liderVO.id_persona[0];
 	if (!$scope.liderVO.id_persona > 0) {$scope.result={"show":true,"alert":"warning","msg":"Seleccione la persona."}; return false;};
-	$http.post("usuario/actualizar",$scope.liderVO).success(function(data, status, headers, config) {
+	
+	var formData= new FormData();
+
+	formData.append('id',$scope.liderVO.id);
+	formData.append('id_persona',$scope.liderVO.id_persona);
+	formData.append('foto',$scope.liderVO.foto);
+	formData.append('_token',$scope.liderVO._token);
+
+	$http.post("usuario/actualizar",formData,
+		{transformRequest: angular.identity,
+            headers: {'Content-Type': undefined}})
+		.success(function(data, status, headers, config) {
 		
 		 	$scope.result=data;
 		 	if (data.alert=='success') {		 		

@@ -1,6 +1,6 @@
 confControllers.controller('ConcejalController', function ($scope,$location,authUsuario,SessionService,SessionSet,$state,$http) {
 
-$scope.concejalVO={id:0,numero:'',id_persona:0,id_partido:0,_token:authUsuario.token()};
+$scope.concejalVO={id:0,numero:'',id_persona:0,id_partido:0,foto:null,_token:authUsuario.token()};
 $scope.result={};
 $scope.listaConcejales=[];
 $scope.criterio='';
@@ -29,7 +29,19 @@ $scope.crear=function(){
 
 	if (!$scope.concejalVO.id_persona > 0) {$scope.result={"show":true,"alert":"warning","msg":"Seleccione la persona."}; return false;};
 
-	$http.post("concejal/crear",$scope.concejalVO).success(function(data, status, headers, config) {
+	var formData= new FormData();
+
+	formData.append('id',$scope.concejalVO.id);
+	formData.append('numero',$scope.concejalVO.numero);
+	formData.append('id_persona',$scope.concejalVO.id_persona);
+	formData.append('id_partido',$scope.concejalVO.id_partido);
+	formData.append('foto',$scope.concejalVO.foto);
+	formData.append('_token',$scope.concejalVO._token);
+
+	$http.post("concejal/crear",formData,
+		{transformRequest: angular.identity,
+            headers: {'Content-Type': undefined}})
+	.success(function(data, status, headers, config) {
 		
 		 	$scope.result=data;
 		 	if (data.alert=='success') {		 		
@@ -47,7 +59,19 @@ $scope.actualizar=function(){
 
 	if (!$scope.concejalVO.id_persona > 0) {$scope.result={"show":true,"alert":"warning","msg":"Seleccione la persona."}; return false;};
 
-	$http.post("concejal/actualizar",$scope.concejalVO).success(function(data, status, headers, config) {
+	var formData= new FormData();
+
+	formData.append('id',$scope.concejalVO.id);
+	formData.append('numero',$scope.concejalVO.numero);
+	formData.append('id_persona',$scope.concejalVO.id_persona);
+	formData.append('id_partido',$scope.concejalVO.id_partido);
+	formData.append('foto',$scope.concejalVO.foto);
+	formData.append('_token',$scope.concejalVO._token);
+
+	$http.post("concejal/actualizar",formData,
+		{transformRequest: angular.identity,
+            headers: {'Content-Type': undefined}})
+	.success(function(data, status, headers, config) {
 		
 		 	$scope.result=data;
 		 	if (data.alert=='success') {		 		

@@ -51,12 +51,12 @@ class AlcaldeController extends Controller {
 
 				$nombreArchivo='';
 
-				if ($request->hasFile('logo')) {
-					if ($request->file('logo')->isValid()) {
+				if ($request->hasFile('foto')) {
+					if ($request->file('foto')->isValid()) {
 						$nombreArchivo=rand(11111,99999).str_replace(' ','',$request->input('nombre')).'.'.
-						$request->file('logo')->getClientOriginalExtension();
+						$request->file('foto')->getClientOriginalExtension();
 
-						 $request->file('logo')->move(
+						 $request->file('foto')->move(
 					        base_path() . '/public/app_cliente/fotos_alcalde/', $nombreArchivo
 					    );
 					}

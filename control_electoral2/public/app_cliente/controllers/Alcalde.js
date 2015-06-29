@@ -1,6 +1,6 @@
 confControllers.controller('AlcaldeController', function ($scope,$location,authUsuario,SessionService,SessionSet,$state,$http) {
 
-	$scope.alcaldeVO={id:0,nombre:'',id_partido:0,numero:0,_token:authUsuario.token()};
+	$scope.alcaldeVO={id:0,nombre:'',id_partido:0,numero:0,foto:null,_token:authUsuario.token()};
 	$scope.result={};
 	$scope.listaAlcaldes=[];
 

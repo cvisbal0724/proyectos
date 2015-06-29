@@ -8,6 +8,8 @@ use App\models\Concejales;
 use App\models\Lideres;
 use Auth;
 use DB;
+use File;
+use Intervention\Image\ImageManagerStatic as Image;
 
 class ConcejalController extends Controller {
 
@@ -16,16 +18,27 @@ public function Crear(Request $request){
 	try {
 
 			$concejal=Concejales::where('id_persona','=',$request->input('id_persona'))->first();
-			
+			$nombreArchivo='';
+
 			if ($concejal) {
 				return array('show'=>true,'alert'=>'warning','msg'=>'El concejal ya existe.');
 			}
 			
+			if ($request->hasFile('foto')) {
+				if ($request->file('foto')->isValid()) {
+					$nombreArchivo=rand(11111,99999).'.'.$request->file('foto')->getClientOriginalExtension();
+					 $request->file('foto')->move(
+				        base_path() . '/public/app_cliente/fotos_concejal/', $nombreArchivo
+				    );
+				}
+			}
+
 			$rs=Concejales::create(array(
 				'id_persona'=>$request->input('id_persona'),
 				'id_usuario'=>Auth::user()->id,
 				'id_partido'=>$request->input('id_partido'),
-				'numero'=>$request->input('numero')
+				'numero'=>$request->input('numero'),
+				'foto'=>$nombreArchivo
 			));
 
 			$lider=Lideres::where('id_persona','=',$request->input('id_persona'))->get();
@@ -53,11 +66,34 @@ public function Actualizar(Request $request){
 	try {
 
 			$concejal=Concejales::find($request->input('id'));
+			$nombreFotoAnterior='';
+			$nombreArchivo='';
+
+			if ($request->hasFile('foto')) {
+					if ($request->file('foto')->isValid()) {
 						
+						$nombreArchivo=rand(11111,99999).'.'.$request->file('foto')->getClientOriginalExtension();
+
+						$move=$request->file('foto')->move(
+					        public_path() . '/app_cliente/fotos_concejal/', $nombreArchivo
+					    );
+						
+						$nombreFotoAnterior=$concejal->foto;
+						$concejal->foto=$nombreArchivo;	
+						$image = Image::make('public/foo.jpg')->resize(300, 200);
+					}
+			}
+
 			$concejal->id_persona=$request->input('id_persona');			
 			$concejal->id_partido=$request->input('id_partido');
 			$concejal->numero=$request->input('numero');
 			$rs=$concejal->save();
+
+			if ($nombreFotoAnterior!='') {
+				if (File::exists(public_path().'/app_cliente/fotos_lider/'.$nombreFotoAnterior)) {
+					File::delete(public_path().'/app_cliente/fotos_lider/'.$nombreFotoAnterior);
+				}				 
+			}
 
 			$lider=Lideres::where('id_persona','=',$request->input('id_persona'))->get();
 			if (count($lider)==0) {
