@@ -32,6 +32,7 @@ public function Crear(){
 
 	if ($bonoUsuario) {
 		$bonoUsuario->USADO=1;
+		$bonoUsuario->save();
 	}
 
 	$rs=OrdenServicio::create(array(
@@ -162,7 +163,7 @@ public function Crear(){
  		$id_orden=Session::get('id_orden');
  		$email=$usuario->persona->EMAIL;
  		$cliente=$usuario->persona->NOMBRES.' '.$usuario->persona->APELLIDOS;
-		$message->to($email, $cliente)->subject('PEDIDO Nº '.$id_orden.' REALIZADO CORRECTAMENTE!!!');
+		$message->to($email, $cliente)->subject('Pedido No. '.$id_orden.' realizado correctamente');
 	});
 
 	DB::commit();
@@ -213,7 +214,8 @@ public function Finalizar(){
 			'productos'=>$item->CantidadProductos(),
 			'domicilio'=>$item->VALOR_DOMICILIO,
 			'email'=>strtolower($usuario->persona->EMAIL),
-			'convenio'=>$item->Convenio()
+			'convenio'=>$item->Convenio(),
+			'descuentobono'=>(double)$item->DescuentoBono()
 			
 		);
 
@@ -312,7 +314,7 @@ public function ObtenerTodos(){
  			'id'=>$row->ID,
  			'fecha_orden'=>date('Y-m-d',strtotime($row->FECHA_CREACION)),
  			'estado'=>$row->estado_entrega->NOMBRE,
- 			'total'=>$row->Total() - $row->Convenio(),
+ 			'total'=>$row->Total() - $row->Convenio() - $row->DescuentoBono(),
  			'detalle'=>$detalle
  		);
  	}
@@ -402,7 +404,7 @@ public function ObtenerTodos(){
  			'id'=>$row->ID,
  			'fecha_orden'=>date('Y-m-d',strtotime($row->FECHA_CREACION)),
  			'estado'=>$row->estado_entrega->NOMBRE,
- 			'total'=>$row->Total()- $row->Convenio(),
+ 			'total'=>$row->Total()- $row->Convenio() - $row->DescuentoBono(),
  			'detalle'=>$detalle
  		);
  	}
@@ -611,6 +613,12 @@ try {
 	$id=0;
 	if ($bono) {
 
+		$horas=Funciones::RestarFechas(date('Y/m/d'),date('Y/m/d',strtotime($bono->FECHA_FINAL)));
+
+		if ($horas < 0) {
+			return array('show'=>true,'alert'=>'warning','msg'=>'Este cupon ya esta vencido.');
+		}
+
 		//$usubono=UsuarioBono::whereRaw('ID_USUARIO=? and ID_BONO=? and ',array($id_user,$bono->ID))->first();
 		if ($bono->ID_CARACTERISICA_BONO==1/*PRIMERA COMPRA*/) {
 
@@ -618,7 +626,7 @@ try {
 			$usubono=UsuarioBono::whereRaw('ID_USUARIO=? and ID_BONO=? ',array($id_user,$bono->ID))->first();
 
 			if ($compras > 0) {
-				return array('show'=>true,'alert'=>'warning','msg'=>'Lo sentimos no puede utilizar el cupon porque es solo para la primera compra.');
+				return array('show'=>true,'alert'=>'warning','msg'=>'Este cupon es solo para la primera compra.');
 			}
 			if ($usubono) {
 				return array('show'=>true,'alert'=>'warning','msg'=>'El cupon ya fué utilizado.');
@@ -630,7 +638,7 @@ try {
 			$usubono=UsuarioBono::whereRaw('ID_USUARIO=? and ID_BONO=? ',array($id_user,$bono->ID))->first();
 
 			if ($usubono) {
-				return array('show'=>true,'alert'=>'warning','msg'=>'El cupon ya fué utilizado.');
+				return array('show'=>true,'alert'=>'warning','msg'=>'Ya ha utilizado este cupón.');
 			}
 		}
 
@@ -639,7 +647,7 @@ try {
 			$usubono=UsuarioBono::whereRaw('ID_USUARIO=? and ID_BONO=? and USADO=0',array($id_user,$bono->ID))->first();
 
 			if ($usubono) {
-				return array('show'=>true,'alert'=>'warning','msg'=>'Ya tiene un cupon de este tipo sin usar..');
+				return array('show'=>true,'alert'=>'warning','msg'=>'Cupón guardado correctamente.');//Ya tiene un cupon de este tipo sin usar..
 			}
 		}
 				
@@ -651,13 +659,13 @@ try {
 			));
 
 		if ($rs['ID_BONO']>0) {
-			return array('show'=>true,'alert'=>'success','msg'=>'Cupon guardado satisfactoriamente.');	
+			return array('show'=>true,'alert'=>'success','msg'=>'Cupon guardado correctamente.');	
 		}else{
 			return array('show'=>true,'alert'=>'warning','msg'=>'Error al guardar cupon.');	
 		}
 		
 	}else{
-		return array('show'=>true,'alert'=>'warning','msg'=>'Lo sentimos la palabra clave del cupon no existe, ingresela nuevamente o consulte su administrador.');	
+		return array('show'=>true,'alert'=>'warning','msg'=>'No existe un cupón con este nombre, verifíquelo e intente nuevamente.');	
 	}
 
 	return array('show'=>true,'alert'=>'danger','msg'=>'Error al guardar cupon.');

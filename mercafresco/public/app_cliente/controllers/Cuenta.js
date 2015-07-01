@@ -101,6 +101,7 @@ confControllers.controller('CuentaController', function ($scope,$http,$routePara
       			if (data > 0) {
       				$('#modalRegistrar').modal('show');
       				$scope.result2={alert:'success',msg:'Su cuenta ha sido creada satisfactoriamente, se le ha enviado un correo de confirmación.',show:true};
+      				$scope.nuevo();
       			}else{
       				$('#modalRegistrar').modal('show');
       				$scope.result2={alert:'danger',msg:data,show:true};
@@ -110,6 +111,25 @@ confControllers.controller('CuentaController', function ($scope,$http,$routePara
 
       	
 
+	}
+
+	$scope.nuevo=function(){
+		$scope.cuenta={
+		cortesia:'0',
+		correo:'',
+		id_tipo_identificacion:'0',
+		no_identificacion:'',
+		nombres:'',
+		apellidos:'',
+		celular:'',
+		fecha_nacimiento:'',
+		telefono:'',
+		id_barrio:'0',
+		direccion:'',
+		quien_recibe:'',
+		clave:'',
+		conf_clave:''
+	};
 	}
 
 	$scope.cargar_datos_facebook=function(){

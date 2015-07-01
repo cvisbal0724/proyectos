@@ -65,14 +65,14 @@ class OrdenServicio extends \Eloquent {
 	public function DescuentoBono(){
 
 		$result=DB::select('select 
-							ifnull(sum(hc.precio * (b.descuento / 100)),0) as decuento
+							ifnull(sum((hc.cantidad_comprados * hc.precio) * (b.descuento / 100)),0) as descuento
 							from historial_compra hc
               				inner join orden_servicio os on hc.id_orden_servicio=os.id
 							inner join
 							usuario_bono ub on os.id_bono=ub.id_bono and os.id_usuario=ub.id_usuario
 							inner join bonos b on ub.id_bono=b.id
 							where hc.id_orden_servicio='.$this->ID);
-		return count($result)>0 ? $result[0]->decuento : 0;
+		return count($result)>0 ? $result[0]->descuento : 0;
 		
 	}
 

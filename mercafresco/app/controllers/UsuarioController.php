@@ -33,12 +33,12 @@ class UsuarioController extends BaseController {
 				"FECHA_REGISTRO"=>DB::raw("NOW()")		
 			));	
 
-			MetodoPagoPersona::create(array(
+			/*MetodoPagoPersona::create(array(
 				'ID_TIPO_METODO_PAGO'=>1,
 				'ID_PERSONA'=>$per['ID'],
 				'FECHA_CREACION'=>DB::raw('NOW()'),
 				'ESTADO'=>1
-			));
+			));*/
 
 			/*$dir=BarrioPersona::create(array(
 
@@ -69,8 +69,11 @@ class UsuarioController extends BaseController {
 
 			 $key=array('ID'=>$usu['ID'],'CLAVE'=>$pwd);
 			 $arrayString=Encriptacion::encrypt($key, Encriptacion::ENCRYPTION_KEY);
-			 $data=array('usuario'=>$usuario->USUARIO,'nombres'=>Input::get("nombres"),
-			 	'apellidos'=>Input::get("apellidos"),'clave'=>Input::get('clave'),'key'=>Request::root().'/#/activar/'.$arrayString);
+			 $data=array(
+			 	'usuario'=>$usuario->USUARIO,'nombres'=>Input::get("nombres"),
+			 	'apellidos'=>Input::get("apellidos"),
+			 	'clave'=>Input::get('clave'),'key'=>Request::root().'/#/activar/'.$arrayString
+			 );
 
 			 Mail::send('plantilla_correo/crear_cuenta', $data, function($message){
 		        $message->to(Input::get('correo'), Input::get('nombres').' '.Input::get('apellidos'))->subject('Registro de Usuario');

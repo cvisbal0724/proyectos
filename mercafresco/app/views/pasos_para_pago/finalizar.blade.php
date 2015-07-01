@@ -26,7 +26,7 @@
 
             <tr>
               <td>
-               <label>Direccion:</label>
+               <label>Dirección:</label>
               </td>
               <td>{{OrdenServicio.direccion}}</td>
             </tr>
@@ -40,7 +40,7 @@
 
              <tr>
               <td>
-               <label>Pedido Numero:</label>
+               <label>Pedido Número:</label>
               </td>
               <td>{{OrdenServicio.id}}</td>
             </tr>
@@ -61,7 +61,7 @@
 
              <tr ng-if="OrdenServicio.descuentobono > 0">
               <td>
-              <label>Descuento por cupon:</label>
+              <label>Descuento por cupón:</label>
               </td>
               <td>{{OrdenServicio.descuentobono | currency:'$':0}}</td>
             </tr>

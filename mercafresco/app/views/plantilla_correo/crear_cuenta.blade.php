@@ -4,8 +4,8 @@
       <meta charset="utf-8">
       <meta http-equiv="X-UA-Compatible" content="IE=edge">
       <meta name="viewport" content="width=device-width, initial-scale=1">
-      <title>Recordar Contraseña</title>
-      <style>
+      <title>Recordar Clave</title>
+     <style>
           @import url([[ asset('app_cliente/img_email/fonts.css')]]);
          /* All your usual CSS here */
          @media (min-width: 480px) {
@@ -41,7 +41,7 @@
                                     <tbody>
                                        <tr>
                                           <td width="50%" align="left" valign="middle" style="padding-bottom:10px;padding-top:10px;padding-left:40px;">
-                                             <div align="center"><a href="" target="_blank"><img src="[[ asset('app_cliente/img_email/mercafresco.png')]]" width="auto" height="150px" border="0" alt="" style="display:block;" class="logo"></a></div>
+                                             <div align="center"><a href="" target="_blank"><img src="[[ asset('app_cliente/img_email/mercafresco2.png')]]" width="auto" height="150px" border="0" alt="" style="display:block;" class="logo"></a></div>
                                           </td>
                                        </tr>
                                     </tbody>
@@ -138,10 +138,10 @@
                                                                          </td>  
                                                                          <td valign="middle" align="left" style="padding-top:30px;padding-bottom:3px;padding-left:0;padding-right:40px;height:50px;line-height:1.4">
                                                                               
-                                                                              <a style="padding:0;margin:0 auto!important; text-decoration:none;" href="" target="_blank">
+                                                                              <a style="padding:0;margin:0 auto!important; text-decoration:none;" href="https://www.facebook.com/profile.php?id=100009547577750" target="_blank">
                                                                               <img width="27" border="0" style="width:27px;min-height:24px" alt="facebook" src="[[asset('app_cliente/img_email/icon-facebook.png')]]" class="CToWUd">
                                                                               </a>
-                                                                              <a style="padding:0;margin:0 auto!important;text-decoration:none;" href="" target="_blank">
+                                                                              <a style="padding:0;margin:0 auto!important;text-decoration:none;" href="https://instagram.com/mercafresco.co/" target="_blank">
                                                                               <img width="27" border="0" style="width:27px;min-height:24px" alt="twitter" src="[[ asset('app_cliente/img_email/icon-instagram.png')]]" class="CToWUd">
                                                                               </a>
                                                                               <a style="padding:0;margin:0 auto!important;text-decoration:none;" href="" target="_blank">

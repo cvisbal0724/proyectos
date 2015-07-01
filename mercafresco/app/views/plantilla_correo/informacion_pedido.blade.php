@@ -52,10 +52,7 @@
                 <br>
                 Descuento por cupon: $[[$descuentobono]]            
             <?php endif ?>
-
            
-            <?php if ($convenio > 0): ?>              
-              
                 <br>
-                Total a pagar: $[[$total - $convenio]]           
-            <?php endif ?>
+                Total a pagar: $[[$total - $convenio - $descuentobono]]           
+           

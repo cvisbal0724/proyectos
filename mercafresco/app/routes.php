@@ -362,6 +362,19 @@ Route::get('recordar',function(){
 	return View::make('plantilla_correo/recordar_clave',$data);	
 });
 
+Route::get('datediff',function(){
+
+/*$date1 = '2015-06-15';
+$date2 = '2015-06-14';
+$ts1 = strtotime($date1);
+$ts2 = strtotime($date2);
+$seconds_diff = $ts2 - $ts1;//getdate();//date_diff('5/10/2015', '5/11/2015');
+return $seconds_diff / ( 60 * 60);*/
+
+return date('Y/m/d',strtotime('2015-01-26 00:00:00'));//date('Y/m/d');	
+
+});
+
 /*merchantId=530880
 merchant_name=Inversiones+y+Obras+S.A.S
 merchant_address=Cra+76+no+81a-15

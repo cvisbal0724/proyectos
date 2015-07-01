@@ -41,7 +41,7 @@
                                     <tbody>
                                        <tr>
                                           <td width="50%" align="left" valign="middle" style="padding-bottom:10px;padding-top:10px;padding-left:40px;">
-                                             <div align="center"><a href="" target="_blank"><img src="[[ asset('app_cliente/img_email/mercafresco.png')]]" width="auto" height="150px" border="0" alt="" style="display:block;" class="logo"></a></div>
+                                             <div align="center"><a href="" target="_blank"><img src="[[ asset('app_cliente/img_email/mercafresco2.png')]]" width="auto" height="150px" border="0" alt="" style="display:block;" class="logo"></a></div>
                                           </td>
                                        </tr>
                                     </tbody>
@@ -59,7 +59,7 @@
                                        <tr>
                                           <td align="center" style="padding-top:40px;padding-left:40px;padding-right:40px;font-size:40px;line-height:40px">
                                              <font face="'bebasregular'" color="#90A04A" style="font-size:50px;line-height:40px">
-                                              RESTABLCER CLAVE</font>
+                                              RESTABLECER CLAVE</font>
                                           </td>
                                        </tr>
                                        <!--<tr>
@@ -84,9 +84,9 @@
                                              <font face="Helvetica, sans-serif" color="#333333" style="font-family: Arial, Helvetica, sans-serif;font-size:18px;line-height:20px">
                                              Hola, [[ $nombres ]],
                                              <br><br>
-                                             Usted ha solicitado recordar su clave.
+                                             Has solicitado recordar tu clave.
                                              <br><br>
-                                            Para continuar y restablecer su clave haga clic <a href="[[$key]]" target="_blank">aquí.</a>
+                                            Para continuar y restablecer tu clave has clic <a href="[[$key]]" target="_blank">aquí.</a>
                                              <br>
                                              </font>
                                           </td>
@@ -99,7 +99,7 @@
                      </table>
                     
                      <!-- seccion de destacados -->
-                     <table width="100%" border="0" cellspacing="0" cellpadding="0" >
+                      <table width="100%" border="0" cellspacing="0" cellpadding="0" >
                         <tbody>
                            <tr>
                               <td align="center" valign="top" style="padding-bottom:0px">
@@ -107,7 +107,25 @@
                                     <tbody>
                                        <tr>
                                           <td  align="center" style="padding-top:20px;padding-bottom:20px;padding-left:0px;padding-right:0px">
-                                             
+                                             <table border="0" cellspacing="0" cellpadding="0">
+                                                <tbody>
+                                                   <tr>
+                                                      <td align="right" valign="middle" style="padding-left:0px;padding-right:0px;padding-top:20px;padding-bottom:5px">
+                                                            <font face="'bebasregular'" color="#FFFFFF" style="font-size:28px;line-height:30px; display: block;">
+                                                            ¡GRACIAS POR PREFERIRNOS!
+                                                            </font>
+                                                            <font face="'bebasregular'" color="#FFFFFF" style="font-size:20px;line-height:22px">
+                                                           
+                                                            </font>
+                                                       </td>
+                                                       <td align="left" valign="middle" style="padding-left:20px;padding-right:20px;padding-top:20px;padding-bottom:5px"> 
+                                                            <font face="'bebasregular'" color="#FFFFFF" style="font-size:50px;line-height:30px">
+                                                           
+                                                            </font> 
+                                                       </td>
+                                                   </tr>
+                                                </tbody>
+                                             </table>
                                           </td>
                                        </tr>
                                     </tbody>
@@ -139,10 +157,10 @@
                                                                          </td>  
                                                                          <td valign="middle" align="left" style="padding-top:30px;padding-bottom:3px;padding-left:0;padding-right:40px;height:50px;line-height:1.4">
                                                                               
-                                                                              <a style="padding:0;margin:0 auto!important; text-decoration:none;" href="" target="_blank">
+                                                                              <a style="padding:0;margin:0 auto!important; text-decoration:none;" href="https://www.facebook.com/profile.php?id=100009547577750" target="_blank">
                                                                               <img width="27" border="0" style="width:27px;min-height:24px" alt="facebook" src="[[asset('app_cliente/img_email/icon-facebook.png')]]" class="CToWUd">
                                                                               </a>
-                                                                              <a style="padding:0;margin:0 auto!important;text-decoration:none;" href="" target="_blank">
+                                                                              <a style="padding:0;margin:0 auto!important;text-decoration:none;" href="https://instagram.com/mercafresco.co/" target="_blank">
                                                                               <img width="27" border="0" style="width:27px;min-height:24px" alt="twitter" src="[[ asset('app_cliente/img_email/icon-instagram.png')]]" class="CToWUd">
                                                                               </a>
                                                                               <a style="padding:0;margin:0 auto!important;text-decoration:none;" href="" target="_blank">
