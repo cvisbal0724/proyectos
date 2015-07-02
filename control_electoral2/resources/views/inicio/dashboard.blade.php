@@ -8,26 +8,23 @@
                      <div class="row mtbox">
                             <div class="panel-body">
                       @foreach($concejales as $key=>$item)
-                              @if($key==0)
+                              
                               <div class="col-md-2 col-sm-2 box0">
                                     <div class="box1">
-                                                <i class="fa fa-male fa-5x" style="color:#ec971f"></i>
-                                                <h3>[[$item->votos]]</h3>
-                                                <h6>Concejal, [[$item->concejal]]</h6>
+                                       @if($item->foto!='')
+                                       <div class="thumb">
+                                         <img class="img-circle" src="app_cliente/fotos_concejal/[[$item->foto]]" width="70px" height="70px" align="">
+                                       </div>
+                                       @endif
+                                       @if($item->foto=='')
+                                       <i class="fa fa-male fa-5x" style="color:#ec971f"></i>
+                                       @endif
+                                       <h3>[[$item->votos]]</h3>
+                                       <h6>Concejal, [[$item->concejal]]</h6>
                                     </div>
-                                                 <p>Cantidad de votos</p>
+                                   <p>Cantidad de votos</p>
                               </div>
-                              @endif
-                              @if($key>0)
-                               <div class="col-md-2 col-sm-2 box0">
-                                    <div class="box1">
-                                                <i class="fa fa-male fa-5x" style="color:#ec971f"></i>
-                                                <h3>[[$item->votos]]</h3>
-                                                <h6>Concejal, [[$item->concejal]]</h6>
-                                    </div>
-                                                <p>Cantidad de votos</p>
-                              </div>
-                              @endif
+                              
                               @endforeach
                               </div>
                      </div>
@@ -36,26 +33,25 @@
                   	<div class="row mtbox">
                   		              <div class="panel-body">     	
                               @foreach($lideres as $key=>$item)
-                              @if($key==0)
+                             
                               <div class="col-md-2 col-sm-2 box0">
                                     <div class="box1">
-                                                <i class="fa fa-user-plus fa-5x" style="color:#ec971f"></i>
+                                     @if($item->foto!='')
+                                       <div class="thumb">
+                                         <img class="img-circle" src="app_cliente/fotos_concejal/[[$item->foto]]" width="70px" height="70px" align="">
+                                       </div>
+                                       @endif
+                                      @if($item->foto=='')
+                                        <i class="fa fa-user-plus fa-5x" style="color:#ec971f"></i>
+                                      @endif
+                                               
                                                 <h3>[[$item->votos]]</h3>
                                                 <h6>Lider, [[$item->lider]]</h6>
                                     </div>
                                                  <p>Cantidad de votos</p>
                               </div>
-                              @endif
-                              @if($key>0)
-                               <div class="col-md-2 col-sm-2 box0">
-                                    <div class="box1">
-                                                <i class="fa fa-user-plus fa-5x" style="color:#ec971f"></i>
-                                                <h3>[[$item->votos]]</h3>
-                                                <h6>Lider, [[$item->lider]]</h6>
-                                    </div>
-                                                <p>Cantidad de votos</p>
-                              </div>
-                              @endif
+                             
+                              
                               @endforeach
 
 

@@ -40,10 +40,25 @@ $scope.consultar_por_codigo=function(obj){
 
 	$scope.eliminar_modulo=function(obj){
 
-		$http.post("modulos/eliminarmodulo",{_token:authUsuario.token(),id:obj.id})
-		.success(function(data, status, headers, config) {
-			$state.go($state.current, {}, {reload: true});
+		swal({   
+		title: "Esta seguro?",   
+		text: "Desea eliminar el modulo!",   
+		type: "warning",   
+		showCancelButton: true,   
+		confirmButtonColor: "#DD6B55",  
+		confirmButtonText: "Si!", 
+		cancelButtonText:'No',  
+		closeOnConfirm: false }, function(){   
+			
+		   $http.post("modulos/eliminarmodulo",{_token:authUsuario.token(),id:obj.id})
+		   .success(function(data, status, headers, config) {
+		   	swal("Eliminado!", "El modulo fue removido satisfactoriamente", "success"); 
+		   	//$state.go($state.current, {}, {reload: true});
+		   	  $state.listaModulos=data;
+		   });
+						
 		});
+		
 
 	}
 

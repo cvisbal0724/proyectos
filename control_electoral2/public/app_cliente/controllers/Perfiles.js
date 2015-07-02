@@ -76,7 +76,9 @@ $scope.listaPerfilModulos=[];
 		$http.post("perfiles/agregarmodulos",{_token:authUsuario.token(),listaModulos:lista})
 		.success(function(data, status, headers, config) {
 			//$scope.listaModulos=data;
-			$state.go($state.current, {}, {reload: true});
+			//$state.go($state.current, {id_perfil:$state.params.id_perfil}, {reload: true});
+			$scope.consultar_perfil_modulos();
+				$scope.consultar_modulos();
 		});
 
 	}
@@ -89,10 +91,29 @@ $scope.listaPerfilModulos=[];
 
 	$scope.eliminar_perfil_modulo=function(obj){
 
-		$http.post("perfiles/eliminarperfilmodulo",{_token:authUsuario.token(),id_perfil_modulo:obj.id})
-		.success(function(data, status, headers, config) {
-			$state.go($state.current, {}, {reload: true});
+		swal({   
+		title: "Esta seguro?",   
+		text: "Desea eliminar el concejal!",   
+		type: "warning",   
+		showCancelButton: true,   
+		confirmButtonColor: "#DD6B55",  
+		confirmButtonText: "Si!", 
+		cancelButtonText:'No',  
+		closeOnConfirm: false }, function(){   
+			
+			$http.post("perfiles/eliminarperfilmodulo",{_token:authUsuario.token(),id_perfil_modulo:obj.id})
+			.success(function(data, status, headers, config) {
+
+				swal("Eliminado!", "El concejal fue removido del lider satisfactoriamente", "success"); 
+				//$scope.listaPerfilModulos=data;
+				//$state.go($state.current, {id_perfil:$state.params.id_perfil}, {reload: true});
+				$scope.consultar_perfil_modulos();
+				$scope.consultar_modulos();
+
+			});
+			
 		});
+		
 
 	}
 

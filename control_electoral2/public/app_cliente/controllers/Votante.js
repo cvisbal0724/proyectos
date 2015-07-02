@@ -11,6 +11,7 @@ $scope.votanteVO={id:'',
 				  numero_mesa:0,
 				  dar_de_baja:false,
 				  comentario_de_baja:'',
+				  persona:{},
 				  _token:authUsuario.token()};
 $scope.result={};
 $scope.listaVotantes=[];
@@ -81,6 +82,17 @@ $scope.consultar=function(page){
 
 $scope.nuevo=function(){
 	$scope.votanteVO={id:0,usuario:'',id_persona:0,id_perfil:0,_token:authUsuario.token()};
+}
+
+$scope.dar_de_baja=function(){
+
+	if (!$scope.votanteVO.comentario_de_baja > 0) {$scope.result={"show":true,"alert":"warning","msg":"Ingrese la observación."}; return false;};
+	$http.post("votante/dardebaja",{id:$scope.votanteVO.id,observacion:$scope.votanteVO.comentario_de_baja})
+	.success(function(data, status, headers, config) {
+		
+		 $scope.result=data;
+		 	
+	 });
 }
 
 });

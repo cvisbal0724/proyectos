@@ -108,6 +108,10 @@ class PerfilesController extends Controller {
 		$pmod=PerfilModulos::find($request->input('id_perfil_modulo'));
 
 		$pmod->delete();
+		
+		/*$lista=PerfilModulos::where('id_perfil','=',$pmod->id_perfil)->get();
+		
+		return $lista;*/
 	}
 
 }

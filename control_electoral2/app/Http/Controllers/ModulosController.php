@@ -67,6 +67,8 @@ class ModulosController extends Controller {
 		$mod=Modulos::find($request->input('id'));
 
 		$mod->delete();
+
+		return Modulos::all();
 	}
 
 }

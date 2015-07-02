@@ -119,6 +119,10 @@ Route::get('votantes/consultar_votante',function(){
 	return view('votantes/consultar_votante');
 });
 
+Route::get('votantes/dar_de_baja',function(){
+	return view('votantes/dar_de_baja');
+});
+
 Route::get('graficos/graficos','GraficosController@index');
 
 Route::get('tt','GraficosController@test');
@@ -207,6 +211,7 @@ Route::post('votante/crear','VotanteController@Crear');
 Route::post('votante/consultar','VotanteController@Consultar');
 Route::get('votante/consultarporcodigo/{id}','VotanteController@ConsultarPorCodigo');
 Route::post('votante/actualizar','VotanteController@Actualizar');
+Route::post('votante/dardebaja','VotanteController@DarDeBaja');
 /*Fin votante*/
 
 /*graficos*/

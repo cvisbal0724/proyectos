@@ -26,12 +26,12 @@ class DashBoardController extends Controller {
 			->join('alcaldes as al','p.id_alcalde','=','al.id')
 			->where('p.id_alcalde','=',$usuario->persona->id_alcalde)
 			->select(DB::raw("c.id, c.numero, concat(p.nombre, ' ', p.apellido) as concejal, pt.nombre as partido, al.nombre as alcalde,
-				(select count(id) from votantes v where v.id_concejal=c.id) as votos"));
+				(select count(id) from votantes v where v.id_concejal=c.id) as votos,c.foto"));
 		
 		$consLideres=DB::table('lideres as l')
 			->join('personas as p','l.id_persona','=','p.id')			
 			->select(DB::raw("l.id,concat(p.nombre,' ',p.apellido) as lider,
-			(select count(v.id) from votantes v where v.id_lider=l.id) as votos"))	
+			(select count(v.id) from votantes v where v.id_lider=l.id) as votos,l.foto"))	
 			->groupBy('p.cedula');
 				
 		if ($usuario->id_perfil==EnumPerfiles::Administrador) {

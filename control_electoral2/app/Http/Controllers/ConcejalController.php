@@ -30,6 +30,11 @@ public function Crear(Request $request){
 					 $request->file('foto')->move(
 				        base_path() . '/public/app_cliente/fotos_concejal/', $nombreArchivo
 				    );
+
+					 $imagePath=public_path() . '/app_cliente/fotos_concejal/'. $nombreArchivo;
+					 $image = Image::make($imagePath);
+					 $image->resize(100, 100);
+					 $image->save($imagePath);
 				}
 			}
 
@@ -78,9 +83,12 @@ public function Actualizar(Request $request){
 					        public_path() . '/app_cliente/fotos_concejal/', $nombreArchivo
 					    );
 						
+						$imagePath=public_path() . '/app_cliente/fotos_concejal/'. $nombreArchivo;
 						$nombreFotoAnterior=$concejal->foto;
 						$concejal->foto=$nombreArchivo;	
-						$image = Image::make('public/foo.jpg')->resize(300, 200);
+						$image = Image::make($imagePath);
+						$image->resize(100, 100);
+						$image->save($imagePath);
 					}
 			}
 
@@ -90,8 +98,8 @@ public function Actualizar(Request $request){
 			$rs=$concejal->save();
 
 			if ($nombreFotoAnterior!='') {
-				if (File::exists(public_path().'/app_cliente/fotos_lider/'.$nombreFotoAnterior)) {
-					File::delete(public_path().'/app_cliente/fotos_lider/'.$nombreFotoAnterior);
+				if (File::exists(public_path().'/app_cliente/fotos_concejal/'.$nombreFotoAnterior)) {
+					File::delete(public_path().'/app_cliente/fotos_concejal/'.$nombreFotoAnterior);
 				}				 
 			}
 

@@ -22,7 +22,8 @@ $scope.crear=function(){
 		if ($scope.personaVO.id_alcalde=='') {$scope.result={"show":true,"alert":"warning","msg":"Seleccione el alcalde."}; return false;};	*/
 		$scope.menuVO.id_padre=$scope.currentNode.id;
 		$scope.menuVO.id_modulo=$scope.currentNode.id_modulo;
-		$http.post("menu/crear",$scope.menuVO).success(function(data, status, headers, config) {
+		$http.post("menu/crear?todos="+($state.params.id_modulo > 0 ? '0' : '1'),$scope.menuVO)
+		.success(function(data, status, headers, config) {
 		
 		 	$scope.result=data;
 		 	if (data.alert=='success') {		 		
@@ -41,7 +42,8 @@ $scope.actualizar=function(){
 		if ($scope.personaVO.apellido=='') {$scope.result={"show":true,"alert":"warning","msg":"Ingrese el apellido."}; return false;};	
 		if ($scope.personaVO.id_alcalde=='') {$scope.result={"show":true,"alert":"warning","msg":"Seleccione el alcalde."}; return false;};	*/
 		
-		$http.post("menu/actualizar",$scope.menuVO).success(function(data, status, headers, config) {
+		$http.post("menu/actualizar?todos="+($state.params.id_modulo > 0 ? '0' : '1') ,$scope.menuVO)
+		.success(function(data, status, headers, config) {
 		
 		 	$scope.result=data;
 		 	if (data.alert=='success') {		 		
@@ -78,12 +80,37 @@ $scope.consultar_por_codigo=function(){
 
 $scope.eliminar=function(){
 		
-		$http.get("menu/eliminar/"+$scope.currentNode.id).success(function(data, status, headers, config) {
-			if (data=='success') {
-				//$state.go($state.current, {}, {reload: true});
-				$scope.listaMenu=data;		 	
-			};	 	
-		});
-	}	
+		swal({   
+		title: "Esta seguro?",   
+		text: "Desea eliminar el menu!",   
+		type: "warning",   
+		showCancelButton: true,   
+		confirmButtonColor: "#DD6B55",  
+		confirmButtonText: "Si!", 
+		cancelButtonText:'No',  
+		closeOnConfirm: false }, function(){   
+		
+		if ($state.params.id_modulo >0) {
+
+			$http.get("menu/eliminar/"+$scope.currentNode.id + '?todos=0').success(function(data, status, headers, config) {
+			
+			swal("Eliminado!", "El menu fue removido satisfactoriamente", "success"); 
+			$scope.listaMenu=data;		 	
+			
+			});
+
+		}else{
+			$http.get("menu/eliminar/"+$scope.currentNode.id + '?todos=1').success(function(data, status, headers, config) {
+			
+			swal("Eliminado!", "El menu fue removido satisfactoriamente", "success"); 
+			$scope.listaMenu=data;		 	
+			
+			});
+		}
+			
+	
+	});
+}
+
 
 });

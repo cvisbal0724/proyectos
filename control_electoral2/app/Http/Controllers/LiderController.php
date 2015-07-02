@@ -42,6 +42,12 @@ class LiderController extends Controller {
 						 $request->file('foto')->move(
 					        base_path() . '/public/app_cliente/fotos_lider/', $nombreArchivo
 					    );
+
+					 $imagePath=public_path() . '/app_cliente/fotos_lider/'. $nombreArchivo;
+					 $image = Image::make($imagePath);
+					 $image->resize(100, 100);
+					 $image->save($imagePath);
+
 					}
 				}
 
@@ -92,6 +98,10 @@ public function Actualizar(Request $request){
 						$nombreFotoAnterior=$lider->foto;
 						$lider->foto=$nombreArchivo;	
 
+						$imagePath=public_path() . '/app_cliente/fotos_lider/'. $nombreArchivo;
+						$image = Image::make($imagePath);
+						$image->resize(100, 100);
+						$image->save($imagePath);
 					}
 			}
 

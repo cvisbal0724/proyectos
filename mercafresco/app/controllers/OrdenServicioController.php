@@ -160,7 +160,7 @@ public function Crear(){
 
  	Mail::send('plantilla_correo/crear_pedido', $data, function($message){
  		$usuario=Session::get('usuario');
- 		$id_orden=Session::get('id_orden');
+ 		$id_orden=$rs['ID'];
  		$email=$usuario->persona->EMAIL;
  		$cliente=$usuario->persona->NOMBRES.' '.$usuario->persona->APELLIDOS;
 		$message->to($email, $cliente)->subject('Pedido No. '.$id_orden.' realizado correctamente');

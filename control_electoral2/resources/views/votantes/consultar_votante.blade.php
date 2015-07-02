@@ -4,10 +4,7 @@
    Consultar Usuario
    </h4>
 
-   	      	
-        <div class="panel-body">
-
-       
+   	  
         
         <div class="panel-body">
         
@@ -38,7 +35,7 @@
                	   <th>Concejal</th>
                    <th>Votar Por</th>
                	   <th>Tipo Voto</th>               	                 	   
-                   <th></th>         
+                   <th colspan="2">Opciones</th>         
                </tr>
            </thead>
            <tbody>
@@ -50,8 +47,13 @@
         				<td>{{item.votar_por}}</td>
                 <td>{{item.tipo_voto}}</td>	
                <td>
-                 <a href="" ui-sref="home.editar_votantes({id:item.id})">
+                 <a href="" ui-sref="home.editar_votantes({id:item.id})" title="Editar">
                    <i class='fa fa-pencil fa-2x'></i>
+                 </a>
+               </td>
+                <td>
+                 <a href="" ui-sref="home.dar_de_baja({id:item.id})" title="Dar de baja" style="color:rgb(182, 23, 23)">
+                   <i class='fa fa-thumbs-o-down fa-2x'></i>
                  </a>
                </td>
              </tr>
@@ -91,8 +93,7 @@
        
 
  	</div>
-        </div> 
-    
+          
    </div>
 	      	</div>
    		</div>

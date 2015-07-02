@@ -12,8 +12,10 @@ use App\models\Concejales;
 use App\models\TipoVoto;
 use App\models\LugaresDeVotacion;
 use App\models\CategoriaVotacion;
+use App\models\AuditoriaVotante;
 use DB;
 use Auth;
+use Input;
 
 class VotanteController extends Controller {
 
@@ -53,6 +55,27 @@ class VotanteController extends Controller {
 
 			if ($lider) {
 			
+			$votante=Votantes::where('id_persona','=',$request->input('id_persona'))
+			->where('dar_de_baja','=',0)
+			->whereIn('id_categoria_votacion',array(1,3))
+			->first();
+
+			if ($votante) {
+
+				$lider=$votante->lider->persona->nombre . ' ' .$votante->lider->persona->apellido;
+				if ($votante->id_categoria_votacion==1 && $request->input('id_categoria_votacion')==1) {
+										
+					return array('show'=>true,'alert'=>'warning','msg'=>'No puede guardar el votante porque ya esta a cargo de  ' . $lider . '.');
+				}
+				elseif ($votante->id_categoria_votacion==3) {
+										
+					return array('show'=>true,'alert'=>'warning','msg'=>'No puede guardar el votante porque ya esta a cargo de  ' . $lider . '.');
+				}elseif ($votante->id_categoria_votacion==2 && $request->input('id_categoria_votacion')==2) {
+
+					return array('show'=>true,'alert'=>'warning','msg'=>'No puede guardar el votante porque ya esta a cargo de ' . $lider . '.');
+				}
+				
+			}
 			$rs=Votantes::create(array(
 				'id_persona'=>$request->input('id_persona'),
 				'id_lider'=>$lider->id,
@@ -120,7 +143,8 @@ class VotanteController extends Controller {
 			->leftJoin('concejales as c','v.id_concejal','=','c.id')
 			->leftJoin('personas as p3','c.id_persona','=','p3.id')		
 			->select(DB::raw("v.id,concat(p.nombre , ' ', p.apellido) as votante,concat(p2.nombre , ' ' , p2.apellido) as lider,
-				ifnull(concat(p3.nombre , ' ' , p3.apellido),'N/A') as concejal,cv.nombre as votar_por,tv.nombre as tipo_voto"));
+				ifnull(concat(p3.nombre , ' ' , p3.apellido),'N/A') as concejal,cv.nombre as votar_por,tv.nombre as tipo_voto"))
+			->where('v.dar_de_baja','=',0);
 		
 		$paginado=10;
 
@@ -174,6 +198,37 @@ class VotanteController extends Controller {
 			'persona'=>$votante->persona,
 			'_token'=>csrf_token()
 		);
+	}
+
+	public function DarDeBaja()
+	{
+		DB::beginTransaction();
+		try {
+			
+			$usuario=Auth::User();
+
+			$votante=Votantes::find(Input::get('id'));
+
+			$votante->dar_de_baja=1;
+			$votante->save();
+
+			 $rs=AuditoriaVotante::create(array(
+				'id_votante'=>$votante->id,
+				'id_usuario'=>$usuario->id,
+				'observacion'=>Input::get('observacion')
+				)
+			);
+
+			 DB::commit();
+
+			return $rs['id'] > 0 ? array('show'=>true,'alert'=>'success','msg'=>'Se le ha dado de baja al votante satisfactoriamente.','data'=>'') :
+						array('show'=>true,'alert'=>'warning','msg'=>'No se pudo dar de baja al votante.');
+
+		} catch (Exception $e) {
+			DB::rollback();
+			Excepciones::Crear($e,'VotanteController','DarDeBaja');
+			return array('show'=>true,'alert'=>'warning','msg'=>$e->getMessage());
+		}
 	}
 
 }

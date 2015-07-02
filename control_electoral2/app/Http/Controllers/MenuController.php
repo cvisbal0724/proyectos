@@ -8,6 +8,7 @@ use App\models\Menus;
 use App\models\Modulos;
 use App\models\Execepciones;
 use Auth;
+use Input;
 
 class MenuController extends Controller {
 
@@ -24,8 +25,15 @@ class MenuController extends Controller {
 				'imagen'=>$request->input('imagen')
 			));
 
-			return $rs['id'] > 0 ? array('show'=>true,'alert'=>'success','msg'=>'Menu agregado satisfactoriamente.','data'=>$this->ConsultarMenuPorModulo($request->input('id_modulo'))) :
+			if (Input::get('todos')>0) {
+			return $rs['id'] > 0 ? array('show'=>true,'alert'=>'success','msg'=>'Menu agregado satisfactoriamente.','data'=>$this->ConsultarMenuPorModulo()) :
 					array('show'=>true,'alert'=>'warning','msg'=>'No se pudo guardar el menu.');
+			}else{
+				return $rs['id'] > 0 ? array('show'=>true,'alert'=>'success','msg'=>'Menu agregado satisfactoriamente.','data'=>$this->ConsultarMenuPorModulo($request->input('id_modulo'))) :
+					array('show'=>true,'alert'=>'warning','msg'=>'No se pudo guardar el menu.');
+			}
+
+			
 
 		} catch (Exception $e) {
 			Excepciones::Crear($e,'MenuController','Crear');
@@ -48,9 +56,14 @@ class MenuController extends Controller {
 
 				$rs=$menu->save();
 			
-
-			return $rs > 0 ? array('show'=>true,'alert'=>'success','msg'=>'Menu actualizado satisfactoriamente.','data'=>$this->ConsultarMenuPorModulo($request->input('id_modulo'))) :
-					array('show'=>true,'alert'=>'warning','msg'=>'No se pudo guardar el menu.');
+			if (Input::get('todos')>0) {
+			return $rs > 0 ? array('show'=>true,'alert'=>'success','msg'=>'Menu actualizado satisfactoriamente.','data'=>$this->ConsultarMenuPorModulo()) :
+					array('show'=>true,'alert'=>'warning','msg'=>'No se pudo actualizar el menu.');
+			}else{
+				return $rs > 0 ? array('show'=>true,'alert'=>'success','msg'=>'Menu actualizado satisfactoriamente.','data'=>$this->ConsultarMenuPorModulo($request->input('id_modulo'))) :
+					array('show'=>true,'alert'=>'warning','msg'=>'No se pudo actualizar el menu.');
+			}
+			
 
 		} catch (Exception $e) {
 			Excepciones::Crear($e,'MenuController','Crear');
@@ -153,9 +166,14 @@ class MenuController extends Controller {
 		$id_modulo=$menu->id_modulo;
 
 		$menu->delete();
-
-		return $this->ConsultarPorCodigo($id_modulo);
+		if (Input::get('todos')>0) {
+			return $this->ConsultarMenuPorModulo();
+		}else{
+			return $this->ConsultarMenuPorModulo($id_modulo);
+		}
+		
 
 	}
+	
 
 }

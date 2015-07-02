@@ -202,6 +202,14 @@ App.config(function($urlRouterProvider, $stateProvider) {
           'persona':{templateUrl:'persona/nueva_persona',controller:'PersonaController'}
         }  
        })
+       .state('home.dar_de_baja', {
+        url: "/dar-de-baja/:id",        
+        views:{
+          'contenedor':{templateUrl: "votantes/dar_de_baja",controller: 'VotanteController'},
+          'titulo':{template:'Dar de baja al votante'},
+          'nombre-proyecto':{templateUrl:'layouts/nombre_proyecto'}          
+        }  
+       })
        .state('home.graficos', {
         url: "/graficos",        
          views:{

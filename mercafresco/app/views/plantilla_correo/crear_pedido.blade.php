@@ -169,13 +169,13 @@
                                                                          <td valign="middle" align="left" style="padding-top:30px;padding-bottom:3px;padding-left:0;padding-right:40px;height:50px;line-height:1.4">
                                                                               
                                                                               <a style="padding:0;margin:0 auto!important; text-decoration:none;" href="https://www.facebook.com/profile.php?id=100009547577750" target="_blank">
-                                                                              <img width="27" border="0" style="width:27px;min-height:24px" alt="facebook" src="[[asset('app_cliente/img_email/icon-facebook.png')]]" class="CToWUd">
+                                                                              <img width="27" border="0" style="width:27px;min-height:24px" alt="facebook" src="[[asset('app_cliente/img_email/icon-facebook2.png')]]" class="CToWUd">
                                                                               </a>
                                                                               <a style="padding:0;margin:0 auto!important;text-decoration:none;" href="https://instagram.com/mercafresco.co/" target="_blank">
-                                                                              <img width="27" border="0" style="width:27px;min-height:24px" alt="twitter" src="[[ asset('app_cliente/img_email/icon-instagram.png')]]" class="CToWUd">
+                                                                              <img width="27" border="0" style="width:27px;min-height:24px" alt="twitter" src="[[ asset('app_cliente/img_email/icon-instagram2.png')]]" class="CToWUd">
                                                                               </a>
                                                                               <a style="padding:0;margin:0 auto!important;text-decoration:none;" href="" target="_blank">
-                                                                              <img width="27" border="0" style="width:27px;min-height:24px" alt="googlemas" src="[[ asset('app_cliente/img_email/icon-mail.png')]]" class="CToWUd">
+                                                                              <img width="27" border="0" style="width:27px;min-height:24px" alt="googlemas" src="[[ asset('app_cliente/img_email/icon-mail2.png')]]" class="CToWUd">
                                                                               </a>
                                                                         </td>
                                                                         </tr>
