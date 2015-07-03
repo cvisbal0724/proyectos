@@ -58,6 +58,8 @@ public function Crear(){
 
  	if ($rs["ID"]>0 && count($listaTempComp)>0) {
 
+ 		Session::put('id_orden',$rs["ID"]);
+
  		foreach ($listaTempComp as $key => $item) {
 
  			$prodProv=ProductosProveedor::find($item->ID_PRODUCTO_PROVEEDOR);
@@ -160,7 +162,7 @@ public function Crear(){
 
  	Mail::send('plantilla_correo/crear_pedido', $data, function($message){
  		$usuario=Session::get('usuario');
- 		$id_orden=$rs['ID'];
+ 		$id_orden=Session::get('id_orden');
  		$email=$usuario->persona->EMAIL;
  		$cliente=$usuario->persona->NOMBRES.' '.$usuario->persona->APELLIDOS;
 		$message->to($email, $cliente)->subject('Pedido No. '.$id_orden.' realizado correctamente');
@@ -713,6 +715,7 @@ public function HecerReembolsoPorExecpcion($id_orden, $id_transaccion){
 public function RespuestaDelBanco(){
 	try {
 
+
 		$item=Session::get('OrderServicio');
 		Session::get('nombre_pagador');
 	    Session::get('id_banco');
@@ -752,13 +755,45 @@ public function RespuestaDelBanco(){
 	   			'/'.Session::get('id_banco').'/'. Session::get('telefono'));
 
 	   }else if (Input::get('polTransactionState')==4 && Input::get('polResponseCode')==1) {
+
+	   		$id_user=Cookie::get('id_user');
+			$usuario=Usuario::find($id_user);
+	   		
 	   		$item->ID_TRANSACCION=Input::get('transactionId');
 			$item->ESTADO_TRANSACCION= 'APPROVED';
 			$item->CODIGO_RESPUESTA= Input::get('lapResponseCode');			
 	   		$item->ID_ESTADO_PAGO=2;
 	   		$item->save();	
+	   		
+	   		$data=array(
+		 		'id'=>$item->ID,
+				'cliente'=>$usuario->persona->NOMBRES . ' ' . $usuario->persona->APELLIDOS,
+				'celular'=>$usuario->persona->CELULAR,
+				'telefono'=>$usuario->persona->TELEFONO,
+				'formapago'=>$item->tipometodopago->NOMBRE,
+				'fechapago'=>$item->PROG_FECHA,
+				'barrio'=>$item->barriopersona->barrio->NOMBRE,
+				'direccion'=>$item->barriopersona->DIRECCION,
+				'recibe'=>$item->barriopersona->QUIEN_RECIBE,
+				'productos'=>$item->CantidadProductos(),
+				'domicilio'=>$item->VALOR_DOMICILIO,
+				'total'=>$item->Total(),
+				'convenio'=>(double)$item->Convenio(),
+				'descuentobono'=>(double)$item->DescuentoBono()
+		 	);
+
+	   		Mail::send('plantilla_correo/crear_pedido', $data, function($message){
+		 		$id_user=Cookie::get('id_user');
+				$usuario=Usuario::find($id_user);
+		 		$id_orden=Session::get('id_orden');
+		 		$email=$usuario->persona->EMAIL;
+		 		$cliente=$usuario->persona->NOMBRES.' '.$usuario->persona->APELLIDOS;
+				$message->to($email, $cliente)->subject('Pedido No. '.$id_orden.' realizado correctamente');
+			});
+
 	   		DB::commit();
 	   		Session::forget('OrderServicio');
+
 	   		return Redirect::to(Request::root().'/#/finalizar');
 
 	   }

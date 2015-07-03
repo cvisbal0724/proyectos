@@ -26,9 +26,9 @@ confControllers.controller('OrdenServicioController', function ($scope,$http,$ro
 			 .success(function(data, status, headers, config) {
 			     if (data['ID']>0 && data['msg']=='success') {
 			     	$state.go("finalizar");
-			     }else if (data['ID']==0) {
+			     }else if (data['ID']==0) {	
 			     	$scope.mensaje=data['msg'];//'Por favor selecciones la hora en la que desea la entrega de su pedido.';
-			     	$('#modalMetodoPago').modal('show');
+			     	$('#modalMetodoPagoContEnt').modal('show');			     	
 			     }
 			});
 		  
