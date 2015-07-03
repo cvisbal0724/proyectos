@@ -14,7 +14,15 @@ class CategoriaController extends \BaseController {
 	}
 
 	public function ObtenerTodos(){
-		return Categoria::all();
+
+		$lista=DB::table('producto as p')
+		->join('categoria as c','p.id_categoria','=','c.id')
+		->join('productos_proveedor as pp','pp.id_producto','=','p.id')
+		->whereRaw('pp.inventario > 0')
+		->select(DB::raw('c.ID,c.NOMBRE'))
+		->groupBy('p.id_categoria')
+		->get();
+		return $lista;//Categoria::all();
 	}
 
 }
