@@ -76,8 +76,8 @@ class ConfiguracionTableSeeder extends Seeder
 		LugaresDeVotacion::insert($lugaresVotacion);
 
 		$categoriaVotacion=[
-		array('nombre'=>'Concejo'),
 		array('nombre'=>'Alcaldia'),
+		array('nombre'=>'Concejo'),		
 		array('nombre'=>'Concejo y Alcaldia')];
 
 		CategoriaVotacion::insert($categoriaVotacion);

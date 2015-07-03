@@ -79,6 +79,11 @@ confControllers.controller('CuentaController', function ($scope,$http,$routePara
 
 		//if ($scope.cuenta.cortesia=='0') { $scope.result={alert:'warning',msg:'Por favor seleccione la cortesia',show:true}; return false; };
 		if ($scope.cuenta.correo=='') { $scope.result={alert:'warning',msg:'Por favor ingrese su correo.',show:true}; return false; };
+		
+		if (!validateEmail($scope.cuenta.correo)) {
+			 $scope.result={alert:'warning',msg:'El correo no es valido.',show:true}; return false; 
+		};
+
 		//if ($scope.cuenta.id_tipo_identificacion=='0') { $scope.result={alert:'warning',msg:'Por favor seleccione el tipo de identificación.',show:true}; return false; };
 		if ($scope.cuenta.no_identificacion=='') { $scope.result={alert:'warning',msg:'Por favor ingrese el numero de identificación.',show:true}; return false; };
 		if ($scope.cuenta.nombres=='') { $scope.result={alert:'warning',msg:'Por favor ingrese sus nombres.',show:true}; return false; };
@@ -208,5 +213,9 @@ confControllers.controller('CuentaController', function ($scope,$http,$routePara
 
      }   
 
+function validateEmail(email) {
+    var re = /^([\w-]+(?:\.[\w-]+)*)@((?:[\w-]+\.)*\w[\w-]{0,66})\.([a-z]{2,6}(?:\.[a-z]{2})?)$/i;
+    return re.test(email);
+}
 
 });

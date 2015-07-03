@@ -101,7 +101,7 @@
                     </button>
                 </span>
              </div>
-             <select multiple="" class="form-control" ng-model="votanteVO.id_persona" ng-multiple="true">
+             <select multiple="" class="form-control" ng-model="votanteVO.id_persona" ng-multiple="true" ng-change="test(1)">
                  <option ng-repeat="item in listaPersonas" value="{{item.id}}">{{item.cedula+' / ' + item.nombre + ' ' + item.apellido }}</option>
              </select>
               <p class="help-block">(*)Seleccione una persona</p>

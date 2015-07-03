@@ -95,4 +95,8 @@ $scope.dar_de_baja=function(){
 	 });
 }
 
+$scope.consultar_votar_por=function(){
+	alert($scope.votanteVO.id_persona);
+}
+
 });

@@ -170,6 +170,12 @@ $scope.vistaactual=$state.current.name;
 
    $scope.agregarCanasta=function(obj){
 
+    if (!(obj.cantidad>0)) {
+      $scope.mensaje='Agregue una cantidad mayor a cero.';
+      $('#modalValidarProducto').modal('show');
+      return false;
+    };    
+
     if($scope.listaCanasta==null)$scope.listaCanasta=[];
    
       $http.post("productoproveedor/agregarcanasta",{id_producto_proveedor:obj.id,cantidad:obj.cantidad})

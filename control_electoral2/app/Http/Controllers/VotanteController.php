@@ -33,11 +33,12 @@ class VotanteController extends Controller {
 
 			 $tipoVoto=TipoVoto::all();
 			 $lugarVotacion=LugaresDeVotacion::all();	 
-			 if ($concejales) {
+			 if (count($concejales)>0) {
 			 	$categoriaVotacion=CategoriaVotacion::all();
 			 }else{
-			 	$categoriaVotacion=CategoriaVotacion::where('id','=',2)->get();
+			 	$categoriaVotacion=CategoriaVotacion::where('id','=',1)->get();
 			 }
+
 			 $variables=array('concejales'=>$concejales,'tipovoto'=>$tipoVoto,'lugarVotacion'=>$lugarVotacion,'categoriaVotacion'=>$categoriaVotacion);
 
 			 return view('votantes/votante',$variables);
@@ -57,20 +58,21 @@ class VotanteController extends Controller {
 			
 			$votante=Votantes::where('id_persona','=',$request->input('id_persona'))
 			->where('dar_de_baja','=',0)
-			->whereIn('id_categoria_votacion',array(1,3))
+			//->whereIn('id_categoria_votacion',array(2,3))
 			->first();
 
 			if ($votante) {
 
 				$lider=$votante->lider->persona->nombre . ' ' .$votante->lider->persona->apellido;
-				if ($votante->id_categoria_votacion==1 && $request->input('id_categoria_votacion')==1) {
+				if ($votante->id_categoria_votacion==2 && $request->input('id_categoria_votacion')==2)/*Concejo*/ {
 										
 					return array('show'=>true,'alert'=>'warning','msg'=>'No puede guardar el votante porque ya esta a cargo de  ' . $lider . '.');
 				}
-				elseif ($votante->id_categoria_votacion==3) {
+				elseif ($votante->id_categoria_votacion==3/*Alcaldia y concejo*/) {
 										
 					return array('show'=>true,'alert'=>'warning','msg'=>'No puede guardar el votante porque ya esta a cargo de  ' . $lider . '.');
-				}elseif ($votante->id_categoria_votacion==2 && $request->input('id_categoria_votacion')==2) {
+
+				}elseif ($votante->id_categoria_votacion==1 && $request->input('id_categoria_votacion')==1/*Alcaldia*/) {
 
 					return array('show'=>true,'alert'=>'warning','msg'=>'No puede guardar el votante porque ya esta a cargo de ' . $lider . '.');
 				}
@@ -153,7 +155,7 @@ class VotanteController extends Controller {
 			}
 			else if ($usuario->id_perfil==EnumPerfiles::Alcalde) {	
 					
-				$consulta=$consulta->where('p.id_alcalde','=',$usuario->persona->id_alcalde)->whereIn('v.id_categoria_votacion',array(2,3));
+				$consulta=$consulta->where('p.id_alcalde','=',$usuario->persona->id_alcalde)->whereIn('v.id_categoria_votacion',array(1,3));
 				
 			}
 			else if ($usuario->id_perfil==EnumPerfiles::Concejal) {
@@ -228,6 +230,53 @@ class VotanteController extends Controller {
 			DB::rollback();
 			Excepciones::Crear($e,'VotanteController','DarDeBaja');
 			return array('show'=>true,'alert'=>'warning','msg'=>$e->getMessage());
+		}
+	}
+
+	public function ConsultarCategoriaVotacion($id_persona){
+		try {
+			
+			$votante=Votantes::where('id_persona','=',$id_persona)
+			->where('dar_de_baja','=',0)->get();
+			
+			$lider=Lideres::where('id_persona','=',Auth::user()->id_persona)->first();
+			$variables=array();
+
+		 	$concejales=Db::table('lider_concejales as lc')->
+			 join('concejales as c','lc.id_concejal','=','c.id')->
+			 join('personas as p','c.id_persona','=','p.id')->
+			 where('lc.id_lider','=',$lider->id)->
+			 select(DB::raw("c.id, concat(p.nombre,' ',p.apellido) as concejal"))->get();
+
+			
+			$categoriaVotacion=array();
+
+			if (count($votante)==0) {
+				$categoriaVotacion=CategoriaVotacion::all();
+			}else {
+
+				$categorias=array();
+				///quede por aqui tengo que verificar si la persona tiene concejales
+				///si tiene entonces mostrar la categoria concejales tambien dependiendo si la 
+				///persona no tiene compromisos con otro lider	
+				foreach ($votante as $key => $item) {
+					if ($item->id_categoria_votacion==3) {
+						return array();
+					}
+					if (count($concejales)==0) {
+						$categorias[$key]=$item->id_categoria_votacion;
+					}else if (count($concejales)>0) {
+						# code...
+					}
+					
+				}
+				$categoriaVotacion=CategoriaVotacion::whereNotIn('id', $categorias);
+			}
+
+			return $categoriaVotacion;
+
+		} catch (Exception $e) {
+			return $e->getMessage();			
 		}
 	}
 
