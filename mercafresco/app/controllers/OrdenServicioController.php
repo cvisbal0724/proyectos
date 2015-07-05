@@ -20,7 +20,6 @@ public function Crear(){
 	try {
 	
 
-
 	$id_user=Cookie::get('id_user');
 	$usuario=Usuario::find($id_user);
 	Session::put('usuario',$usuario);
@@ -30,30 +29,32 @@ public function Crear(){
 	$funcionario=Funcionario::where('CEDULA','=',$cedula)->first();
 	$bonoUsuario=UsuarioBono::where('ID_USUARIO','=',$usuario->ID)->where('USADO','=',0)->first();
 
-	if ($bonoUsuario) {
+
+	
+	$rs=OrdenServicio::create(array(
+	  
+		"ID_TIPO_METODO_PAGO"=>Input::get('id_metodo_pago'),	
+		"ID_BARRIO_PERSONA"=>Session::get('id_direccion'),
+		"ID_BONO"=>$bonoUsuario!=null ? $bonoUsuario->ID_BONO : DB::raw('NULL'),
+		"PROG_FECHA"=>Session::get('fecha'),
+		"PROG_HORA"=>Session::get('hora'),
+		//"FECHA_ENTREGA"=>Input::get("fecha_entrega"),
+		"VALOR_DOMICILIO"=>0,
+		"ID_PROVEEDOR"=>1,
+		"FECHA_CREACION"=>DB::raw('NOW()'),
+		"ID_USUARIO"=>$id_user,
+		"ID_ESTADO_ENTREGA"=>1,
+		"ESTADO"=>1,
+		"ID_ESTADO_PAGO"=>1,
+		//"CONSECUTIVO"=>$numeroConsecutivo	
+
+	)); 
+
+ 	if ($bonoUsuario) {
 		$bonoUsuario->USADO=1;
 		$bonoUsuario->save();
 	}
 
-	$rs=OrdenServicio::create(array(
-	  
-	"ID_TIPO_METODO_PAGO"=>Input::get('id_metodo_pago'),	
-	"ID_BARRIO_PERSONA"=>Session::get('id_direccion'),
-	"ID_BONO"=>$bonoUsuario!=null ? $bonoUsuario->ID_BONO : DB::raw('NULL'),
-	"PROG_FECHA"=>Session::get('fecha'),
-	"PROG_HORA"=>Session::get('hora'),
-	//"FECHA_ENTREGA"=>Input::get("fecha_entrega"),
-	"VALOR_DOMICILIO"=>0,
-	"ID_PROVEEDOR"=>1,
-	"FECHA_CREACION"=>DB::raw('NOW()'),
-	"ID_USUARIO"=>$id_user,
-	"ID_ESTADO_ENTREGA"=>1,
-	"ESTADO"=>1,
-	"ID_ESTADO_PAGO"=>1,
-	//"CONSECUTIVO"=>$numeroConsecutivo	
-
-	)); 	
- 	
  	$listaTempComp=TemporalCompra::where('ID_USUARIO','=', $id_user)->get();
 
  	if ($rs["ID"]>0 && count($listaTempComp)>0) {
@@ -64,7 +65,7 @@ public function Crear(){
 
  			$prodProv=ProductosProveedor::find($item->ID_PRODUCTO_PROVEEDOR);
 
- 			if ($funcionario) {
+ 			if ($bonoUsuario==null && $funcionario) {
 
 				$empresaconvenio=EmpresaConvenio::where('ID_EMPRESA','=',$funcionario->ID_EMPRESA)
 				->where('ID_PROVEEDOR','=',$prodProv->ID_PROVEEDOR)

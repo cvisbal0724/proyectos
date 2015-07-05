@@ -3,7 +3,7 @@
    <h3 class="panel-title">Contra entrega</h3>
 </div>
 <div class='panel-body'>
-   <p>Pide en linea y paga contra entrega a nuestro mensajero.</p>
+   <h4>Pide en linea y paga contra entrega a nuestro mensajero.</h4>
    <fieldset class="mt-20">
       <div class="form-group">
          <a class="btn btn-primary btn-lg pull-left" ui-sref='tiempos'>Atrás</a>
