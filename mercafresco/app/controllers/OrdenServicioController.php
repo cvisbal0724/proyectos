@@ -3,6 +3,8 @@
 
 class OrdenServicioController extends BaseController {
 
+protected $rutaImagen ='administrador/source/imagen_productos/';
+
 public function Crear(){
 
 	if (!Session::has('id_direccion') || !Session::has('hora') || !Session::has('fecha')) {
@@ -87,7 +89,7 @@ public function Crear(){
  				'PRECIO' =>$prodProv->PRECIO,
  				'IVA_TASA' =>0,
  				'FECHA_CREACION'=> DB::raw('NOW()'),
- 				'ESTADO'=>0,
+ 				'ESTADO'=>1,
  				'ID_PRODUCTO_PROVEEDOR'=>$item->ID_PRODUCTO_PROVEEDOR,
  				'ID_EMPRESA_CONVENIO'=>$empresaconvenio!=NULL ? $empresaconvenio->ID : DB::raw('NULL') 
  			));
@@ -303,13 +305,13 @@ public function ObtenerTodos(){
 
  		$detalle=[];
 
- 		foreach (HistorialCompra::where('ID_ORDEN_SERVICIO','=',$row->ID)->get() as $hist) {
+ 		foreach (HistorialCompra::where('ID_ORDEN_SERVICIO','=',$row->ID)->where('ESTADO','=','1')->get() as $hist) {
  			$detalle[]=array(
  				'id'=>$hist->ID,
  				'id_producto_proveedor'=>$hist->ID_PRODUCTO_PROVEEDOR,
  				'descripcion'=>$hist->producto_proveedor->DESCRIPCION,
  				'cantidad'=>$hist->CANTIDAD_COMPRADOS,
- 				'imagen'=>$hist->producto_proveedor->ARCHIVO_FOTO
+ 				'imagen'=>$this->rutaImagen . $hist->producto_proveedor->ARCHIVO_FOTO
  			);
  		}
 
@@ -393,13 +395,13 @@ public function ObtenerTodos(){
 
  		$detalle=[];
 
- 		foreach (HistorialCompra::where('ID_ORDEN_SERVICIO','=',$row->ID)->get() as $hist) {
+ 		foreach (HistorialCompra::where('ID_ORDEN_SERVICIO','=',$row->ID)->where('ESTADO','=','1')->get() as $hist) {
  			$detalle[]=array(
  				'id'=>$hist->ID,
  				'id_producto_proveedor'=>$hist->ID_PRODUCTO_PROVEEDOR,
  				'descripcion'=>$hist->producto_proveedor->DESCRIPCION,
  				'cantidad'=>$hist->CANTIDAD_COMPRADOS,
- 				'imagen'=>$hist->producto_proveedor->ARCHIVO_FOTO
+ 				'imagen'=>$this->rutaImagen . $hist->producto_proveedor->ARCHIVO_FOTO
  			);
  		}
 

@@ -45,12 +45,12 @@
               <td>{{OrdenServicio.id}}</td>
             </tr>
 
-              <!--<tr ng-if="OrdenServicio.convenio == 0">
+            <tr ng-if="OrdenServicio.convenio > 0 || OrdenServicio.descuentobono > 0">
               <td>
-              <label>Total:</label>
+              <label>Sub Total:</label>
               </td>
               <td>{{OrdenServicio.total | currency:'$':0}}</td>
-            </tr>-->
+            </tr>
 
             <tr ng-if="OrdenServicio.convenio > 0">
               <td>

@@ -91,7 +91,7 @@
               <tbody>
                 <tr ng-repeat='obj in item.detalle' class="tr-class-1 ng-scope">
                   <td>                          
-                    <img src="[[$rutaImagen]]{{obj.imagen}}" alt="Generic placeholder image" class="card-item-img">                       
+                    <img src="{{obj.imagen}}" alt="Generic placeholder image" class="card-item-img">                       
                   </td>
                   <td class="ng-binding">{{obj.descripcion}}</td>
                   <td class="ng-binding">

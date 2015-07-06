@@ -33,6 +33,14 @@
                <br>
                Cantidad de productos: [[$productos]]                
               
+
+                <?php if ($convenio > 0 || $descuentobono > 0): ?>           
+              
+                  <br>
+                  Sub Total: $[[$total]]            
+              <?php endif ?>
+
+
                 <br>
                 Valor del domicilio: $[[$domicilio]]            
            

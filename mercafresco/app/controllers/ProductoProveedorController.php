@@ -490,19 +490,25 @@ public function ObtenerTodos(){
 
 			$tempComp=TemporalCompra::where('ID_USUARIO','=', $id_user)
 			->where('ID_PRODUCTO_PROVEEDOR','=',$row['id_producto_proveedor'])->first();
-			
-			if($tempComp!=null){
-				$tempComp->CANTIDAD += $row['cantidad'];
-				$tempComp->save();				
+			$prodProv=ProductosProveedor::find($row['id_producto_proveedor']);
+		
+			if ($prodProv->INVENTARIO > 0) {
+				if($tempComp!=null){
+					$tempComp->CANTIDAD += $row['cantidad'];
+					$tempComp->save();				
+				}
+				else{				
+					
+				   TemporalCompra::create(array(	  
+				   "ID_USUARIO"=>$id_user,
+				   "ID_PRODUCTO_PROVEEDOR"=>$row['id_producto_proveedor'],
+				   "CANTIDAD"=>$row['cantidad'],
+				   "FECHA_INGRESO"=>DB::raw('NOW()')
+				   ));				
+						
+				}
 			}
-			else{
-				 TemporalCompra::create(array(	  
-				 "ID_USUARIO"=>$id_user,
-				 "ID_PRODUCTO_PROVEEDOR"=>$row['id_producto_proveedor'],
-				 "CANTIDAD"=>$row['cantidad'],
-				 "FECHA_INGRESO"=>DB::raw('NOW()')
-				 ));	
-			}
+
 		}
 
 		return 'true';
