@@ -36,9 +36,7 @@ Route::get('layouts/nombre_proyecto',function(){
 
 Route::get('inicio/dashboard','DashBoardController@index');
 	
-Route::get('layouts/notificaciones',function(){
-	return view('layouts/notificaciones');
-});
+Route::get('layouts/notificaciones','DashBoardController@Notificacion');
 
 Route::get('inicio/home','HomeController@index');
 
