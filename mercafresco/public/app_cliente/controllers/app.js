@@ -197,7 +197,14 @@ App.config(function($urlRouterProvider, $stateProvider) {
                  "contenedor": {  templateUrl: 'inicio/cambiar_clave' , controller:'CuentaController'},
                  "header": { templateUrl: "layouts/headervistas"}
                  }           
-              });
+              })
+     .state('calificanos', {
+                url: "/calificanos/*key",
+                views: {
+                 "contenedor": {  templateUrl: 'calificanos/calificanos' , controller:'CalificarController'},
+                 "header": { templateUrl: "layouts/headervistas"}
+                 }           
+      });
 });
 
 

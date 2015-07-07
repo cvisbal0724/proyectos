@@ -135,6 +135,11 @@ Route::get('inicio/cambiar_clave', function()
 {  
 	return View::make('inicio/cambiar_clave');	
 });
+
+Route::get('calificanos/calificanos',function(){
+	return View::make('calificanos/calificanos');
+});
+
 /*
 Fin vistas
 */
@@ -266,12 +271,17 @@ Route::post('ordenservicio/obtenerporcriterios','OrdenServicioController@Obtener
 Route::post('ordenservicio/obtenerlosultimostres','OrdenServicioController@ObtenerLosUltimosTres');
 Route::post('ordenservicio/pagotarjetacredito','OrdenServicioController@PagoTarjetaCredito');
 Route::post('ordenservicio/terminarprocesodepagobancario','OrdenServicioController@TerminarProcesoDePagoBancario');
+Route::post('ordenservicio/obtenerporcodigo','OrdenServicioController@ObtenerPorCodigo');
 /*Fin Orden de servicio*/
 
 
 /*Finalizar*/
 Route::post('ordenservicio/finalizar','OrdenServicioController@Finalizar');
 /*Fin Finalizar*/
+
+/*Calificanos*/
+Route::post('calificanos/crear','CalificanosController@Crear');
+/*fin Calificanos*/
 
 
 /*Pasos Para Pago*/
@@ -377,7 +387,14 @@ return date('Y/m/d',strtotime('2015-01-26 00:00:00'));//date('Y/m/d');
 
 
 Route::get('path',function(){
-return $_SERVER["DOCUMENT_ROOT"];
+//return $_SERVER["DOCUMENT_ROOT"];
+	//return View::make('calificanos/calificanos');
+
+
+
+$key=array('id_orden'=>349);
+		return		$arrayString=Encriptacion::encrypt($key, Encriptacion::ENCRYPTION_KEY);
+
 });
 
 /*merchantId=530880

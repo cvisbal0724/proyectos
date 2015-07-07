@@ -75,7 +75,9 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
       [[ HTML::script("app_cliente/controllers/Historial.js?v=1") ]]  
       [[ HTML::script("app_cliente/controllers/ActivarCuenta.js?v=2") ]]  
       [[ HTML::script("app_cliente/controllers/MasInformacion.js") ]]  
+      [[ HTML::script("app_cliente/controllers/Calificar.js") ]]  
       [[ HTML::script("app_cliente/funciones/capitalizeFirstLetter.js?v=1") ]]
+
 
    <div id='loading' loading-indicator>
    

@@ -278,13 +278,55 @@ public function Eliminar(){
  }
  
  
-public function ObtenerPoID(){
+public function ObtenerPorCodigo(){
  
- $id=Input::get("id");
- return OrdenServicio::find($id)->toJSON();
+try {
+
+	$key=Input::get('key');
+		
+	$obj=Encriptacion::decrypt($key, Encriptacion::ENCRYPTION_KEY);
+
+	 $orden_servicio=OrdenServicio::find($obj['id_orden']);
+
+	 $arrayList=array();
+
+ 	 $detalle=[];
+
+ 		foreach (HistorialCompra::where('ID_ORDEN_SERVICIO','=',$obj['id_orden'])->where('ESTADO','=','1')->get() as $hist) {
+ 			$detalle[]=array(
+ 				'id'=>$hist->ID,
+ 				'id_orden_servicio'=>$hist->ID_ORDEN_SERVICIO,
+ 				'fecha'=>$orden_servicio->FECHA_ENTREGA,
+ 				'producto'=>$hist->producto_proveedor->PRODUCTOS_OFRECIDOS . ' ' . $hist->producto_proveedor->producto->NOMBRE,
+ 				'unidades'=>$hist->producto_proveedor->unidad->NOMBRE,
+ 				'proveedor'=>$hist->producto_proveedor->proveedor->NOMBRE,
+ 				'cantidad'=>$hist->CANTIDAD_COMPRADOS,
+ 				'valor'=>$hist->PRECIO,
+ 				'total'=>$orden_servicio->Total(),
+ 				'convenio'=>$orden_servicio->Convenio(),
+ 				'descuentobono'=>$orden_servicio->DescuentoBono()
+ 			);
+ 		}
+
+ 		$arrayList=array(
+ 			'id'=>$orden_servicio->ID, 			
+ 			'estado'=>$orden_servicio->estado_entrega->NOMBRE,
+ 			'direccion'=>$orden_servicio->barriopersona->DIRECCION,
+ 			'fecha_compra'=>date('Y-m-d',strtotime($orden_servicio->FECHA_CREACION)),
+ 			'fecha_entrega'=>date('Y-m-d',strtotime($orden_servicio->PROG_FECHA)), 
+ 			'id_usuario'=>$orden_servicio->ID_USUARIO,			
+ 			'detalle'=>$detalle
+ 		);
+ 	
+ 	return $arrayList;
+
+ 	} catch (Exception $e) {
+ 		Excepciones::Crear($e,'OrdenServicio','ObtenerPoID');
+ 		return $e;
+ 	}
  
  }
- 
+
  
 public function ObtenerTodos(){
  
