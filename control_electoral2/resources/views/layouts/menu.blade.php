@@ -4,10 +4,15 @@
     <ul class="sidebar-menu" id="nav-accordion">
         <p class="centered">
             <a ui-sref='home.inicio'>
-                <img src="app_cliente/img/ui-sam.jpg" class="img-circle" width="60">
+                @if($foto=='')
+                <img src="app_cliente/img/ui-sam.jpg" class="img-circle" width="60">              
+                @endif
+                 @if($foto!='')
+                <img src="[[$foto]]" class="img-circle" width="60">
+                @endif
             </a>
         </p>
-        <h5 class="centered">Control</h5>
+        <h5 class="centered">[[$nombre]]</h5>
 
         <li class="mt">
             <a class="active" ui-sref='home.inicio' href="/home">

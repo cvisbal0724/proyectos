@@ -2,6 +2,8 @@
 
 use App\models\Menus;
 use App\models\PerfilModulos;
+use App\models\Lideres;
+use App\models\Concejales;
 use Auth;
 use App\Enums\EnumPerfiles;
 
@@ -87,7 +89,22 @@ class HomeController extends Controller {
 		}
 	}
 
-	return view('inicio/home',array('menu'=>$menu));
+		$foto='';
+
+		if ($usuario->id_perfil==2) {
+			$alcalde=Alcaldes::find($usuario->persona->id_alcalde);
+			$foto=$alcalde->foto!='' && $alcalde->foto!=null ? 'app_cliente/fotos_alcalde/'.$alcalde->foto : '';			
+		}
+		elseif ($usuario->id_perfil==3) {
+			$concejal=Concejales::where('id_persona','=',$usuario->id_persona)->first();
+			$foto=$concejal->foto!='' && $concejal->foto!=null ? 'app_cliente/fotos_concejal/'.$concejal->foto : '';			
+		}elseif ($usuario->id_perfil==4) {
+			$lider=Lideres::where('id_persona','=',$usuario->id_persona)->first();
+			$foto=$lider->foto!='' && $lider->foto!=null ? 'app_cliente/fotos_lider/'.$lider->foto : '';			
+		}
+	
+		return view('inicio/home',array('menu'=>$menu,'nombre'=>$usuario->persona->nombre_completo(),'foto'=>$foto));
+
 		} catch (Exception $e) {
 			return $e;
 		}
