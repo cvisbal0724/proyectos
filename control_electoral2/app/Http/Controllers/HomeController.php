@@ -4,8 +4,11 @@ use App\models\Menus;
 use App\models\PerfilModulos;
 use App\models\Lideres;
 use App\models\Concejales;
+use App\models\Alcaldes;
 use Auth;
 use App\Enums\EnumPerfiles;
+use App;
+use PDF;
 
 class HomeController extends Controller {
 
@@ -110,6 +113,45 @@ class HomeController extends Controller {
 		}
 	}
 
-	
+	public function testpdf()
+	{
+		$pdf = App::make('dompdf.wrapper');
+		$pdf->loadHTML('<h1>Test</h1>');
+		return $pdf->stream('download.pdf');
+
+		/*$pdf = PDF::loadView('pdf.invoice', $data);
+		return $pdf->download('invoice.pdf');*/
+	}
+
+
+	public function invoice() 
+    {
+        $data = $this->getData();
+        $date = date('Y-m-d');
+        $invoice = "2222";
+        $view =  \View::make('pdf.prueba', compact('data', 'date', 'invoice'))->render();
+        $pdf = \App::make('dompdf.wrapper');
+        $pdf->loadHTML($view);
+        return $pdf->stream('invoice');
+    }
+
+    public function getData() 
+    {
+        $data =  [
+            'quantity'      => '1' ,
+            'description'   => 'some ramdom text',
+            'price'   => '500',
+            'total'     => '500'
+        ];
+        return $data;
+    }
+
+    public function vista(){
+
+    	$data = $this->getData();
+        $date = date('Y-m-d');
+        $invoice = "2222";
+    	return view('pdf/prueba',compact('data', 'date', 'invoice'));
+    }
 
 }

@@ -224,3 +224,9 @@ echo EnumPerfiles::Alcalde;
 });
 
 Route::get('test','AutenticacionController@test');
+
+
+Route::get('testpdf','HomeController@invoice');
+
+
+Route::get('vista','HomeController@vista');
