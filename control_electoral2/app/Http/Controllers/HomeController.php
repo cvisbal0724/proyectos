@@ -129,10 +129,22 @@ class HomeController extends Controller {
         $data = $this->getData();
         $date = date('Y-m-d');
         $invoice = "2222";
+
         $view =  \View::make('pdf.prueba', compact('data', 'date', 'invoice'))->render();
+
+        /*$view2 =  \View::make('pdf.prueba', compact('data', 'date', 'invoice'))->render();
+
+        $pages[]=$view ;
+        $pages[]=$view2 ;*/
+
         $pdf = \App::make('dompdf.wrapper');
         $pdf->loadHTML($view);
-        return $pdf->stream('invoice');
+        return $pdf->setPaper('a4')->setOrientation('landscape')->setWarnings(false)->stream('invoice');
+
+       /* $pdf = PDF::loadView('pdf.multipages', ['pages' => $pages]);
+
+ return $pdf->setPaper('a4')->setOrientation('landscape')->setWarnings(false)->stream('invoice');*/
+
     }
 
     public function getData() 

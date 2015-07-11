@@ -14,49 +14,60 @@
 
     }
 
-    table th{
+    table thead th{
       font-size: 15px;
+       font-family: arial;
     }
 
-    table td{
-      font-size: 11px;
+    table tbody td{
+      font-size: 15px;
+      font-family: 'arial';
     }
 
-    
+    .no{width: 10px; text-align: center; }
+    .nom{width: 50px; text-align: center; }
+    .ced{width: 10px; text-align: center; }
+    .dir{width: 10px; text-align: center; }
+    .tel{width: 10px; text-align: center; }
+    .pvot{width: 10px; text-align: center; }
+    .lider{width: 10px; text-align: center; }
+
     </style>
   </head>
   <body>
 
     <main>
-      <div id="details" class="clearfix">
-        <div id="invoice">
-          <h1>INVOICE [[ $invoice ]]</h1>
-          <div class="date">Date of Invoice: [[ $date ]]</div>
-        </div>
-      </div>
-      <table border="1" cellspacing="0" cellpadding="0" >
+     
+      <table border="1" cellspacing="0" cellpadding="0" width="100%">
         <thead>
         <tr>
-          <th colspan="7" style="padding:10px;">LISTA DE VOTANTES</th>
+          <th colspan="7" style="padding:15px;font-size:25px;">LISTA DE VOTANTES</th>
         </tr>
           <tr>          
             <th class="no">No</th>
-            <th class="desc" style="20%;">NOMBRES Y APELLIDOS COMPLETOS</th>
-            <th class="unit">CEDULA</th>
-            <th class="total">DIRECCION</th>
-            <th class="total">PTO VOTACION</th>
-            <th class="total">LIDER</th>          
+            <th class="nom">NOMBRES Y APELLIDOS</th>
+            <th class="ced">CEDULA</th>
+            <th class="dir">DIRECCION</th>
+            <th class="tel">TELEFONO</th>
+            <th class="pvot">PTO VOTACION</th>
+            <th class="lider">LIDER</th>          
           </tr>
         </thead>
         <tbody>
-          <tr>
-            <td class="no">[[ $data['quantity'] ]]</td>
-            <td class="desc">[[ $data['description'] ]]</td>
-            <td class="unit">[[ $data['price'] ]]</td>
-            <td class="total">[[ $data['total'] ]] </td>
-            <td>1</td>
-            <td>1</td>           
+       
+       <?php for ($i=0; $i < 30; $i++) { ?>
+
+         <tr>
+            <td class="no">[[ $i+1 ]]</td>
+            <td class="nom">[[ $data['description'] ]]</td>
+            <td class="ced">[[ $data['price'] ]]</td>
+            <td class="dir">[[ $data['total'] ]] </td>
+            <td class="tel">1</td>
+            <td class="pvot">1</td> 
+            <td class="lider">1</td>           
           </tr>
+      <?php } ?>
+         
 
         </tbody>
         <!--<tfoot>
