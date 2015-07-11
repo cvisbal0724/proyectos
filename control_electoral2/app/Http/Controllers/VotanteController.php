@@ -280,6 +280,17 @@ class VotanteController extends Controller {
 		}
 	}
 
+
+	public function Reporte()
+	{
+		return view('votantes/reporte_votantes');
+	}
+
+	public function ExportarPDF()
+	{
+		
+	}
+
 }
 
 

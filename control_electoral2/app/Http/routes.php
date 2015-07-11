@@ -121,6 +121,10 @@ Route::get('votantes/dar_de_baja',function(){
 	return view('votantes/dar_de_baja');
 });
 
+Route::get('votantes/reporte_votantes',function(){
+	return view('votantes/reporte_votantes');
+});
+
 Route::get('graficos/graficos','GraficosController@index');
 
 Route::get('tt','GraficosController@test');
