@@ -11,8 +11,7 @@ $scope.votanteVO={id:'',
 				  numero_mesa:0,
 				  dar_de_baja:false,
 				  comentario_de_baja:'',
-				  persona:{},
-				  _token:authUsuario.token()};
+				  persona:{}};
 $scope.result={};
 $scope.listaVotantes=[];
 $scope.criterio='';
@@ -60,7 +59,7 @@ $scope.actualizar=function(){
 }
 
 $scope.consultar_persona_por_criterios=function(){
-	$http.post("persona/consultarporcriterios",{criterio:$scope.criterio,_token:authUsuario.token()})
+	$http.post("persona/consultarporcriterios",{criterio:$scope.criterio})
 	.success(function(data, status, headers, config) {
 		
 		 $scope.listaPersonas=data;
@@ -81,7 +80,7 @@ $scope.consultar=function(page){
 	}
 
 $scope.nuevo=function(){
-	$scope.votanteVO={id:0,usuario:'',id_persona:0,id_perfil:0,_token:authUsuario.token()};
+	$scope.votanteVO={id:0,usuario:'',id_persona:0,id_perfil:0};
 }
 
 $scope.dar_de_baja=function(){

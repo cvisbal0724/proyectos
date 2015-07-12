@@ -7,27 +7,28 @@ use Illuminate\Http\Request;
 use App\models\Excepciones;
 use App\models\Alcaldes;
 use File;
+use Input;
 
 class AlcaldeController extends Controller {
 
-	public function Guardar(Request $request){
+	public function Guardar(){
 		try {
 			
 			$guardo=false;
 
-			if ($request->input('id')>0) {
+			if (Input::get('id')>0) {
 				
-				$alcalde=Alcaldes::find($request->input('id'));
+				$alcalde=Alcaldes::find(Input::get('id'));
 
 				$nombreArchivo='';
 				
-				if ($request->hasFile('foto')) {
-					if ($request->file('foto')->isValid()) {
+				if (Input::hasFile('foto')) {
+					if (Input::file('foto')->isValid()) {
 						
-						$nombreArchivo=rand(11111,99999).str_replace(' ','',$request->input('nombre')).'.'.
-						$request->file('foto')->getClientOriginalExtension();
+						$nombreArchivo=rand(11111,99999).str_replace(' ','',Input::get('nombre')).'.'.
+						Input::file('foto')->getClientOriginalExtension();
 
-						$move=$request->file('foto')->move(
+						$move=Input::file('foto')->move(
 					        public_path() . '/app_cliente/fotos_alcalde/', $nombreArchivo
 					    );
 
@@ -40,9 +41,9 @@ class AlcaldeController extends Controller {
 					}
 				}
 
-				$alcalde->nombre=$request->input('nombre');
-				$alcalde->id_partido=$request->input('id_partido');
-				$alcalde->numero=$request->input('numero');
+				$alcalde->nombre=Input::get('nombre');
+				$alcalde->id_partido=Input::get('id_partido');
+				$alcalde->numero=Input::get('numero');
 				$rs=$alcalde->save();
 				
 				$guardo=$rs > 0;
@@ -51,21 +52,21 @@ class AlcaldeController extends Controller {
 
 				$nombreArchivo='';
 
-				if ($request->hasFile('foto')) {
-					if ($request->file('foto')->isValid()) {
-						$nombreArchivo=rand(11111,99999).str_replace(' ','',$request->input('nombre')).'.'.
-						$request->file('foto')->getClientOriginalExtension();
+				if (Input::hasFile('foto')) {
+					if (Input::file('foto')->isValid()) {
+						$nombreArchivo=rand(11111,99999).str_replace(' ','',Input::get('nombre')).'.'.
+						Input::file('foto')->getClientOriginalExtension();
 
-						 $request->file('foto')->move(
+						 Input::file('foto')->move(
 					        base_path() . '/public/app_cliente/fotos_alcalde/', $nombreArchivo
 					    );
 					}
 				}
 				
 				$rs=Alcaldes::create(array(
-				'nombre'=>$request->input('nombre'),
-				'id_partido'=>$request->input('id_partido'),
-				'numero'=>$request->input('numero'),
+				'nombre'=>Input::get('nombre'),
+				'id_partido'=>Input::get('id_partido'),
+				'numero'=>Input::get('numero'),
 				'foto'=>$nombreArchivo
 				));
 
@@ -92,8 +93,7 @@ class AlcaldeController extends Controller {
 
 		$alcalde=Alcaldes::find($id);
 
-		return array('id'=>$alcalde->id,'nombre'=>$alcalde->nombre,
-			'id_partido'=>$alcalde->id_partido,'numero'=>$alcalde->numero,'_token'=>csrf_token());
+		return $alcalde;
 
 
 	}

@@ -5,24 +5,25 @@ use App\Http\Controllers\Controller;
 
 use Illuminate\Http\Request;
 use App\models\Modulos;
+use Input;
 
 class ModulosController extends Controller {
 
-	public function Guardar(Request $request){
+	public function Guardar(){
 		try {
 			
 			$guardo=false;
 
-			$result=Modulos::where('nombre','=',$request->input('nombre'))->get();
+			$result=Modulos::where('nombre','=',Input::get('nombre'))->get();
 
-			if ($request->input('id')==0 && count($result)>0) {
+			if (Input::get('id')==0 && count($result)>0) {
 				return array('show'=>true,'alert'=>'warning','msg'=>'El modulo ya existe, por favor ingrese uno nuevo.');				
 			}
-			if ($request->input('id')>0) {
+			if (Input::get('id')>0) {
 				
-				$mod=Modulos::find($request->input('id'));
+				$mod=Modulos::find(Input::get('id'));
 
-				$mod->nombre=$request->input('nombre');
+				$mod->nombre=Input::get('nombre');
 				$rs=$mod->save();
 				
 				$guardo=$rs > 0;
@@ -30,7 +31,7 @@ class ModulosController extends Controller {
 			}else{
 			
 				$rs=Modulos::create(array(
-				'nombre'=>$request->input('nombre')				
+				'nombre'=>Input::get('nombre')				
 				));
 
 				$guardo=$rs['id'] > 0;
@@ -55,16 +56,12 @@ class ModulosController extends Controller {
 	public function ConsultarPorCodigo($id){
 		$modulo=Modulos::find($id);
 
-		return array(
-			'id'=>$modulo->id,
-			'nombre'=>$modulo->nombre,
-			'_token'=>csrf_token()
-		);		
+		return $modulo;
 	}
 
-	public function EliminarModulo(Request $request){
+	public function EliminarModulo(){
 
-		$mod=Modulos::find($request->input('id'));
+		$mod=Modulos::find(Input::get('id'));
 
 		$mod->delete();
 

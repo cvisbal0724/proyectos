@@ -11,6 +11,7 @@ use App\models\Concejales;
 use DB;
 use App\Enums\EnumPerfiles;
 use File;
+use Input;
 
 class LiderController extends Controller {
 
@@ -24,22 +25,22 @@ class LiderController extends Controller {
 		return view('lideres/lider',array('usuario'=>Auth::user()));
 	}
 
-	public function Crear(Request $request){
+	public function Crear(){
 		DB::beginTransaction();
 	try {
 
-			$lider=Lideres::where('id_persona','=',$request->input('id_persona'))->first();
+			$lider=Lideres::where('id_persona','=',Input::get('id_persona'))->first();
 			$nombreArchivo='';
 
 			if ($lider) {
 				return array('show'=>true,'alert'=>'warning','msg'=>'El lider ya existe.');
 			}
 			
-			if ($request->hasFile('foto')) {
-					if ($request->file('foto')->isValid()) {
-						$nombreArchivo=rand(11111,99999).'.'.$request->file('foto')->getClientOriginalExtension();
+			if (Input::hasFile('foto')) {
+					if (Input::file('foto')->isValid()) {
+						$nombreArchivo=rand(11111,99999).'.'.Input::file('foto')->getClientOriginalExtension();
 
-						 $request->file('foto')->move(
+						Input::file('foto')->move(
 					        base_path() . '/public/app_cliente/fotos_lider/', $nombreArchivo
 					    );
 
@@ -52,7 +53,7 @@ class LiderController extends Controller {
 				}
 
 		   $rs=Lideres::create(array(		   	   
-			   'id_persona'=>$request->input('id_persona'),
+			   'id_persona'=>Input::get('id_persona'),
 			   'id_encargado'=>Auth::user()->id,
 			   'foto'=>$nombreArchivo			
 		   ));
@@ -60,7 +61,7 @@ class LiderController extends Controller {
 			$concejal=Concejales::where('id_persona','=',Auth::user()->persona->id)->get();
 			if (count($concejal)>0) {
 				 LiderConcejales::create(array(
-			   	'meta'=>$request->input('meta'),
+			   	'meta'=>Input::get('meta'),
 			   	'id_lider'=>$rs['id'],
 			   	'id_concejal'=>$concejal[0]->id
 			   	));
@@ -79,19 +80,19 @@ class LiderController extends Controller {
 }
 
 
-public function Actualizar(Request $request){
+public function Actualizar(){
 	try {
 
-			$lider=Lideres::find($request->input('id'));
+			$lider=Lideres::find(Input::get('id'));
 			$nombreFotoAnterior='';
 			$nombreArchivo='';
 
-			if ($request->hasFile('foto')) {
-					if ($request->file('foto')->isValid()) {
+			if (Input::hasFile('foto')) {
+					if (Input::file('foto')->isValid()) {
 						
-						$nombreArchivo=rand(11111,99999).'.'.$request->file('foto')->getClientOriginalExtension();
+						$nombreArchivo=rand(11111,99999).'.'.Input::file('foto')->getClientOriginalExtension();
 
-						$move=$request->file('foto')->move(
+						$move=Input::file('foto')->move(
 					        public_path() . '/app_cliente/fotos_lider/'. $nombreArchivo
 					    );
 						
@@ -105,7 +106,7 @@ public function Actualizar(Request $request){
 					}
 			}
 
-			$lider->id_persona=$request->input('id_persona');
+			$lider->id_persona=Input::get('id_persona');
 			$rs=$lider->save();
 
 			if ($nombreFotoAnterior!='') {
@@ -114,10 +115,10 @@ public function Actualizar(Request $request){
 				}				 
 			}
 
-			$concejal=Concejales::where('id_persona','=',$request->input('id_persona'))->first();
+			$concejal=Concejales::where('id_persona','=',Input::get('id_persona'))->first();
 			
 			$liderConcejal=LiderConcejales::where('id_concejal','=',$concejal->id)->where('id_lider','=',$lider->id)->first();
-			$liderConcejal->meta=$request->input('meta');
+			$liderConcejal->meta=Input::get('meta');
 			$liderConcejal->save();
 
 			return $rs > 0 ? array('show'=>true,'alert'=>'success','msg'=>'Lider actualizado satisfactoriamente.') :
@@ -130,11 +131,11 @@ public function Actualizar(Request $request){
 }
 
 
-public function Consultar(Request $request){
+public function Consultar(){
 		try {
 			$usuario=Auth::User();
 
-		$criterio=$request->input('criterio');
+		$criterio=Input::get('criterio');
 		$lista=array();
 		
 		$consulta=DB::table('lideres as l')
@@ -182,21 +183,13 @@ public function ConsultarPorCodigo($id){
 
 	$concejal=Concejales::find($id);
 	
-	return array(
-		'id'=>$concejal->id,
-		'id_persona'=>$concejal->id_persona,
-		'id_usuario'=>$concejal->id_usuario,
-		'id_partido'=>$concejal->id_partido,
-		'numero'=>$concejal->numero,
-		'persona'=>$concejal->persona,
-		'_token'=>csrf_token()
-	);
+	return $concejal;
 }
 
-public function AgregarLiderConcejales(Request $request){
+public function AgregarLiderConcejales(){
 	try {
 
-		$lista=$request->input('listaConcejales');
+		$lista=Input::get('listaConcejales');
 		//dd($lista);
 		//exit();
 		$liderConcejalArray=array();
@@ -230,19 +223,19 @@ public function AgregarLiderConcejales(Request $request){
 	}	
 }
 
-public function ConsultarLiderConcejales(Request $request){
-	return LiderConcejales::where('id_lider','=',$request->input('id_lider'))->get();
+public function ConsultarLiderConcejales(){
+	return LiderConcejales::where('id_lider','=',Input::get('id_lider'))->get();
 }
 
-public function EliminarLiderConcejales(Request $request){
+public function EliminarLiderConcejales(){
 	try {
 
 		 //return $request->input();
 	//exit();
-	$obj=LiderConcejales::where('id_lider','=',$request->input('id_lider'))
-	->where('id_concejal','=',$request->input('id_concejal'))->delete();
+	$obj=LiderConcejales::where('id_lider','=',Input::get('id_lider'))
+	->where('id_concejal','=',Input::get('id_concejal'))->delete();
 	
-	return LiderConcejales::where('id_lider','=',$request->input('id_lider'))->get();
+	return LiderConcejales::where('id_lider','=',Input::get('id_lider'))->get();
 
 	} catch (Exception $e) {
 		return $e;

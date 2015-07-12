@@ -12,7 +12,7 @@ confControllers.controller('PersonaController', function ($scope,$location,authU
 	$scope.result={};
 	$scope.listaPersonas=[];
 	$scope.paginas=Array();
-	$scope.criterios={criterio:'',_token:authUsuario.token()}
+	$scope.criterios={criterio:''}
 	
 
 	$scope.consultar_por_codigo=function(id){
@@ -113,7 +113,6 @@ $scope.actualizar_nueva_persona=function(){
 		$scope.personaVO.direccion='';
 		$scope.personaVO.correo='';
 		$scope.personaVO.id_alcalde='0';
-		$scope.personaVO._token=authUsuario.token()
 	}
 
 	

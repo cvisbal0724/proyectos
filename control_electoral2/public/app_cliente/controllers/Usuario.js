@@ -1,6 +1,6 @@
 confControllers.controller('UsuarioController', function ($scope,$location,authUsuario,SessionService,SessionSet,$state,$http) {
 
-$scope.usuarioVO={id:0,usuario:'',id_persona:0,id_perfil:0,_token:authUsuario.token()};
+$scope.usuarioVO={id:0,usuario:'',id_persona:0,id_perfil:0};
 $scope.result={};
 $scope.listaUsuarios=[];
 $scope.criterio='';
@@ -51,7 +51,7 @@ $scope.actualizar=function(){
 }
 
 $scope.consultar_persona_por_criterios=function(){
-	$http.post("persona/consultarporcriterios",{criterio:$scope.criterio,_token:authUsuario.token()})
+	$http.post("persona/consultarporcriterios",{criterio:$scope.criterio})
 	.success(function(data, status, headers, config) {
 		
 		 $scope.listaPersonas=data;
@@ -72,7 +72,7 @@ $scope.consultar=function(page){
 	}
 
 $scope.nuevo=function(){
-	$scope.usuarioVO={id:0,usuario:'',id_persona:0,id_perfil:0,_token:authUsuario.token()};
+	$scope.usuarioVO={id:0,usuario:'',id_persona:0,id_perfil:0};
 }
 
 });

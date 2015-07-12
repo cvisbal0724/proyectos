@@ -1,6 +1,6 @@
 confControllers.controller('ModulosController', function ($scope,$location,authUsuario,SessionService,SessionSet,$state,$http) {
 
-$scope.modulosVO={id:0,nombre:'',_token:authUsuario.token()};
+$scope.modulosVO={id:0,nombre:'',;
 $listaModulos=[];
 
 $scope.guardar=function(){
@@ -25,7 +25,7 @@ $scope.nuevo=function(){
 }	
 
 $scope.consultar=function(){
-	$http.post("modulos/consultar",{_token:authUsuario.token()}).success(function(data, status, headers, config) {
+	$http.post("modulos/consultar",{).success(function(data, status, headers, config) {
 			$scope.listaModulos=data;
 		});
 }
@@ -50,7 +50,7 @@ $scope.consultar_por_codigo=function(obj){
 		cancelButtonText:'No',  
 		closeOnConfirm: false }, function(){   
 			
-		   $http.post("modulos/eliminarmodulo",{_token:authUsuario.token(),id:obj.id})
+		   $http.post("modulos/eliminarmodulo",{id:obj.id})
 		   .success(function(data, status, headers, config) {
 		   	swal("Eliminado!", "El modulo fue removido satisfactoriamente", "success"); 
 		   	//$state.go($state.current, {}, {reload: true});

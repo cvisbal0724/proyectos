@@ -8,8 +8,7 @@ $scope.menuVO={
 				id_modulo:0,
 				url:'',
 				orden:1,
-				imagen:'',
-				_token:authUsuario.token()
+				imagen:''				
 				};
 $scope.listaMenu=[];
 

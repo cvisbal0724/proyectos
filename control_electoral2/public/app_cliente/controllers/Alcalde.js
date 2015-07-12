@@ -1,6 +1,6 @@
 confControllers.controller('AlcaldeController', function ($scope,$location,authUsuario,SessionService,SessionSet,$state,$http) {
 
-	$scope.alcaldeVO={id:0,nombre:'',id_partido:0,numero:0,foto:null,_token:authUsuario.token()};
+	$scope.alcaldeVO={id:0,nombre:'',id_partido:0,numero:0,foto:null};
 	$scope.result={};
 	$scope.listaAlcaldes=[];
 
@@ -14,7 +14,7 @@ confControllers.controller('AlcaldeController', function ($scope,$location,authU
 		formData.append('id_partido',$scope.alcaldeVO.id_partido);
 		formData.append('numero',$scope.alcaldeVO.numero);
 		formData.append('foto',$scope.alcaldeVO.foto);
-		formData.append('_token',$scope.alcaldeVO._token);
+		//formData.append('_token',$scope.alcaldeVO._token);
 
 		$http.post("alcalde/guardar",formData,
 			{transformRequest: angular.identity,

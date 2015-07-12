@@ -7,33 +7,34 @@ use Illuminate\Http\Request;
 use App\models\Excepciones;
 use App\models\Partidos;
 use File;
+use Input;
 
 class PartidoController extends Controller {
 
 	
-	public function Guardar(Request $request){
+	public function Guardar(){
 		try {
 			
 			$guardo=false;
 
-			$result=Partidos::where('nombre','=',$request->input('nombre'))->get();
+			$result=Partidos::where('nombre','=',Input::get('nombre'))->get();
 
-			if ($request->input('id')==0 && count($result)>0) {
+			if (Input::get('id')==0 && count($result)>0) {
 				return array('show'=>true,'alert'=>'warning','msg'=>'El partido ya existe, por favor ingrese uno nuevo.');				
 			}
-			if ($request->input('id')>0) {
+			if (Input::get('id')>0) {
 				
-				$part=Partidos::find($request->input('id'));
+				$part=Partidos::find(Input::get('id'));
 
 				$nombreArchivo='';
 				
-				if ($request->hasFile('logo')) {
-					if ($request->file('logo')->isValid()) {
+				if (Input::hasFile('logo')) {
+					if (Input::file('logo')->isValid()) {
 						
-						$nombreArchivo=rand(11111,99999).str_replace(' ','',$request->input('nombre')).'.'.
-						$request->file('logo')->getClientOriginalExtension();
+						$nombreArchivo=rand(11111,99999).str_replace(' ','',Input::get('nombre')).'.'.
+						Input::file('logo')->getClientOriginalExtension();
 
-						$move=$request->file('logo')->move(
+						$move=Input::file('logo')->move(
 					        public_path() . '/app_cliente/logos_partido/', $nombreArchivo
 					    );
 
@@ -46,7 +47,7 @@ class PartidoController extends Controller {
 					}
 				}
 
-				$part->nombre=$request->input('nombre');
+				$part->nombre=Input::get('nombre');
 				$rs=$part->save();
 				
 				$guardo=$rs > 0;
@@ -55,19 +56,19 @@ class PartidoController extends Controller {
 
 				$nombreArchivo='';
 
-				if ($request->hasFile('logo')) {
-					if ($request->file('logo')->isValid()) {
-						$nombreArchivo=rand(11111,99999).str_replace(' ','',$request->input('nombre')).'.'.
-						$request->file('logo')->getClientOriginalExtension();
+				if (Input::hasFile('logo')) {
+					if (Input::file('logo')->isValid()) {
+						$nombreArchivo=rand(11111,99999).str_replace(' ','',Input::get('nombre')).'.'.
+						Input::file('logo')->getClientOriginalExtension();
 
-						 $request->file('logo')->move(
+						 Input::file('logo')->move(
 					        base_path() . '/public/app_cliente/logos_partido/', $nombreArchivo
 					    );
 					}
 				}
 				
 				$rs=Partidos::create(array(
-				'nombre'=>$request->input('nombre'),
+				'nombre'=>Input::get('nombre'),
 				'logo'=>$nombreArchivo
 				));
 
@@ -94,12 +95,12 @@ class PartidoController extends Controller {
 
 		$part=Partidos::find($id);
 
-		return array('id'=>$part->id,'nombre'=>$part->nombre,'_token'=>csrf_token());
+		return $part;
 	}
 
-public function Eliminar(Request $request){
+public function Eliminar(){
 
-		$part=Partidos::find($request->input('id'));
+		$part=Partidos::find(Input::get('id'));
 		$nombreArchivo=$part->logo;				
 		$part->delete();
 		if (File::exists(public_path().'/app_cliente/logos_partido/'.$nombreArchivo)) {

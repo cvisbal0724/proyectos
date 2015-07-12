@@ -9,21 +9,22 @@ use App\models\Personas;
 use App\models\Usuarios;
 use Hash;
 use DB;
+use Input;
 
 class UsuarioController extends Controller {
 
-	public function Crear(Request $request){
+	public function Crear(){
 		try {
 			
-			$usuario=Usuarios::where('usuario','=',$request->input('usuario'))->first();
+			$usuario=Usuarios::where('usuario','=',Input::get('usuario'))->first();
 			if ($usuario) {
 				return array('show'=>true,'alert'=>'warning','msg'=>'El usuario ya existe.');
 			}
 			$rs=Usuarios::create(array(
-				'usuario'=>$request->input('usuario'),
+				'usuario'=>Input::get('usuario'),
 				'password'=>Hash::make('12345'),
-				'id_persona'=>$request->input('id_persona'),
-				'id_perfil'=>$request->input('id_perfil'),
+				'id_persona'=>Input::get('id_persona'),
+				'id_perfil'=>Input::get('id_perfil'),
 			));
 
 			return $rs['id'] > 0 ? array('show'=>true,'alert'=>'success','msg'=>'Usuario guardado satisfactoriamente.','data'=>'') :
@@ -35,13 +36,13 @@ class UsuarioController extends Controller {
 		}
 	}
 
-	public function Actualizar(Request $request){
+	public function Actualizar(){
 			try {
 					
-				$usuario=Usuarios::find($request->input('id'));
+				$usuario=Usuarios::find(Input::get('id'));
 					
-				$usuario->id_persona=$request->input('id_persona');
-				$usuario->id_perfil=$request->input('id_perfil');
+				$usuario->id_persona=Input::get('id_persona');
+				$usuario->id_perfil=Input::get('id_perfil');
 				$rs=$usuario->save();
 
 				return $rs > 0 ? array('show'=>true,'alert'=>'success','msg'=>'Usuario actualizado satisfactoriamente.','data'=>'') :
@@ -53,9 +54,9 @@ class UsuarioController extends Controller {
 			}
 		}	
 
-	public function Consultar(Request $request){
+	public function Consultar(){
 		
-		$criterio=$request->input('criterio');
+		$criterio=Input::get('criterio');
 		$lista=array();
 		$consulta=DB::table('usuarios as u')
 			->join('personas as p','u.id_persona','=','p.id')
@@ -77,15 +78,7 @@ class UsuarioController extends Controller {
 
 		$usuario=Usuarios::find($id);
 
-		return array(
-			'id'=>$usuario->id,
-			'usuario'=>$usuario->usuario,
-			'password'=>$usuario->password,
-			'id_persona'=>$usuario->id_persona,
-			'id_perfil'=>$usuario->id_perfil,
-			'persona'=>$usuario->persona,
-			'_token'=>csrf_token()
-		);
+		return $usuario;
 
 	}
 

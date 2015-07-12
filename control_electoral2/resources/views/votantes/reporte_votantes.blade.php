@@ -1,7 +1,7 @@
 <div class="col-lg-12">
  <div class="form-panel">  
    <h4 class="mb"><i class="fa fa-angle-right"></i> 
-   Registrar Votante
+   Exportar PDF
    </h4>
 
        <div class="panel-body">
@@ -9,7 +9,7 @@
 
         <div class="panel panel-default">
        <div class="panel-heading">
-          Informacion del votante 
+          Filtros
        </div>  
 
        <div class="panel-body"> 

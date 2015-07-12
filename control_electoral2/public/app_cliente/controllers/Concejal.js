@@ -1,6 +1,6 @@
 confControllers.controller('ConcejalController', function ($scope,$location,authUsuario,SessionService,SessionSet,$state,$http) {
 
-$scope.concejalVO={id:0,numero:'',id_persona:0,id_partido:0,foto:null,_token:authUsuario.token()};
+$scope.concejalVO={id:0,numero:'',id_persona:0,id_partido:0,foto:null};
 $scope.result={};
 $scope.listaConcejales=[];
 $scope.criterio='';
@@ -36,7 +36,7 @@ $scope.crear=function(){
 	formData.append('id_persona',$scope.concejalVO.id_persona);
 	formData.append('id_partido',$scope.concejalVO.id_partido);
 	formData.append('foto',$scope.concejalVO.foto);
-	formData.append('_token',$scope.concejalVO._token);
+	//formData.append('_token',$scope.concejalVO._token);
 
 	$http.post("concejal/crear",formData,
 		{transformRequest: angular.identity,
@@ -66,7 +66,7 @@ $scope.actualizar=function(){
 	formData.append('id_persona',$scope.concejalVO.id_persona);
 	formData.append('id_partido',$scope.concejalVO.id_partido);
 	formData.append('foto',$scope.concejalVO.foto);
-	formData.append('_token',$scope.concejalVO._token);
+	//formData.append('_token',$scope.concejalVO._token);
 
 	$http.post("concejal/actualizar",formData,
 		{transformRequest: angular.identity,
@@ -103,7 +103,7 @@ $scope.consultar=function(page){
 	}
 
 $scope.nuevo=function(){
-	$scope.concejalVO={id:0,numero:'',id_persona:0,id_partido:0,_token:authUsuario.token()};
+	$scope.concejalVO={id:0,numero:'',id_persona:0,id_partido:0};
 }
 
 

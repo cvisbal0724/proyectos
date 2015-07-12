@@ -9,29 +9,30 @@ use App\models\Perfiles;
 use App\models\PerfilModulos;
 use App\models\Modulos;
 use DB;
+use Input;
 
 class PerfilesController extends Controller {
 
-	public function Guardar(Request $request){
+	public function Guardar(){
 		try {
 			
 			$guardo=false;			
 
-			$result=Perfiles::where('nombre','=',$request->input('nombre'))->get();
-			if ($request->input('id')==0 && count($result)>0) {
+			$result=Perfiles::where('nombre','=',Input::get('nombre'))->get();
+			if (Input::get('id')==0 && count($result)>0) {
 				return array('show'=>true,'alert'=>'warning','msg'=>'El perfil ya existe, por favor ingrese uno nuevo.');				
 			}
 
-			if ($request->input('id')>0) {
+			if (Input::get('id')>0) {
 				
-				$perfil=Perfiles::find($request->input('id'));
+				$perfil=Perfiles::find(Input::get('id'));
 
-				$perfil->nombre=$request->input('nombre');
+				$perfil->nombre=Input::get('nombre');
 				$rs=$perfil->save();
 				$guardo=$rs > 0;
 			}else{
 				$rs=Perfiles::create(array(
-					'nombre'=>$request->input('nombre')
+					'nombre'=>Input::get('nombre')
 				));
 
 				$guardo=$rs['id']>0;
@@ -54,11 +55,7 @@ class PerfilesController extends Controller {
 	public function ConsultarPorCodigo($id){
 		$perfil=Perfiles::find($id);
 
-		return array(
-			'id'=>$perfil->id,
-			'nombre'=>$perfil->nombre,
-			'_token'=>csrf_token()
-		);
+		return $perfil;
 	}
 
 	public function ConsultarModulo($id_perfil){
@@ -69,10 +66,10 @@ class PerfilesController extends Controller {
 
 	}
 
-	public function AgregarModulos(Request $request){
+	public function AgregarModulos(){
 		try {
 			
-			$lista=$request->input('listaModulos');
+			$lista=Input::get('listaModulos');
 
 			PerfilModulos::insert($lista);
 
@@ -103,9 +100,9 @@ class PerfilesController extends Controller {
 
 	}
 
-	public function EliminarPerfilModulo(Request $request){
+	public function EliminarPerfilModulo(){
 
-		$pmod=PerfilModulos::find($request->input('id_perfil_modulo'));
+		$pmod=PerfilModulos::find(Input::get('id_perfil_modulo'));
 
 		$pmod->delete();
 		

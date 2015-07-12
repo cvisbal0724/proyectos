@@ -1,6 +1,6 @@
 confControllers.controller('PerfilesController', function ($scope,$location,authUsuario,SessionService,SessionSet,$state,$http) {
 
-$scope.perfilesVO={id:0,nombre:'',_token:authUsuario.token()};
+$scope.perfilesVO={id:0,nombre:''};
 $scope.result={};
 $scope.listaPerfiles=[];
 $scope.listaModulos=[];
@@ -73,7 +73,7 @@ $scope.listaPerfilModulos=[];
 			};			
 		});
 
-		$http.post("perfiles/agregarmodulos",{_token:authUsuario.token(),listaModulos:lista})
+		$http.post("perfiles/agregarmodulos",{listaModulos:lista})
 		.success(function(data, status, headers, config) {
 			//$scope.listaModulos=data;
 			//$state.go($state.current, {id_perfil:$state.params.id_perfil}, {reload: true});
@@ -101,7 +101,7 @@ $scope.listaPerfilModulos=[];
 		cancelButtonText:'No',  
 		closeOnConfirm: false }, function(){   
 			
-			$http.post("perfiles/eliminarperfilmodulo",{_token:authUsuario.token(),id_perfil_modulo:obj.id})
+			$http.post("perfiles/eliminarperfilmodulo",{id_perfil_modulo:obj.id})
 			.success(function(data, status, headers, config) {
 
 				swal("Eliminado!", "El concejal fue removido del lider satisfactoriamente", "success"); 

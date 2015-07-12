@@ -1,6 +1,6 @@
 confControllers.controller('LiderController', function ($scope,$location,authUsuario,SessionService,SessionSet,$state,$http) {
 
-$scope.liderVO={id:0,id_persona:0,foto:null,_token:authUsuario.token()};
+$scope.liderVO={id:0,id_persona:0,foto:null};
 $scope.result={};
 $scope.listaLideres=[];
 $scope.criterio='';
@@ -34,7 +34,7 @@ $scope.crear=function(){
 	formData.append('id',$scope.liderVO.id);
 	formData.append('id_persona',$scope.liderVO.id_persona);
 	formData.append('foto',$scope.liderVO.foto);
-	formData.append('_token',$scope.liderVO._token);
+	//formData.append('_token',$scope.liderVO._token);
 
 	$http.post("lider/crear",formData,
 		{transformRequest: angular.identity,
@@ -58,7 +58,7 @@ $scope.actualizar=function(){
 	formData.append('id',$scope.liderVO.id);
 	formData.append('id_persona',$scope.liderVO.id_persona);
 	formData.append('foto',$scope.liderVO.foto);
-	formData.append('_token',$scope.liderVO._token);
+	//formData.append('_token',$scope.liderVO._token);
 
 	$http.post("usuario/actualizar",formData,
 		{transformRequest: angular.identity,
@@ -74,7 +74,7 @@ $scope.actualizar=function(){
 }
 
 $scope.consultar_persona_por_criterios=function(){
-	$http.post("persona/consultarporcriterios",{criterio:$scope.criterio,_token:authUsuario.token()})
+	$http.post("persona/consultarporcriterios",{criterio:$scope.criterio})
 	.success(function(data, status, headers, config) {
 		
 		 $scope.listaPersonas=data;
@@ -95,7 +95,7 @@ $scope.consultar=function(page){
 	}
 
 $scope.nuevo=function(){
-	$scope.liderVO={id:0,id_persona:0,_token:authUsuario.token()};
+	$scope.liderVO={id:0,id_persona:0};
 }
 
 $scope.consultar_concejal=function(page){
@@ -122,7 +122,7 @@ $scope.agregar_lider_concejales=function(){
 
 	if (lista.length==0) {$scope.result={"show":true,"alert":"warning","msg":"Seleccione los concejales a agregar."}; return false;};
 
-	$http.post("lider/agregarliderconcejales",{listaConcejales:lista,_token:authUsuario.token()})
+	$http.post("lider/agregarliderconcejales",{listaConcejales:lista})
 	.success(function(data, status, headers, config) {
 		
 		 $scope.listaLiderConcejales=data;
@@ -131,7 +131,7 @@ $scope.agregar_lider_concejales=function(){
 }
 
 $scope.consultar_lider_concejales=function(){
-	$http.post("lider/consultarliderconcejales",{id_lider:$state.params.id_lider,_token:authUsuario.token()})
+	$http.post("lider/consultarliderconcejales",{id_lider:$state.params.id_lider})
 	.success(function(data, status, headers, config) {
 		
 		 $scope.listaLiderConcejales=data;
@@ -151,7 +151,7 @@ $scope.eliminal_lider_concejales=function(item){
 	cancelButtonText:'No',  
 	closeOnConfirm: false }, function(){   
 		
-		$http.post("lider/eliminarliderconcejales",{id_lider:item.id_lider,id_concejal:item.id_concejal,_token:authUsuario.token()})
+		$http.post("lider/eliminarliderconcejales",{id_lider:item.id_lider,id_concejal:item.id_concejal})
 			.success(function(data, status, headers, config) {
 
 		swal("Eliminado!", "El concejal fue removido del lider satisfactoriamente", "success"); 

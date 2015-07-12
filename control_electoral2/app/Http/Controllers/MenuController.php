@@ -12,24 +12,24 @@ use Input;
 
 class MenuController extends Controller {
 
-	public function Crear(Request $request){
+	public function Crear(){
 		try {
 			
 			$rs=Menus::create(array(
 				'nombre'=>'',
-				'etiqueta'=>$request->input('etiqueta'),
-				'id_padre'=>$request->input('id_padre'),
-				'id_modulo'=>$request->input('id_modulo'),
-				'url'=>$request->input('url'),
-				'orden'=>$request->input('orden'),
-				'imagen'=>$request->input('imagen')
+				'etiqueta'=>Input::get('etiqueta'),
+				'id_padre'=>Input::get('id_padre'),
+				'id_modulo'=>Input::get('id_modulo'),
+				'url'=>Input::get('url'),
+				'orden'=>Input::get('orden'),
+				'imagen'=>Input::get('imagen')
 			));
 
 			if (Input::get('todos')>0) {
 			return $rs['id'] > 0 ? array('show'=>true,'alert'=>'success','msg'=>'Menu agregado satisfactoriamente.','data'=>$this->ConsultarMenuPorModulo()) :
 					array('show'=>true,'alert'=>'warning','msg'=>'No se pudo guardar el menu.');
 			}else{
-				return $rs['id'] > 0 ? array('show'=>true,'alert'=>'success','msg'=>'Menu agregado satisfactoriamente.','data'=>$this->ConsultarMenuPorModulo($request->input('id_modulo'))) :
+				return $rs['id'] > 0 ? array('show'=>true,'alert'=>'success','msg'=>'Menu agregado satisfactoriamente.','data'=>$this->ConsultarMenuPorModulo(Input::get('id_modulo'))) :
 					array('show'=>true,'alert'=>'warning','msg'=>'No se pudo guardar el menu.');
 			}
 
@@ -41,18 +41,18 @@ class MenuController extends Controller {
 		}
 	}
 
-	public function Actualizar(Request $request){
+	public function Actualizar(){
 		try {
 			
-				$menu=Menus::find($request->input('id'));
+				$menu=Menus::find(Input::get('id'));
 			
 				$menu->nombre= '';
-				$menu->etiqueta= $request->input('etiqueta');
-				$menu->id_padre= $request->input('id_padre');
-				$menu->id_modulo= $request->input('id_modulo');
-				$menu->url= $request->input('url');
-				$menu->orden= $request->input('orden');
-				$menu->imagen= $request->input('imagen');
+				$menu->etiqueta= Input::get('etiqueta');
+				$menu->id_padre= Input::get('id_padre');
+				$menu->id_modulo= Input::get('id_modulo');
+				$menu->url= Input::get('url');
+				$menu->orden= Input::get('orden');
+				$menu->imagen= Input::get('imagen');
 
 				$rs=$menu->save();
 			
@@ -60,7 +60,7 @@ class MenuController extends Controller {
 			return $rs > 0 ? array('show'=>true,'alert'=>'success','msg'=>'Menu actualizado satisfactoriamente.','data'=>$this->ConsultarMenuPorModulo()) :
 					array('show'=>true,'alert'=>'warning','msg'=>'No se pudo actualizar el menu.');
 			}else{
-				return $rs > 0 ? array('show'=>true,'alert'=>'success','msg'=>'Menu actualizado satisfactoriamente.','data'=>$this->ConsultarMenuPorModulo($request->input('id_modulo'))) :
+				return $rs > 0 ? array('show'=>true,'alert'=>'success','msg'=>'Menu actualizado satisfactoriamente.','data'=>$this->ConsultarMenuPorModulo(Input::get('id_modulo'))) :
 					array('show'=>true,'alert'=>'warning','msg'=>'No se pudo actualizar el menu.');
 			}
 			
@@ -142,17 +142,7 @@ class MenuController extends Controller {
 
 		$menu=Menus::find($id);
 
-		return array(
-			'id'=>$menu->id,
-			'nombre'=>$menu->nombre,
-			'etiqueta'=>$menu->etiqueta,
-			'id_padre'=>$menu->id_padre,
-			'id_modulo'=>$menu->id_modulo,
-			'url'=>$menu->url,
-			'orden'=>$menu->orden,
-			'imagen'=>$menu->imagen,
-			'_token'=>csrf_token()
-		);
+		return $menu;
 
 	}
 

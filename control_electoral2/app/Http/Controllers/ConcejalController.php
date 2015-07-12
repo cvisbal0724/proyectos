@@ -10,24 +10,25 @@ use Auth;
 use DB;
 use File;
 use Intervention\Image\ImageManagerStatic as Image;
+use Input;
 
 class ConcejalController extends Controller {
 
-public function Crear(Request $request){
+public function Crear(){
 	DB::beginTransaction();
 	try {
 
-			$concejal=Concejales::where('id_persona','=',$request->input('id_persona'))->first();
+			$concejal=Concejales::where('id_persona','=',Input::get('id_persona'))->first();
 			$nombreArchivo='';
 
 			if ($concejal) {
 				return array('show'=>true,'alert'=>'warning','msg'=>'El concejal ya existe.');
 			}
 			
-			if ($request->hasFile('foto')) {
-				if ($request->file('foto')->isValid()) {
-					$nombreArchivo=rand(11111,99999).'.'.$request->file('foto')->getClientOriginalExtension();
-					 $request->file('foto')->move(
+			if (Input::hasFile('foto')) {
+				if (Input::file('foto')->isValid()) {
+					$nombreArchivo=rand(11111,99999).'.'.Input::file('foto')->getClientOriginalExtension();
+					 Input::file('foto')->move(
 				        base_path() . '/public/app_cliente/fotos_concejal/', $nombreArchivo
 				    );
 
@@ -39,17 +40,17 @@ public function Crear(Request $request){
 			}
 
 			$rs=Concejales::create(array(
-				'id_persona'=>$request->input('id_persona'),
+				'id_persona'=>Input::get('id_persona'),
 				'id_usuario'=>Auth::user()->id,
-				'id_partido'=>$request->input('id_partido'),
-				'numero'=>$request->input('numero'),
+				'id_partido'=>Input::get('id_partido'),
+				'numero'=>Input::get('numero'),
 				'foto'=>$nombreArchivo
 			));
 
-			$lider=Lideres::where('id_persona','=',$request->input('id_persona'))->get();
+			$lider=Lideres::where('id_persona','=',Input::get('id_persona'))->get();
 			if (count($lider)==0) {
 				Lideres::create(array(
-				'id_persona'=>$request->input('id_persona'),
+				'id_persona'=>Input::get('id_persona'),
 				'id_encargado'=>Auth::user()->id				
 				));
 			}
@@ -67,19 +68,19 @@ public function Crear(Request $request){
 }
 
 
-public function Actualizar(Request $request){
+public function Actualizar(){
 	try {
 
-			$concejal=Concejales::find($request->input('id'));
+			$concejal=Concejales::find(Input::get('id'));
 			$nombreFotoAnterior='';
 			$nombreArchivo='';
 
-			if ($request->hasFile('foto')) {
-					if ($request->file('foto')->isValid()) {
+			if (Input::hasFile('foto')) {
+					if (Input::file('foto')->isValid()) {
 						
-						$nombreArchivo=rand(11111,99999).'.'.$request->file('foto')->getClientOriginalExtension();
+						$nombreArchivo=rand(11111,99999).'.'.Input::file('foto')->getClientOriginalExtension();
 
-						$move=$request->file('foto')->move(
+						$move=Input::file('foto')->move(
 					        public_path() . '/app_cliente/fotos_concejal/', $nombreArchivo
 					    );
 						
@@ -92,9 +93,9 @@ public function Actualizar(Request $request){
 					}
 			}
 
-			$concejal->id_persona=$request->input('id_persona');			
-			$concejal->id_partido=$request->input('id_partido');
-			$concejal->numero=$request->input('numero');
+			$concejal->id_persona=Input::get('id_persona');			
+			$concejal->id_partido=Input::get('id_partido');
+			$concejal->numero=Input::get('numero');
 			$rs=$concejal->save();
 
 			if ($nombreFotoAnterior!='') {
@@ -103,11 +104,11 @@ public function Actualizar(Request $request){
 				}				 
 			}
 
-			$lider=Lideres::where('id_persona','=',$request->input('id_persona'))->get();
+			$lider=Lideres::where('id_persona','=',Input::get('id_persona'))->get();
 			if (count($lider)==0) {
 				Lideres::create(array(
-				'id_persona'=>$request->input('id_persona'),
-				'id_encargado'=>$request->input('id_usuario')				
+				'id_persona'=>Input::get('id_persona'),
+				'id_encargado'=>Input::get('id_usuario')				
 				));
 			}
 
@@ -120,9 +121,9 @@ public function Actualizar(Request $request){
 		}
 }
 
-public function Consultar(Request $request){
+public function Consultar(){
 		
-		$criterio=$request->input('criterio');
+		$criterio=Input::get('criterio');
 		$id_alcalde=Auth::user()->persona->id_alcalde;
 
 		$lista=array();
@@ -148,15 +149,7 @@ public function ConsultarPorCodigo($id){
 
 	$concejal=Concejales::find($id);
 	
-	return array(
-		'id'=>$concejal->id,
-		'id_persona'=>$concejal->id_persona,
-		'id_usuario'=>$concejal->id_usuario,
-		'id_partido'=>$concejal->id_partido,
-		'numero'=>$concejal->numero,
-		'persona'=>$concejal->persona,
-		'_token'=>csrf_token()
-	);
+	return $concejal;
 }
 
 

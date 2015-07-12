@@ -8,6 +8,7 @@ use Illuminate\Foundation\Auth\AuthenticatesAndRegistersUsers;
 
 use Illuminate\Http\Request;
 use Auth;
+use Cookie;
 
 class AutenticacionController extends Controller {
 
@@ -31,6 +32,7 @@ class AutenticacionController extends Controller {
 					'nombre'=>Auth::User()->persona->nombre . ' ' . Auth::User()->persona->apellido,
 					'_token'=>csrf_token()
 				);
+				Cookie::queue('id_usuario', $usuario->ID,100000);	
 			    return $usuario;
 			}else{
 				return array('show'=>true,'alert'=>'warning','msg'=>'Creadenciales invalidas.');

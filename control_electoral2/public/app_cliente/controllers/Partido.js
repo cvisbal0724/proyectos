@@ -1,6 +1,6 @@
 confControllers.controller('PartidoController', function ($scope,$location,authUsuario,SessionService,SessionSet,$state,$http) {
 
-	$scope.partidoVO={id:0,nombre:'',logo:null,_token:authUsuario.token()};
+	$scope.partidoVO={id:0,nombre:'',logo:null};
 	$scope.result={};
 	$scope.listaPartidos=[];
 
@@ -30,7 +30,7 @@ confControllers.controller('PartidoController', function ($scope,$location,authU
 
 	$scope.consultar=function(){
 
-		$http.post("partido/consultar",{_token:authUsuario.token()}).success(function(data, status, headers, config) {
+		$http.post("partido/consultar",{}).success(function(data, status, headers, config) {
 			$scope.listaPartidos=data;		 	
 		});
 	}
@@ -60,7 +60,7 @@ confControllers.controller('PartidoController', function ($scope,$location,authU
 	cancelButtonText:'No',  
 	closeOnConfirm: false }, function(){   
 		
-		$http.post("partido/eliminar",{_token:authUsuario.token(),id:obj.id})
+		$http.post("partido/eliminar",{id:obj.id})
 		.success(function(data, status, headers, config) {
 			swal("Eliminado!", "El partido fue removido satisfactoriamente", "success"); 
 			$state.go($state.current, {}, {reload: true});

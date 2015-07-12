@@ -47,7 +47,7 @@ class VotanteController extends Controller {
 	 return 'Usted no tiene acceso a esta pagina porque no esta registrado como lider.';
 	}
 
-	public function Crear(Request $request){
+	public function Crear(){
 
 		DB::beginTransaction();
 		try {
@@ -56,7 +56,7 @@ class VotanteController extends Controller {
 
 			if ($lider) {
 			
-			$votante=Votantes::where('id_persona','=',$request->input('id_persona'))
+			$votante=Votantes::where('id_persona','=',Input::get('id_persona'))
 			->where('dar_de_baja','=',0)
 			//->whereIn('id_categoria_votacion',array(2,3))
 			->first();
@@ -64,7 +64,7 @@ class VotanteController extends Controller {
 			if ($votante) {
 
 				$lider=$votante->lider->persona->nombre . ' ' .$votante->lider->persona->apellido;
-				if ($votante->id_categoria_votacion==2 && $request->input('id_categoria_votacion')==2)/*Concejo*/ {
+				if ($votante->id_categoria_votacion==2 && Input::get('id_categoria_votacion')==2)/*Concejo*/ {
 										
 					return array('show'=>true,'alert'=>'warning','msg'=>'No puede guardar el votante porque ya esta a cargo de  ' . $lider . '.');
 				}
@@ -72,22 +72,22 @@ class VotanteController extends Controller {
 										
 					return array('show'=>true,'alert'=>'warning','msg'=>'No puede guardar el votante porque ya esta a cargo de  ' . $lider . '.');
 
-				}elseif ($votante->id_categoria_votacion==1 && $request->input('id_categoria_votacion')==1/*Alcaldia*/) {
+				}elseif ($votante->id_categoria_votacion==1 && Input::get('id_categoria_votacion')==1/*Alcaldia*/) {
 
 					return array('show'=>true,'alert'=>'warning','msg'=>'No puede guardar el votante porque ya esta a cargo de ' . $lider . '.');
 				}
 				
 			}
 			$rs=Votantes::create(array(
-				'id_persona'=>$request->input('id_persona'),
+				'id_persona'=>Input::get('id_persona'),
 				'id_lider'=>$lider->id,
-				'id_concejal'=>$request->input('id_concejal')>0 ? $request->input('id_concejal') : DB::raw('NULL'),
+				'id_concejal'=>Input::get('id_concejal')>0 ? Input::get('id_concejal') : DB::raw('NULL'),
 				'voto'=>0,
-				'id_tipo_voto'=>$request->input('id_tipo_voto'),
-				'id_categoria_votacion'=>$request->input('id_categoria_votacion'),
-				'comentario'=>$request->input('comentario'),
-				'id_lugar_de_votacion'=>$request->input('id_lugar_de_votacion') > 0 ? $request->input('id_lugar_de_votacion') : DB::raw('NULL'),
-				'numero_mesa'=>$request->input('numero_mesa') > 0 ? $request->input('numero_mesa') : DB::raw('NULL'),
+				'id_tipo_voto'=>Input::get('id_tipo_voto'),
+				'id_categoria_votacion'=>Input::get('id_categoria_votacion'),
+				'comentario'=>Input::get('comentario'),
+				'id_lugar_de_votacion'=>Input::get('id_lugar_de_votacion') > 0 ? Input::get('id_lugar_de_votacion') : DB::raw('NULL'),
+				'numero_mesa'=>Input::get('numero_mesa') > 0 ? Input::get('numero_mesa') : DB::raw('NULL'),
 				'dar_de_baja'=>0
 			));	
 			
@@ -105,20 +105,20 @@ class VotanteController extends Controller {
 		}
 	}
 
-	public function Actualizar(Request $request)
+	public function Actualizar()
 	{
 		try {
 			
-			$votante=Votantes::find($request->input('id'));
+			$votante=Votantes::find(Input::get('id'));
 
-			$votante->id_persona=$request->input('id_persona');
-			$votante->id_lider=$request->input('id_lider');
-			$votante->id_concejal=$request->input('id_concejal');
-			$votante->id_tipo_voto=$request->input('id_tipo_voto');
-			$votante->id_categoria_votacion=$request->input('id_categoria_votacion');
-			$votante->comentario=$request->input('comentario');
-			$votante->id_lugar_de_votacion=$request->input('id_lugar_de_votacion');
-			$votante->numero_mesa=$request->input('numero_mesa');
+			$votante->id_persona=Input::get('id_persona');
+			$votante->id_lider=Input::get('id_lider');
+			$votante->id_concejal=Input::get('id_concejal');
+			$votante->id_tipo_voto=Input::get('id_tipo_voto');
+			$votante->id_categoria_votacion=Input::get('id_categoria_votacion');
+			$votante->comentario=Input::get('comentario');
+			$votante->id_lugar_de_votacion=Input::get('id_lugar_de_votacion');
+			$votante->numero_mesa=Input::get('numero_mesa');
 			$rs=$votante->save();
 
 			return $rs > 0 ? array('show'=>true,'alert'=>'success','msg'=>'Votante actualizado satisfactoriamente.','data'=>'') :
@@ -130,11 +130,11 @@ class VotanteController extends Controller {
 		}
 	}
 
-	public function Consultar(Request $request){
+	public function Consultar(){
 		
 		$usuario=Auth::User();
 		
-		$criterio=$request->input('criterio');
+		$criterio=Input::get('criterio');
 		$lista=array();
 		$consulta=DB::table('votantes as v')
 			->join('personas as p','v.id_persona','=','p.id')			
@@ -184,22 +184,7 @@ class VotanteController extends Controller {
 		
 		$votante=Votantes::find($id);
 
-		return array(
-			'id'=>$votante->id,
-			'id_persona'=>$votante->id_persona,
-			'id_lider'=>$votante->id_lider,
-			'id_concejal'=>$votante->id_concejal,
-			'voto'=>$votante->voto,
-			'id_tipo_voto'=>$votante->id_tipo_voto,
-			'id_categoria_votacion'=>$votante->id_categoria_votacion,
-			'comentario'=>$votante->comentario,
-			'id_lugar_de_votacion'=>$votante->id_lugar_de_votacion,
-			'numero_mesa'=>$votante->numero_mesa,
-			'dar_de_baja'=>$votante->dar_de_baja,
-			'comentario_de_baja'=>$votante->comentario_de_baja,
-			'persona'=>$votante->persona,
-			'_token'=>csrf_token()
-		);
+		return $votante;
 	}
 
 	public function DarDeBaja()
@@ -283,6 +268,7 @@ class VotanteController extends Controller {
 
 	public function Reporte()
 	{
+		
 		return view('votantes/reporte_votantes');
 	}
 

@@ -8,26 +8,27 @@ use App\models\Excepciones;
 use App\models\Personas;
 use File;
 use Auth;
+use Input;
 
 class PersonaController extends Controller {
 
-	public function Crear(Request $request){
+	public function Crear(){
 		try {
 
-			$persona=Personas::where('cedula','=',$request->input('cedula'))->where('id_alcalde','=',$request->input('id_alcalde'))->get();
+			$persona=Personas::where('cedula','=',Input::get('cedula'))->where('id_alcalde','=',Input::get('id_alcalde'))->get();
 
 			if (count($persona)>0) {
 				return array('show'=>true,'alert'=>'warning','msg'=>'Ya existe una persona con esta cedula.');	
 			}
 
 			$rs=Personas::create(array(
-				'cedula'=>$request->input('cedula'),
-				'nombre'=>$request->input('nombre'),
-				'apellido'=>$request->input('apellido'),
-				'telefono'=>$request->input('telefono'),
-				'direccion'=>$request->input('direccion'),
-				'correo'=>$request->input('correo'),
-				'id_alcalde'=>$request->input('id_alcalde')
+				'cedula'=>Input::get('cedula'),
+				'nombre'=>Input::get('nombre'),
+				'apellido'=>Input::get('apellido'),
+				'telefono'=>Input::get('telefono'),
+				'direccion'=>Input::get('direccion'),
+				'correo'=>Input::get('correo'),
+				'id_alcalde'=>Input::get('id_alcalde')
 			));
 
 			return $rs['id'] > 0 ? array('show'=>true,'alert'=>'success','msg'=>'Persona guardada satisfactoriamente.') :
@@ -39,18 +40,18 @@ class PersonaController extends Controller {
 		}
 	}
 
-	public function Actualizar(Request $request){
+	public function Actualizar(){
 		try {
 
-				$persona=Personas::find($request->input('id'));
+				$persona=Personas::find(Input::get('id'));
 			
-				$persona->cedula=$request->input('cedula');
-				$persona->nombre=$request->input('nombre');
-				$persona->apellido=$request->input('apellido');
-				$persona->telefono=$request->input('telefono');
-				$persona->direccion=$request->input('direccion');
-				$persona->correo=$request->input('correo');
-				$persona->id_alcalde=$request->input('id_alcalde');
+				$persona->cedula=Input::get('cedula');
+				$persona->nombre=Input::get('nombre');
+				$persona->apellido=Input::get('apellido');
+				$persona->telefono=Input::get('telefono');
+				$persona->direccion=Input::get('direccion');
+				$persona->correo=Input::get('correo');
+				$persona->id_alcalde=Input::get('id_alcalde');
 				$rs=$persona->save();
 
 			return $rs > 0 ? array('show'=>true,'alert'=>'success','msg'=>'Persona guardada satisfactoriamente.') :
@@ -62,9 +63,9 @@ class PersonaController extends Controller {
 		}
 	}
 
-	public function Consultar(Request $request){
+	public function Consultar(){
 		
-		$criterio=$request->input('criterio');
+		$criterio=Input::get('criterio');
 		$lista=array();
 		$paginado=10;
 		if ($criterio=='') {
@@ -82,23 +83,13 @@ class PersonaController extends Controller {
 
 		$persona=Personas::find($id);
 
-		return array(
-			'id'=>$persona->id,
-			'cedula'=>$persona->cedula,
-			'nombre'=>$persona->nombre,
-			'apellido'=>$persona->apellido,
-			'telefono'=>$persona->telefono,
-			'direccion'=>$persona->direccion,
-			'correo'=>$persona->correo,
-			'id_alcalde'=>$persona->id_alcalde,
-			'_token'=>csrf_token()
-		);
+		return $persona;
 
 	}
 
-	public function ConsultarPorCriterios(Request $request){
+	public function ConsultarPorCriterios(){
 
-		$criterio=$request->input('criterio');
+		$criterio=Input::get('criterio');
 		if ($criterio!='') {
 			return Personas::whereRaw("cedula like ? or concat(nombre ,' ', apellido) like ? ",array('%'.$criterio.'%','%'.$criterio.'%'))
 			->orderBy('nombre','asc')->get();
@@ -106,23 +97,23 @@ class PersonaController extends Controller {
 		return array();
 	}
 
-	public function CrearNuevaPersona(Request $request){
+	public function CrearNuevaPersona(){
 		try {
 
 			$usuario=Auth::User();
-			$persona=Personas::where('cedula','=',$request->input('cedula'))->where('id_alcalde','=',$usuario->persona->id_alcalde)->get();
+			$persona=Personas::where('cedula','=',Input::get('cedula'))->where('id_alcalde','=',$usuario->persona->id_alcalde)->get();
 
 			if (count($persona)>0) {
 				return array('show'=>true,'alert'=>'warning','msg'=>'Ya existe una persona con esta cedula.');	
 			}
 
 			$rs=Personas::create(array(
-				'cedula'=>$request->input('cedula'),
-				'nombre'=>$request->input('nombre'),
-				'apellido'=>$request->input('apellido'),
-				'telefono'=>$request->input('telefono'),
-				'direccion'=>$request->input('direccion'),
-				'correo'=>$request->input('correo'),
+				'cedula'=>Input::get('cedula'),
+				'nombre'=>Input::get('nombre'),
+				'apellido'=>Input::get('apellido'),
+				'telefono'=>Input::get('telefono'),
+				'direccion'=>Input::get('direccion'),
+				'correo'=>Input::get('correo'),
 				'id_alcalde'=>$usuario->persona->id_alcalde
 			));
 
@@ -135,17 +126,17 @@ class PersonaController extends Controller {
 		}
 	}
 
-	public function ActualizarNuevaPersona(Request $request){
+	public function ActualizarNuevaPersona(){
 		try {
 
-				$persona=Personas::find($request->input('id'));
+				$persona=Personas::find(Input::get('id'));
 			
-				$persona->cedula=$request->input('cedula');
-				$persona->nombre=$request->input('nombre');
-				$persona->apellido=$request->input('apellido');
-				$persona->telefono=$request->input('telefono');
-				$persona->direccion=$request->input('direccion');
-				$persona->correo=$request->input('correo');				
+				$persona->cedula=Input::get('cedula');
+				$persona->nombre=Input::get('nombre');
+				$persona->apellido=Input::get('apellido');
+				$persona->telefono=Input::get('telefono');
+				$persona->direccion=Input::get('direccion');
+				$persona->correo=Input::get('correo');				
 				$rs=$persona->save();
 
 			return $rs > 0 ? array('show'=>true,'alert'=>'success','msg'=>'Persona guardada satisfactoriamente.') :
