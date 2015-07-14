@@ -1,6 +1,6 @@
 confControllers.controller('ModulosController', function ($scope,$location,authUsuario,SessionService,SessionSet,$state,$http) {
 
-$scope.modulosVO={id:0,nombre:'',;
+$scope.modulosVO={id:0,nombre:''};
 $listaModulos=[];
 
 $scope.guardar=function(){
@@ -25,7 +25,7 @@ $scope.nuevo=function(){
 }	
 
 $scope.consultar=function(){
-	$http.post("modulos/consultar",{).success(function(data, status, headers, config) {
+	$http.post("modulos/consultar",{}).success(function(data, status, headers, config) {
 			$scope.listaModulos=data;
 		});
 }

@@ -16,7 +16,8 @@ $scope.result={};
 $scope.listaVotantes=[];
 $scope.criterio='';
 $scope.listaPersonas=[];
-
+$scope.concejales=[];
+$scope.lideres=[];
 
 $scope.consultar_por_codigo=function(id){
 		
@@ -94,8 +95,22 @@ $scope.dar_de_baja=function(){
 	 });
 }
 
+$scope.consultarconcejalylider=function(){
+
+	$http.post("votante/consultarconcejalylider",{})
+	.success(function(data, status, headers, config) {
+		
+		 $scope.concejales=data.concejales;
+		 $scope.lideres=data.lideres;
+		 	
+	 });
+
+}
+
 $scope.consultar_votar_por=function(){
 	alert($scope.votanteVO.id_persona);
 }
+
+
 
 });

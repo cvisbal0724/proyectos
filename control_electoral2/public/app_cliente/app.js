@@ -221,7 +221,7 @@ App.config(function($urlRouterProvider, $stateProvider) {
         .state('home.exportar_votantes', {
         url: "/exportar-votantes",        
          views:{
-          'contenedor':{templateUrl: "votantes/reporte_votantes" /*, controller:'GraficosController'*/},
+          'contenedor':{templateUrl: "votantes/reporte_votantes" , controller:'VotanteController'},
           'titulo':{template:'Exportar Votante'},
           'nombre-proyecto':{templateUrl:'layouts/nombre_proyecto'}
         }  

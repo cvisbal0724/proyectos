@@ -214,6 +214,7 @@ Route::post('votante/consultar','VotanteController@Consultar');
 Route::get('votante/consultarporcodigo/{id}','VotanteController@ConsultarPorCodigo');
 Route::post('votante/actualizar','VotanteController@Actualizar');
 Route::post('votante/dardebaja','VotanteController@DarDeBaja');
+Route::post('votante/consultarconcejalylider','VotanteController@ConsultarConcejalYLider');
 /*Fin votante*/
 
 /*graficos*/

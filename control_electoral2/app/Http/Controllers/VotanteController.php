@@ -17,6 +17,7 @@ use DB;
 use Auth;
 use Input;
 
+
 class VotanteController extends Controller {
 
 
@@ -268,8 +269,62 @@ class VotanteController extends Controller {
 
 	public function Reporte()
 	{
-		
-		return view('votantes/reporte_votantes');
+		try {
+						
+			return view('votantes/reporte_votantes');
+
+		} catch (Exception $e) {
+			return $e;
+		}		
+	}
+
+	public function ConsultarConcejalYLider(){
+		try {
+			$usuario=Auth::User();
+			$concejales=array();
+			$lideres=array();
+
+			$consultaConcejal=DB::table('concejales as c')
+			->join('personas as p','c.id_persona','=','p.id')
+			->select(DB::raw("c.id,c.id_persona,concat(p.nombre,' ',p.apellido) as concejal"));
+
+			$consultaLider=DB::table('lideres as l')
+			->join('personas as p','l.id_persona','=','p.id')
+			->select(DB::raw("l.id,l.id_persona,concat(p.nombre,' ',p.apellido) as lider"));
+
+			if ($usuario->id_perfil==EnumPerfiles::Administrador) {
+				$concejales=$consultaConcejal->where('p.id_alcalde','=',$usuario->persona->id_alcalde)->get();
+
+				foreach ($concejales as $key => $item) {
+					$listaID[$key]=$item->id_persona;
+				}
+
+				$lideres=$consultaLider->where('p.id_alcalde','=',$usuario->persona->id_alcalde)
+				->whereNotIn('id_persona',$listaID)->get();
+			}
+			else if ($usuario->id_perfil==EnumPerfiles::Alcalde) {	
+					
+				$concejales=$consultaConcejal->where('p.id_alcalde','=',$usuario->persona->id_alcalde)->get();
+				$listaID=array();
+				foreach ($concejales as $key => $item) {
+					$listaID[$key]=$item->id_persona;
+				}
+
+				$lideres=$consultaLider->where('p.id_alcalde','=',$usuario->persona->id_alcalde)
+				->whereNotIn('id_persona',$listaID)->get();
+				
+			}
+			else if ($usuario->id_perfil==EnumPerfiles::Concejal) {
+				$lideres=$consultaLider->where('p.id_encargado','=',$usuario->id)->get();
+			}
+			else if ($usuario->id_perfil==EnumPerfiles::Lider) {
+				$lideres=$consultaLider->where('p.id_encargado','=',$usuario->id)->get();
+			}
+			return array('concejales'=>$concejales,'lideres'=>$lideres);
+
+		} catch (Exception $e) {
+			return $e;
+		}
 	}
 
 	public function ExportarPDF()

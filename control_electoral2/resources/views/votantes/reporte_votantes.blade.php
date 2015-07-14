@@ -4,35 +4,75 @@
    Exportar PDF
    </h4>
 
-       <div class="panel-body">
-      	<div class="col-lg-6">
+       <div class="panel-body" ng-init="consultarconcejalylider()">
 
-        <div class="panel panel-default">
+      	
+
+         <div class="col-lg-6">
+   <div class="panel panel-default">
        <div class="panel-heading">
-          Filtros
-       </div>  
+           Concejales
+       </div>
 
-       <div class="panel-body"> 
+        <div class="panel-body">
+         <div class="table-responsive">
+         <table class="table table-striped table-bordered table-hover" >
+           <thead>
+               <tr>
+                  <th></th>
+                   <th>Nombre</th> 
+               </tr>
+           </thead>
+           <tbody>
+             <tr ng-repeat='item in concejales'>
+                <td>
+                 <input type="checkbox">
+               </td>
+               <td class="center">
+                {{item.concejal}}
+               </td>
+             </tr>
+           </tbody>
+         </table>
+         </div>
+         </div>
 
-         
-        <div class="form-group">
-        <label>Lider</label>
-        <select class="form-control"></select>
-        </div>  
+   </div>
+</div>
 
+ <div class="col-lg-6">
+   <div class="panel panel-default">
+       <div class="panel-heading">
+           Lideres
+       </div>
 
-         <div class="form-group">
-        <label>Concejal</label>
-        <select class="form-control"></select>
-        </div>   
+        <div class="panel-body">
+         <div class="table-responsive">
+         <table class="table table-striped table-bordered table-hover" >
+           <thead>
+               <tr>
+                    <th></th>
+                   <th>Nombre</th> 
+               </tr>
+           </thead>
+           <tbody>
+             <tr ng-repeat='item in lideres'>
+               <td>
+                 <input type="checkbox">
+               </td>
+               <td class="center">
+                {{item.lider}}
+               </td>
+             </tr>
+           </tbody>
+         </table>
+         </div>
+         </div>
 
-       </div>     
-            
+   </div>
+</div>
 
-      	</div>
-
-
-        <div class="col-lg-12">
+ <div class="col-lg-12">
           
            <div class="alert alert-{{result.alert}} alert-dismissable" ng-show='result.show'>
                                 <button type="button" class="close" aria-hidden="true" ng-click='result.show=false'>&times;</button>
@@ -42,8 +82,9 @@
        <button type="button" class="btn btn-warning">Exportar PDF</button> 
        
         </div>
-      </div>
 
  </div>
+
+</div>
 </div>
 

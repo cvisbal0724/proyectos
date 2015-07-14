@@ -32,7 +32,7 @@ class AutenticacionController extends Controller {
 					'nombre'=>Auth::User()->persona->nombre . ' ' . Auth::User()->persona->apellido,
 					'_token'=>csrf_token()
 				);
-				Cookie::queue('id_usuario', $usuario->ID,100000);	
+				Cookie::queue('id_usuario', Auth::User()->id,100000);	
 			    return $usuario;
 			}else{
 				return array('show'=>true,'alert'=>'warning','msg'=>'Creadenciales invalidas.');
@@ -46,6 +46,7 @@ class AutenticacionController extends Controller {
 	public function Desloguear(){
 		try {
 			Auth::logout();
+			Cookie::queue('id_usuario', null);	
 			$usuario=array(
 					'auth'=>false,
 					'nombre'=>'',
