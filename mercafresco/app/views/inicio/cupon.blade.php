@@ -11,7 +11,7 @@
           <div class="modal-body">
                
                   <div class="form-group">
-                    <input type="text" class="form-control" id="exampleInputName2" 
+                    <input id="txtcupon" type="text" class="form-control" 
                     placeholder="Ingresa tu cupon aquí" ng-model='codigo'>
                   </div>                  
                   

@@ -6,6 +6,8 @@
       <meta name="viewport" content="initial-scale=1.0, user-scalable=no" />
       <meta name="description" content="">
       <meta name="author" content="">
+      <link rel="shortcut icon" href="app_cliente/img/favicon.ico"/>
+     
       <title>Merca Fresco</title>
       
 
@@ -84,7 +86,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
    </div>   
 
 <span id="siteseal" class="hidden-xs">
-        <script type="text/javascript" src="https://seal.godaddy.com/getSeal?sealID=etzfCu8l1WRRWnfSPxh3ICRPGMZElLi5DiH48GH32F7IsYkqzXcuHKMpKRiJ"></script>
+        <script type="text/javascript" src="https://sealserver.trustwave.com/seal.js?style=normal"></script>
  </span>
 
 </body>

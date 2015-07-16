@@ -394,7 +394,7 @@ confControllers.controller('AppController', function($scope/*, $route*/, $routeP
                authUsuario.logout();
                $scope.nombre = '';
                $scope.estaLogueado =false;
-               $location.path('/productos');
+               $location.path('/supermercado');
               }  
 
 				// Update the rendering of the page.
@@ -466,3 +466,14 @@ confControllers.directive("loadingIndicator", function($location) {
                 }
             };
         });
+
+confControllers.directive('autoFocus', function($timeout) {
+    return {
+        restrict: 'AC',
+        link: function(_scope, _element) {
+            $timeout(function(){
+                _element[0].focus();
+            }, 0);
+        }
+    };
+});

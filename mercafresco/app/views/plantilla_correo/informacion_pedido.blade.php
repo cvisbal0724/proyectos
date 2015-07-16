@@ -43,10 +43,7 @@
 
                 <br>
                 Valor del domicilio: $[[$domicilio]]            
-           
-              
-                <br>
-                Valor a pagar: $[[$total]]         
+                          
            
             <?php if ($convenio > 0): ?>           
               

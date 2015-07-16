@@ -5,11 +5,21 @@
      <li><a ui-sref="historial"><i class="fa fa-list fa-fw"></i>Historial</a></li>     
      <li><a ui-sref='mis_direcciones' data-toggle="modal"><i class="fa fa-sitemap fa-fw"></i>Mis Direcciones</a></li>
      <li class="divider"></li>
-     <li><a href="" data-toggle="modal" data-target="#cupon"><i class="fa fa-gift fa-fw"></i>Código Promocional</a></li>
+     <li><a href="" onclick="abrirModal()"><i class="fa fa-gift fa-fw"></i>Código Promocional</a></li>
      <li class="divider"></li>
      <li><a href="" ng-click='logout()'><i class="fa fa-sign-out fa-fw"></i>Cerrar Sesión</a>
      </li>
  </ul>
 
+ <script type="text/javascript">
+
+function abrirModal(){
+
+     $('#txtcupon').focus();
+     $('#cupon').modal('show');
+
+}
+
+ </script>
 
  @include('inicio.cupon')
