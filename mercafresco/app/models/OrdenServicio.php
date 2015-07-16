@@ -53,9 +53,8 @@ class OrdenServicio extends \Eloquent {
 
 	public function Convenio(){
 
-		$result=DB::select('select ifnull(sum((hc.cantidad_comprados * hc.precio) * (ec.porcentaje / 100)),0) as convenio from 
+		$result=DB::select('select ifnull(sum((hc.cantidad_comprados * hc.precio) * (hc.PORCENTAJE_CONVENIO / 100)),0) as convenio from 
 							historial_compra hc
-							inner join empresa_convenio ec on hc.ID_EMPRESA_CONVENIO=ec.ID
 							where hc.estado=1 and hc.ID_ORDEN_SERVICIO='.$this->ID.' and ec.id in (select ID_EMPRESA_CONVENIO from historial_compra where ID_ORDEN_SERVICIO='.$this->ID.')');		
 		
 		return count($result)>0  ? $result[0]->convenio : 0;

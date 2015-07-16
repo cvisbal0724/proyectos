@@ -34,7 +34,7 @@
                Cantidad de productos: [[$productos]]                
               
 
-                <?php if ($convenio > 0 || $descuentobono > 0): ?>           
+              <?php if ($convenio > 0 || $descuentobono > 0): ?>           
               
                   <br>
                   Sub Total: $[[$total]]            

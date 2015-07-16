@@ -261,7 +261,7 @@ confControllers.factory('authUsuario',function($http,$location,SessionService,Se
                 //eliminamos la sesión de sessionStorage
                 SessionSet.unCacheSession();
                 $state.go("productos");
-                $state.reload();
+                //$state.reload();
             });
         },
         logoutByCookie : function(){
@@ -392,9 +392,10 @@ confControllers.controller('AppController', function($scope/*, $route*/, $routeP
               
                $scope.logout=function(){
                authUsuario.logout();
-               $scope.nombre = '';
-               $scope.estaLogueado =false;
-               $location.path('/supermercado');
+              $scope.nombre = SessionService.get("nombre");
+              $scope.estaLogueado = SessionService.get("auth")!=null;
+               //$state.go('productos');
+               //$location.path('/supermercado');
               }  
 
 				// Update the rendering of the page.

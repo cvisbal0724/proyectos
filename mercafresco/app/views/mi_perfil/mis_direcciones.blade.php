@@ -41,8 +41,8 @@
               <!-- /.row -->
               <hr>
               <p>
-              <a class="btn btn-primary btn-lg pull-left" onclick='window.history.back()'>Atras</a>
-                <a class="btn btn-primary btn-lg pull-right" data-toggle="modal" data-target="#modalDireccion">Agregar Direccion</a>
+              <a class="btn btn-primary btn-lg pull-left" onclick='window.history.back()'>Atrás</a>
+                <a class="btn btn-primary btn-lg pull-right" data-toggle="modal" data-target="#modalDireccion">Agregar Dirección</a>
               </p>
             </div>
           </div>
@@ -74,7 +74,7 @@
                   </div>
                   <div class="col-md-6">
                     <div class="form-group">
-                      <input class="form-control" placeholder="Dirección" type="text" ng-model='direccionPersona.direccion' autofocus/>
+                      <input class="form-control" placeholder="Dirección" type="text" ng-model='direccionPersona.direccion'/>
                       <p>(*) Ingrese la dirección</p>
                     </div>
                   </div>
@@ -91,13 +91,13 @@
                 <div class="row">
                   <div class="col-md-6">
                     <div class="form-group">
-                      <input class="form-control" placeholder="Telefono" type="text" ng-model='direccionPersona.telefono' autofocus/>
+                      <input class="form-control" placeholder="Telefono" type="text" ng-model='direccionPersona.telefono'/>
                       <p>(*) Ingrese el teléfono</p>
                     </div>
                   </div>
                   <div class="col-md-6">
                     <div class="form-group">
-                      <input class="form-control" placeholder="Quien Recibe.." ng-model='direccionPersona.quien_recibe' type="text" autofocus/>
+                      <input class="form-control" placeholder="Quien Recibe.." ng-model='direccionPersona.quien_recibe' type="text"/>
                       <p>(*) Ingrese el quién recibe</p>
                     </div>
                   </div>

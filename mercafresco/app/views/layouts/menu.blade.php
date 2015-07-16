@@ -11,15 +11,5 @@
      </li>
  </ul>
 
- <script type="text/javascript">
-
-function abrirModal(){
-
-     $('#txtcupon').focus();
-     $('#cupon').modal('show');
-
-}
-
- </script>
-
+ 
  @include('inicio.cupon')

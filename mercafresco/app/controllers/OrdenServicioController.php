@@ -91,7 +91,8 @@ public function Crear(){
  				'FECHA_CREACION'=> DB::raw('NOW()'),
  				'ESTADO'=>1,
  				'ID_PRODUCTO_PROVEEDOR'=>$item->ID_PRODUCTO_PROVEEDOR,
- 				'ID_EMPRESA_CONVENIO'=>$empresaconvenio!=NULL ? $empresaconvenio->ID : DB::raw('NULL') 
+ 				'ID_EMPRESA_CONVENIO'=>$empresaconvenio!=NULL ? $empresaconvenio->ID : DB::raw('NULL'),
+ 				'PORCENTAJE_CONVENIO'=>$empresaconvenio!=NULL ? $empresaconvenio->PORCENTAJE : 0
  			));
 
  			$prodProv->INVENTARIO = $prodProv->INVENTARIO - $item->CANTIDAD;
@@ -140,7 +141,7 @@ public function Crear(){
 	   		$item->save();	   		
 	   }
 	}
-	else if (Input::get('id_metodo_pago')=='4') {
+	else if (Input::get('id_metodo_pago')=='4') {//PAGAR CON PSE
 
 		$respuesta=$this->PagoTransferenciasBancarias($item);
 		
@@ -479,7 +480,7 @@ public function ObtenerTodos(){
 			$direccion=$dir ? $dir->DIRECCION : '';
 
 			$reference = "mercafresco_pago_" . substr('0000000'.$item->ID,-8);
-			$value = $item->Total() - $item->Convenio() - $item->DescuentoBono();
+			$value = $item->Total() - ($item->Convenio() + $item->DescuentoBono());
 			$num=(int)substr(Input::get('tarjeta'), 0,2);
 			$tarjeta='';
 			//51 y 55
@@ -592,7 +593,7 @@ public function PagoTransferenciasBancarias($item){
 	PayU::$isTest = false;
 	$usuario=Session::get('usuario');
 	$reference = "mercafresco_pago_" . substr('0000000'.$item->ID,-8);
-	$value = $item->Total() - $item->Convenio() - $item->DescuentoBono();
+	$value = $item->Total() - ($item->Convenio() + $item->DescuentoBono());
 
 	$parameters = array(
 	//Ingrese aquí el identificador de la cuenta.

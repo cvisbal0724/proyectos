@@ -20,9 +20,9 @@
                     </select>-->
                      <select class="form-control" ng-change='consultar()' ng-model='filtro.opcion'>                      
                       <option value="0">[Opciones de busquedas...]</option>
-                      <option value="1">Ultimo mes</option>
-                      <option value="2">Ultimo 3 meses</option>
-                      <option value="3">Ultimo 6 meses</option>
+                      <option value="1">Último mes</option>
+                      <option value="2">Últimos 3 meses</option>
+                      <option value="3">Últimos 6 meses</option>
                       <option ng-repeat="n in vectorAnos" value="{{$index+2014}}">{{$index+2014}}</option>
                       <option value="4">Todas</option>
                     </select>

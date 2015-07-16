@@ -12,7 +12,7 @@
                
                   <div class="form-group">
                     <input id="txtcupon" type="text" class="form-control" 
-                    placeholder="Ingresa tu cupon aquí" ng-model='codigo'>
+                    placeholder="Ingresa tu cupon aquí" ng-model='codigo' autofocus>
                   </div>                  
                   
                    
@@ -30,3 +30,15 @@
         </div>
       </div>
     </div>
+
+
+    <script type="text/javascript">
+
+function abrirModal(){
+     
+     $('#cupon').modal('show');
+     $('#txtcupon').focus();
+
+}
+
+ </script>
