@@ -81,7 +81,19 @@
                     <textarea rows="5" class="form-control" ng-model="calificar.comentario"></textarea>
 
                   </div>
-                  <a class="btn btn-danger btn-lg pull-rigth" data-toggle="modal" data-target="#modalDireccion">Calificar</a>
+
+                  <div class="form-group" ng-show='result.show'>
+                      <div class="alert alert-{{ result.alert }}" role="alert">
+                      <button class="close" aria-hidden="true" ng-click='result.show=false' type="button">×</button>
+                      <strong>{{result.msg}} </strong>
+                       <!--<a ng-show='result.alert=="success"' ui-sref="productos" class="alert-link">Ir a Inicio</a>-->
+                      </div>
+                   </div>
+
+                  <a class="btn btn-danger btn-lg pull-rigth" ng-click="guardar()">Calificar</a>
+
+                  
+
                  </div>
 
                </div>

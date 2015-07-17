@@ -112,12 +112,12 @@ class UsuarioController extends BaseController {
 				"FECHA_REGISTRO"=>DB::raw("NOW()")		
 			));	
 
-			MetodoPagoPersona::create(array(
+			/*MetodoPagoPersona::create(array(
 				'ID_TIPO_METODO_PAGO'=>1,
 				'ID_PERSONA'=>$per['ID'],
 				'FECHA_CREACION'=>DB::raw('NOW()'),
 				'ESTADO'=>1
-			));
+			));*/
 
 			
 			 $usu=Usuario::create(array(

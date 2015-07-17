@@ -8,7 +8,7 @@ class CalificanosController extends \BaseController {
 	 		$key=Input::get('key');
 		
 			$obj=Encriptacion::decrypt($key, Encriptacion::ENCRYPTION_KEY);
-
+			
 	 		$rs=CalificacionProveedor::create(array(
 	 			'ID_PROVEEDOR'=>$obj['id_proveedor'],
 	 			'ID_USUARIO'=>$obj['id_usuario'],
@@ -18,7 +18,7 @@ class CalificanosController extends \BaseController {
 	 			'FECHA_CREACION'=>DB::raw('NOW()')
 	 		));
 
-	 		return $rs['ID'] > 0 'success' : 'error';
+	 		return $rs['ID'] > 0 ? 'success' : 'error';
 
 	 	} catch (Exception $e) {
 	 		Excepciones::Crear($e,'OrdenServicio','ObtenerPoID');

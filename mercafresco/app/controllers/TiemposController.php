@@ -41,9 +41,19 @@ class TiemposController extends BaseController {
 		// Fin de cantidad de envios
 
 		// Si pasa de las 6PM entonces muestra el dia siguiente
-		if ($encontro_verduras == true && $encontro_proveenza == false) {
+		if ($encontro_proveenza == true) {
 
-			if (date("G") >= 18) {
+			if (date("G") >= 12) {
+
+				$dia = 2;
+			}
+			else {
+
+				$dia = 1;
+			}
+		}else{
+
+			if (date("G") >= $hora_finalizacion) {
 
 				$dia = 2;
 			}
@@ -52,7 +62,7 @@ class TiemposController extends BaseController {
 				$dia = 1;
 			}
 		}
-		elseif ($encontro_proveenza == true && $encontro_verduras == false) {
+		/*elseif ($encontro_proveenza == true && $encontro_verduras == false) {
 
 			if (date("G") >= 12) {
 
@@ -73,7 +83,7 @@ class TiemposController extends BaseController {
 
 				$dia = 1;
 			}
-		}
+		}*/
 
 		$k=0;
 		for ($i=$dia; $i < 20 ; $i++) { 
