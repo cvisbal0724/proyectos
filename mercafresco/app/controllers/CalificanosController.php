@@ -8,7 +8,7 @@ class CalificanosController extends \BaseController {
 	 		$key=Input::get('key');
 		
 			$obj=Encriptacion::decrypt($key, Encriptacion::ENCRYPTION_KEY);
-			
+			$usuario=Usuario::find($obj['id_usuario']);
 	 		$rs=CalificacionProveedor::create(array(
 	 			'ID_PROVEEDOR'=>1,//$obj['id_proveedor'],
 	 			'ID_USUARIO'=>$obj['id_usuario'],
@@ -17,6 +17,17 @@ class CalificanosController extends \BaseController {
 	 			'COMENTARIO'=>Input::get('comentario'),
 	 			'FECHA_CREACION'=>DB::raw('NOW()')
 	 		));
+
+	 		$data=array(
+	 			'calificacion'=>Input::get('puntuacion'),
+	 			'comentario'=>Input::get('comentario'),
+	 			'cliente'=>$usuario->persona->Nombre_Completo()
+	 		);
+	 		Session::put('id_ord',$obj['id_orden']);
+	 		Mail::send('plantilla_correo/correo_calificanos', $data, function($message){
+	 			$message->bcc('cvisbal0724@gmail.com', $name = null);		 		
+				$message->to('contacto@mercafresco.co', '')->subject('Pedido No. '.Session::get('id_ord').' calificado');
+			});
 
 	 		return $rs['ID'] > 0 ? 'success' : 'error';
 
@@ -35,9 +46,19 @@ class CalificanosController extends \BaseController {
 			
 		$obj=Encriptacion::decrypt($key, Encriptacion::ENCRYPTION_KEY);
 
+		$horas=Funciones::RestarFechas(date('Y/m/d'),$obj['fecha']);
+
+		if ($horas > 0) {
+		
 		 $orden_servicio=OrdenServicio::find($obj['id_orden']);
 
 		 $arrayList=array();
+
+		 $calificacion=CalificacionProveedor::where('ID_ORDEN_SERVICIO','=',$orden_servicio->ID)->get();
+
+		 if (count($calificacion)>0) {
+		 	return $arrayList;
+		 }
 
 	 	 $detalle=[];
 
@@ -67,7 +88,9 @@ class CalificanosController extends \BaseController {
 	 			'domicilio'=>(double)$orden_servicio->VALOR_DOMICILIO,		
 	 			'detalle'=>$detalle
 	 		);
-	 	
+	 		
+		}
+
 	 	return $arrayList;
 
 	 	} catch (Exception $e) {

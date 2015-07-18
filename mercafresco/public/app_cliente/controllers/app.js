@@ -260,7 +260,7 @@ confControllers.factory('authUsuario',function($http,$location,SessionService,Se
             }).success(function(){
                 //eliminamos la sesión de sessionStorage
                 SessionSet.unCacheSession();
-                $state.go("productos");
+                //$state.go("productos");
                 //$state.reload();
             });
         },
@@ -394,7 +394,7 @@ confControllers.controller('AppController', function($scope/*, $route*/, $routeP
                authUsuario.logout();
               $scope.nombre = '';//SessionService.get("nombre");
               $scope.estaLogueado = false;//SessionService.get("auth")!=null;
-               //$state.go('productos');
+               $state.go('productos');
                //$location.path('/supermercado');
               }  
 

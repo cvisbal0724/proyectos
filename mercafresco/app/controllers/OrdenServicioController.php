@@ -169,6 +169,7 @@ public function Crear(){
  		$id_orden=Session::get('id_orden');
  		$email=$usuario->persona->EMAIL;
  		$cliente=$usuario->persona->NOMBRES.' '.$usuario->persona->APELLIDOS;
+ 		$message->bcc('contacto@mercafresco.co', $name = null);
 		$message->to($email, $cliente)->subject('Pedido No. '.$id_orden.' realizado correctamente');
 	});
 

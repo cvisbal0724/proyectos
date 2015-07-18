@@ -29,6 +29,7 @@ confControllers.controller('CalificarController', function ($scope,$http,$routeP
           //$scope.ordenServicio=data; 
           if (data=='success') {
             $scope.result={show:true,alert:'success',msg:'Gracias por su calificacion.'};
+            $state.go('productos');
           };
           
       });
