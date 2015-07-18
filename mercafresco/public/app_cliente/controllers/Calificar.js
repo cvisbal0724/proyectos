@@ -6,7 +6,7 @@ confControllers.controller('CalificarController', function ($scope,$http,$routeP
 
     $scope.obtener_por_codigo=function(){
 
-      $http.post("ordenservicio/obtenerporcodigo",{key:$state.params.key})
+      $http.post("calificanos/obtenercompraporcodigo",{key:$state.params.key})
       .success(function(data, status, headers, config) {
           $scope.ordenServicio=data; 
       });

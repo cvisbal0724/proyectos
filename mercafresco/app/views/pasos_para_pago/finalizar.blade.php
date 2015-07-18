@@ -70,7 +70,7 @@
               <td>
               <label>Total a pagar:</label>
               </td>
-              <td>{{(OrdenServicio.total - OrdenServicio.convenio - OrdenServicio.descuentobono) | currency:'$':0}}</td>
+              <td>{{(OrdenServicio.total - (OrdenServicio.convenio + OrdenServicio.descuentobono)) | currency:'$':0}}</td>
             </tr>
 
 

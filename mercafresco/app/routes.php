@@ -281,6 +281,7 @@ Route::post('ordenservicio/finalizar','OrdenServicioController@Finalizar');
 
 /*Calificanos*/
 Route::post('calificanos/crear','CalificanosController@Crear');
+Route::post('calificanos/obtenercompraporcodigo','CalificanosController@ObtenerCompraPorCodigo');
 /*fin Calificanos*/
 
 
@@ -334,6 +335,20 @@ Route::get('bono/guardar/{codigo}','OrdenServicioController@GuardarUsuarioCupon'
 
 //https://github.com/noiselabs/NoiselabsNuSOAPBundle //web service
 
+//Route::get('pagobancario','OrdenServicioController@PagoTransferenciasBancarias');
+
+Route::get('ordenservicio/respuestadelbanco','OrdenServicioController@RespuestaDelBanco');
+Route::get('ordenservicio/reintertarpagobancario','OrdenServicioController@ReintertarPagoBancario');
+
+
+Route::get('admin',function(){
+
+	return Redirect::to(Request::root().'/administrador/login.php');
+
+});
+
+///////////////Pruebas
+
 
 Route::get('test2', function(){
 
@@ -346,23 +361,12 @@ return $weekday; // SHOULD display Wednesday
 });
 
 
-
-//Route::get('pagobancario','OrdenServicioController@PagoTransferenciasBancarias');
-
-Route::get('ordenservicio/respuestadelbanco','OrdenServicioController@RespuestaDelBanco');
-Route::get('ordenservicio/reintertarpagobancario','OrdenServicioController@ReintertarPagoBancario');
-
 Route::get('correo', function()
 {
 	return View::make('plantilla_correo/crear_cuenta');	
 	
 });
 
-Route::get('admin',function(){
-
-	return Redirect::to(Request::root().'/administrador/login.php');
-
-});
 
 Route::get('recordar',function(){
 	$data=array(

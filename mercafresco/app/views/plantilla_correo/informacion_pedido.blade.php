@@ -59,5 +59,5 @@
             <?php endif ?>
            
                 <br>
-                Total a pagar: $[[$total - $convenio - $descuentobono]]           
+                Total a pagar: $[[$total - ($convenio + $descuentobono)]]           
            

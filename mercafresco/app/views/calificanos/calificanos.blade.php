@@ -1,10 +1,17 @@
+<style type="text/css">
+  
+  .resaltar{
+     font-weight: bold;
+  }
+
+</style>
 <div class="container" ng-init="obtener_por_codigo()">
       <div class="row">
       <div class="panel-body">
         <div class="col-md-10 col-md-offset-1">
           <div class="panel panel-default">
             <div class="panel-heading">
-              <h2>Calificar compra</h2>
+              <h2>Califica tu compra</h2>
             </div>
             <!-- /.panel-heading -->
             <div class="panel-body">
@@ -51,7 +58,7 @@
                    
   <div class="login-panel panel panel-default">
                    <div class="panel-heading">
-                    <h3 class="panel-title">Calificar compra</h3>
+                    <h3 class="panel-title">Califica tu compra</h3>
                   </div>
                   <div class="panel-body">
 
@@ -99,7 +106,69 @@
                </div>
               </div>
 
-
+              <div class="col-lg-12">
+              <div class="table-responsive">
+                <table class="table table-bordered table-striped">
+                  <thead>
+                  <tr>
+                    <th>Orden No.</th>
+                    <th class="hidden-xs">Fecha Entrega</th>
+                    <th>Producto</th>
+                    <th class="hidden-xs">Unidades</th>
+                    <th class="hidden-xs">Proveedor</th>
+                    <th>Cantidad</th>
+                    <th>Valor</th>                    
+                  </tr>                    
+                  </thead>  
+                  <tbody>
+                    <tr ng-repeat="item in ordenServicio.detalle">                      
+                     <td>{{item.id_orden_servicio}}</td>
+                     <td class="hidden-xs">{{item.fecha}}</td>
+                     <td>{{item.producto}}</td>
+                     <td class="hidden-xs">{{item.unidades}}</td>
+                     <td class="hidden-xs">{{item.proveedor}}</td>
+                     <td>{{item.cantidad}}</td>
+                     <td>{{item.valor}}</td>
+                     <!--<td>total</td>
+                     <td>convenio</td>
+                     <td>descuentobono</td>-->
+                    </tr>
+                  </tbody> 
+                  <tfoot>
+                    <tr>
+                      <td colspan="5" class="hidden-xs"></td>
+                      <td colspan="2" class="visible-xs"></td>
+                      <td class="resaltar">Sub Total</td>
+                      <td class="resaltar">{{ ordenServicio.total | currency:'$':0}}</td>
+                    </tr>
+                    <tr>
+                       <td colspan="5" class="hidden-xs"></td>
+                      <td colspan="2" class="visible-xs"></td>
+                      <td class="resaltar">Valor del domicilio</td>
+                      <td class="resaltar">{{ordenServicio.domicilio | currency:'$':0}}</td>
+                    </tr>
+                    <tr ng-if="ordenServicio.convenio > 0">
+                       <td colspan="5" class="hidden-xs"></td>
+                      <td colspan="2" class="visible-xs"></td>
+                      <td class="resaltar">Descuento por convenio</td>
+                      <td class="resaltar">{{ordenServicio.convenio | currency:'$':0}}</td>
+                    </tr>
+                    <tr ng-if="ordenServicio.descuentobono > 0">
+                       <td colspan="5" class="hidden-xs"></td>
+                      <td colspan="2" class="visible-xs"></td>
+                      <td class="resaltar">Descuento por cupon</td>
+                      <td class="resaltar">{{ordenServicio.descuentobono | currency:'$':0}}</td>
+                    </tr>
+                     <tr>
+                       <td colspan="5" class="hidden-xs"></td>
+                      <td colspan="2" class="visible-xs"></td>
+                      <td class="resaltar">Valor pagado</td>
+                      <td class="resaltar">{{(ordenServicio.convenio + ordenServicio.total) - (ordenServicio.convenio + ordenServicio.descuentobono) | currency:'$':0}}</td>
+                    </tr>
+                  </tfoot>               
+                </table>
+              </div>
+              </div>
               </div>
               <!-- /.row -->
               <hr>

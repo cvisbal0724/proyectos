@@ -296,15 +296,12 @@ try {
  			$detalle[]=array(
  				'id'=>$hist->ID,
  				'id_orden_servicio'=>$hist->ID_ORDEN_SERVICIO,
- 				'fecha'=>$orden_servicio->FECHA_ENTREGA,
+ 				'fecha'=>$orden_servicio->PROG_FECHA,
  				'producto'=>$hist->producto_proveedor->PRODUCTOS_OFRECIDOS . ' ' . $hist->producto_proveedor->producto->NOMBRE,
  				'unidades'=>$hist->producto_proveedor->unidad->NOMBRE,
  				'proveedor'=>$hist->producto_proveedor->proveedor->NOMBRE,
  				'cantidad'=>$hist->CANTIDAD_COMPRADOS,
- 				'valor'=>$hist->PRECIO,
- 				'total'=>$orden_servicio->Total(),
- 				'convenio'=>$orden_servicio->Convenio(),
- 				'descuentobono'=>$orden_servicio->DescuentoBono()
+ 				'valor'=>$hist->PRECIO 				
  			);
  		}
 
@@ -314,7 +311,11 @@ try {
  			'direccion'=>$orden_servicio->barriopersona->DIRECCION,
  			'fecha_compra'=>date('Y-m-d',strtotime($orden_servicio->FECHA_CREACION)),
  			'fecha_entrega'=>date('Y-m-d',strtotime($orden_servicio->PROG_FECHA)), 
- 			'id_usuario'=>$orden_servicio->ID_USUARIO,			
+ 			'id_usuario'=>$orden_servicio->ID_USUARIO,	
+ 			'total'=>(double)$orden_servicio->Total(),
+ 			'convenio'=>(double)$orden_servicio->Convenio(),
+ 			'descuentobono'=>(double)$orden_servicio->DescuentoBono(),
+ 			'domicilio'=>(double)$orden_servicio->VALOR_DOMICILIO,		
  			'detalle'=>$detalle
  		);
  	
