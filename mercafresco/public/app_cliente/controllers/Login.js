@@ -33,12 +33,15 @@ confControllers.controller('LoginController', function ($scope,$location,authUsu
 			var auth = authUsuario.auth($scope.loginData);
 			auth.success(function(response){
 
-       if (response.ID > 0) {
+        if (response.msg=='v3') {          
+          window.location.href='/administrador/index.php?perfil='+response.data.id_perfil+'&'+'id_usuario='+response.data.id_usuario;
+        }
+        else if (response.ID > 0) {
         SessionSet.cacheSession(response);
         $state.go("productos");
-      }else{
-        $scope.result=response;
-      }
+        }else{
+          $scope.result=response;
+        }
 			
 			});
 		}

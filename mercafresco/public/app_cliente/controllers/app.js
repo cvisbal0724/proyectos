@@ -392,8 +392,8 @@ confControllers.controller('AppController', function($scope/*, $route*/, $routeP
               
                $scope.logout=function(){
                authUsuario.logout();
-              $scope.nombre = SessionService.get("nombre");
-              $scope.estaLogueado = SessionService.get("auth")!=null;
+              $scope.nombre = '';//SessionService.get("nombre");
+              $scope.estaLogueado = false;//SessionService.get("auth")!=null;
                //$state.go('productos');
                //$location.path('/supermercado');
               }  

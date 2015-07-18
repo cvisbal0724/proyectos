@@ -19,18 +19,22 @@ class AutenticacionController extends BaseController {
 	}
 
 	public function Loguear(){
-		
-	
-		$email=Input::get('usuario');
-		$password=Input::get('clave');
+		try {
+			
+			$email=Input::get('usuario');
+			$password=Input::get('clave');
 
-		$credenciales=array(
-			'USUARIO'=>$email,
-			'CLAVE'=>md5($password)
-		);
+			$credenciales=array(
+				'USUARIO'=>$email,
+				'CLAVE'=>md5($password)
+			);
 		
 		return $this->CrearSession($credenciales);
 
+		} catch (Exception $e) {
+			Excepciones::Crear($e,'AutenticacionController','Loguear');
+			return array('ID'=>0,'show'=>true,'alert'=>'danger','msg'=>$e->getMessage());			
+		}
 	}
 
 	public function LoguearPorCookie(){
@@ -57,6 +61,11 @@ class AutenticacionController extends BaseController {
 
 		if ($usuario!=null) {
 			
+			if ($usuario->ID_PERFIL==1 || $usuario->ID_PERFIL==2) {
+			return array('ID'=>0,'show'=>true,'alert'=>'danger','msg'=>'v3',
+				'data'=>array('id_perfil'=>$usuario->ID_PERFIL,'id_usuario'=>$usuario->ID));
+			}
+
 		    Cookie::queue('id_user', $usuario->ID,100000);			
 		
 			Session::put('usuario',$usuario);
