@@ -93,7 +93,7 @@
                   <td>                          
                     <img src="{{obj.imagen}}" alt="Generic placeholder image" class="card-item-img">                       
                   </td>
-                  <td class="ng-binding">{{obj.descripcion}}</td>
+                  <td class="ng-binding">{{obj.producto}}</td>
                   <td class="ng-binding">
                     <a class="btn btn-default " href="" role="button" ng-click='agregarCanasta(obj)'><span class="glyphicon glyphicon-shopping-cart"></span> Agregar</a>
                   </td>

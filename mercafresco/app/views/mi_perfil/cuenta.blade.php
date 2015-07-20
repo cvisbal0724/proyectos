@@ -62,7 +62,7 @@
                     <div class="form-group">
 	         		   <label>Correo</label>
                        <input class="form-control" placeholder="Correo" type="text"
-                       ng-model='cuenta.correo'/>
+                       ng-model='cuenta.correo' disabled='disabled'/>
                         <p>(*) Ingrese su correo</p>
                    </div>
 

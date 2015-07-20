@@ -48,6 +48,7 @@ public function Crear(){
 		"ID_ESTADO_ENTREGA"=>1,
 		"ESTADO"=>1,
 		"ID_ESTADO_PAGO"=>1,
+		"MENSAJE_ENVIADO"=>0
 		//"CONSECUTIVO"=>$numeroConsecutivo	
 
 	)); 
@@ -348,12 +349,13 @@ public function ObtenerTodos(){
  	foreach ($lista as $key => $row) {
 
  		$detalle=[];
-
- 		foreach (HistorialCompra::where('ID_ORDEN_SERVICIO','=',$row->ID)->where('ESTADO','=','1')->get() as $hist) {
+ 		$listahistorial=HistorialCompra::where('ID_ORDEN_SERVICIO','=',$row->ID)->where('ESTADO','=','1')->get();
+ 		foreach ($listahistorial as $hist) {
  			$detalle[]=array(
  				'id'=>$hist->ID,
  				'id_producto_proveedor'=>$hist->ID_PRODUCTO_PROVEEDOR,
- 				'descripcion'=>$hist->producto_proveedor->DESCRIPCION,
+ 				'descripcion'=>$hist->DESCRIPCION,
+ 				'producto'=>$hist->PRODUCTO,
  				'cantidad'=>$hist->CANTIDAD_COMPRADOS,
  				'imagen'=>$this->rutaImagen . $hist->producto_proveedor->ARCHIVO_FOTO
  			);
@@ -438,12 +440,13 @@ public function ObtenerTodos(){
  	foreach ($lista as $key => $row) {
 
  		$detalle=[];
-
- 		foreach (HistorialCompra::where('ID_ORDEN_SERVICIO','=',$row->ID)->where('ESTADO','=','1')->get() as $hist) {
+ 		$listahistorial=HistorialCompra::where('ID_ORDEN_SERVICIO','=',$row->ID)->where('ESTADO','=','1')->get();
+ 		foreach ($listahistorial as $hist) {
  			$detalle[]=array(
  				'id'=>$hist->ID,
  				'id_producto_proveedor'=>$hist->ID_PRODUCTO_PROVEEDOR,
- 				'descripcion'=>$hist->producto_proveedor->DESCRIPCION,
+ 				'descripcion'=>$hist->DESCRIPCION,
+ 				'producto'=>$hist->PRODUCTO,
  				'cantidad'=>$hist->CANTIDAD_COMPRADOS,
  				'imagen'=>$this->rutaImagen . $hist->producto_proveedor->ARCHIVO_FOTO
  			);
@@ -901,6 +904,54 @@ public function ReintertarPagoBancario(){
 			return array('ID'=>0,'msg'=>$e->getMessage());	
 		}		
 
+	}
+
+	public function EnviarCorreo(){
+		DB::beginTransaction();
+		try {
+			
+			$lista=OrdenServicio::where('MENSAJE_ENVIADO','=',0)
+			->where('ID_ESTADO_PAGO','<>',1/*por pagar*/)
+			->where('ID_TIPO_METODO_PAGO','<>',enTipoMetodoPago::PSE)->get();
+
+			if (count($lista)>0) {
+				foreach ($lista as $key => $item) {
+					
+					$data=array(
+				 		'id'=>$rs["ID"],
+						'cliente'=>$usuario->persona->NOMBRES . ' ' . $usuario->persona->APELLIDOS,
+						'celular'=>$usuario->persona->CELULAR,
+						'telefono'=>$usuario->persona->TELEFONO,
+						'formapago'=>$item->tipometodopago->NOMBRE,
+						'fecha_envio'=>$item->PROG_FECHA,
+						'barrio'=>$item->barriopersona->barrio->NOMBRE,
+						'direccion'=>$item->barriopersona->DIRECCION,
+						'recibe'=>$item->barriopersona->QUIEN_RECIBE,
+						'productos'=>$item->CantidadProductos(),
+						'domicilio'=>$item->VALOR_DOMICILIO,
+						'total'=>$item->Total(),
+						'convenio'=>(double)$item->Convenio(),
+						'descuentobono'=>(double)$item->DescuentoBono()
+				 	);
+
+					Mail::send('plantilla_correo/crear_pedido', $data, function($message){
+				 		$usuario=Session::get('usuario');
+				 		$id_orden=Session::get('id_orden');
+				 		$email=$usuario->persona->EMAIL;
+				 		$cliente=$usuario->persona->NOMBRES.' '.$usuario->persona->APELLIDOS;
+				 		$message->bcc('contacto@mercafresco.co', $name = null);
+						$message->to($email, $cliente)->subject('Pedido No. '.$id_orden.' realizado correctamente');
+					});
+
+				}
+			}
+
+			DB::commit();
+
+		} catch (Exception $e) {
+			DB::rollback();
+			Excepciones::Crear($e,'OrdenServicio','TerminarProcesoDePagoBancario');
+		}
 	}
 
 }

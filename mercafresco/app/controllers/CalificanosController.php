@@ -53,13 +53,7 @@ class CalificanosController extends \BaseController {
 		 $orden_servicio=OrdenServicio::find($obj['id_orden']);
 
 		 $arrayList=array();
-
-		 $calificacion=CalificacionProveedor::where('ID_ORDEN_SERVICIO','=',$orden_servicio->ID)->get();
-
-		 if (count($calificacion)>0) {
-		 	return $arrayList;
-		 }
-
+		 
 	 	 $detalle=[];
 
 	 		foreach (HistorialCompra::where('ID_ORDEN_SERVICIO','=',$obj['id_orden'])->where('ESTADO','=','1')->get() as $hist) {
@@ -91,7 +85,17 @@ class CalificanosController extends \BaseController {
 	 		
 		}
 
-	 	return $arrayList;
+		$calificacion=CalificacionProveedor::where('ID_ORDEN_SERVICIO','=',$orden_servicio->ID)->first();
+
+		if ($calificacion!=null) {
+			$cal=array(
+				'id'=>$calificacion->ID,
+				'comentario'=>$calificacion->COMENTARIO,
+				'puntuacion'=>$calificacion->PUNTUACION);
+			return array('orden'=>$arrayList,'calificacion'=>$cal);
+		}
+
+	 	return array('orden'=>$arrayList,'calificacion'=>array('id'=>0));
 
 	 	} catch (Exception $e) {
 	 		Excepciones::Crear($e,'OrdenServicio','ObtenerPoID');

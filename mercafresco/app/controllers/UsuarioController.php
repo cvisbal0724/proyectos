@@ -18,7 +18,13 @@ class UsuarioController extends BaseController {
 		DB::beginTransaction();
 
 		try {
-						
+			
+			$persona=Persona::where('EMAIL','=',Input::get("correo"))->get();
+
+			if (count($persona)>0) {
+				return 'Ya existe una cuenta creado con este correo.';
+			}
+
 			$per=Persona::create(array(  
 				"NO_IDENTIFICACION"=>Input::get("no_identificacion"),
 				"CORTESIA"=>1,//Input::get("cortesia"),

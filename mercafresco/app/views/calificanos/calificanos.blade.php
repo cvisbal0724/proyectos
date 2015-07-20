@@ -64,19 +64,19 @@
 
                     <div class="panel-body">
                        <div class="radio radio-success" style="text-align:left;">
-                          <input id="radio40" type="radio" name="radio2" ng-model="calificar.puntuacion" value="4">
+                          <input id="radio40" type="radio" name="radio2" ng-model="calificar.puntuacion" value="4" disabled="{{calificar.id > 0}}">
                           <label for="radio40" >Excelente</label>
                       </div>   
                        <div class="radio radio-success" style="text-align:left;">
-                          <input id="radio41" type="radio" name="radio2" ng-model="calificar.puntuacion" value="3">
+                          <input id="radio41" type="radio" name="radio2" ng-model="calificar.puntuacion" value="3" disabled="{{calificar.id > 0}}">
                           <label for="radio41" >Bueno</label>
                       </div>   
                       <div class="radio radio-success" style="text-align:left;">
-                          <input id="radio42" type="radio" name="radio2" ng-model="calificar.puntuacion" value="2">
+                          <input id="radio42" type="radio" name="radio2" ng-model="calificar.puntuacion" value="2" disabled="{{calificar.id > 0}}">
                           <label for="radio42" >Regular</label>
                       </div>   
                       <div class="radio radio-success" style="text-align:left;">
-                          <input id="radio43" type="radio" name="radio2" ng-model="calificar.puntuacion" value="1">
+                          <input id="radio43" type="radio" name="radio2" ng-model="calificar.puntuacion" value="1" disabled="{{calificar.id > 0}}">
                           <label for="radio43" >Malo</label>
                       </div>   
                                                                                       
@@ -85,7 +85,7 @@
                   <div class="form-group">
                     
                     <label>Comentario</label>
-                    <textarea rows="5" class="form-control" ng-model="calificar.comentario"></textarea>
+                    <textarea rows="5" class="form-control" ng-model="calificar.comentario" disabled="{{calificar.id > 0}}"></textarea>
 
                   </div>
 
@@ -97,7 +97,7 @@
                       </div>
                    </div>
 
-                  <a class="btn btn-danger btn-lg pull-rigth" ng-click="guardar()">Calificar</a>
+                  <a ng-if="calificar.id == 0" class="btn btn-danger btn-lg pull-rigth" ng-click="guardar()">Calificar</a>
 
                   
 

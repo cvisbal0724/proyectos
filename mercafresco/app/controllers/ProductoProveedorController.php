@@ -226,6 +226,7 @@ public function ObtenerTodos(){
 		 	 'productos'=>$this->consulta()
 		 	->where('producto.nombre','LIKE', '%'.$input.'%')->whereIn('barrio_proveedor.id_barrio',$vector)
 		 	->orWhere('productos_proveedor.descripcion','LIKE','%'.$input.'%')
+		 	->where('productos_proveedor.INVENTARIO','>',0)
 		 	->whereIn('barrio_proveedor.id_barrio',$vector)->groupBy('productos_proveedor.id')->get());	
 		   }else{
 
@@ -235,6 +236,7 @@ public function ObtenerTodos(){
 		 	 'categoria'=>'',	
 		 	 'productos'=>$this->consulta()
 		 	->where('producto.nombre','LIKE', '%'.$input.'%')->orWhere('productos_proveedor.descripcion','LIKE','%'.$input.'%')
+		 	 ->where('productos_proveedor.INVENTARIO','>',0)
 		 	 ->groupBy('productos_proveedor.id')->get());	
 		 	 
 		   }
@@ -247,6 +249,7 @@ public function ObtenerTodos(){
 		 	 'categoria'=>'',	
 		 	 'productos'=>$this->consulta()
 		 	->where('producto.nombre','LIKE', '%'.$input.'%')->orWhere('productos_proveedor.descripcion','LIKE','%'.$input.'%')
+		 	->where('productos_proveedor.INVENTARIO','>',0)
 		 	 ->groupBy('productos_proveedor.id')->get());	
 		}
 

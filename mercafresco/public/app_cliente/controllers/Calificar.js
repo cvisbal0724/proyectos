@@ -1,14 +1,17 @@
 confControllers.controller('CalificarController', function ($scope,$http,$routeParams,$filter,filterFilter,$location,$state) {
 
 	$scope.ordenServicio={};
-	$scope.calificar={key:$state.params.key,puntuacion:null,comentario:''};
+	$scope.calificar={key:$state.params.key,id:0,puntuacion:null,comentario:''};
   $scope.result={};
 
     $scope.obtener_por_codigo=function(){
 
       $http.post("calificanos/obtenercompraporcodigo",{key:$state.params.key})
       .success(function(data, status, headers, config) {
-          $scope.ordenServicio=data; 
+          $scope.ordenServicio=data.orden; 
+          if (data.calificacion.id > 0) {
+            $scope.calificar=data.calificacion; 
+          };
       });
 
     }
