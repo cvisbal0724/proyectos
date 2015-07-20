@@ -32,7 +32,7 @@
                </div>
                <!-- 4 Columnas de productos style='height:281px;overflow:hidden' -->
                <div class="row" ng-if="prod.productos.length > 0"
-ng-style="{height:idcategoria > 0 || (criterio!='' && criterio!=undefined) ? '' : '281px', overflow: idcategoria > 0 || (criterio!='' && criterio!=undefined) ? '' : 'hidden' }"
+ng-style="{height:idcategoria > 0 || (criterio!='' && criterio!=undefined) || (categoria!='' && categoria!=undefined) ? '' : '281px', overflow: idcategoria > 0 || (criterio!='' && criterio!=undefined) ? '' : 'hidden' }"
                ng-repeat-end>
                   
                   <div class="item" ng-repeat='obj in prod.productos'>

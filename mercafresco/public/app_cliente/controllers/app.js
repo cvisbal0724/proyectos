@@ -33,8 +33,7 @@ App.config(function($urlRouterProvider, $stateProvider) {
         template: ""                    
       }) 
      .state('consultarproductos', {
-                url: "supermercado/:criterio",
-                action: "productos.default"  ,
+                url: "supermercado/consultar/:criterio",               
                  views: {
                  "contenedor": { templateUrl: "inicio/productos", controller: 'ProductoProveedorController'},
                  "buscador": { templateUrl: "layouts/buscador", controller: 'ProductoProveedorController'}

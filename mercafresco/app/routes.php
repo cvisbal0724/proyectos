@@ -406,6 +406,12 @@ Route::get('getdate',function(){
 	return date('Y/m/d', strtotime($date. ' + 15 day'));
 });
 
+Route::get('formatonumero',function(){
+
+	return number_format(12000);
+
+});
+
 /*merchantId=530880
 merchant_name=Inversiones+y+Obras+S.A.S
 merchant_address=Cra+76+no+81a-15

@@ -3,6 +3,7 @@ confControllers.controller('ProductoProveedorController', function ($scope,$http
 
 $scope.idcategoria=$state.params.idcategoria;
 $scope.criterio=$state.params.criterio;
+$scope.categoria=$state.params.categoria;
 $scope.listaCanasta=[];
 $scope.totalCanasta=0;
 $scope.totalCantidad=0;
@@ -12,20 +13,25 @@ $scope.producto={};
 $scope.buscar={criterioBuscar:''};
 $scope.vistaactual=$state.current.name;
   var n = $location.path().search("/ver/");
-  if (n>0) { 
+  
+  if (n>0) {     
       window.history.back();
   }
-  
+ 
 	if ($scope.idcategoria > 0) {	
+    //alert(1);
 	 $http.post("productoproveedor/obtenerporcategoria",{id_categoria: $scope.idcategoria}).success(function(data, status, headers, config) {
            $scope.listaProductos = data;        
         });
-	}else if($location.path()=='/supermercado/'+$scope.criterio){    
-    $http.post("productoproveedor/obtenerporparecidos",{criterio: $scope.criterio}).success(function(data, status, headers, config) {
+	}else if($location.path()=='/supermercado/consultar/'+($scope.criterio==undefined ? $scope.categoria : $scope.criterio)){    
+    //alert(2);
+    $http.post("productoproveedor/obtenerporparecidos",{criterio: ($scope.criterio==undefined ? $scope.categoria : $scope.criterio)})
+    .success(function(data, status, headers, config) {
        $scope.listaProductos = data;  
-       $scope.buscar.criterioBuscar=$scope.criterio ;
+       $scope.buscar.criterioBuscar=($scope.criterio==undefined ? $scope.categoria : $scope.criterio);
      });
-  }else{    
+  }else{  
+  //alert(3);  
     $http.post("productoproveedor/obtenerinicio",{}).success(function(data, status, headers, config) {
           $scope.listaProductos = data; 
           if (data.length == 0) {
@@ -48,7 +54,7 @@ $scope.vistaactual=$state.current.name;
    $scope.buscarporcategoria=function(obj){
         var nombre=obj.NOMBRE.replace(/ /g, "-").toLowerCase();
            
-        $state.go('vermas',{idcategoria:obj.ID,categoria:nombre});
+        $state.go('vermas',{idcategoria:obj.ID,categoria:normalize(nombre)});
         $("#sidebar-wrapper-categorias").toggleClass("show");
         $('#back-fondo').toggle();
         //$("#wrapper").addClass("toggled");
@@ -57,7 +63,7 @@ $scope.vistaactual=$state.current.name;
   $scope.buscarporcategoria_2=function(id, categoria){
         var nombre=categoria.replace(/ /g, "-").toLowerCase();  
 
-         $state.go('vermas',{idcategoria:id,categoria:nombre});
+         $state.go('vermas',{idcategoria:id,categoria:normalize(nombre)});
         //$("#wrapper").addClass("toggled");
   }
   
@@ -249,7 +255,7 @@ $scope.vistaactual=$state.current.name;
        $scope.producto=obj;  
        var n = $scope.vistaactual.search("verproducto");          
        var nombre=obj.nombre.replace(/ /g, "-").toLowerCase();
-        $state.go($scope.vistaactual + (n > 0 ? '' : '.verproducto') ,{idproducto:obj.id,nombreproducto:nombre});      
+        $state.go($scope.vistaactual + (n > 0 ? '' : '.verproducto') ,{idproducto:obj.id,nombreproducto:normalize(nombre)});      
         $('#modalProductos').modal('show');
     }
 
