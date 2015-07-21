@@ -26,7 +26,7 @@
            <tbody>
              <tr ng-repeat='item in concejales'>
                 <td>
-                 <input type="checkbox">
+                 <input type="checkbox" ng-model="item.procesar" ng-click="agregar_id_concejal(item)">
                </td>
                <td class="center">
                 {{item.concejal}}
@@ -58,7 +58,7 @@
            <tbody>
              <tr ng-repeat='item in lideres'>
                <td>
-                 <input type="checkbox">
+                 <input type="checkbox" ng-model="item.procesar" ng-click="agregar_id_lider(item)">
                </td>
                <td class="center">
                 {{item.lider}}
@@ -75,11 +75,11 @@
  <div class="col-lg-12">
           
            <div class="alert alert-{{result.alert}} alert-dismissable" ng-show='result.show'>
-                                <button type="button" class="close" aria-hidden="true" ng-click='result.show=false'>&times;</button>
-                               {{result.msg}}
-             </div>
+                <button type="button" class="close" aria-hidden="true" ng-click='result.show=false'>&times;</button>
+               {{result.msg}}
+          </div>
             
-       <button type="button" class="btn btn-warning">Exportar PDF</button> 
+       <button type="button" class="btn btn-warning" ng-click='exportar_votantes()'>Exportar PDF</button> 
        
         </div>
 

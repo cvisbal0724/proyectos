@@ -18,6 +18,8 @@ $scope.criterio='';
 $scope.listaPersonas=[];
 $scope.concejales=[];
 $scope.lideres=[];
+$scope.id_concejales='';
+$scope.id_lideres='';
 
 $scope.consultar_por_codigo=function(id){
 		
@@ -111,6 +113,23 @@ $scope.consultar_votar_por=function(){
 	alert($scope.votanteVO.id_persona);
 }
 
+$scope.agregar_id_concejal=function(obj) {
+	$scope.id_concejales='';
+	angular.forEach($scope.concejales,function(prop,i){
+		$scope.id_concejales+=prop.id+',';
+	});
+}
 
+$scope.agregar_id_lider=function(obj) {
+	angular.forEach($scope.lideres,function(prop,i){
+		$scope.id_lideres+=prop.id+',';
+	});
+}
+
+$scope.exportar_votantes=function(){
+
+	//window.location='votante/exportarpdf/'+$scope.id_concejales +'/'+$scope.id_lideres;	target="_blank" done=1;
+ 	window.open('votante/exportarpdf/'+$scope.id_concejales +'/'+$scope.id_lideres,'_blank');
+}
 
 });

@@ -327,9 +327,91 @@ class VotanteController extends Controller {
 		}
 	}
 
-	public function ExportarPDF()
+	public function ExportarPDF($concejales, $lideres)
 	{
-		
+		try {
+			
+			$usuario=Auth::User();
+			$listaConcejales=array();
+			$listaLideres=array();
+			$id_concejales=explode(',',$concejales);
+			$id_lideres=explode(',',$lideres);
+
+			if ($usuario->id_perfil==EnumPerfiles::Administrador) {
+				if (count($id_concejales)>0) {
+					$listaConcejales=DB::table('votantes as v')
+					->join('personas as p','v.id_persona','=','p.id')
+					->join('concejales as c','v.id_lider','=','c.id')
+					->join('personas as p2','c.id_persona','=','p2.id')
+					->leftJoin('lugares_de_votacion as lv','v.id_lugar_de_votacion','=','lv.id')
+					->whereIn('v.id_concejal',$id_concejales)
+					->select(DB::raw("concat(p.nombre,' ',p.apellido) as nombre,p.cedula,p.direccion,p.telefono,lv.nombre as punto_votacion,concat(p2.nombre,' ',p2.apellido) as lider"))
+					
+					->orderBy('p2.nombre')->orderBy('p2.apellido')->orderBy('p2.id')->get();
+				}else if (count($lideres)>0) {
+					$listaLideres=DB::table('votantes as v')
+					->join('personas as p','v.id_persona','=','p.id')
+					->join('lideres as l','v.id_lider','=','l.id')
+					->join('personas as p2','l.id_persona','=','p2.id')
+					->leftJoin('lugares_de_votacion as lv','v.id_lugar_de_votacion','=','lv.id')
+					->select(DB::raw("concat(p.nombre,' ',p.apellido) as nombre,p.cedula,p.direccion,p.telefono,lv.nombre as punto_votacion,concat(p2.nombre,' ',p2.apellido) as lider"))
+					->whereIn('v.id_lider',$id_lideres)
+					->orderBy('p2.nombre')->orderBy('p2.apellido')->orderBy('p2.id')->get();
+				}
+			}
+			else if ($usuario->id_perfil==EnumPerfiles::Alcalde) {	
+				if ($concejales!='') {
+					$listaConcejales=DB::table('votantes as v')
+					->join('personas as p','v.id_persona','=','p.id')
+					->join('concejales as c','v.id_lider','=','c.id')
+					->join('personas as p2','c.id_persona','=','p2.id')
+					->leftJoin('lugares_de_votacion as lv','v.id_lugar_de_votacion','=','lv.id')
+					->select(DB::raw("concat(p.nombre,' ',p.apellido) as nombre,p.cedula,p.direccion,p.telefono,lv.nombre as punto_votacion,concat(p2.nombre,' ',p2.apellido) as lider"))
+					->whereIn('v.id_concejal',$id_concejales)->whereIn('v.id_categoria_votacion',array(1,2))
+					->where('p.id_alcalde','=',$usuario->persona->id_alcalde)
+					->orderBy('p2.nombre')->orderBy('p2.apellido')->orderBy('p2.id')->get();
+				}else if ($lideres!='') {
+					$listaLideres=DB::table('votantes as v')
+					->join('personas as p','v.id_persona','=','p.id')
+					->join('lideres as l','v.id_lider','=','l.id')
+					->join('personas as p2','l.id_persona','=','p2.id')
+					->leftJoin('lugares_de_votacion as lv','v.id_lugar_de_votacion','=','lv.id')
+					->select(DB::raw("concat(p.nombre,' ',p.apellido) as nombre,p.cedula,p.direccion,p.telefono,lv.nombre as punto_votacion,concat(p2.nombre,' ',p2.apellido) as lider"))
+					->whereIn('v.id_lider',$id_lideres)->whereIn('v.id_categoria_votacion',array(1,2))
+					->where('p.id_alcalde','=',$usuario->persona->id_alcalde)
+					->orderBy('p2.nombre')->orderBy('p2.apellido')->orderBy('p2.id')->get();
+				}
+			}
+			else if ($usuario->id_perfil==EnumPerfiles::Concejal) {
+				$listaLideres=DB::table('votantes as v')
+				->join('personas as p','v.id_persona','=','p.id')
+				->join('lideres as l','v.id_lider','=','l.id')
+				->join('personas as p2','l.id_persona','=','p2.id')
+				->leftJoin('lugares_de_votacion as lv','v.id_lugar_de_votacion','=','lv.id')
+				->select(DB::raw("concat(p.nombre,' ',p.apellido) as nombre,p.cedula,p.direccion,p.telefono,lv.nombre as punto_votacion,concat(p2.nombre,' ',p2.apellido) as lider"))
+				->whereIn('v.id_lider',$id_lideres)
+				->orderBy('p2.nombre')->orderBy('p2.apellido')->orderBy('p2.id')->get();
+			}
+			else if ($usuario->id_perfil==EnumPerfiles::Lider) {
+				$listaLideres=DB::table('votantes as v')
+				->join('personas as p','v.id_persona','=','p.id')
+				->join('lideres as l','v.id_lider','=','l.id')
+				->join('personas as p2','l.id_persona','=','p2.id')
+				->leftJoin('lugares_de_votacion as lv','v.id_lugar_de_votacion','=','lv.id')
+				->select(DB::raw("concat(p.nombre,' ',p.apellido) as nombre,p.cedula,p.direccion,p.telefono,lv.nombre as punto_votacion,concat(p2.nombre,' ',p2.apellido) as lider"))
+				->whereIn('v.id_lider',$id_lideres)
+				->orderBy('p2.nombre')->orderBy('p2.apellido')->orderBy('p2.id')->get();
+			}
+			
+			$view =  \View::make('pdf.reporte_votantes', compact('listaLideres', 'listaConcejales'))->render();
+
+			$pdf = \App::make('dompdf.wrapper');
+	        $pdf->loadHTML($view);
+	        return $pdf->setPaper('a4')->setOrientation('landscape')->setWarnings(false)->stream('votantes');
+
+		} catch (Exception $e) {
+			return $e;
+		}	
 	}
 
 }

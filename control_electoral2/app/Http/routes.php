@@ -215,6 +215,7 @@ Route::get('votante/consultarporcodigo/{id}','VotanteController@ConsultarPorCodi
 Route::post('votante/actualizar','VotanteController@Actualizar');
 Route::post('votante/dardebaja','VotanteController@DarDeBaja');
 Route::post('votante/consultarconcejalylider','VotanteController@ConsultarConcejalYLider');
+Route::get('votante/exportarpdf/{concejales}/{lideres}','VotanteController@ExportarPDF');
 /*Fin votante*/
 
 /*graficos*/
