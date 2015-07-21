@@ -174,7 +174,7 @@
                                                                               <a style="padding:0;margin:0 auto!important;text-decoration:none;" href="https://instagram.com/mercafresco.co/" target="_blank">
                                                                               <img width="27" border="0" style="width:27px;min-height:24px" alt="twitter" src="[[ asset('app_cliente/img_email/icon-instagram2.png')]]" class="CToWUd">
                                                                               </a>
-                                                                              <a style="padding:0;margin:0 auto!important;text-decoration:none;" href="" target="_blank">
+                                                                              <a style="padding:0;margin:0 auto!important;text-decoration:none;" href="mailto:contacto@mercafresco.co" target="_blank">
                                                                               <img width="27" border="0" style="width:27px;min-height:24px" alt="googlemas" src="[[ asset('app_cliente/img_email/icon-mail2.png')]]" class="CToWUd">
                                                                               </a>
                                                                         </td>
@@ -186,7 +186,7 @@
                                                    <tr>
                                                       <td align="center" valign="middle" style="padding-left:0px;padding-right:0px;padding-top:5px;padding-bottom:0px">
                                                          <font face="Helvetica, sans-serif" color="#FFFFFF" style="font-size:18px;line-height:18px">
-                                                             Escríbenos a contacto@mercafresco.co         
+                                                             Escríbenos a  <a href="mailto:contacto@mercafresco.co">contacto@mercafresco.co</a>         
                                                          </font>
                                                       </td>
                                                    </tr>

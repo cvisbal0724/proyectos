@@ -107,6 +107,12 @@ public function Crear(){
  	
  	$item=OrdenServicio::find($rs["ID"]);
 	
+	$Horas = array(8  => '08 am - 10 am',
+		 10 => '10 am - 12 m',
+		 12 => '12 m - 02 pm',
+		 14 => '02 pm - 04 pm',
+		 16 => '04 pm - 06 pm');
+
  	$data=array(
  		'id'=>$rs["ID"],
 		'cliente'=>$usuario->persona->NOMBRES . ' ' . $usuario->persona->APELLIDOS,
@@ -114,6 +120,7 @@ public function Crear(){
 		'telefono'=>$usuario->persona->TELEFONO,
 		'formapago'=>$item->tipometodopago->NOMBRE,
 		'fecha_envio'=>$item->PROG_FECHA,
+		'hora_envio'=>$Horas[$item->PROG_HORA],
 		'barrio'=>$item->barriopersona->barrio->NOMBRE,
 		'direccion'=>$item->barriopersona->DIRECCION,
 		'recibe'=>$item->barriopersona->QUIEN_RECIBE,

@@ -19,7 +19,7 @@
                Forma de pago: [[$formapago]]                 
               
                <br>
-               Fecha de envio: [[$fecha_envio]] 
+               Fecha y hora de envio: [[$hora_envio]] / [[$fecha_envio]] 
               
                <br>
                Barrio: [[$barrio]]                

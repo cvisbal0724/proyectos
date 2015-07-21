@@ -323,6 +323,11 @@ Route::get('tieneTiempo', function(){
 	}
 });
 
+Route::get('validarValorMinimo', function(){
+	$proveedor=Proveedor::find(1);
+	return $proveedor->VALOR_MINIMO;
+});
+
 /*Validar*/
 
 /*Cupon*/

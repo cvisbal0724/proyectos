@@ -34,7 +34,7 @@ confControllers.controller('CuentaController', function ($scope,$http,$routePara
 	 $http.post("usuario/obtenertipoidentificacion",{})
       		.success(function(data, status, headers, config) {
           $scope.tipoIdentificacion=data; 
-      });
+     });
 */
 	$scope.cargarbarrio=function(){		
 		$http.post("barrioproveedor/obtenertodos",{})
@@ -105,11 +105,11 @@ confControllers.controller('CuentaController', function ($scope,$http,$routePara
 
       			if (data > 0) {
       				$('#modalRegistrar').modal('show');
-      				$scope.result2={alert:'success',msg:'Su cuenta ha sido creada satisfactoriamente, se le ha enviado un correo de confirmación.',show:true};
+      				$scope.result2={alert:'success',msg:'Su cuenta ha sido creada satisfactoriamente, se le ha enviado un correo de confirmación.',show:true, openHome:true};
       				$scope.nuevo();
       			}else{
       				$('#modalRegistrar').modal('show');
-      				$scope.result2={alert:'danger',msg:data,show:true};
+      				$scope.result2={alert:'danger',msg:data,show:true,openHome:false};
       			}   
 
         });

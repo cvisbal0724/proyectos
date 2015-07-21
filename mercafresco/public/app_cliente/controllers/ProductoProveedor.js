@@ -233,17 +233,23 @@ $scope.vistaactual=$state.current.name;
   $scope.checkout=function(){
 
       if (authUsuario.isLoggedIn()) {
-        if ($scope.totalCanasta < 2000 && $scope.totalCanasta > 0) {          
-          $scope.mensaje='Lo sentimos, el valor minimo para realizar la compra es de $30.000.';
-          $('#modalValidarProducto').modal('show');
-        }
-        else if($scope.totalCanasta==0){
-          $scope.mensaje='Por favor agregue los productos a la canasta.';
-          $('#modalValidarProducto').modal('show');
-        }else{
-          $location.path('/direcciones');
-        }
-        
+
+        $http.get("validarValorMinimo")
+          .success(function(data, status, headers, config) {
+
+               if ($scope.totalCanasta < parseFloat(data) && $scope.totalCanasta > 0) {          
+                  $scope.mensaje='Lo sentimos, el valor minimo para realizar la compra es de $'+data+'.';
+                  $('#modalValidarProducto').modal('show');
+                }
+                else if($scope.totalCanasta==0){
+                  $scope.mensaje='Por favor agregue los productos a la canasta.';
+                  $('#modalValidarProducto').modal('show');
+                }else{
+                  $location.path('/direcciones');
+                }  
+
+        });
+               
       }else{
         $location.path('/login');
       }

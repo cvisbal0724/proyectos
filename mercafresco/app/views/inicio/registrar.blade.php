@@ -79,7 +79,7 @@
                   <div class="col-md-12" ng-show='result.show'>
                     <div  class="alert alert-{{ result.alert }}" role="alert">
                     <button class="close" aria-hidden="true" ng-click='result.show=false' type="button">×</button>
-                    <strong>{{result.msg}} </strong>                     
+                    <strong>{{result.msg}} </strong>                                 
                     </div>
                   </div>
 
@@ -103,24 +103,26 @@
        <!--<ng-include src="'app/views/layouts/footer.html'"></ng-include>-->
       </div>
 
-<div class="modal fade" id="modalRegistrar">
+<div class="modal fade" id="modalRegistrar" data-keyboard="false" data-backdrop="static">
       <div class="modal-dialog">
         <div class="modal-content">
           <div class="modal-header">
-            <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+            <a ng-if='result2.openHome' class="close" ui-sref="login"><span aria-hidden="true">&times;</span></a> 
+            <button ng-if='!result2.openHome' type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
             <h4 class="modal-title">Cuenta</h4>
           </div>
           <div class="modal-body">
            
              <div class="alert alert-{{ result2.alert }}" role="alert">
                    
-                    <strong>{{ result2.msg }} </strong>
+                    <strong>{{ result2.msg }}</strong>
                                 
              </div>
 
           </div>
           <div class="modal-footer">
-            <button type="button" class="btn btn-default" data-dismiss="modal">Cerrar</button>
+            <a ng-if='result2.openHome' class="btn btn-default" ui-sref="login">Cerrar</a> 
+            <button ng-if='!result2.openHome' type="button" class="btn btn-default" data-dismiss="modal">Cerrar</button>             
           </div>
         </div>       
       </div>      

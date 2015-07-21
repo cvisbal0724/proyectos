@@ -274,6 +274,8 @@ public function ObtenerTodos(){
  	//agrega productos a la variable de session
 	public function AgregarCanasta(){
 
+		try {
+	
 
 		$superoCantidad=false;
 		$id_user=Cookie::get('id_user');
@@ -362,11 +364,16 @@ public function ObtenerTodos(){
 		}else{
 			return array('result'=>'success','data'=>$lista,'msg'=>'');
 		}
-
+		} catch (Exception $e) {
+			Excepciones::Crear($e,'ProductosProveedorController','AgregarCanasta');
+			return array('result'=>'success','data'=>'','msg'=>$e->getMessage());	
+		}
 	}
 
 	public function AgregarCantidadesDesdeCanasta(){
-
+		
+		try
+		{
 		$id_user=Cookie::get('id_user');
 		$id_producto_proveedor=Input::get('id_producto_proveedor');	
 		$cantidad=Input::get('cantidad');
@@ -410,6 +417,11 @@ public function ObtenerTodos(){
 		
 		
 		return array('result'=>'success','data'=>$lista);
+
+		} catch (Exception $e) {
+			Excepciones::Crear($e,'ProductosProveedorController','AgregarCantidadesDesdeCanasta');
+			return array('result'=>'success','data'=>'','msg'=>$e->getMessage());	
+		}
 
 	}
 
