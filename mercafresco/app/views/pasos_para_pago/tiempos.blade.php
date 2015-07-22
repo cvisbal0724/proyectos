@@ -1,3 +1,17 @@
+ <style type="text/css">
+
+.noselect {
+    -webkit-touch-callout: none;
+    -webkit-user-select: none;
+    -khtml-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+    color:white;
+}
+
+ </style>
+
  <div class="container">
       <div class="row">
       <div class="panel-body">
@@ -38,7 +52,7 @@
                     @foreach($item['horas'] as $key2=> $h)
                       <div class="radio radio-success" style='text-align:left;'>
                           <input type="radio" name="radio2" id="radio[[$key.''.$key2]]" [[$h["chequeado"]==true ? 'checked' : '' ]] value="option1" [[$h["mostrar"]!=true ? 'disabled' : ''  ]] ng-click='seleccionar_tiempo($event,e.id,"[[$h["hora"] ]]","[[$h["fecha"] ]]")'/>
-                          <label for="radio[[$key . '' . $key2]]" checked="[[$h['chequeado'] ]]" style='font-size:13px;'>[[ $h["mostrar"]!=true ? ' ' : $h['estimado'] ]]</label>
+                          <label for="radio[[$key . '' . $key2]]" checked="[[$h['chequeado'] ]]" style='font-size:13px;' class="[[$h["mostrar"]!=true ? 'noselect' : '']]">[[ $h['estimado'] ]]</label>
                       </div>   
                        @endforeach                   
                   </div>
