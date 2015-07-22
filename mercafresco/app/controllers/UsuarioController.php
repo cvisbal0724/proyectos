@@ -91,7 +91,7 @@ class UsuarioController extends BaseController {
 		} catch (Exception $e) {
 			
 			DB::rollback();
-			return $e;
+			return $e->getMessage();
 
 		}
 	
@@ -147,7 +147,7 @@ class UsuarioController extends BaseController {
 		} catch (Exception $e) {
 			
 			DB::rollback();
-			return $e;
+			return $e->getMessage();
 
 		}
 	
@@ -180,6 +180,7 @@ class UsuarioController extends BaseController {
 	 	$persona->CORTESIA=Input::get('cortesia');
 	 	$persona->CELULAR=Input::get('celular');
 	 	$persona->EMAIL=Input::get('correo');
+	 	$persona->TELEFONO=Input::get('telefono');
 	 	//$persona->FECHA_NACIMIENTO=Input::get('fecha_nacimiento');
 	 	$persona->save();
 

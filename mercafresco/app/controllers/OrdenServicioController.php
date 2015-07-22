@@ -228,7 +228,7 @@ public function Finalizar(){
 			'productos'=>$item->CantidadProductos(),
 			'domicilio'=>$item->VALOR_DOMICILIO,
 			'email'=>strtolower($usuario->persona->EMAIL),
-			'convenio'=>$item->Convenio(),
+			'convenio'=>(double)$item->Convenio(),
 			'descuentobono'=>(double)$item->DescuentoBono()
 			
 		);
@@ -364,7 +364,7 @@ public function ObtenerTodos(){
  				'descripcion'=>$hist->DESCRIPCION,
  				'producto'=>$hist->PRODUCTO,
  				'cantidad'=>$hist->CANTIDAD_COMPRADOS,
- 				'imagen'=>$this->rutaImagen . $hist->producto_proveedor->ARCHIVO_FOTO
+ 				'imagen'=> $hist->producto_proveedor==null ? null : $this->rutaImagen . $hist->producto_proveedor->ARCHIVO_FOTO
  			);
  		}
 
@@ -455,7 +455,7 @@ public function ObtenerTodos(){
  				'descripcion'=>$hist->DESCRIPCION,
  				'producto'=>$hist->PRODUCTO,
  				'cantidad'=>$hist->CANTIDAD_COMPRADOS,
- 				'imagen'=>$this->rutaImagen . $hist->producto_proveedor->ARCHIVO_FOTO
+ 				'imagen'=>$hist->producto_proveedor==null ? null : $this->rutaImagen . $hist->producto_proveedor->ARCHIVO_FOTO
  			);
  		}
 
@@ -498,13 +498,16 @@ public function ObtenerTodos(){
 
 			//dinner http://www.iteramos.com/pregunta/2263/como-se-puede-detectar-el-tipo-de-tarjeta-de-credito-basadas-en-el-numero
 			//PaymentMethods::VISA||PaymentMethods::MASTERCARD||PaymentMethods::AMEX||PaymentMethods::DINERS
-			if ($num >= 40 && $num < 50) {
+			
+			/*if ($num >= 40 && $num < 50) {
 				$tarjeta=PaymentMethods::VISA;
 			}elseif ($num >= 51 && $num <=55) {
 				$tarjeta=PaymentMethods::MASTERCARD;
 			}elseif ($num==3) {
 				$tarjeta=PaymentMethods::AMEX;
-			}
+			}*/
+			
+			$tarjeta=$this->getCreditCardType(Input::get('tarjeta'));
 
 			$parameters = array(
 			//Ingrese aquí el identificador de la cuenta.
@@ -589,6 +592,64 @@ public function ObtenerTodos(){
 		
 		return $response;
 			
+}
+
+function getCreditCardType($str, $format = 'string')
+    {
+        if (empty($str)) {
+            return false;
+        }
+
+        $matchingPatterns = [
+            'VISA' => '/^4[0-9]{12}(?:[0-9]{3})?$/',
+            'MASTERCARD' => '/^5[1-5][0-9]{14}$/',
+            'AMEX' => '/^3[47][0-9]{13}$/',
+            'DINERS' => '/^3(?:0[0-5]|[68][0-9])[0-9]{11}$/',
+            'discover' => '/^6(?:011|5[0-9]{2})[0-9]{12}$/',
+            'jcb' => '/^(?:2131|1800|35\d{3})\d{11}$/',
+            'any' => '/^(?:4[0-9]{12}(?:[0-9]{3})?|5[1-5][0-9]{14}|6(?:011|5[0-9][0-9])[0-9]{12}|3[47][0-9]{13}|3(?:0[0-5]|[68][0-9])[0-9]{11}|(?:2131|1800|35\d{3})\d{11})$/'
+        ];
+
+        $ctr = 1;
+        foreach ($matchingPatterns as $key=>$pattern) {
+            if (preg_match($pattern, $str)) {
+                return $format == 'string' ? $key : $ctr;
+            }
+            $ctr++;
+        }
+    }
+
+function cardType($number)
+{
+    $number=preg_replace('/[^\d]/','',$number);
+    if (preg_match('/^3[47][0-9]{13}$/',$number))
+    {
+        return PaymentMethods::AMEX;
+    }
+    elseif (preg_match('/^3(?:0[0-5]|[68][0-9])[0-9]{11}$/',$number))
+    {
+        return PaymentMethods::DINERS;;
+    }
+    elseif (preg_match('/^6(?:011|5[0-9][0-9])[0-9]{12}$/',$number))
+    {
+        return 'Discover';
+    }
+    elseif (preg_match('/^(?:2131|1800|35\d{3})\d{11}$/',$number))
+    {
+        return 'JCB';
+    }
+    elseif (preg_match('/^5[1-5][0-9]{14}$/',$number))
+    {
+        return PaymentMethods::MASTERCARD;
+    }
+    elseif (preg_match('/^4[0-9]{12}(?:[0-9]{3})?$/',$number))
+    {
+        return PaymentMethods::VISA;
+    }
+    else
+    {
+        return 'Unknown';
+    }
 }
 
 
@@ -785,7 +846,7 @@ public function RespuestaDelBanco(){
 	   		$item->ID_ESTADO_PAGO=3;
 	   		$item->save();	 
 	   		
-	   		Session::put('respuestabanco',array('ID'=>0,'msg'=>'Lo sentimos su transacción fue rechazada.'));
+	   		Session::put('respuestabanco',array('ID'=>0,'msg'=>'Su transacción no fue exitosa.'));
 	   		return Redirect::to(Request::root().'/#/respuesta-banco/'.Input::get('pseReference3').'/'.Session::get('nombre_pagador').
 	   			'/'.Session::get('id_banco').'/'. Session::get('telefono'));
 
@@ -796,7 +857,7 @@ public function RespuestaDelBanco(){
 			$item->RAZON_PENDIENTE=  '';
 	   		$item->ID_ESTADO_PAGO=4;
 	   		$item->save();	 
-	   		Session::put('respuestabanco',array('ID'=>0,'msg'=>'Lo sentimos ocurrio un error.'));
+	   		Session::put('respuestabanco',array('ID'=>0,'msg'=>'Ha ocurrio un error.'));
 	   		return Redirect::to(Request::root().'/#/respuesta-banco/'.Input::get('pseReference3').'/'.Session::get('nombre_pagador').
 	   			'/'.Session::get('id_banco').'/'. Session::get('telefono'));
 
@@ -1005,3 +1066,47 @@ authorizationCode=
 TX_ADMINISTRATIVE_FEE=.00
 TX_TAX_ADMINISTRATIVE_FEE=.00
 TX_TAX_ADMINISTRATIVE_FEE_RETURN_BASE=.00*/
+
+
+//http://mercafresco.com/mercafresco/public/ordenservicio/respuestadelbanco?merchantId=530880
+//merchant_name=Inversiones+y+Obras+S.A.S
+//merchant_address=Cra+73+no+82-93+Barranquilla
+//telephone=3014422246
+//merchant_url=http%3A%2F%2Fwww.mercafresco.co%2F
+//transactionState=7
+//lapTransactionState=PENDING
+//message=Pendiente
+//referenceCode=mercafresco_pago_00000381
+//reference_pol=95106526
+//transactionId=6899a0e0-e0ed-4970-9194-585733c837cd
+//description=Compras+de+productos+Mercafresco.
+//trazabilityCode=157493537
+//cus=157493537
+//orderLanguage=es
+//extra1=
+//extra2=
+//extra3=
+//polTransactionState=14
+//signature=6d385112596ff9c64c7a5692c5dae201
+//polResponseCode=25
+//lapResponseCode=PENDING_TRANSACTION_CONFIRMATION
+//risk=.00
+//polPaymentMethod=25
+//lapPaymentMethod=PSE
+//polPaymentMethodType=4
+//lapPaymentMethodType=PSE
+//installmentsNumber=1
+//TX_VALUE=45000.00
+//TX_TAX=6206.00
+//currency=COP
+//lng=es
+//pseCycle=-1
+//buyerEmail=carlosvisbal0724%40hotmail.es
+//pseBank=
+//pseReference1=186.83.38.153
+//pseReference2=CC
+//pseReference3=1044422259
+//authorizationCode=
+//TX_ADMINISTRATIVE_FEE=.00
+//TX_TAX_ADMINISTRATIVE_FEE=.00
+//TX_TAX_ADMINISTRATIVE_FEE_RETURN_BASE=.00

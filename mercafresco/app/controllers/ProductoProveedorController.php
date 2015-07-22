@@ -366,7 +366,7 @@ public function ObtenerTodos(){
 		}
 		} catch (Exception $e) {
 			Excepciones::Crear($e,'ProductosProveedorController','AgregarCanasta');
-			return array('result'=>'success','data'=>'','msg'=>$e->getMessage());	
+			return array('result'=>'danger','data'=>'','msg'=>$e->getMessage());	
 		}
 	}
 
@@ -420,7 +420,7 @@ public function ObtenerTodos(){
 
 		} catch (Exception $e) {
 			Excepciones::Crear($e,'ProductosProveedorController','AgregarCantidadesDesdeCanasta');
-			return array('result'=>'success','data'=>'','msg'=>$e->getMessage());	
+			return array('result'=>'danger','data'=>'','msg'=>$e->getMessage());	
 		}
 
 	}
@@ -428,8 +428,7 @@ public function ObtenerTodos(){
 	//Muestra los productos que estan en la session o en la 
 	//tabla temporal
 	public function CargarProductosAgregados(){
-		//Session::flush();
-
+		//Session::flush();		
 		$id_user=Cookie::get('id_user');
 		$lista = Session::get('productos');
 		if ($id_user==null && count($lista)>0) {
@@ -454,11 +453,11 @@ public function ObtenerTodos(){
 
 			return $listaProductos;
 		}
-		return array();
+		return array();		
 	}
 
 	public function RemoveProductoAgregado($id){
-
+		try{
 		$id_user=Cookie::get('id_user');
 		if ($id_user==null) {
 			$lista = Session::get('productos');
@@ -481,6 +480,10 @@ public function ObtenerTodos(){
 		}
 
 		return $lista;
+		} catch (Exception $e) {
+			Excepciones::Crear($e,'ProductosProveedorController','RemoveProductoAgregado');
+			return array();	
+		}
 	}
 
 	private function ObtenerTemporalCompra(){
@@ -497,7 +500,7 @@ public function ObtenerTodos(){
 	}
 
 	public function AgregarListaCompra(){
-
+		try{
 		$id_user=Cookie::get('id_user');
 		$lista=Input::get('lista');
 		
@@ -527,6 +530,10 @@ public function ObtenerTodos(){
 		}
 
 		return 'true';
+		} catch (Exception $e) {
+			Excepciones::Crear($e,'ProductosProveedorController','AgregarListaCompra');
+			return 'false';	
+		}
 	}
 
 	private function consulta(){

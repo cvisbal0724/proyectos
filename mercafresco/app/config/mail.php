@@ -28,8 +28,8 @@ return array(
 	|
 	*/
 
-	'host' => 'mail.mercafresco.co',	
-	
+	/*'host' => 'mail.mercafresco.co',*/	
+	'host' => 'smtp.gmail.com',
 	/*
 	|--------------------------------------------------------------------------
 	| SMTP Host Port
@@ -41,7 +41,8 @@ return array(
 	|
 	*/
 
-	'port' => 25,
+	/*'port' => 25,*/
+	'port' => 587,
 	
 	/*
 	|--------------------------------------------------------------------------
@@ -54,7 +55,8 @@ return array(
 	|
 	*/
 
-	'from' => array('address' => 'informacion@mercafresco.co', 'name' => 'Merca Fresco'),
+	/*'from' => array('address' => 'informacion@mercafresco.co', 'name' => 'Merca Fresco'),*/
+	'from' => array('address' => 'sistemamercafresco@gmail.com', 'name' => 'Merca Fresco'),
 
 	/*
 	|--------------------------------------------------------------------------
@@ -67,6 +69,7 @@ return array(
 	|
 	*/
 
+	/*'encryption' => 'tls',*/
 	'encryption' => 'tls',
 
 	/*
@@ -80,7 +83,8 @@ return array(
 	|
 	*/
 
-	'username' => 'informacion@mercafresco.co',
+	/*'username' => 'informacion@mercafresco.co',*/
+	'username' => 'sistemamercafresco@gmail.com',
 	
 	/*
 	|--------------------------------------------------------------------------
@@ -93,7 +97,8 @@ return array(
 	|
 	*/
 
-	'password' => '123123',
+	/*'password' => '123123',*/
+	'password' => 'Mercafresco2015!',
 	
 	/*
 	|--------------------------------------------------------------------------
