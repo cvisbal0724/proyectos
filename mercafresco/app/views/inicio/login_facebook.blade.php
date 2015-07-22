@@ -16,14 +16,13 @@
                   
                   <h4 class="text-warning btn-block">Datos de facebook</h4>
 
-                     <!--<div class="col-md-6">
+                     <div class="col-md-6">
                       <div class="form-group">
                         <label>Correo Electronico</label>
                         <input type="email" name="email" class="form-control" ng-model='cuenta.correo' placeholder="example@example.com" disabled="disabled">
-                        <p>(*) Ingrese su correo</p> 
-
+                        <p></p>
                       </div>
-                    </div>-->
+                    </div>
                   
                     <div class="col-md-12">
                       <div class="form-group">

@@ -138,7 +138,7 @@ public function Crear(){
 	   $respuesta=$this->PagoTarjetaCredito($item);
 	   if ($respuesta->transactionResponse->state=='DECLINED' || $respuesta->transactionResponse->state=='ERROR') {
 	   		DB::rollback();
-	   		return array('ID'=>0,'msg'=>'Lo sentimos su tarjeta fue rechazada por su entidad.');	
+	   		return array('ID'=>0,'msg'=>'Su transacción no fue exitosa.');	
 	   }elseif ($respuesta->transactionResponse->state=='APPROVED' || $respuesta->transactionResponse->state=='PENDING') {
 	   		$item->ID_TRANSACCION= $respuesta!=null ? $respuesta->transactionResponse->transactionId : DB::raw('NULL');
 			$item->ID_ORDEN_TRANSACCION= $respuesta!=null ? $respuesta->transactionResponse->orderId : DB::raw('NULL');
@@ -161,13 +161,15 @@ public function Crear(){
 	   	$item->ID_ESTADO_PAGO=5;
 	   	$item->save();	 
 	   	
-	   	DB::commit();	   	
-	   	Session::put('OrderServicio',$item);
+	   	DB::commit();
+
+	   	Cookie::queue('id_orden', $rs["ID"],1000);		   	
+	   	Session::put('OrdenServicio',$item);
 	   	Session::put('id_orden',$rs["ID"]);
 	 	Session::forget('id_direccion');
 	 	Session::forget('fecha');
 		Session::forget('hora');
-		
+
 		return array('ID'=>'url','msg'=>'','url'=>$respuesta->transactionResponse->extraParameters->BANK_URL);	
 			
 	}
@@ -605,9 +607,9 @@ function getCreditCardType($str, $format = 'string')
             'MASTERCARD' => '/^5[1-5][0-9]{14}$/',
             'AMEX' => '/^3[47][0-9]{13}$/',
             'DINERS' => '/^3(?:0[0-5]|[68][0-9])[0-9]{11}$/',
-            'discover' => '/^6(?:011|5[0-9]{2})[0-9]{12}$/',
-            'jcb' => '/^(?:2131|1800|35\d{3})\d{11}$/',
-            'any' => '/^(?:4[0-9]{12}(?:[0-9]{3})?|5[1-5][0-9]{14}|6(?:011|5[0-9][0-9])[0-9]{12}|3[47][0-9]{13}|3(?:0[0-5]|[68][0-9])[0-9]{11}|(?:2131|1800|35\d{3})\d{11})$/'
+            'DISCOVER' => '/^6(?:011|5[0-9]{2})[0-9]{12}$/',
+            'JCB' => '/^(?:2131|1800|35\d{3})\d{11}$/',
+            'ANY' => '/^(?:4[0-9]{12}(?:[0-9]{3})?|5[1-5][0-9]{14}|6(?:011|5[0-9][0-9])[0-9]{12}|3[47][0-9]{13}|3(?:0[0-5]|[68][0-9])[0-9]{11}|(?:2131|1800|35\d{3})\d{11})$/'
         ];
 
         $ctr = 1;
@@ -659,9 +661,9 @@ public function PagoTransferenciasBancarias($item){
 	 	$usuario=Usuario::find(Cookie::get('id_user'));
 	 	Session::put('usuario',$usuario);
 	}
-	Session::put('nombre_pagador',Input::get('nombre'));
-	Session::put('id_banco',Input::get('id_banco'));
-	Session::put('telefono',Input::get('telefono'));
+	Cookie::queue('nombre_pagador',Input::get('nombre'));
+	Cookie::queue('id_banco',Input::get('id_banco'));
+	Cookie::queue('telefono',Input::get('telefono'));
 	PayU::$isTest = false;
 	$usuario=Session::get('usuario');
 	$reference = "mercafresco_pago_" . substr('0000000'.$item->ID,-8);
@@ -834,10 +836,12 @@ public function RespuestaDelBanco(){
 	try {
 
 
-		$item=Session::get('OrderServicio');
-		Session::get('nombre_pagador');
-	    Session::get('id_banco');
-	    Session::get('telefono');
+		//$item=Session::get('OrdenServicio');
+		$id_orden=Cookie::get('id_orden');
+		$item=OrdenServicio::find($id_orden);
+		$nombre_pagador=Cookie::get('nombre_pagador');
+	    $id_banco=Cookie::get('id_banco');
+	    $telefono=Cookie::get('telefono');
 	   if (Input::get('polTransactionState')==6 && Input::get('polResponseCode')==4) {
 
 	   		$item->ID_TRANSACCION=Input::get('transactionId');			
@@ -847,8 +851,20 @@ public function RespuestaDelBanco(){
 	   		$item->save();	 
 	   		
 	   		Session::put('respuestabanco',array('ID'=>0,'msg'=>'Su transacción no fue exitosa.'));
-	   		return Redirect::to(Request::root().'/#/respuesta-banco/'.Input::get('pseReference3').'/'.Session::get('nombre_pagador').
-	   			'/'.Session::get('id_banco').'/'. Session::get('telefono'));
+	   		return Redirect::to(Request::root().'/#/respuesta-banco/'.Input::get('pseReference3').'/'.$nombre_pagador.
+	   			'/'.$id_banco.'/'. $telefono);
+
+	   }elseif (Input::get('polTransactionState')==14 && Input::get('polResponseCode')==25) {
+
+	   		$item->ID_TRANSACCION=Input::get('transactionId');			
+			$item->ESTADO_TRANSACCION= 'REJECTED';
+			$item->CODIGO_RESPUESTA= Input::get('lapResponseCode');			
+	   		$item->ID_ESTADO_PAGO=3;
+	   		$item->save();	 
+	   		
+	   		Session::put('respuestabanco',array('ID'=>0,'msg'=>'Su transacción no fue exitosa.'));
+	   		return Redirect::to(Request::root().'/#/respuesta-banco/'.Input::get('pseReference3').'/'.$nombre_pagador.
+	   			'/'.$id_banco.'/'. $telefono);
 
 	   }elseif (Input::get('polTransactionState')==6 && Input::get('polResponseCode')==5) {
 	   		$item->ID_TRANSACCION=Input::get('transactionId');			
@@ -858,8 +874,8 @@ public function RespuestaDelBanco(){
 	   		$item->ID_ESTADO_PAGO=4;
 	   		$item->save();	 
 	   		Session::put('respuestabanco',array('ID'=>0,'msg'=>'Ha ocurrio un error.'));
-	   		return Redirect::to(Request::root().'/#/respuesta-banco/'.Input::get('pseReference3').'/'.Session::get('nombre_pagador').
-	   			'/'.Session::get('id_banco').'/'. Session::get('telefono'));
+	   		return Redirect::to(Request::root().'/#/respuesta-banco/'.Input::get('pseReference3').'/'.$nombre_pagador.
+	   			'/'.$id_banco.'/'. $telefono);
 
 	   }elseif (Input::get('polTransactionState')==12 && Input::get('polResponseCode')==9994) {
 	   		$item->ID_TRANSACCION=Input::get('transactionId');
@@ -869,8 +885,8 @@ public function RespuestaDelBanco(){
 	   		$item->ID_ESTADO_PAGO=6;
 	   		$item->save();	 
 	   		Session::put('respuestabanco',array('ID'=>0,'msg'=>'Transacción pendiente, por favor revisar si el débito fue realizado en el banco.'));
-	   		return Redirect::to(Request::root().'/#/respuesta-banco/'.Input::get('pseReference3').'/'.Session::get('nombre_pagador').
-	   			'/'.Session::get('id_banco').'/'. Session::get('telefono'));
+	   		return Redirect::to(Request::root().'/#/respuesta-banco/'.Input::get('pseReference3').'/'.$nombre_pagador.
+	   			'/'.$id_banco.'/'. $telefono);
 
 	   }else if (Input::get('polTransactionState')==4 && Input::get('polResponseCode')==1) {
 
@@ -883,13 +899,20 @@ public function RespuestaDelBanco(){
 	   		$item->ID_ESTADO_PAGO=2;
 	   		$item->save();	
 	   		
+	   		$Horas = array(8  => '08 am - 10 am',
+			 10 => '10 am - 12 m',
+			 12 => '12 m - 02 pm',
+			 14 => '02 pm - 04 pm',
+			 16 => '04 pm - 06 pm');
+
 	   		$data=array(
 		 		'id'=>$item->ID,
 				'cliente'=>$usuario->persona->NOMBRES . ' ' . $usuario->persona->APELLIDOS,
 				'celular'=>$usuario->persona->CELULAR,
 				'telefono'=>$usuario->persona->TELEFONO,
 				'formapago'=>$item->tipometodopago->NOMBRE,
-				'fechapago'=>$item->PROG_FECHA,
+				'fecha_envio'=>$item->PROG_FECHA,
+				'hora_envio'=>$Horas[$item->PROG_HORA],
 				'barrio'=>$item->barriopersona->barrio->NOMBRE,
 				'direccion'=>$item->barriopersona->DIRECCION,
 				'recibe'=>$item->barriopersona->QUIEN_RECIBE,
@@ -903,15 +926,18 @@ public function RespuestaDelBanco(){
 	   		Mail::send('plantilla_correo/crear_pedido', $data, function($message){
 		 		$id_user=Cookie::get('id_user');
 				$usuario=Usuario::find($id_user);
-		 		$id_orden=Session::get('id_orden');
+		 		$id_orden=Cookie::get('id_orden');
 		 		$email=$usuario->persona->EMAIL;
 		 		$cliente=$usuario->persona->NOMBRES.' '.$usuario->persona->APELLIDOS;
 				$message->to($email, $cliente)->subject('Pedido No. '.$id_orden.' realizado correctamente');
 			});
 
 	   		DB::commit();
-	   		Session::forget('OrderServicio');
-
+	   		Session::forget('OrdenServicio');
+	   		Cookie::queue('id_orden', null);
+	   		Cookie::queue('nombre_pagador', null);
+			Cookie::queue('id_banco', null);
+			Cookie::queue('telefono', null);		
 	   		return Redirect::to(Request::root().'/#/finalizar');
 
 	   }
@@ -919,14 +945,14 @@ public function RespuestaDelBanco(){
 	   //return Input::get('transactionId');
 
 	} catch (Exception $e) {
-		return $e;
+		return $e->getMessage();
 	}
 }
 
 public function ReintertarPagoBancario(){
 	try {
 
-		$item=Session::get('OrderServicio');
+		$item=Session::get('OrdenServicio');
 
 		$this->PagoTransferenciasBancarias($item);
 
@@ -951,7 +977,7 @@ public function ReintertarPagoBancario(){
 		DB::beginTransaction();
 		try {
 			
-			$item=Session::get('OrderServicio');
+			$item=Session::get('OrdenServicio');
 			$historial=HistorialCompra::where('ID_ORDEN_SERVICIO','=',$item->ID)->get();
 			foreach ($historial as $key => $row) {
 				$producto_proveedor=ProductosProveedor::find($row->ID_PRODUCTO_PROVEEDOR);
@@ -984,7 +1010,7 @@ public function ReintertarPagoBancario(){
 
 			if (count($lista)>0) {
 				foreach ($lista as $key => $item) {
-					
+
 					$data=array(
 				 		'id'=>$rs["ID"],
 						'cliente'=>$usuario->persona->NOMBRES . ' ' . $usuario->persona->APELLIDOS,
@@ -992,6 +1018,7 @@ public function ReintertarPagoBancario(){
 						'telefono'=>$usuario->persona->TELEFONO,
 						'formapago'=>$item->tipometodopago->NOMBRE,
 						'fecha_envio'=>$item->PROG_FECHA,
+						'hora_envio'=>$Horas[$item->PROG_HORA],
 						'barrio'=>$item->barriopersona->barrio->NOMBRE,
 						'direccion'=>$item->barriopersona->DIRECCION,
 						'recibe'=>$item->barriopersona->QUIEN_RECIBE,
