@@ -57,15 +57,3 @@ confControllers.directive('autoFocus', function($timeout) {
     };
 });
 
-
-confControllers.directive('zoonImage', function() {
-     return {
-         // A = attribute, E = Element, C = Class and M = HTML Comment
-         restrict:'A',
-         link: function(scope, element, attrs) {
-           
-            $(element).imageLens({ lensSize: 200  });
-
-          }
-      }
- });   

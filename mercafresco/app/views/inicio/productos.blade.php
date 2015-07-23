@@ -113,7 +113,7 @@ ng-style="{height:idcategoria > 0 || (criterio!='' && criterio!=undefined) || (c
                         {{ buscarenJsonporid(producto.id,listaCanasta)[0].cantidad || 0 | setDecimal:2 }}                       
                         </div>
            
-            <img class="" src="{{producto.imagen}}" alt="Generic placeholder image" height="150px" zoon-image>
+            <img class="" src="{{producto.imagen}}" alt="Generic placeholder image" height="150px">
            
             <h2>{{ producto.productos_ofrecidos + ' ' + (producto.productos_ofrecidos <= 1 ? producto.unidad : producto.unidad+(producto.id_unidad==16 ? 'es' : 's')).toLowerCase().capitalizeFirstLetter() + ' de ' + producto.nombre.toLowerCase().capitalizeFirstLetter() }}</h2>
              

@@ -4,9 +4,11 @@
      <meta charset="utf-8">
      <meta http-equiv="X-UA-Compatible" content="IE=edge">
       <meta name="viewport" content="initial-scale=1.0, user-scalable=no" />
-      <meta name="description" content="">
+      <meta name="description" content="Tu supermercado Virtual en Barranquilla.
+          Pide en linea y te lo llevamos a tu puerta.
+          Compra con la mejor calidad, el mejor precio, el mejor servicio">
       <meta name="author" content="">
-      <link rel="shortcut icon" href="app_cliente/img/favicon.ico"/>
+      <link rel="shortcut icon" href="app_cliente/img/favicon32.ico"/>
      
       <title>Merca Fresco</title>
       
@@ -26,8 +28,7 @@
 
       </style>
   
-       [[ HTML::script('app_cliente/js/jquery.js') ]]
-       [[ HTML::script('app_cliente/js/jquery.imageLens.js') ]]
+       [[ HTML::script('app_cliente/js/jquery.js') ]]      
        [[ HTML::script('app_cliente/js/bootstrap.min.js') ]]
        [[ HTML::script('app_cliente/lib/angular/angular.min.js') ]]
        [[ HTML::script('app_cliente/lib/angular/angular-ui-router.min.js') ]]

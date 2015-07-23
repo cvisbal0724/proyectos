@@ -95,6 +95,7 @@ public function ObtenerTodos(){
  	$result=array();
 
  	$id_user=Cookie::get('id_user');
+	$cantidad=8;
 	
 	if ($id_user > 0) {
 		
@@ -113,7 +114,7 @@ public function ObtenerTodos(){
 	 		
 	 			$detalle=$this->consulta()
 		 		->where('categoria.id',$row->ID)		 		
-		 		->whereIn('barrio_proveedor.id_barrio',$vector)->groupBy('productos_proveedor.id')->take(10)->get();
+		 		->whereIn('barrio_proveedor.id_barrio',$vector)->groupBy('productos_proveedor.id')->take($cantidad)->get();
 		 		if (count($detalle)>0) {
 		 			$result[]=array(
 			 		 'id_categoria'=>$row->ID,		
@@ -130,7 +131,7 @@ public function ObtenerTodos(){
 		 		 'id_categoria'=>$row->ID,		
 		 		 'categoria'=>$row->NOMBRE,	
 		 		 'productos'=>$this->consulta()
-		 		->where('categoria.id',$row->ID)->take(10)->groupBy('productos_proveedor.id')->get());	
+		 		->where('categoria.id',$row->ID)->take($cantidad)->groupBy('productos_proveedor.id')->get());	
 	 	}
 	 }
 
@@ -143,7 +144,7 @@ public function ObtenerTodos(){
 		 		 'id_categoria'=>$row->ID,		
 		 		 'categoria'=>$row->NOMBRE,	
 		 		 'productos'=>$this->consulta()
-		 		->where('categoria.id',$row->ID)->take(10)->groupBy('productos_proveedor.id')->get());	
+		 		->where('categoria.id',$row->ID)->take($cantidad)->groupBy('productos_proveedor.id')->get());	
 	 	}
  	}
  	return $result;
