@@ -111,7 +111,7 @@
     <script src="app_cliente/bootstrap/js/bootstrap.min.js" type="text/javascript"></script>    
     <!-- Morris.js charts -->
     <script src="http://cdnjs.cloudflare.com/ajax/libs/raphael/2.1.0/raphael-min.js"></script>
-   
+     
     <!-- Sparkline -->
     <script src="app_cliente/plugins/sparkline/jquery.sparkline.min.js" type="text/javascript"></script>
     <!-- jvectormap -->

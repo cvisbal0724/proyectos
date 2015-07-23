@@ -90,7 +90,7 @@
                                              <br>
                                              Telefono: [[$telefono]]
                                               <br>
-                                              Sujerencia: [[$sujerencia]]  
+                                              Sugerencia: [[$sujerencia]]  
                                               <br>
                                               Comentario: [[$comentario]]     
                                              </font>
