@@ -1,4 +1,3 @@
-<!--<ng-include src="'layouts/header'"></ng-include>-->
 
 <header class="header-principal">
 
@@ -113,7 +112,9 @@ ng-style="{height:idcategoria > 0 || (criterio!='' && criterio!=undefined) || (c
                         <span class="glyphicon glyphicon-shopping-cart"></span>
                         {{ buscarenJsonporid(producto.id,listaCanasta)[0].cantidad || 0 | setDecimal:2 }}                       
                         </div>
-            <img class="" src="{{producto.imagen}}" alt="Generic placeholder image" height="150px">
+           
+            <img class="" src="{{producto.imagen}}" alt="Generic placeholder image" height="150px" zoon-image>
+           
             <h2>{{ producto.productos_ofrecidos + ' ' + (producto.productos_ofrecidos <= 1 ? producto.unidad : producto.unidad+(producto.id_unidad==16 ? 'es' : 's')).toLowerCase().capitalizeFirstLetter() + ' de ' + producto.nombre.toLowerCase().capitalizeFirstLetter() }}</h2>
              
             <p>{{ producto.descripcion }}</p>
@@ -146,3 +147,5 @@ ng-style="{height:idcategoria > 0 || (criterio!='' && criterio!=undefined) || (c
     });
 
     </script>
+
+  

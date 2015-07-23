@@ -55,7 +55,7 @@ return array(
 		'mysql' => array(
 			'driver'    => 'mysql',
 			'host'      => 'localhost',
-			'database'  => 'mercafresco',
+			'database'  => 'mercafresco3',
 			'username'  => 'root',
 			'password'  => '12345',
 			'charset'   => 'utf8',

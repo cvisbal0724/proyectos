@@ -11,7 +11,7 @@
       <title>Merca Fresco</title>
       
 
-      [[ HTML::style('app_cliente/css/sb-admin-2.css') ]]
+      [[ HTML::style('app_cliente/css/sb-admin-2.css') ]]      
       [[ HTML::style('app_cliente/css/fonts.css') ]]
       [[ HTML::style('app_cliente/css/bootstrap.min.css') ]]
       [[ HTML::style('app_cliente/css/carousel.css?v=2') ]]
@@ -27,13 +27,14 @@
       </style>
   
        [[ HTML::script('app_cliente/js/jquery.js') ]]
-       [[ HTML::script('app_cliente/js/jquery.js') ]]
+       [[ HTML::script('app_cliente/js/jquery.imageLens.js') ]]
        [[ HTML::script('app_cliente/js/bootstrap.min.js') ]]
        [[ HTML::script('app_cliente/lib/angular/angular.min.js') ]]
        [[ HTML::script('app_cliente/lib/angular/angular-ui-router.min.js') ]]
        [[ HTML::script('app_cliente/lib/angular/angular-route.min.js') ]]
        [[ HTML::script('app_cliente/lib/angular/angular-sanitize.min.js') ]]
        [[ HTML::script('app_cliente/controllers/app.js') ]]
+
 
       <!-- Menu Toggle Script -->
       
@@ -79,6 +80,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
       [[ HTML::script("app_cliente/controllers/MasInformacion.js") ]]  
       [[ HTML::script("app_cliente/controllers/Calificar.js") ]]  
       [[ HTML::script("app_cliente/funciones/capitalizeFirstLetter.js?v=1") ]]
+       [[ HTML::script("app_cliente/funciones/controles.js") ]]
 
 
    <div id='loading' loading-indicator>

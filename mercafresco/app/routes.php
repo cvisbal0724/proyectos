@@ -443,6 +443,8 @@ function getCreditCardType($str, $format = 'string')
         }
     }
 
+
+
 /*merchantId=530880
 merchant_name=Inversiones+y+Obras+S.A.S
 merchant_address=Cra+76+no+81a-15

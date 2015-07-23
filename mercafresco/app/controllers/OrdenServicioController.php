@@ -492,7 +492,7 @@ public function ObtenerTodos(){
 			$dir=BarrioPersona::find(Session::get('id_direccion'));
 			$direccion=$dir ? $dir->DIRECCION : '';
 
-			$reference = "mercafresco_pago_" . substr('0000000'.$item->ID,-8);
+			$reference = "pagos_mercafresco_" . substr('0000000'.$item->ID,-8);
 			$value = $item->Total() - ($item->Convenio() + $item->DescuentoBono());
 			$num=(int)substr(Input::get('tarjeta'), 0,2);
 			$tarjeta='';
@@ -666,7 +666,7 @@ public function PagoTransferenciasBancarias($item){
 	Cookie::queue('telefono',Input::get('telefono'));
 	PayU::$isTest = false;
 	$usuario=Session::get('usuario');
-	$reference = "mercafresco_pago_" . substr('0000000'.$item->ID,-8);
+	$reference = "pagos_mercafresco_" . substr('0000000'.$item->ID,-8);
 	$value = $item->Total() - ($item->Convenio() + $item->DescuentoBono());
 
 	$parameters = array(
