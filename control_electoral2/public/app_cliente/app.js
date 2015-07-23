@@ -210,14 +210,14 @@ App.config(function($urlRouterProvider, $stateProvider) {
           'nombre-proyecto':{templateUrl:'layouts/nombre_proyecto'}          
         }  
        })
-       .state('home.graficos', {
+       /*.state('home.graficos', {
         url: "/graficos",        
          views:{
-          'contenedor':{templateUrl: "graficos/graficos" /*, controller:'GraficosController'*/},
+          'contenedor':{templateUrl: "graficos/graficos" },
           'titulo':{template:'Consultar Votante'},
           'nombre-proyecto':{templateUrl:'layouts/nombre_proyecto'}
         }  
-       })
+       })*/
         .state('home.exportar_votantes', {
         url: "/exportar-votantes",        
          views:{
