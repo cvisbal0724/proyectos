@@ -6,7 +6,7 @@
            
            <h3 class="text-center btn-block">PEDIDO REALIZADO CORRECTAMENTE!!!</h3>
            <br>           
-           <h4 class="text-center btn-block">Te hemos enviado un email a {{ OrdenServicio.email }} Con los detalles de tu pedido</h4>
+           <h4 class="text-center btn-block">Podemos enviarte un correo a {{ OrdenServicio.email }} Con los detalles de tu pedido</h4>
            <br>
             <table class="table table-hover">
 
