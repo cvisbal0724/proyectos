@@ -26,4 +26,14 @@ confControllers.controller('FinalizarController', function ($scope,$http,$routeP
           }
       };
 
+
+      $scope.enviar_correo=function(){
+      	$http.post("ordenservicio/enviarcorreo",{})
+	      .success(function(data, status, headers, config) {
+	         if (data=='success') {
+	         	$scope.result={show:true,alert:'success',msg:'Se ha enviado el correo satisfactoriamente.'};
+	         };
+	      });
+      }
+
 });

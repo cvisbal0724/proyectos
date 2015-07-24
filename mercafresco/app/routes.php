@@ -277,6 +277,7 @@ Route::post('ordenservicio/obtenerporcodigo','OrdenServicioController@ObtenerPor
 
 /*Finalizar*/
 Route::post('ordenservicio/finalizar','OrdenServicioController@Finalizar');
+Route::post('ordenservicio/enviarcorreo','OrdenServicioController@EnviarCorreo');
 /*Fin Finalizar*/
 
 /*Calificanos*/

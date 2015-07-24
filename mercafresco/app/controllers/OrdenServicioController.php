@@ -107,7 +107,7 @@ public function Crear(){
  	
  	$item=OrdenServicio::find($rs["ID"]);
 	
-	$Horas = array(8  => '08 am - 10 am',
+	/*$Horas = array(8  => '08 am - 10 am',
 		 10 => '10 am - 12 m',
 		 12 => '12 m - 02 pm',
 		 14 => '02 pm - 04 pm',
@@ -129,7 +129,7 @@ public function Crear(){
 		'total'=>$item->Total(),
 		'convenio'=>(double)$item->Convenio(),
 		'descuentobono'=>(double)$item->DescuentoBono()
- 	);
+ 	);*/
 
     $respuesta=null;
 	
@@ -174,17 +174,18 @@ public function Crear(){
 			
 	}
 
- 	Mail::send('plantilla_correo/crear_pedido', $data, function($message){
+ 	/*Mail::send('plantilla_correo/crear_pedido', $data, function($message){
  		$usuario=Session::get('usuario');
  		$id_orden=Session::get('id_orden');
  		$email=$usuario->persona->EMAIL;
  		$cliente=$usuario->persona->NOMBRES.' '.$usuario->persona->APELLIDOS;
  		$message->bcc('contacto@mercafresco.co', $name = null);
 		$message->to($email, $cliente)->subject('Pedido No. '.$id_orden.' realizado correctamente');
-	});
+	});*/
 
 	DB::commit();
 
+	Cookie::queue('id_orden', $rs["ID"],1000);
  	Session::put('id_orden',$rs["ID"]);
  	Session::forget('id_direccion');
  	Session::forget('fecha');
@@ -891,7 +892,7 @@ public function RespuestaDelBanco(){
 	   }else if (Input::get('polTransactionState')==4 && Input::get('polResponseCode')==1) {
 
 	   		$id_user=Cookie::get('id_user');
-			$usuario=Usuario::find($id_user);
+			//$usuario=Usuario::find($id_user);
 	   		
 	   		$item->ID_TRANSACCION=Input::get('transactionId');
 			$item->ESTADO_TRANSACCION= 'APPROVED';
@@ -899,7 +900,66 @@ public function RespuestaDelBanco(){
 	   		$item->ID_ESTADO_PAGO=2;
 	   		$item->save();	
 	   		
-	   		$Horas = array(8  => '08 am - 10 am',
+	   		/*$Horas = array(8  => '08 am - 10 am',
+			 10 => '10 am - 12 m',
+			 12 => '12 m - 02 pm',
+			 14 => '02 pm - 04 pm',
+			 16 => '04 pm - 06 pm');
+
+	   		$data=array(
+		 		'id'=>$item->ID,
+				'cliente'=>$usuario->persona->NOMBRES . ' ' . $usuario->persona->APELLIDOS,
+				'celular'=>$usuario->persona->CELULAR,
+				'telefono'=>$usuario->persona->TELEFONO,
+				'formapago'=>$item->tipometodopago->NOMBRE,
+				'fecha_envio'=>$item->PROG_FECHA,
+				'hora_envio'=>$Horas[$item->PROG_HORA],
+				'barrio'=>$item->barriopersona->barrio->NOMBRE,
+				'direccion'=>$item->barriopersona->DIRECCION,
+				'recibe'=>$item->barriopersona->QUIEN_RECIBE,
+				'productos'=>$item->CantidadProductos(),
+				'domicilio'=>$item->VALOR_DOMICILIO,
+				'total'=>$item->Total(),
+				'convenio'=>(double)$item->Convenio(),
+				'descuentobono'=>(double)$item->DescuentoBono()
+		 	);
+
+	   		Mail::send('plantilla_correo/crear_pedido', $data, function($message){
+		 		$id_user=Cookie::get('id_user');
+				$usuario=Usuario::find($id_user);
+		 		$id_orden=Cookie::get('id_orden');
+		 		$email=$usuario->persona->EMAIL;
+		 		$cliente=$usuario->persona->NOMBRES.' '.$usuario->persona->APELLIDOS;
+				$message->to($email, $cliente)->subject('Pedido No. '.$id_orden.' realizado correctamente');
+			});*/
+
+	   		DB::commit();
+	   		Session::forget('OrdenServicio');
+	   		//Cookie::queue('id_orden', null);
+	   		Cookie::queue('nombre_pagador', null);
+			Cookie::queue('id_banco', null);
+			Cookie::queue('telefono', null);		
+	   		return Redirect::to(Request::root().'/#/finalizar');
+
+	   }
+
+	   //return Input::get('transactionId');
+
+	} catch (Exception $e) {
+		return $e->getMessage();
+	}
+}
+
+public function EnviarCorreo()
+{
+	try {
+			
+			$id_orden=Cookie::get('id_orden');			
+			$item=OrdenServicio::find($id_orden);
+			$id_user=Cookie::get('id_user');
+			$usuario=Usuario::find($id_user);
+
+			$Horas = array(8  => '08 am - 10 am',
 			 10 => '10 am - 12 m',
 			 12 => '12 m - 02 pm',
 			 14 => '02 pm - 04 pm',
@@ -932,20 +992,12 @@ public function RespuestaDelBanco(){
 				$message->to($email, $cliente)->subject('Pedido No. '.$id_orden.' realizado correctamente');
 			});
 
-	   		DB::commit();
-	   		Session::forget('OrdenServicio');
-	   		Cookie::queue('id_orden', null);
-	   		Cookie::queue('nombre_pagador', null);
-			Cookie::queue('id_banco', null);
-			Cookie::queue('telefono', null);		
-	   		return Redirect::to(Request::root().'/#/finalizar');
+			Cookie::queue('id_orden', null);
 
-	   }
-
-	   //return Input::get('transactionId');
+			return 'success';
 
 	} catch (Exception $e) {
-		return $e->getMessage();
+		return $e;
 	}
 }
 
@@ -1000,7 +1052,7 @@ public function ReintertarPagoBancario(){
 
 	}
 
-	public function EnviarCorreo(){
+	public function EnviarCorreoMasivo(){
 		DB::beginTransaction();
 		try {
 			

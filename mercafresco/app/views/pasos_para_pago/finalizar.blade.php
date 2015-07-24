@@ -89,13 +89,23 @@
             </tr> 
                  
             </table>   
-             <div class="col-md-12"> 
+             <div class="panel-body"> 
                <a ui-sref="productos" class="btn btn-primary btn-lg pull-left">Ir a Inicio</a>    
-                <a onclick="window.print();" class="btn btn-success btn-lg pull-right">
+                <a ng-click="enviar_correo()" class="btn btn-success btn-lg pull-right">
                 <!--<i class="fa fa-print fa-5x"></i>-->
-                Imprimir
+                Enviar al correo
                 </a>  
-             </div>
+
+              </div>
+             
+               <div class="panel-body" ng-show='result.show'>
+                 <div class="alert alert-{{ result.alert }}" role="alert">
+                 <button class="close" aria-hidden="true" ng-click='result.show=false' type="button">×</button>
+                 <strong>{{result.msg}} </strong>                 
+                 </div>
+              </div>
+           
+
 
          </div>
 
