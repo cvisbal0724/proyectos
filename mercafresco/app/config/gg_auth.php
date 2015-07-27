@@ -39,8 +39,8 @@ return array(
       "providers" => array (
         "Google" => array (
           "enabled" => true,
-          "keys"    => array ( "id" => "1078465214054-evshfhfbsaesp41de56dtjo9eh8hf98p.apps.googleusercontent.com", 
-            "secret" => "o7vE37oxXu6VBrvDcvpncIH2" ),
+          "keys"    => array ( "id" => "849987742888-85lf4lmfb9d0m60v4sfldvl8baatc4df.apps.googleusercontent.com", 
+            "secret" => "EsmWpS76o67Kf30DpNv2T6In" ),
           "scope"           => "https://www.googleapis.com/auth/userinfo.profile ". // optional
                                "https://www.googleapis.com/auth/userinfo.email"   , // optional
           "access_type"     => "offline",   // optional
