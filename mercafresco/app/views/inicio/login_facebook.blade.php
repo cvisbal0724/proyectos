@@ -16,7 +16,7 @@
                   
                   <h4 class="text-warning btn-block">Datos de facebook</h4>
 
-                     <div class="col-md-6">
+                     <div class="col-md-12">
                       <div class="form-group">
                         <label>Correo Electronico</label>
                         <input type="email" name="email" class="form-control" ng-model='cuenta.correo' placeholder="example@example.com" disabled="disabled">
@@ -85,7 +85,7 @@
         
           <div class="modal-footer">
            <button type="button" class="btn btn-default" ng-click='desloguear_facebook()'>Cerrar</button>
-            <button type="button" class="btn btn-default btn-primary" ng-click='crearcuenta_con_facebook()'>Continuar</button>
+            <button type="button" class="btn btn-default btn-primary" ng-click='crearcuenta_con_facebook_o_google()'>Continuar</button>
           </div>
         </div>       
       </div>      

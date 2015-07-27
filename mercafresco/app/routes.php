@@ -32,6 +32,10 @@ Route::get('inicio/login_facebook', function()
 {  
 	return View::make('inicio/login_facebook');	
 });
+Route::get('inicio/login_google', function()
+{  
+	return View::make('inicio/login_google');	
+});
 Route::get('inicio/productos', function()
 {  
 	return View::make('inicio/productos');	
@@ -214,7 +218,12 @@ Route::post('login/logoutporcookie','AutenticacionController@LogoutPorCookie');
 Route::get('login/loguearporfacebook/{auth?}','AutenticacionController@LoguearPorFacebook');
 Route::get('login/desloguearporfacebook','AutenticacionController@DesloguearPorFacebook');
 Route::post('login/obtenerdatosfacebook','AutenticacionController@ObtenerDatosFacebook');
+
 Route::get('login/loguearporgoogle/{auth?}','AutenticacionController@LoguearPorGoogle');
+Route::get('login/desloguearporgoogle','AutenticacionController@DesloguearPorGoogle');
+Route::post('login/obtenerdatosgoogle','AutenticacionController@ObtenerDatosGoogle');
+
+//Route::get('login/callback','AutenticacionController@callback');
 
 Route::post('usuario/obtenertodos','UsuarioController@ObtenerTodos');
 Route::post('usuario/obtenercuenta','UsuarioController@ObtenerCuenta');
@@ -222,6 +231,7 @@ Route::post('usuario/obtenertipoidentificacion','UsuarioController@ObtenerTipoId
 Route::post('usuario/modificar','UsuarioController@Modificar');
 Route::post('usuario/crear','UsuarioController@Crear');
 Route::post('usuario/crearconfacebook','UsuarioController@CrearConFaceBook');
+Route::post('usuario/crearcongoogle','UsuarioController@CrearConGoogle');
 Route::post('usuario/activar','UsuarioController@ActivarCuenta');//->where('slashData', '(.*)');
 Route::get('usuario/recuperarclave/{correo}','UsuarioController@RecuperarClave');
 Route::post('usuario/cambiarclave','UsuarioController@CambiarClave');

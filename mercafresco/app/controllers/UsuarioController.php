@@ -153,7 +153,63 @@ class UsuarioController extends BaseController {
 	
 	 
 	 }
+
+	  public function CrearConGoogle(){
+
+		DB::beginTransaction();
+
+		try {
+						
+			$per=Persona::create(array(  
+				"NO_IDENTIFICACION"=>Input::get("no_identificacion"),
+				"CORTESIA"=>1,//Input::get("cortesia"),
+				"NOMBRES"=>Input::get("nombres"),
+				"APELLIDOS"=>'',//Input::get("apellidos"),
+				"TELEFONO"=>Input::get("telefono"),
+				"CELULAR"=>Input::get("celular"),
+				"EMAIL"=>Input::get("correo"),
+				"ID_MUNICIPIO"=>1,
+				//"FECHA_NACIMIENTO"=>date('Y-m-d',strtotime(Input::get("fecha_nacimiento"))),
+				"ID_TIPO_IDENTIFICACION"=>1,//Input::get("id_tipo_identificacion"),
+				"FECHA_REGISTRO"=>DB::raw("NOW()")		
+			));	
+
+			/*MetodoPagoPersona::create(array(
+				'ID_TIPO_METODO_PAGO'=>1,
+				'ID_PERSONA'=>$per['ID'],
+				'FECHA_CREACION'=>DB::raw('NOW()'),
+				'ESTADO'=>1
+			));*/
+
+			
+			 $usu=Usuario::create(array(
+			  
+				"USUARIO"=>Input::get("correo"),	
+				"ESTADO"=>0,				
+				"ID_PERSONA"=>$per['ID'],
+				"ID_PERFIL"=>3,
+				"FECHA_CREACION"=>DB::raw('NOW()'),			
+			 ));
+
+			 $pwd=md5(Input::get('no_identificacion'));
+			 $usuario=Usuario::find($usu['ID']);
+			 $usuario->CLAVE=$pwd;
+			 $usuario->save();
+					
+	 		 DB::commit();
+
+			 return $usu["ID"];
+
+		} catch (Exception $e) {
+			
+			DB::rollback();
+			return $e->getMessage();
+
+		}
+	
 	 
+	 }
+
 	public function Modificar(){
 	 
 	 	$id=Input::get("id");

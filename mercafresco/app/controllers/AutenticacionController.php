@@ -132,6 +132,7 @@ class AutenticacionController extends BaseController {
 		Session::flush();
 		Cookie::queue('id_user', null);
 		$this->DesloguearPorFacebook();
+		$this->DesloguearPorGoogle();
 		return 'success';
 
 	}
@@ -204,62 +205,63 @@ class AutenticacionController extends BaseController {
 
 
 	public function LoguearPorGoogle($auth=NULL){
-
-		/*if ($auth=='auth') {
-			try {
-				Hybrid_Endpoint::process();
-			} catch (Exception $e) {
-				return Redirect::to(Request::root().'/#/login-facebook');
-			}
-
-			return;
-		}
-
-		$oauth=new Hybrid_Auth(app_path().'/config/gg_auth.php');
-		$provider=$oauth->authenticate('Google');
-		$profile=$provider->getUserProfile();	
-		dd($profile);	*/	
-		//Session::put('facebook',$profile);
-
-			/*$hybridauth=new Hybrid_Auth(app_path().'/config/gg_auth.php');
-
-			if (!$hybridauth->isConnectedWith('Google')) {
-			    $adapter = $hybridauth->authenticate('Google');
-			}
-			else {
-			    $adapter = $hybridauth->getAdapter('Google');
-			}
-
-			$profile = $adapter->getUserProfile();*/
-
+		
 		 if ($auth=='auth')
-        {
+         {
             try
             {
                 Hybrid_Endpoint::process();
             }
             catch (Exception $e)
             {
-                // redirect back to http://URL/connect/
-                return Redirect::route('hybridauth')->with('auth', $auth);
+            	return Redirect::to(Request::root().'/#/login-google');                
             }
             return;
-        }
+         }
 
-        try
-        {
-            $socialAuth = new Hybrid_Auth(app_path() . '/config/gg_auth.php');
-            $haProvider = $socialAuth->authenticate($auth);
-            return 'test';
-            $userProfile = $haProvider->getUserProfile();
-        }
-        catch(Exception $e)
-        {
-            // exception codes can be found on HybBridAuth's web site
-            return $e->getMessage();
-        }
+         $oauth = new Hybrid_Auth(app_path() . '/config/gg_auth.php');
+         $haProvider = $oauth->authenticate('Google');         
+         $profile = $haProvider->getUserProfile();
+         Session::put('google',$profile);
+          
+		 return Redirect::to(Request::root().'/#/login-google');
 
-        return $userProfile;
+       
+	}
+
+	public function DesloguearPorGoogle(){
+
+		Session::forget('Google');
+		$fauth=new Hybrid_Auth(app_path().'/config/gg_auth.php');
+		$fauth->logoutAllProviders();
+		//return 'deslogueado';
+	
+	}
+
+	public function ObtenerDatosGoogle(){
+
+		$google=Session::get('google');
+
+		$user=Usuario::where('USUARIO',$google->email)->first();
+
+		if ($user!=null) {
+			$credenciales=array(
+			'USUARIO'=>$google->email		
+			);
+			return array('login'=>true,'data'=>$this->CrearSession($credenciales));	
+		}else{
+
+			$datos=array(
+				'correo'=>$google->email,
+				'no_identificacion'=>'',
+				'nombres'=>$google->firstName,
+				'apellidos'=>$google->lastName,
+				'telefono'=>$google->phone,
+				'celular'=>''
+			);
+
+			return array('login'=>false,'data'=>$datos);
+		}		
 
 	}
 

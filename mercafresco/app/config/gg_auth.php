@@ -30,7 +30,7 @@
 */
 
 //http://mercafresco.com/login/loguearporgoogle/auth
-//http://mercafresco.com/login/loguearporgoogle
+//http://mercafresco.com/login/logueaNo provider ID specified.rporgoogle
 //http://mercafresco.com/
 //http://mercafresco.com/login/loguearporgoogle/auth?hauth.done=Google
 

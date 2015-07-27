@@ -185,7 +185,56 @@ confControllers.controller('CuentaController', function ($scope,$http,$routePara
 
      }   
 
-    
+$scope.cargar_datos_google=function(){
+		
+		$http.post("login/obtenerdatosgoogle",{})
+      		.success(function(data, status, headers, config) {
+      			if (data.login===true) {
+      				SessionSet.cacheSession(data.data);
+      				$state.go("productos");
+      			}else{
+      				$scope.cuenta=data.data; 
+      				$('#modalRegistrarGoogle').modal('show');
+      			}         
+        });
+     	
+	}
+  
+  
+
+     $scope.desloguear_google=function(){
+
+     	 $http.get("login/desloguearporgoogle")
+          .success(function(data, status, headers, config) {
+          
+           	$state.go('productos');
+
+        });
+
+     }   
+
+     $scope.crearcuenta_con_google=function(){
+
+    if ($scope.cuenta.correo=='') { $scope.result={alert:'warning',msg:'Por favor ingrese su correo.',show:true}; return false; };
+    if ($scope.cuenta.no_identificacion=='') { $scope.result={alert:'warning',msg:'Por favor ingrese el numero de identificación.',show:true}; return false; };
+    if ($scope.cuenta.nombres=='') { $scope.result={alert:'warning',msg:'Por favor ingrese sus nombres.',show:true}; return false; };
+    //if ($scope.cuenta.apellidos=='') { $scope.result={alert:'warning',msg:'Por favor ingrese sus apellidos.',show:true}; return false; };       
+   if ($scope.cuenta.telefono=='') { $scope.result={alert:'warning',msg:'Por favor ingrese un telefono.',show:true}; return false; };       
+
+    $http.post("usuario/crearcongoogle",$scope.cuenta)
+          .success(function(data, status, headers, config) {
+
+            if (data > 0) {
+            	$scope.cargar_datos_google();
+              //$scope.result2={alert:'success',msg:'Su cuenta ha sido creada satisfactoriamente, se le ha enviado un correo de confirmación.',show:true};
+            }else{
+              $scope.result2={alert:'danger',msg:data,show:true};
+            }   
+
+        });
+
+     }
+
      $scope.cambiar_clave=function(){
 
      	if ($scope.cuenta.clave.length < 6) {$scope.result={alert:'warning',msg:'La clave debe tener minimo 6 caracteres.',show:true}; return false;};

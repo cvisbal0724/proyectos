@@ -11,7 +11,7 @@
                         <form role="form">
                             <fieldset>
                                 <a href='login/loguearporfacebook' class="btn btn-lg btn-primary btn-block"><span class="fa fa-facebook-square"></span> Ingresar con Facebook</a>
-                                <!--<a href="login/loguearporgoogle" class="btn btn-lg btn-danger btn-block"><span class="fa  fa-google"></span>       Ingresar con Google</a>-->
+                                <a href="login/loguearporgoogle" class="btn btn-lg btn-danger btn-block"><span class="fa  fa-google"></span>       Ingresar con Google</a>
                                 <p class="text-center btn-block">O si estás registrado</p>
                                 <div class="form-group">
                                     <input class="form-control" placeholder="Correo Electrónico" name="username" type="text" autofocus ng-model='loginData.usuario' ng-keyup="$event.keyCode == 13 && loginSubmit()">

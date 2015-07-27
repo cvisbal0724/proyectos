@@ -57,6 +57,13 @@ App.config(function($urlRouterProvider, $stateProvider) {
                  "header": { templateUrl: "layouts/headervistas"}
                  }           
               })
+      .state('login_google', {
+                url: "/login-google",
+                views: {
+                 "contenedor": {  templateUrl: 'inicio/login_google' , controller:'CuentaController'},
+                 "header": { templateUrl: "layouts/headervistas"}
+                 }           
+              })
      .state('direcciones', {
                 url: "/direcciones",
                 views: {
