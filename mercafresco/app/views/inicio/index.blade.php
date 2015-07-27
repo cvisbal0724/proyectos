@@ -67,21 +67,21 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
 
 <ui-view name='contenedor'></ui-view>
 
-      [[ HTML::script("app_cliente/controllers/ProductoProveedor.js?v=1?v=1") ]] 
-      [[ HTML::script("app_cliente/controllers/Categoria.js?v=1") ]]       
-      [[ HTML::script("app_cliente/controllers/Configuraciones.js?v=1") ]]     
-      [[ HTML::script("app_cliente/controllers/Login.js?v=1") ]] 
-      [[ HTML::script("app_cliente/controllers/Direcciones.js?v=1") ]]    
-      [[ HTML::script("app_cliente/controllers/Tiempos.js?v=1") ]]         
-      [[ HTML::script("app_cliente/controllers/OrdenServicio.js?v=1") ]] 
-      [[ HTML::script("app_cliente/controllers/Finalizar.js?v=1") ]]  
-      [[ HTML::script("app_cliente/controllers/Cuenta.js?v=1") ]]  
-      [[ HTML::script("app_cliente/controllers/Historial.js?v=1") ]]  
-      [[ HTML::script("app_cliente/controllers/ActivarCuenta.js?v=2") ]]  
-      [[ HTML::script("app_cliente/controllers/MasInformacion.js") ]]  
-      [[ HTML::script("app_cliente/controllers/Calificar.js") ]]  
-      [[ HTML::script("app_cliente/funciones/capitalizeFirstLetter.js?v=1") ]]
-       [[ HTML::script("app_cliente/funciones/controles.js") ]]
+      [[ HTML::script("app_cliente/controllers/ProductoProveedor.js?v=2") ]] 
+      [[ HTML::script("app_cliente/controllers/Categoria.js?v=2") ]]       
+      [[ HTML::script("app_cliente/controllers/Configuraciones.js?v=2") ]]     
+      [[ HTML::script("app_cliente/controllers/Login.js?v=2") ]] 
+      [[ HTML::script("app_cliente/controllers/Direcciones.js?v=2") ]]    
+      [[ HTML::script("app_cliente/controllers/Tiempos.js?v=2") ]]         
+      [[ HTML::script("app_cliente/controllers/OrdenServicio.js?v=2") ]] 
+      [[ HTML::script("app_cliente/controllers/Finalizar.js?v=2") ]]  
+      [[ HTML::script("app_cliente/controllers/Cuenta.js?v=2") ]]  
+      [[ HTML::script("app_cliente/controllers/Historial.js?v=2") ]]  
+      [[ HTML::script("app_cliente/controllers/ActivarCuenta.js?v=3") ]]  
+      [[ HTML::script("app_cliente/controllers/MasInformacion.js?v=2") ]]  
+      [[ HTML::script("app_cliente/controllers/Calificar.js?v=2") ]]  
+      [[ HTML::script("app_cliente/funciones/capitalizeFirstLetter.js?v=2") ]]
+      [[ HTML::script("app_cliente/funciones/controles.js?v=2") ]]
 
 
    <div id='loading' loading-indicator>
