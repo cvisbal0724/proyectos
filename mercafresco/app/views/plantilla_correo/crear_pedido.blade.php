@@ -171,7 +171,7 @@
                                                                               <a style="padding:0;margin:0 auto!important; text-decoration:none;" href="https://www.facebook.com/profile.php?id=100009547577750" target="_blank">
                                                                               <img width="27" border="0" style="width:27px;min-height:24px" alt="facebook" src="[[asset('app_cliente/img_email/icon-facebook2.png')]]" class="CToWUd">
                                                                               </a>
-                                                                              <a style="padding:0;margin:0 auto!important;text-decoration:none;" href="https://instagram.com/mercafresco.co/" target="_blank">
+                                                                              <a style="padding:0;margin:0 auto!important;text-decoration:none;" href="https://instagram.com/mercafresco/" target="_blank">
                                                                               <img width="27" border="0" style="width:27px;min-height:24px" alt="twitter" src="[[ asset('app_cliente/img_email/icon-instagram2.png')]]" class="CToWUd">
                                                                               </a>
                                                                               <a style="padding:0;margin:0 auto!important;text-decoration:none;" href="mailto:contacto@mercafresco.co" target="_blank">

@@ -1,2 +1,10 @@
-User-agent: *
-Disallow:
+User-Agent: *
+Disallow: 
+Disallow: /#/cuenta
+Disallow: /#/historial
+Disallow: /#/mis-direcciones
+Disallow: /#/direcciones
+Disallow: /#/tiempos
+Disallow: /#/metodos-de-pago/contra-entrega
+Disallow: /#/metodos-de-pago/terjeta-de-credito
+Disallow: /#/metodos-de-pago/pse

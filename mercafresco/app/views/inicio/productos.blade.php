@@ -42,7 +42,7 @@ ng-style="{height:idcategoria > 0 || (criterio!='' && criterio!=undefined) || (c
                         </div>
                         <a href="" data-toggle="modal" ng-click='modalProducto(obj)' class="clearfix">
                            <div class="item-image"> 
-                              <img class="" src="{{obj.imagen}}" alt="Generic placeholder image" >
+                              <img class="" src="{{obj.imagen}}" alt="{{obj.descripcion}}" title="{{obj.descripcion}}">
                            </div>
                         </a>   
                         <div class="item-caption">

@@ -115,22 +115,22 @@
                 <table class="table table-bordered table-striped">
                   <thead>
                   <tr>
-                    <th class="hidden-xs">Orden No.</th>
-                    <th class="hidden-xs">Fecha Entrega</th>
+                    
+                    
                     <th>Producto</th>
-                    <th class="hidden-xs">Unidades</th>
-                    <th class="hidden-xs">Proveedor</th>
+                    <th>Unidades</th>
+                    <!--<th class="hidden-xs">Proveedor</th>-->
                     <th>Cantidad</th>
                     <th>Valor</th>                    
                   </tr>                    
                   </thead>  
                   <tbody>
                     <tr ng-repeat="item in ordenServicio.detalle">                      
-                     <td class="hidden-xs">{{item.id_orden_servicio}}</td>
-                     <td class="hidden-xs">{{item.fecha}}</td>
+                     
+                     
                      <td>{{item.producto}}</td>
-                     <td class="hidden-xs">{{item.unidades}}</td>
-                     <td class="hidden-xs">{{item.proveedor}}</td>
+                     <td>{{item.unidades}}</td>
+                     <!--<td class="hidden-xs">{{item.proveedor}}</td>-->
                      <td style="text-align:center;">{{item.cantidad}}</td>
                      <td>{{item.valor | currency:'$':0}}</td>
                      <!--<td>total</td>
@@ -140,28 +140,28 @@
                   </tbody> 
                   <tfoot>
                     <tr>
-                      <td colspan="6" class="hidden-xs resaltar alinear-derecha">Sub Total</td>
-                      <td colspan="2" class="visible-xs resaltar alinear-derecha">Sub Total</td>                      
+                      <td colspan="4" class="resaltar alinear-derecha">Sub Total</td>
+                      <!--<td colspan="2" class="visible-xs resaltar alinear-derecha">Sub Total</td>-->
                       <td class="resaltar">{{ ordenServicio.total | currency:'$':0}}</td>
                     </tr>
                     <tr>
-                       <td colspan="6" class="hidden-xs resaltar alinear-derecha">Valor del domicilio</td>
-                      <td colspan="2" class="visible-xs resaltar alinear-derecha">Valor del domicilio</td>                      
+                       <td colspan="4" class="resaltar alinear-derecha">Valor del domicilio</td>
+                      <!--<td colspan="2" class="visible-xs resaltar alinear-derecha">Valor del domicilio</td>-->
                       <td class="resaltar">{{ordenServicio.domicilio | currency:'$':0}}</td>
                     </tr>
                     <tr ng-if="ordenServicio.convenio > 0">
-                       <td colspan="6" class="hidden-xs resaltar alinear-derecha">Descuento por convenio</td>
-                      <td colspan="2" class="visible-xs resaltar alinear-derecha">Descuento por convenio</td>                     
+                       <td colspan="4" class="resaltar alinear-derecha">Descuento por convenio</td>
+                      <!--<td colspan="2" class="visible-xs resaltar alinear-derecha">Descuento por convenio</td>-->
                       <td class="resaltar">{{ordenServicio.convenio | currency:'$':0}}</td>
                     </tr>
                     <tr ng-if="ordenServicio.descuentobono > 0">
-                       <td colspan="6" class="hidden-xs resaltar alinear-derecha">Descuento por cupon</td>
-                      <td colspan="2" class="visible-xs resaltar alinear-derecha">Descuento por cupon</td>                      
+                       <td colspan="4" class="resaltar alinear-derecha">Descuento por cupon</td>
+                      <!--<td colspan="2" class="visible-xs resaltar alinear-derecha">Descuento por cupon</td>-->
                       <td class="resaltar">{{ordenServicio.descuentobono | currency:'$':0}}</td>
                     </tr>
                      <tr>
-                       <td colspan="6" class="hidden-xs resaltar alinear-derecha">Valor pagado</td>
-                      <td colspan="2" class="visible-xs resaltar alinear-derecha">Valor pagado</td>
+                       <td colspan="4" class="resaltar alinear-derecha">Valor pagado</td>
+                      <!--<td colspan="2" class="visible-xs resaltar alinear-derecha">Valor pagado</td>-->
                       <td class="resaltar">{{(ordenServicio.convenio + ordenServicio.total) - (ordenServicio.convenio + ordenServicio.descuentobono) | currency:'$':0}}</td>
                     </tr>
                   </tfoot>               
