@@ -1,4 +1,10 @@
+<style type="text/css">
+  
+  body{
+    background-color: #d2d6de;
+  }
 
+</style>
 
  <div class="login-box">
       <div class="login-logo">

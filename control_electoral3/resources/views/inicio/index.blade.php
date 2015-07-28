@@ -92,7 +92,7 @@
 
 </head>
 
-<body class="login-page">
+<body class="skin-blue sidebar-mini">
 
    <ui-view></ui-view>
 
