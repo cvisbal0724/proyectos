@@ -5,11 +5,11 @@
                      </h4>
 
                      @if(count($concejales)>0)
-                     <div class="row mtbox">
-                            <div class="panel-body">
+                     <div class="row">
+                           
                       @foreach($concejales as $key=>$item)
                               
-                              <div class="col-md-2 col-sm-2 box0">
+                              <!--<div class="col-md-2 col-sm-2 box0">
                                     <div class="box1">
                                        @if($item->foto!='')
                                        <div class="thumb">
@@ -23,8 +23,24 @@
                                        <h6>Concejal, [[$item->concejal]]</h6>
                                     </div>
                                    <p>Cantidad de votos</p>
-                              </div>
-                              
+                              </div>-->
+
+                                <div class="col-lg-3 col-xs-6">
+                                  <!-- small box -->
+                                  <div class="small-box bg-yellow">
+                                    <div class="inner">
+                                      <h3>[[$item->votos]]</h3>
+                                      <p>Concejal, [[$item->concejal]]</p>
+                                    </div>
+                                    <div class="icon">
+                                      
+                                      <i class="ion ion-person-add"></i>
+                                     
+                                    </div>
+                                    <a href="#" class="small-box-footer">More info <i class="fa fa-arrow-circle-right"></i></a>
+                                  </div>
+                                </div><!-- ./col -->
+                                                  
                               @endforeach
                               </div>
                      </div>
@@ -58,4 +74,4 @@
                   	</div><!-- /row mt -->	
                       @endif
                         </div>
-                      </div>  
+                   
