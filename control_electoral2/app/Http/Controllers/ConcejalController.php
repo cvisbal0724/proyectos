@@ -13,6 +13,7 @@ use Intervention\Image\ImageManagerStatic as Image;
 use Input;
 use Cookie;
 use App\models\Usuarios;
+use App\models\ConcejalEntregado;
 
 class ConcejalController extends Controller {
 
@@ -156,6 +157,22 @@ public function ConsultarPorCodigo($id){
 	return $concejal;
 }
 
+public function RegistrarEntregas(){
+	try {
+		
+		$rs=ConcejalEntregado::create(array(
+			'id_concejal'=>Input::get('id_concejal'),
+			'id_usuario'=>Cookie::get('id_usuario'),
+			'observacion'=>Input::get('observacion'),
+			'valor'=>Input::get('valor')
+		));
 
+		return $rs['id'] > 0 ? array('show'=>true,'alert'=>'success','msg'=>'Se registro ha satisfactoriamente el valor entregado.') :
+					array('show'=>true,'alert'=>'warning','msg'=>'Hubo un error al guardar.');
+
+	} catch (Exception $e) {
+		
+	}
+}
 
 }

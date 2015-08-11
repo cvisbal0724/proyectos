@@ -219,9 +219,17 @@ App.config(function($urlRouterProvider, $stateProvider) {
         }  
        })
        .state('home.concejal_entregado', {
-        url: "/registrar-entrega/:id",        
+        url: "/registrar-concejal-entrega/:id",        
         views:{
           'contenedor':{templateUrl: "concejal/concejal_entregado",controller: 'ConcejalController'},
+          'titulo':{template:'Registrar entrega'},
+          'nombre-proyecto':{templateUrl:'layouts/nombre_proyecto'}          
+        }  
+       })
+       .state('home.lider_entregado', {
+        url: "/registrar-lider-entrega/:id",        
+        views:{
+          'contenedor':{templateUrl: "lideres/lider_entregado",controller: 'LiderController'},
           'titulo':{template:'Registrar entrega'},
           'nombre-proyecto':{templateUrl:'layouts/nombre_proyecto'}          
         }  

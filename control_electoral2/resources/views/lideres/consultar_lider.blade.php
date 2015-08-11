@@ -56,6 +56,11 @@
                    <i ui-sref="home.asociar_concejales({id_lider:item.id})" class='fa fa-users fa-2x'></i>
                  </a>
                </td>
+                <td>
+                  <a ui-sref="home.lider_entregado({id:item.id})">
+                   <i  class='fa fa-money fa-2x' style="color:#C06104;"></i>
+                 </a>
+               </td>
              </tr>
            </tbody>
          </table>

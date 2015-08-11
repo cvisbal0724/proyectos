@@ -8,6 +8,7 @@ $scope.listaPersonas=[];
 $scope.listaConcejales=[];
 $scope.criterios={criterio:''};
 $scope.lider_concejal={};
+$scope.lider_entregadoVO={id:0,observacion:'',valor:0};
 
 $scope.consultar_por_codigo=function(id){
 		
@@ -96,6 +97,7 @@ $scope.consultar=function(page){
 
 $scope.nuevo=function(){
 	$scope.liderVO={id:0,id_persona:0};
+	$scope.lider_entregadoVO={id:0,observacion:'',valor:0};
 }
 
 $scope.consultar_concejal=function(page){
@@ -166,5 +168,21 @@ $scope.eliminal_lider_concejales=function(item){
 $scope.abrir_modal=function(item){
 	$scope.lider_concejal=item;
 }
+
+$scope.registrar_entregas=function(){
+
+	if ($scope.concejal_entregadoVO.valor==0 || $scope.concejal_entregadoVO.valor=='') {$scope.result={show:true,alert:'warning',msg:'Agregue el valor.'};return false;};
+
+	$http.post('lider/registrarentregas',{id_lider:$state.params.id,
+		observacion:$scope.lider_entregadoVO.observacion,valor:$scope.lider_entregadoVO.valor})
+		.success(function(data, status, headers, config) {
+			
+			$scope.result=data;
+			$scope.nuevo();
+
+		});
+
+}
+
 
 });

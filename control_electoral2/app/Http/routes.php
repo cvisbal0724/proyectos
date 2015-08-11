@@ -133,8 +133,8 @@ Route::get('concejal/concejal_entregado',function(){
 	return view('concejal/concejal_entregado');
 });
 
-Route::get('lider/lider_entregado',function(){
-	return view('lider/lider_entregado');
+Route::get('lideres/lider_entregado',function(){
+	return view('lideres/lider_entregado');
 });
 
 Route::get('graficos/graficos','GraficosController@index');
@@ -209,6 +209,7 @@ Route::post('concejal/crear','ConcejalController@Crear');
 Route::post('concejal/actualizar','ConcejalController@Actualizar');
 Route::post('concejal/consultar','ConcejalController@Consultar');
 Route::get('concejal/consultarporcodigo/{id}','ConcejalController@ConsultarPorCodigo');
+Route::post('concejal/registrarentregas','ConcejalController@RegistrarEntregas');
 /*Fin concejal*/
 
 /*Lider*/
@@ -218,6 +219,7 @@ Route::post('lider/consultar','LiderController@Consultar');
 Route::post('lider/agregarliderconcejales','LiderController@AgregarLiderConcejales');
 Route::post('lider/consultarliderconcejales','LiderController@ConsultarLiderConcejales');
 Route::post('lider/eliminarliderconcejales','LiderController@EliminarLiderConcejales');
+Route::post('lider/registrarentregas','LiderController@RegistrarEntregas');
 /*Fin Lider*/
 
 /*Votante*/

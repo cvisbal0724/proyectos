@@ -247,5 +247,23 @@ public function EliminarLiderConcejales(){
   	
 }
 
+public function RegistrarEntregas(){
+	try {
+		
+		$rs=ConcejalEntregado::create(array(
+			'id_lider'=>Input::get('id_concejal'),
+			'id_usuario'=>Cookie::get('id_usuario'),
+			'observacion'=>Input::get('observacion'),
+			'valor'=>Input::get('valor')
+		));
+
+		return $rs['id'] > 0 ? array('show'=>true,'alert'=>'success','msg'=>'Se registro ha satisfactoriamente el valor entregado.') :
+					array('show'=>true,'alert'=>'warning','msg'=>'Hubo un error al guardar.');
+
+	} catch (Exception $e) {
+		
+	}
+}
+
 }
 
