@@ -11,6 +11,8 @@ use DB;
 use File;
 use Intervention\Image\ImageManagerStatic as Image;
 use Input;
+use Cookie;
+use App\models\Usuarios;
 
 class ConcejalController extends Controller {
 
@@ -41,7 +43,7 @@ public function Crear(){
 
 			$rs=Concejales::create(array(
 				'id_persona'=>Input::get('id_persona'),
-				'id_usuario'=>Auth::user()->id,
+				'id_usuario'=>Cookie::get('id_usuario'),//Auth::user()->id,
 				'id_partido'=>Input::get('id_partido'),
 				'numero'=>Input::get('numero'),
 				'foto'=>$nombreArchivo
@@ -51,7 +53,7 @@ public function Crear(){
 			if (count($lider)==0) {
 				Lideres::create(array(
 				'id_persona'=>Input::get('id_persona'),
-				'id_encargado'=>Auth::user()->id				
+				'id_encargado'=>Cookie::get('id_usuario')//Auth::user()->id				
 				));
 			}
 
@@ -124,7 +126,9 @@ public function Actualizar(){
 public function Consultar(){
 		
 		$criterio=Input::get('criterio');
-		$id_alcalde=Auth::user()->persona->id_alcalde;
+		$usuario=Usuarios::find(Cookie::get('id_usuario'));
+		$id_alcalde=$usuario->persona->id_alcalde;
+		//Auth::user()->persona->id_alcalde;
 
 		$lista=array();
 		$consulta=DB::table('concejales as c')

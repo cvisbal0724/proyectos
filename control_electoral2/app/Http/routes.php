@@ -121,8 +121,20 @@ Route::get('votantes/dar_de_baja',function(){
 	return view('votantes/dar_de_baja');
 });
 
+Route::get('votantes/registrar_voto',function(){
+	return view('votantes/registrar_voto');
+});
+
 Route::get('votantes/reporte_votantes',function(){
 	return view('votantes/reporte_votantes');
+});
+
+Route::get('concejal/concejal_entregado',function(){
+	return view('concejal/concejal_entregado');
+});
+
+Route::get('lider/lider_entregado',function(){
+	return view('lider/lider_entregado');
 });
 
 Route::get('graficos/graficos','GraficosController@index');
@@ -216,6 +228,7 @@ Route::post('votante/actualizar','VotanteController@Actualizar');
 Route::post('votante/dardebaja','VotanteController@DarDeBaja');
 Route::post('votante/consultarconcejalylider','VotanteController@ConsultarConcejalYLider');
 Route::get('votante/exportarpdf/{concejales}/{lideres}','VotanteController@ExportarPDF');
+Route::post('votante/registrarvoto','VotanteController@RegistrarVoto');
 /*Fin votante*/
 
 /*graficos*/

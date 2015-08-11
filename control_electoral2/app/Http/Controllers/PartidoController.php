@@ -8,6 +8,7 @@ use App\models\Excepciones;
 use App\models\Partidos;
 use File;
 use Input;
+use Cookie;
 
 class PartidoController extends Controller {
 

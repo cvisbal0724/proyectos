@@ -10,6 +10,7 @@ use App\models\Usuarios;
 use Hash;
 use DB;
 use Input;
+use Cookie;
 
 class UsuarioController extends Controller {
 

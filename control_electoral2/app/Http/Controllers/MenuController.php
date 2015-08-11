@@ -9,6 +9,8 @@ use App\models\Modulos;
 use App\models\Execepciones;
 use Auth;
 use Input;
+use App\models\Usuarios;
+use Cookie;
 
 class MenuController extends Controller {
 
@@ -148,7 +150,7 @@ class MenuController extends Controller {
 
 	public function Eliminar($id){
 
-		if (!Auth::check()) {
+		if (Cookie::get('id_usuario')==null) {
 			return "No puede eliminar";
 		}
 

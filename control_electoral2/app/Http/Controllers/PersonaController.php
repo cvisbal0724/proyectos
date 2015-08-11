@@ -9,6 +9,8 @@ use App\models\Personas;
 use File;
 use Auth;
 use Input;
+use App\models\Usuarios;
+use Cookie;
 
 class PersonaController extends Controller {
 
@@ -100,7 +102,8 @@ class PersonaController extends Controller {
 	public function CrearNuevaPersona(){
 		try {
 
-			$usuario=Auth::User();
+			$usuario=Usuarios::find(Cookie::get('id_usuario'));
+			//$usuario=Auth::User();
 			$persona=Personas::where('cedula','=',Input::get('cedula'))->where('id_alcalde','=',$usuario->persona->id_alcalde)->get();
 
 			if (count($persona)>0) {

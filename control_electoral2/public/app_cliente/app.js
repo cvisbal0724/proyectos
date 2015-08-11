@@ -210,6 +210,22 @@ App.config(function($urlRouterProvider, $stateProvider) {
           'nombre-proyecto':{templateUrl:'layouts/nombre_proyecto'}          
         }  
        })
+       .state('home.registrar_voto', {
+        url: "/registrar-voto/:id",        
+        views:{
+          'contenedor':{templateUrl: "votantes/registrar_voto",controller: 'VotanteController'},
+          'titulo':{template:'Registrar Voto'},
+          'nombre-proyecto':{templateUrl:'layouts/nombre_proyecto'}          
+        }  
+       })
+       .state('home.concejal_entregado', {
+        url: "/registrar-entrega/:id",        
+        views:{
+          'contenedor':{templateUrl: "concejal/concejal_entregado",controller: 'ConcejalController'},
+          'titulo':{template:'Registrar entrega'},
+          'nombre-proyecto':{templateUrl:'layouts/nombre_proyecto'}          
+        }  
+       })
        /*.state('home.graficos', {
         url: "/graficos",        
          views:{

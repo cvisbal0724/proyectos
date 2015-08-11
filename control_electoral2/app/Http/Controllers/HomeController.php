@@ -9,6 +9,8 @@ use Auth;
 use App\Enums\EnumPerfiles;
 use App;
 use PDF;
+use App\models\Usuarios;
+use Cookie;
 
 class HomeController extends Controller {
 
@@ -43,7 +45,7 @@ class HomeController extends Controller {
 		try {
 			
 		
-		$usuario=Auth::User();
+		$usuario=Usuarios::find(Cookie::get('id_usuario'));//Auth::User();
 		$perfilMod= PerfilModulos::where('id_perfil','=',$usuario->id_perfil)->get();
 		$modulos=array();
 		foreach ($perfilMod as $key => $item) {

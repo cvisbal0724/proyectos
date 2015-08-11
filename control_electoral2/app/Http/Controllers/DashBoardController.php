@@ -7,6 +7,8 @@ use Illuminate\Http\Request;
 use Auth;
 use App\Enums\EnumPerfiles;
 use DB;
+use App\models\Usuarios;
+use Cookie;
 
 class DashBoardController extends Controller {
 
@@ -36,7 +38,7 @@ class DashBoardController extends Controller {
 
 	public function Lista()
 	{
-		$usuario=Auth::User();
+		$usuario=Usuarios::find(Cookie::get('id_usuario'));//Auth::User();
 		$lideres=null;
 		$concejales=null;
 

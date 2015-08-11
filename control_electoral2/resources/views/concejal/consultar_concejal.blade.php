@@ -39,7 +39,7 @@
                	   <th>Partido</th>
                	   <th>Alcalde</th> 
                    <th class="center">Votos</th>               	                 	   
-                   <th></th>         
+                   <th colspan="2">Opciones</th>         
                </tr>
            </thead>
            <tbody>
@@ -51,8 +51,13 @@
         				<td>{{item.alcalde}}</td>	
                 <td class="center"><a href="">{{item.votos}}</a></td> 
                <td>
-                 <a href="" ng-click='consultar_por_codigo(item)'>
-                   <i ui-sref="home.editar_concejales({id:item.id})" class='fa fa-pencil fa-2x'></i>
+                 <a ui-sref="home.editar_concejales({id:item.id})">
+                   <i  class='fa fa-pencil fa-2x'></i>
+                 </a>
+               </td>
+               <td>
+                  <a ui-sref="home.concejal_entregado({id:item.id})">
+                   <i  class='fa fa-money fa-2x' style="color:#C06104;"></i>
                  </a>
                </td>
              </tr>

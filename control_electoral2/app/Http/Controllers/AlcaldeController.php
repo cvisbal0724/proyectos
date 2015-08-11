@@ -8,6 +8,7 @@ use App\models\Excepciones;
 use App\models\Alcaldes;
 use File;
 use Input;
+use Cookie;
 
 class AlcaldeController extends Controller {
 

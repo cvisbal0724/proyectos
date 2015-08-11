@@ -88,13 +88,39 @@ $scope.nuevo=function(){
 
 $scope.dar_de_baja=function(){
 
-	if (!$scope.votanteVO.comentario_de_baja > 0) {$scope.result={"show":true,"alert":"warning","msg":"Ingrese la observación."}; return false;};
-	$http.post("votante/dardebaja",{id:$scope.votanteVO.id,observacion:$scope.votanteVO.comentario_de_baja})
-	.success(function(data, status, headers, config) {
+		if (!$scope.votanteVO.comentario_de_baja > 0) {$scope.result={"show":true,"alert":"warning","msg":"Ingrese la observación."}; return false;};
+
+		swal({   
+		title: "Esta seguro?",   
+		text: "Desea dar de baja!",   
+		type: "warning",   
+		showCancelButton: true,   
+		confirmButtonColor: "#DD6B55",  
+		confirmButtonText: "Si!", 
+		cancelButtonText:'No',  
+		closeOnConfirm: false }, function(){   
 		
-		 $scope.result=data;
-		 	
-	 });
+		$http.post("votante/dardebaja",{id:$scope.votanteVO.id,observacion:$scope.votanteVO.comentario_de_baja})
+		.success(function(data, status, headers, config) {
+			
+			swal({
+				title:"Dado de baja!", 
+				text:data.msg, 
+				type:"success",
+				confirmButtonColor: "#DD6B55",  
+				confirmButtonText: "Ok", 
+				//cancelButtonText:'No',  
+				closeOnConfirm: true},function(){
+					$state.go('home.consultar_votantes');
+				}); 
+			 //$scope.result=data;
+			 	
+		 });
+			
+	
+	});
+
+	
 }
 
 $scope.consultarconcejalylider=function(){
@@ -130,6 +156,16 @@ $scope.exportar_votantes=function(){
 
 	//window.location='votante/exportarpdf/'+$scope.id_concejales +'/'+$scope.id_lideres;	target="_blank" done=1;
  	window.open('votante/exportarpdf/'+$scope.id_concejales +'/'+$scope.id_lideres,'_blank');
+}
+
+$scope.registrar_voto=function(){
+	
+	$http.post("votante/registrarvoto",{id:$scope.votanteVO.id})
+	.success(function(data, status, headers, config) {
+		
+		 $scope.result=data;
+		 	
+	 });
 }
 
 });

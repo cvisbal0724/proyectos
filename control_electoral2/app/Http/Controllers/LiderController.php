@@ -12,6 +12,8 @@ use DB;
 use App\Enums\EnumPerfiles;
 use File;
 use Input;
+use App\models\Usuarios;
+use Cookie;
 
 class LiderController extends Controller {
 
@@ -22,13 +24,15 @@ class LiderController extends Controller {
 	 */
 	public function index()
 	{
-		return view('lideres/lider',array('usuario'=>Auth::user()));
+		$usuario=Usuarios::find(Cookie::get('id_usuario'));
+		return view('lideres/lider',array('usuario'=>$usuario));
 	}
 
 	public function Crear(){
 		DB::beginTransaction();
 	try {
 
+			$usuario=Usuarios::find(Cookie::get('id_usuario'));
 			$lider=Lideres::where('id_persona','=',Input::get('id_persona'))->first();
 			$nombreArchivo='';
 
@@ -54,11 +58,11 @@ class LiderController extends Controller {
 
 		   $rs=Lideres::create(array(		   	   
 			   'id_persona'=>Input::get('id_persona'),
-			   'id_encargado'=>Auth::user()->id,
+			   'id_encargado'=>$usuario->id,
 			   'foto'=>$nombreArchivo			
 		   ));
 			
-			$concejal=Concejales::where('id_persona','=',Auth::user()->persona->id)->get();
+			$concejal=Concejales::where('id_persona','=',$usuario->persona->id)->get();
 			if (count($concejal)>0) {
 				 LiderConcejales::create(array(
 			   	'meta'=>Input::get('meta'),
@@ -133,7 +137,7 @@ public function Actualizar(){
 
 public function Consultar(){
 		try {
-			$usuario=Auth::User();
+			$usuario=Usuarios::find(Cookie::get('id_usuario'));
 
 		$criterio=Input::get('criterio');
 		$lista=array();

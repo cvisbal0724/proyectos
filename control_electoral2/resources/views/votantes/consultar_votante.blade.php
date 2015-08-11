@@ -35,7 +35,7 @@
                	   <th>Concejal</th>
                    <th>Votar Por</th>
                	   <th>Tipo Voto</th>               	                 	   
-                   <th colspan="2">Opciones</th>         
+                   <th colspan="3">Opciones</th>         
                </tr>
            </thead>
            <tbody>
@@ -54,6 +54,11 @@
                 <td>
                  <a href="" ui-sref="home.dar_de_baja({id:item.id})" title="Dar de baja" style="color:rgb(182, 23, 23)">
                    <i class='fa fa-thumbs-o-down fa-2x'></i>
+                 </a>
+               </td>
+               <td>
+                  <a ui-sref="home.registrar_voto({id:item.id})" title="Registrar Voto" style="color:rgb(9, 136, 39)">
+                   <i class='fa fa-hand-peace-o fa-2x'></i>
                  </a>
                </td>
              </tr>

@@ -10,6 +10,7 @@ use App\models\PerfilModulos;
 use App\models\Modulos;
 use DB;
 use Input;
+use Cookie;
 
 class PerfilesController extends Controller {
 

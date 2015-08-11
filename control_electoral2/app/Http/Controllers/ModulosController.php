@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\models\Modulos;
 use Input;
+use Cookie;
 
 class ModulosController extends Controller {
 

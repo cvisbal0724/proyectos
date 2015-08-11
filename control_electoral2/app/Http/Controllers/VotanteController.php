@@ -16,14 +16,16 @@ use App\models\AuditoriaVotante;
 use DB;
 use Auth;
 use Input;
-
+use App\models\Usuarios;
+use Cookie;
 
 class VotanteController extends Controller {
 
 
 	public function index(){
 	
-	 $lider=Lideres::where('id_persona','=',Auth::user()->id_persona)->first();
+	 $usuario=Usuarios::find(Cookie::get('id_usuario'));
+	 $lider=Lideres::where('id_persona','=',$usuario->id_persona)->first();
 	 $variables=array();
 	 if ($lider) {
 	 		$concejales=Db::table('lider_concejales as lc')->
@@ -53,7 +55,8 @@ class VotanteController extends Controller {
 		DB::beginTransaction();
 		try {
 
-			$lider=Lideres::where('id_persona','=',Auth::user()->id_persona)->first();
+			$usuario=Usuarios::find(Cookie::get('id_usuario'));
+			$lider=Lideres::where('id_persona','=',$usuario->id_persona)->first();
 
 			if ($lider) {
 			
@@ -133,8 +136,9 @@ class VotanteController extends Controller {
 
 	public function Consultar(){
 		
-		$usuario=Auth::User();
-		
+		//$usuario=Auth::User();
+		$usuario=Usuarios::find(Cookie::get('id_usuario'));
+
 		$criterio=Input::get('criterio');
 		$lista=array();
 		$consulta=DB::table('votantes as v')
@@ -193,7 +197,8 @@ class VotanteController extends Controller {
 		DB::beginTransaction();
 		try {
 			
-			$usuario=Auth::User();
+			//$usuario=Auth::User();
+			$usuario=Usuarios::find(Cookie::get('id_usuario'));
 
 			$votante=Votantes::find(Input::get('id'));
 
@@ -222,10 +227,11 @@ class VotanteController extends Controller {
 	public function ConsultarCategoriaVotacion($id_persona){
 		try {
 			
+			$usuario=Usuarios::find(Cookie::get('id_usuario'));
 			$votante=Votantes::where('id_persona','=',$id_persona)
 			->where('dar_de_baja','=',0)->get();
 			
-			$lider=Lideres::where('id_persona','=',Auth::user()->id_persona)->first();
+			$lider=Lideres::where('id_persona','=',$usuario->id_persona)->first();
 			$variables=array();
 
 		 	$concejales=Db::table('lider_concejales as lc')->
@@ -278,9 +284,42 @@ class VotanteController extends Controller {
 		}		
 	}
 
+	public function RegistrarVoto()
+	{
+		DB::beginTransaction();
+		try {
+			
+			//$usuario=Auth::User();
+			$usuario=Usuarios::find(Cookie::get('id_usuario'));
+
+			$votante=Votantes::find(Input::get('id'));
+
+			$votante->voto=1;
+			$votante->save();
+
+			 $rs=AuditoriaVotante::create(array(
+				'id_votante'=>$votante->id,
+				'id_usuario'=>$usuario->id,
+				'observacion'=>'Registro voto'
+				)
+			);
+
+			 DB::commit();
+
+			return $rs['id'] > 0 ? array('show'=>true,'alert'=>'success','msg'=>'Se le ha registrado el voto satisfactoriamente.','data'=>'') :
+						array('show'=>true,'alert'=>'warning','msg'=>'No se pudo registrar el voto.');
+
+		} catch (Exception $e) {
+			DB::rollback();
+			Excepciones::Crear($e,'VotanteController','RegistrarVoto');
+			return array('show'=>true,'alert'=>'warning','msg'=>$e->getMessage());
+		}
+	}
+
 	public function ConsultarConcejalYLider(){
 		try {
-			$usuario=Auth::User();
+			//$usuario=Auth::User();
+			$usuario=Usuarios::find(Cookie::get('id_usuario'));
 			$concejales=array();
 			$lideres=array();
 
@@ -331,7 +370,8 @@ class VotanteController extends Controller {
 	{
 		try {
 			
-			$usuario=Auth::User();
+			//$usuario=Auth::User();
+			$usuario=Usuarios::find(Cookie::get('id_usuario'));
 			$listaConcejales=array();
 			$listaLideres=array();
 			$id_concejales=explode(',',$concejales);
