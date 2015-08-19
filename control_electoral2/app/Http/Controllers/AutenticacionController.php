@@ -61,7 +61,7 @@ class AutenticacionController extends Controller {
 	public function VerificarLogueo(){
 		try {
 			
-			$usuario=array();
+			/*$usuario=array();
 			if (Auth::check()) {				
 				$usuario=array(
 					'auth'=>Auth::check(),
@@ -74,8 +74,24 @@ class AutenticacionController extends Controller {
 					'nombre'=>'',
 					'_token'=>csrf_token()
 				);
-			}
+			}*/
 			
+			$usuario=array();
+			if (Cookie::get('id_usuario')>0) {
+				$usu=Usuarios::find(Cookie::get('id_usuario'));								
+				$usuario=array(
+					'auth'=>true,
+					'nombre'=>$usu->persona->nombre . ' ' .$usu->persona->apellido,
+					'_token'=>csrf_token()
+				);
+			}else{
+				$usuario=array(
+					'auth'=>false,
+					'nombre'=>'',
+					'_token'=>csrf_token()
+				);
+			}
+
 			return $usuario;
 		} catch (Exception $e) {
 			return $e;

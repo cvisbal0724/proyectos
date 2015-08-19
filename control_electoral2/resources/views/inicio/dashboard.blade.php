@@ -19,7 +19,8 @@
                                        @if($item->foto=='')
                                        <i class="fa fa-male fa-5x" style="color:#ec971f"></i>
                                        @endif
-                                       <h3>[[$item->votos]]</h3>
+                                       <h3>Total:[[$item->votos]]</h3>
+                                       <h3>Reg.:[[$item->registrados]]</h3>
                                        <h6>Concejal, [[$item->concejal]]</h6>
                                     </div>
                                    <p>Cantidad de votos</p>
@@ -45,7 +46,8 @@
                                         <i class="fa fa-user-plus fa-5x" style="color:#ec971f"></i>
                                       @endif
                                                
-                                                <h3>[[$item->votos]]</h3>
+                                                <h3>Total:[[$item->votos]]</h3>
+                                                <h3>Reg.:[[$item->registrados]]</h3>
                                                 <h6>Lider, [[$item->lider]]</h6>
                                     </div>
                                                  <p>Cantidad de votos</p>

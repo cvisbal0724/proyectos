@@ -33,6 +33,7 @@
                	   <th>Nombre Lider</th>               	   
                	   <th>Concejal</th>               	                 	   
                    <th>Alcalde</th>  
+                   <th>Entregado</th>
                    <th class="center">Votos</th>
                    <th colspan="2"></th> 
                        
@@ -45,6 +46,7 @@
         				<td>{{item.lider}}</td>        				
         				<td>{{item.concejal}}</td>	
                 <td>{{item.alcalde}}</td>  
+                <td>{{item.total_entregado | currency:'$':0 }}</td>
                 <td class="center"><a href="">{{item.votos}}</a></td>  
                <!--<td>
                  <a href="" ng-click='consultar_por_codigo(item)'>

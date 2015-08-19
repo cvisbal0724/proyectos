@@ -23,6 +23,7 @@ Route::controllers([
 use App\models\Partidos;
 use App\models\Alcaldes;
 use App\models\Perfiles;
+use Illuminate\Support\Facades\Cookie;
 
 Route::get('/', function(){
 	return view('inicio/index');
@@ -41,100 +42,186 @@ Route::get('layouts/notificaciones','DashBoardController@Notificacion');
 Route::get('inicio/home','HomeController@index');
 
 Route::get('partido/partido',function(){
-	return view('partido/partido');
+	if (Cookie::get('id_usuario')>0) {
+		return view('partido/partido');
+	}else{
+		return view('inicio/acceso_denegado');
+	}
+	
 });
 
 Route::get('alcalde/alcalde',function(){
 
-	$lista=Partidos::all();
-
-	return view('alcalde/alcalde',array('partidos'=>$lista));
+	if (Cookie::get('id_usuario')>0) {
+		$lista=Partidos::all();
+		return view('alcalde/alcalde',array('partidos'=>$lista));
+	}else{
+		return view('inicio/acceso_denegado');
+	}
+	
 });
 
 Route::get('persona/persona',function(){
-
-	$lista=Alcaldes::all();
-
+	
+	if (Cookie::get('id_usuario')>0) {
+		$lista=Alcaldes::all();
 	return view('persona/persona',array('alcaldes'=>$lista));
+	}else{
+		return view('inicio/acceso_denegado');
+	}
 });
 
 Route::get('persona/nueva_persona',function(){
-
-	return view('persona/nueva_persona');
+	if (Cookie::get('id_usuario')>0) {
+		return view('persona/nueva_persona');
+	}else{
+		return view('inicio/acceso_denegado');
+	}
 });
 
 Route::get('persona/consultar_persona',function(){
-	return view('persona/consultar_persona');
+	if (Cookie::get('id_usuario')>0) {
+		return view('persona/consultar_persona');
+	}else{
+		return view('inicio/acceso_denegado');
+	}
+	
 });
 
-Route::get('perfiles/perfiles',function(){
-	return view('perfiles/perfiles');
+Route::get('perfiles/perfiles',function(){	
+	if (Cookie::get('id_usuario')>0) {
+		return view('perfiles/perfiles');
+	}else{
+		return view('inicio/acceso_denegado');
+	}
 });
 
-Route::get('perfiles/perfil_modulos',function(){
-	return view('perfiles/perfil_modulos');
+Route::get('perfiles/perfil_modulos',function(){	
+	if (Cookie::get('id_usuario')>0) {
+		return view('perfiles/perfil_modulos');
+	}else{
+		return view('inicio/acceso_denegado');
+	}
 });
 
-Route::get('modulos/modulos',function(){
-	return view('modulos/modulos');
+Route::get('modulos/modulos',function(){	
+	if (Cookie::get('id_usuario')>0) {
+		return view('modulos/modulos');
+	}else{
+		return view('inicio/acceso_denegado');
+	}
 });
 
-Route::get('menus/menus',function(){
-	return view('menus/menus');
+Route::get('menus/menus',function(){	
+	if (Cookie::get('id_usuario')>0) {
+		return view('menus/menus');
+	}else{
+		return view('inicio/acceso_denegado');
+	}
 });
 
 Route::get('usuario/usuario',function(){
-	$perfiles=Perfiles::all();
-	return view('usuario/usuario',array('perfiles'=>$perfiles));
+	if (Cookie::get('id_usuario')>0) {
+		$perfiles=Perfiles::all();
+		return view('usuario/usuario',array('perfiles'=>$perfiles));
+	}else{
+		return view('inicio/acceso_denegado');
+	}	
 });
 
-Route::get('usuario/consultar_usuario',function(){	
-	return view('usuario/consultar_usuario');
+Route::get('usuario/consultar_usuario',function(){
+	
+	if (Cookie::get('id_usuario')>0) {
+		return view('usuario/consultar_usuario');
+	}else{
+		return view('inicio/acceso_denegado');
+	}
 });
 
-Route::get('concejal/concejal',function(){	
-	$partidos=Partidos::all();
-	return view('concejal/concejal',array('partidos'=>$partidos));
+Route::get('concejal/concejal',function(){		
+	if (Cookie::get('id_usuario')>0) {
+		$partidos=Partidos::all();
+		return view('concejal/concejal',array('partidos'=>$partidos));
+	}else{
+		return view('inicio/acceso_denegado');
+	}
 });
 
 Route::get('concejal/consultar_concejal',function(){
-	return view('concejal/consultar_concejal');
+	if (Cookie::get('id_usuario')>0) {
+		return view('concejal/consultar_concejal');
+	}else{
+		return view('inicio/acceso_denegado');
+	}	
 });
 
 Route::get('lideres/lider','LiderController@index');
 
-Route::get('lideres/consultar_lider',function(){
-	return view('lideres/consultar_lider');
+Route::get('lideres/consultar_lider',function(){	
+	if (Cookie::get('id_usuario')>0) {
+		return view('lideres/consultar_lider');
+	}else{
+		return view('inicio/acceso_denegado');
+	}
 });
 
-Route::get('lideres/asociar_concejales',function(){
-	return view('lideres/asociar_concejales');
+Route::get('lideres/asociar_concejales',function(){	
+	if (Cookie::get('id_usuario')>0) {
+		return view('lideres/asociar_concejales');
+	}else{
+		return view('inicio/acceso_denegado');
+	}
 });
 
 Route::get('votantes/votante','VotanteController@index');
 
-Route::get('votantes/consultar_votante',function(){
-	return view('votantes/consultar_votante');
+Route::get('votantes/consultar_votante',function(){	
+	if (Cookie::get('id_usuario')>0) {
+		return view('votantes/consultar_votante');
+	}else{
+		return view('inicio/acceso_denegado');
+	}
 });
 
-Route::get('votantes/dar_de_baja',function(){
-	return view('votantes/dar_de_baja');
+Route::get('votantes/dar_de_baja',function(){	
+	if (Cookie::get('id_usuario')>0) {
+		return view('votantes/dar_de_baja');
+	}else{
+		return view('inicio/acceso_denegado');
+	}
+
 });
 
-Route::get('votantes/registrar_voto',function(){
-	return view('votantes/registrar_voto');
+Route::get('votantes/registrar_voto',function(){	
+	if (Cookie::get('id_usuario')>0) {
+		return view('votantes/registrar_voto');
+	}else{
+		return view('inicio/acceso_denegado');
+	}
 });
 
-Route::get('votantes/reporte_votantes',function(){
-	return view('votantes/reporte_votantes');
+Route::get('votantes/reporte_votantes',function(){	
+	if (Cookie::get('id_usuario')>0) {
+		return view('votantes/reporte_votantes');
+	}else{
+		return view('inicio/acceso_denegado');
+	}
 });
 
-Route::get('concejal/concejal_entregado',function(){
-	return view('concejal/concejal_entregado');
+Route::get('concejal/concejal_entregado',function(){	
+	if (Cookie::get('id_usuario')>0) {
+		return view('concejal/concejal_entregado');
+	}else{
+		return view('inicio/acceso_denegado');
+	}
 });
 
-Route::get('lideres/lider_entregado',function(){
-	return view('lideres/lider_entregado');
+Route::get('lideres/lider_entregado',function(){	
+	if (Cookie::get('id_usuario')>0) {
+		return view('lideres/lider_entregado');
+	}else{
+		return view('inicio/acceso_denegado');
+	}
 });
 
 Route::get('graficos/graficos','GraficosController@index');
@@ -209,17 +296,24 @@ Route::post('concejal/crear','ConcejalController@Crear');
 Route::post('concejal/actualizar','ConcejalController@Actualizar');
 Route::post('concejal/consultar','ConcejalController@Consultar');
 Route::get('concejal/consultarporcodigo/{id}','ConcejalController@ConsultarPorCodigo');
-Route::post('concejal/registrarentregas','ConcejalController@RegistrarEntregas');
+Route::post('concejal/guardarentregas','ConcejalController@GuardarEntregas');
+Route::post('concejal/obtenerentregas','ConcejalController@ObtenerEntregas');
+Route::post('concejal/obtenerentregasporcodigo','ConcejalController@ObtenerEntregasPorCodigo');
+Route::post('concejal/eliminarentregas','ConcejalController@EliminarEntregas');
 /*Fin concejal*/
 
 /*Lider*/
 Route::post('lider/crear','LiderController@Crear');
 //Route::post('concejal/actualizar','ConcejalController@Actualizar');
 Route::post('lider/consultar','LiderController@Consultar');
+Route::get('lider/consultarporcodigo/{id}','LiderController@ConsultarPorCodigo');
 Route::post('lider/agregarliderconcejales','LiderController@AgregarLiderConcejales');
 Route::post('lider/consultarliderconcejales','LiderController@ConsultarLiderConcejales');
 Route::post('lider/eliminarliderconcejales','LiderController@EliminarLiderConcejales');
-Route::post('lider/registrarentregas','LiderController@RegistrarEntregas');
+Route::post('lider/guardarentregas','LiderController@GuardarEntregas');
+Route::post('lider/obtenerentregas','LiderController@ObtenerEntregas');
+Route::post('lider/obtenerentregasporcodigo','LiderController@ObtenerEntregasPorCodigo');
+Route::post('lider/eliminarentregas','LiderController@EliminarEntregas');
 /*Fin Lider*/
 
 /*Votante*/

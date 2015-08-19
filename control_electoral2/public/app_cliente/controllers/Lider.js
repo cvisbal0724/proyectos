@@ -8,11 +8,12 @@ $scope.listaPersonas=[];
 $scope.listaConcejales=[];
 $scope.criterios={criterio:''};
 $scope.lider_concejal={};
-$scope.lider_entregadoVO={id:0,observacion:'',valor:0};
+$scope.lider_entregadoVO={id:0,observacion:'',valor:0,id_lider:$state.params.id};
+$scope.listaEntregas=[];
 
 $scope.consultar_por_codigo=function(id){
 		
-		$http.get("usuario/consultarporcodigo/"+id).success(function(data, status, headers, config) {
+		$http.get("lider/consultarporcodigo/"+id).success(function(data, status, headers, config) {
 			$scope.liderVO=data;		 	
 			$scope.listaPersonas.push(data.persona);
 			$scope.liderVO.id_persona=data.id_persona;
@@ -97,7 +98,6 @@ $scope.consultar=function(page){
 
 $scope.nuevo=function(){
 	$scope.liderVO={id:0,id_persona:0};
-	$scope.lider_entregadoVO={id:0,observacion:'',valor:0};
 }
 
 $scope.consultar_concejal=function(page){
@@ -169,20 +169,69 @@ $scope.abrir_modal=function(item){
 	$scope.lider_concejal=item;
 }
 
-$scope.registrar_entregas=function(){
+$scope.guardar_entregas=function(){
 
-	if ($scope.concejal_entregadoVO.valor==0 || $scope.concejal_entregadoVO.valor=='') {$scope.result={show:true,alert:'warning',msg:'Agregue el valor.'};return false;};
+	if ($scope.lider_entregadoVO.valor==0 || $scope.lider_entregadoVO.valor=='') {$scope.result={show:true,alert:'warning',msg:'Agregue el valor.'};return false;};
 
-	$http.post('lider/registrarentregas',{id_lider:$state.params.id,
-		observacion:$scope.lider_entregadoVO.observacion,valor:$scope.lider_entregadoVO.valor})
+	$http.post('lider/registrarentregas',$scope.lider_entregadoVO)
 		.success(function(data, status, headers, config) {
 			
-			$scope.result=data;
-			$scope.nuevo();
+		$scope.result=data;
+		$scope.listaEntregas=data.data;
 
-		});
+		$scope.lider_entregadoVO={id:0,observacion:'',valor:0,id_lider:$state.params.id};
+
+	});
 
 }
 
+$scope.obtener_entregas=function(){
+
+	$http.post('lider/obtenerentregas',{})
+		.success(function(data, status, headers, config) {
+						
+			$scope.listaEntregas=data;
+
+	});
+}
+
+$scope.obtener_entregas_por_codigo=function(item){
+
+	$http.post('lider/obtenerentregasporcodigo',{id:item.id})
+		.success(function(data, status, headers, config) {
+						
+			$scope.lider_entregadoVO=data;			
+
+	});
+}
+
+$scope.nueva_entrega=function(){
+	$scope.lider_entregadoVO={id:0,observacion:'',valor:0};
+}
+
+$scope.eliminar_entrega=function(item){
+
+	swal({   
+	title: "Esta seguro?",   
+	text: "Desea eliminar el concejal!",   
+	type: "warning",   
+	showCancelButton: true,   
+	confirmButtonColor: "#DD6B55",  
+	confirmButtonText: "Si!", 
+	cancelButtonText:'No',  
+	closeOnConfirm: false }, function(){   
+		
+		$http.post('lider/eliminarentregas',{id:item.id})
+		.success(function(data, status, headers, config) {
+			
+			swal("Eliminado!", "El valor fue removido satisfactoriamente.", "success"); 			
+			$scope.listaEntregas=data;
+
+		});
+
+	});
+
+	
+}
 
 });

@@ -8,7 +8,8 @@ confControllers.controller('PersonaController', function ($scope,$location,authU
 	direccion:'',
 	correo:'',
 	id_alcalde:'0',
-	_token:authUsuario.token()};
+	//_token:authUsuario.token()
+	};
 	$scope.result={};
 	$scope.listaPersonas=[];
 	$scope.paginas=Array();

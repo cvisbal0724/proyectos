@@ -22,7 +22,7 @@ App.config(function($urlRouterProvider, $stateProvider) {
         url: "/",        
         views:{
           'contenedor':{templateUrl: "inicio/dashboard",controller:'HomeController'},
-          'notificaciones':{templateUrl:'layouts/notificaciones'}
+          //'notificaciones':{templateUrl:'layouts/notificaciones'}
         }              
          
         //controller: 'HomeController'

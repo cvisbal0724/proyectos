@@ -31,7 +31,7 @@ confControllers.controller('AlcaldeController', function ($scope,$location,authU
 
 	$scope.consultar=function(){
 
-		$http.post("alcalde/consultar",{_token:authUsuario.token()}).success(function(data, status, headers, config) {
+		$http.post("alcalde/consultar",{}).success(function(data, status, headers, config) {
 			$scope.listaAlcaldes=data;		 	
 		});
 	}
@@ -42,7 +42,7 @@ confControllers.controller('AlcaldeController', function ($scope,$location,authU
 		$scope.alcaldeVO.id_partido='';
 		$scope.alcaldeVO.numero='0';
 		$scope.alcaldeVO.foto=null;
-		$scope.alcaldeVO._token=authUsuario.token()
+		//$scope.alcaldeVO._token=authUsuario.token()
 	}
 
 	$scope.consultar_por_codigo=function(obj){

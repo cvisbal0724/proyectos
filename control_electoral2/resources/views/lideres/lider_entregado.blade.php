@@ -28,11 +28,64 @@
              </div>
             
 			 <button ng-if='alcaldeVO.id==0' type="button" class="btn btn-warning" ng-click='guardar()'>Registrar</button>  
-       <button type="button" class="btn btn-warning" ng-click="registrar_entregas()">Registrar</button>  
-       <button type="button" class="btn btn-danger" ng-click='nuevo()'>Limpiar</button>           
+       <button type="button" class="btn btn-warning" ng-click="guardar_entregas()">{{ lider_entregadoVO.id >0 ? 'Actualizar' : 'Registrar'}}</button>  
+       <button type="button" class="btn btn-danger" ng-click='nueva_entrega()'>Limpiar</button>           
       
       </div>
 
+       <div class="col-lg-6" ng-init="obtener_entregas()">
+   <div class="panel panel-default">
+       <div class="panel-heading">
+           Lista
+       </div>
+
+        <div class="panel-body">
+         <div class="table-responsive">
+         <table class="table table-striped table-bordered table-hover" >
+           <thead>
+               <tr>
+                   <th>Lider</th>
+                   <th>Observación</th>
+                   <th>Valor</th>  
+                   <th colspan="2">Opciones</th>                    
+               </tr>
+           </thead>
+           <tbody>
+             <tr ng-repeat='item in listaEntregas'>
+               <td>{{item.lider.persona.nombre + ' ' + item.lider.persona.apellido}}</td>
+               <td>
+                 {{item.observacion}}
+               </td>
+               <td>{{item.valor | currency:'$':0 }}</td>
+               <td>
+                 <a href="" ng-click='obtener_entregas_por_codigo(item)'>
+                   <i class='fa fa-pencil fa-2x'></i>
+                 </a>
+               </td>
+               <td>
+                 <a href="" ng-click="eliminar_entrega(item)">
+                   <i class='fa fa-trash fa-2x'></i>
+                 </a>
+               </td>
+             </tr>
+           </tbody>
+           <tfoot>
+             <tr>
+               <th colspan="2" style="text-align:right;">
+                 Total:
+               </th>
+               <th>
+                 {{(listaEntregas | sumByKey:'valor') | currency:'$':0}}
+               </th>
+               <th colspan="2"></th>
+             </tr>
+           </tfoot>
+         </table>
+         </div>
+         </div>
+
+   </div>
+</div>
 
       </div>
 

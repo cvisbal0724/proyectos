@@ -14,6 +14,7 @@ use File;
 use Input;
 use App\models\Usuarios;
 use Cookie;
+use App\models\LiderEntregado;
 
 class LiderController extends Controller {
 
@@ -24,8 +25,13 @@ class LiderController extends Controller {
 	 */
 	public function index()
 	{
-		$usuario=Usuarios::find(Cookie::get('id_usuario'));
-		return view('lideres/lider',array('usuario'=>$usuario));
+		if (Cookie::get('id_usuario')>0) {
+			$usuario=Usuarios::find(Cookie::get('id_usuario'));
+			return view('lideres/lider',array('usuario'=>$usuario));
+		}else{
+			return view('inicio/acceso_denegado');
+		}
+		
 	}
 
 	public function Crear(){
@@ -152,7 +158,8 @@ public function Consultar(){
 			->leftJoin('personas as p3','c.id_persona','=','p3.id')
 			->select(DB::raw("l.id,ifnull(lc.meta,'N/A') as meta,concat(p.nombre,' ',p.apellido) as lider,
 			concat(p2.nombre,' ',p2.apellido) as encargado,ifnull(concat(p3.nombre,' ', p3.apellido),'N/A') as concejal,
-			al.nombre as alcalde,(select count(v.id) from votantes v where v.id_lider=l.id) as votos"))
+			al.nombre as alcalde,(select count(v.id) from votantes v where v.id_lider=l.id) as votos,
+			(select sum(le.valor) from lider_entregado as le where le.id_lider=l.id) as total_entregado"))
 			->groupBy(DB::raw('lc.meta,p.cedula,p2.cedula,p3.cedula'));
 		$paginado=10;
 
@@ -185,7 +192,7 @@ public function Consultar(){
 
 public function ConsultarPorCodigo($id){
 
-	$concejal=Concejales::find($id);
+	$concejal=Lideres::find($id);
 	
 	return $concejal;
 }
@@ -247,22 +254,57 @@ public function EliminarLiderConcejales(){
   	
 }
 
-public function RegistrarEntregas(){
+public function GuardarEntregas(){
 	try {
 		
-		$rs=ConcejalEntregado::create(array(
-			'id_lider'=>Input::get('id_concejal'),
-			'id_usuario'=>Cookie::get('id_usuario'),
-			'observacion'=>Input::get('observacion'),
-			'valor'=>Input::get('valor')
-		));
+		$guardo=false;
 
-		return $rs['id'] > 0 ? array('show'=>true,'alert'=>'success','msg'=>'Se registro ha satisfactoriamente el valor entregado.') :
+		if (Input::get('id')>0) {
+
+			$item=LiderEntregado::find(Input::get('id'));
+
+			$item->valor=Input::get('valor');
+			$item->observacion=Input::get('observacion');
+			$rs=$item->save();
+
+			$guardo=$rs>0;
+
+		}else{
+		
+			$rs=LiderEntregado::create(array(
+				'id_lider'=>Input::get('id_lider'),
+				'id_usuario'=>Cookie::get('id_usuario'),
+				'observacion'=>Input::get('observacion'),
+				'valor'=>Input::get('valor')
+			));
+
+			$guardo=$rs['id']>0;
+
+		}
+
+		return $guardo ? array('show'=>true,'alert'=>'success','msg'=>'Se registro ha satisfactoriamente el valor entregado.','data'=>LiderEntregado::all()) :
 					array('show'=>true,'alert'=>'warning','msg'=>'Hubo un error al guardar.');
 
 	} catch (Exception $e) {
-		
+		return array('show'=>true,'alert'=>'error','msg'=>$e->getMessage());
 	}
+}
+
+public function ObtenerEntregas()
+{
+	return LiderEntregado::all();
+}
+
+public function ObtenerEntregasPorCodigo()
+{
+	return LiderEntregado::find(Input::get('id'));
+}
+
+public function EliminarEntregas(){
+
+	$obj=LiderEntregado::find(Input::get('id'));
+	$obj->delete();
+	return LiderEntregado::all();
 }
 
 }

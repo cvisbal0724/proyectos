@@ -38,6 +38,7 @@
                	   <th>Numero</th>
                	   <th>Partido</th>
                	   <th>Alcalde</th> 
+                   <td>Entregado</td>
                    <th class="center">Votos</th>               	                 	   
                    <th colspan="2">Opciones</th>         
                </tr>
@@ -49,7 +50,8 @@
         				<td>{{item.numero}}</td>
         				<td>{{item.partido}}</td>
         				<td>{{item.alcalde}}</td>	
-                <td class="center"><a href="">{{item.votos}}</a></td> 
+                <td>{{item.total_entregado | currency:'$':0 }}</td>
+                <td class="center"><a href="">{{item.votos}}</a></td>                 
                <td>
                  <a ui-sref="home.editar_concejales({id:item.id})">
                    <i  class='fa fa-pencil fa-2x'></i>

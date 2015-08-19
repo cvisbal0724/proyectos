@@ -9,7 +9,7 @@ confControllers.controller('HomeController', function ($scope,$location,authUsua
 
 	$scope.consultarmenu=function(){
 
-	 $http.post("menu/consultarmenu",{_token:authUsuario.token()}).success(function(data, status, headers, config) {
+	 $http.post("menu/consultarmenu",{}).success(function(data, status, headers, config) {
 
 	 	$scope.listaMenu=data;
         

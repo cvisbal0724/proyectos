@@ -13,7 +13,7 @@ confControllers.controller('PartidoController', function ($scope,$location,authU
 		formData.append('id',$scope.partidoVO.id);
 		formData.append('nombre',$scope.partidoVO.nombre);
 		formData.append('logo',$scope.partidoVO.logo);
-		formData.append('_token',$scope.partidoVO._token);
+		//formData.append('_token',$scope.partidoVO._token);
 
 		$http.post("partido/guardar",formData,
 			{transformRequest: angular.identity,
@@ -39,7 +39,7 @@ confControllers.controller('PartidoController', function ($scope,$location,authU
 		$scope.partidoVO.id=0;
 		$scope.partidoVO.nombre='';
 		$scope.partidoVO.logo=null;
-		$scope.partidoVO._token=authUsuario.token()
+		//$scope.partidoVO._token=authUsuario.token()
 	}
 
 	$scope.consultar_por_codigo=function(obj){

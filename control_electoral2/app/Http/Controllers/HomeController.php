@@ -43,7 +43,10 @@ class HomeController extends Controller {
 	public function index()
 	{
 		try {
-			
+		
+		if (Cookie::get('id_usuario')==null) {
+			return view('inicio/acceso_denegado');
+		}	
 		
 		$usuario=Usuarios::find(Cookie::get('id_usuario'));//Auth::User();
 		$perfilMod= PerfilModulos::where('id_perfil','=',$usuario->id_perfil)->get();

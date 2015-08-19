@@ -59,7 +59,7 @@ confControllers.controller('PeriodoController', function ($scope,$location,authU
 	
 	$scope.consultarPeriodo=function(){
 
-	$http.post("legalizaciones/consultar",{_token:authUsuario.token()}).success(function(data, status, headers, config) {
+	$http.post("legalizaciones/consultar",{}).success(function(data, status, headers, config) {
 
 	 	$scope.ListaPeriodos=data;
 	 	

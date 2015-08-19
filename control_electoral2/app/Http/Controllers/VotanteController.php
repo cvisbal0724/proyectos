@@ -138,7 +138,7 @@ class VotanteController extends Controller {
 		
 		//$usuario=Auth::User();
 		$usuario=Usuarios::find(Cookie::get('id_usuario'));
-
+//print_r($usuario);
 		$criterio=Input::get('criterio');
 		$lista=array();
 		$consulta=DB::table('votantes as v')
@@ -154,9 +154,9 @@ class VotanteController extends Controller {
 			->where('v.dar_de_baja','=',0);
 		
 		$paginado=10;
-
+	
 			if ($usuario->id_perfil==EnumPerfiles::Administrador) {
-				$consulta=$consulta->where('p.id_alcalde','=',$usuario->persona->id_alcalde);				
+				$consulta=$consulta->where('p.id_alcalde','=',$usuario->persona->id_alcalde);						
 			}
 			else if ($usuario->id_perfil==EnumPerfiles::Alcalde) {	
 					

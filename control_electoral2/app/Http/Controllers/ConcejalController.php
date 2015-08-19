@@ -137,7 +137,8 @@ public function Consultar(){
 			->join('partidos as pt','c.id_partido','=','pt.id')
 			->join('alcaldes as al','p.id_alcalde','=','al.id')
 			->select(DB::raw("c.id, c.numero, concat(p.nombre, ' ', p.apellido) as concejal, pt.nombre as partido, al.nombre as alcalde,
-				(select count(id) from votantes v where v.id_concejal=c.id) as votos"));
+				(select count(id) from votantes v where v.id_concejal=c.id) as votos,
+				(select sum(ce.valor) from concejal_entregado as ce where ce.id_concejal=c.id) as total_entregado"));
 		$paginado=10;
 		if ($criterio=='') {
 			$lista=$consulta->where('p.id_alcalde','=',$id_alcalde)->orderBy('p.nombre','asc')->take(100)->paginate($paginado);
@@ -157,22 +158,57 @@ public function ConsultarPorCodigo($id){
 	return $concejal;
 }
 
-public function RegistrarEntregas(){
+public function GuardarEntregas(){
 	try {
 		
-		$rs=ConcejalEntregado::create(array(
-			'id_concejal'=>Input::get('id_concejal'),
-			'id_usuario'=>Cookie::get('id_usuario'),
-			'observacion'=>Input::get('observacion'),
-			'valor'=>Input::get('valor')
-		));
+		$guardo=false;
 
-		return $rs['id'] > 0 ? array('show'=>true,'alert'=>'success','msg'=>'Se registro ha satisfactoriamente el valor entregado.') :
+		if (Input::get('id')>0) {
+
+			$item=ConcejalEntregado::find(Input::get('id'));
+
+			$item->valor=Input::get('valor');
+			$item->observacion=Input::get('observacion');
+			$rs=$item->save();
+
+			$guardo=$rs>0;
+
+		}else{
+		
+			$rs=ConcejalEntregado::create(array(
+				'id_concejal'=>Input::get('id_concejal'),
+				'id_usuario'=>Cookie::get('id_usuario'),
+				'observacion'=>Input::get('observacion'),
+				'valor'=>Input::get('valor')
+			));
+
+			$guardo=$rs['id']>0;
+
+		}
+
+		return $guardo ? array('show'=>true,'alert'=>'success','msg'=>'Se registro ha satisfactoriamente el valor entregado.','data'=>ConcejalEntregado::all()) :
 					array('show'=>true,'alert'=>'warning','msg'=>'Hubo un error al guardar.');
 
 	} catch (Exception $e) {
-		
+		return array('show'=>true,'alert'=>'error','msg'=>$e->getMessage());
 	}
+}
+
+public function ObtenerEntregas()
+{
+	return ConcejalEntregado::all();
+}
+
+public function ObtenerEntregasPorCodigo()
+{
+	return ConcejalEntregado::find(Input::get('id'));
+}
+
+public function EliminarEntregas(){
+
+	$obj=ConcejalEntregado::find(Input::get('id'));
+	$obj->delete();
+	return ConcejalEntregado::all();
 }
 
 }

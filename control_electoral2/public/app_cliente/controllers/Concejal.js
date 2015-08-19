@@ -5,7 +5,8 @@ $scope.result={};
 $scope.listaConcejales=[];
 $scope.criterio='';
 $scope.listaPersonas=[];
-$scope.concejal_entregadoVO={id:0,observacion:'',valor:0};
+$scope.concejal_entregadoVO={id:0,observacion:'',valor:0,id_concejal:$state.params.id};
+$scope.listaEntregas=[];
 
 $scope.consultar_por_codigo=function(id){
 		
@@ -103,22 +104,71 @@ $scope.consultar=function(page){
 	}
 
 $scope.nuevo=function(){
-	$scope.concejalVO={id:0,numero:'',id_persona:0,id_partido:0};
-	$scope.concejal_entregadoVO={id:0,observacion:'',valor:0};
+	$scope.concejalVO={id:0,numero:'',id_persona:0,id_partido:0};	
 }
 
-$scope.registrar_entregas=function(){
+$scope.nuevo_entraga=function(){
+
+	$scope.concejal_entregadoVO={id:0,observacion:'',valor:0};
+
+}
+
+$scope.guardar_entregas=function(){
 
 	if ($scope.concejal_entregadoVO.valor==0 || $scope.concejal_entregadoVO.valor=='') {$scope.result={show:true,alert:'warning',msg:'Agregue el valor.'};return false;};
 
-	$http.post('concejal/registrarentregas',{id_concejal:$state.params.id,
-		observacion:$scope.concejal_entregadoVO.observacion,valor:$scope.concejal_entregadoVO.valor})
+	$http.post('concejal/guardarentregas',$scope.concejal_entregadoVO)
 		.success(function(data, status, headers, config) {
 			
 			$scope.result=data;
-			$scope.nuevo();
+			$scope.listaEntregas=data.data;
+			$scope.concejal_entregadoVO={id:0,observacion:'',valor:0,id_concejal:$state.params.id};
 
 		});
+
+}
+
+$scope.obtener_entregas=function(){
+
+	$http.post('concejal/obtenerentregas',{})
+		.success(function(data, status, headers, config) {
+						
+			$scope.listaEntregas=data;
+
+	});
+}
+
+$scope.obtener_entregas_por_codigo=function(item){
+
+	$http.post('concejal/obtenerentregasporcodigo',{id:item.id})
+		.success(function(data, status, headers, config) {
+						
+			$scope.concejal_entregadoVO=data;			
+
+	});
+}
+
+$scope.eliminar_entrega=function(item){
+	
+	swal({   
+	title: "Esta seguro?",   
+	text: "Desea eliminar el concejal!",   
+	type: "warning",   
+	showCancelButton: true,   
+	confirmButtonColor: "#DD6B55",  
+	confirmButtonText: "Si!", 
+	cancelButtonText:'No',  
+	closeOnConfirm: false }, function(){   
+		
+		$http.post('concejal/eliminarentregas',{id:item.id})
+		.success(function(data, status, headers, config) {
+			
+			swal("Eliminado!", "El valor fue removido satisfactoriamente.", "success"); 			
+			$scope.listaEntregas=data;
+
+		});
+
+	});
 
 }
 
