@@ -24,6 +24,7 @@ use App\models\Partidos;
 use App\models\Alcaldes;
 use App\models\Perfiles;
 use Illuminate\Support\Facades\Cookie;
+use Illuminate\Support\Facades\Hash;
 
 Route::get('/', function(){
 	return view('inicio/index');
@@ -224,6 +225,14 @@ Route::get('lideres/lider_entregado',function(){
 	}
 });
 
+Route::get('usuario/cambiar_clave',function(){	
+	if (Cookie::get('id_usuario')>0) {
+		return view('usuario/cambiar_clave');
+	}else{
+		return view('inicio/acceso_denegado');
+	}
+});
+
 Route::get('graficos/graficos','GraficosController@index');
 
 Route::get('tt','GraficosController@test');
@@ -289,6 +298,7 @@ Route::post('usuario/crear','UsuarioController@Crear');
 Route::post('usuario/actualizar','UsuarioController@Actualizar');
 Route::post('usuario/consultar','UsuarioController@Consultar');
 Route::get('usuario/consultarporcodigo/{id}','UsuarioController@ConsultarPorCodigo');
+Route::post('usuario/cambiarclave','UsuarioController@CambiarClave');
 /*Fin Usuario*/
 
 /*Concejal*/
@@ -333,9 +343,9 @@ Route::get('graficos/consultar','GraficosController@Consultar');
 
 use App\models\Menus;
 use App\Enums\EnumPerfiles;
-Route::get('test',function(){
+Route::get('test2',function(){
 	
-echo EnumPerfiles::Alcalde;
+echo Hash::make('12345');//EnumPerfiles::Alcalde;
 });
 
 Route::get('test','AutenticacionController@test');

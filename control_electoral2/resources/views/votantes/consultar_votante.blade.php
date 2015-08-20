@@ -34,7 +34,8 @@
                	   <th>Lider</th>
                	   <th>Concejal</th>
                    <th>Votar Por</th>
-               	   <th>Tipo Voto</th>               	                 	   
+               	   <th>Tipo Voto</th> 
+                   <th>Voto?</th>               	                 	   
                    <th colspan="3">Opciones</th>         
                </tr>
            </thead>
@@ -46,6 +47,8 @@
         				<td>{{item.concejal}}</td>
         				<td>{{item.votar_por}}</td>
                 <td>{{item.tipo_voto}}</td>	
+                <td ng-if="item.voto > 0" style="color:blue;font-size:13px;font-weight:bold;text-align:center;">SI</td>
+                <td ng-if="!(item.voto > 0)" style="color:red;font-size:13px;font-weight:bold;text-align:center;">NO</td>
                <td>
                  <a href="" ui-sref="home.editar_votantes({id:item.id})" title="Editar">
                    <i class='fa fa-pencil fa-2x'></i>

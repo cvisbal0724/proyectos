@@ -80,13 +80,15 @@
                <tr>
                    <th>Lider</th>                  
                    <th>Concejal</th> 
+                   <th>Meta</th>
                    <th></th>                   
                </tr>
            </thead>
            <tbody>
              <tr ng-repeat='item in listaLiderConcejales'>              
                <td>{{item.lider.persona.nombre + ' ' + item.lider.persona.apellido}}</td>  
-               <td>{{item.concejal.persona.nombre + ' ' + item.concejal.persona.apellido }}</td>               
+               <td>{{item.concejal.persona.nombre + ' ' + item.concejal.persona.apellido }}</td> 
+               <td>{{item.meta}}</td>              
                <td>
                  <a href="" ng-click="eliminal_lider_concejales(item)">
                    <i class='fa fa-trash fa-2x'></i>

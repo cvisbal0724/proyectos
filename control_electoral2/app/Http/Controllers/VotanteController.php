@@ -39,7 +39,7 @@ class VotanteController extends Controller {
 			 if (count($concejales)>0) {
 			 	$categoriaVotacion=CategoriaVotacion::all();
 			 }else{
-			 	$categoriaVotacion=CategoriaVotacion::where('id','=',1)->get();
+			 	$categoriaVotacion=CategoriaVotacion::where('id','=',2)->get();
 			 }
 
 			 $variables=array('concejales'=>$concejales,'tipovoto'=>$tipoVoto,'lugarVotacion'=>$lugarVotacion,'categoriaVotacion'=>$categoriaVotacion);
@@ -150,7 +150,7 @@ class VotanteController extends Controller {
 			->leftJoin('concejales as c','v.id_concejal','=','c.id')
 			->leftJoin('personas as p3','c.id_persona','=','p3.id')		
 			->select(DB::raw("v.id,concat(p.nombre , ' ', p.apellido) as votante,concat(p2.nombre , ' ' , p2.apellido) as lider,
-				ifnull(concat(p3.nombre , ' ' , p3.apellido),'N/A') as concejal,cv.nombre as votar_por,tv.nombre as tipo_voto"))
+				ifnull(concat(p3.nombre , ' ' , p3.apellido),'N/A') as concejal,cv.nombre as votar_por,tv.nombre as tipo_voto,v.voto"))
 			->where('v.dar_de_baja','=',0);
 		
 		$paginado=10;

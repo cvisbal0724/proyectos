@@ -25,7 +25,7 @@
              @if(count($item['hijos'])>0)
                 <li class="sub-menu">
                   <a href="">
-                    <i class="fa fa-bar-chart-o fa-fw"></i> 
+                    <i class="[[$item['imagen'] ]]"></i> 
                     <span>[[ $item['etiqueta'] ]]</span>                    
                   </a>
                 
@@ -45,7 +45,7 @@
             @if(count($item['hijos'])==0)
             <li class="sub-menu">
             <a ui-sref='[[ $item["url"] ]]' href="/home">
-                <i class="fa fa-dashboard fa-fw"></i> 
+                <i class="[[$item['imagen'] ]]"></i> 
                 <span>[[ $item['etiqueta'] ]]</span>
                 </a>
             </li>

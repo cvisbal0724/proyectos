@@ -11,6 +11,7 @@ use Hash;
 use DB;
 use Input;
 use Cookie;
+use Auth;
 
 class UsuarioController extends Controller {
 
@@ -80,6 +81,28 @@ class UsuarioController extends Controller {
 		$usuario=Usuarios::find($id);
 
 		return $usuario;
+
+	}
+
+	public function CambiarClave()
+	{
+		try {
+						
+			$credenciales=array('id' => Cookie::get('id_usuario'), 'password' =>Input::get('clave_actual'));
+
+			if (Auth::validate($credenciales)){
+				$usu=Usuarios::find(Cookie::get('id_usuario'));
+				$usu->password=Hash::make(Input::get('clave_nueva'));
+				$usu->save();
+			}else{
+				return 'La conatraseña esta errada.';
+			}
+
+			return 'success';
+
+		} catch (Exception $e) {
+			return 'Ha ocurrido un error consulte su administrador';
+		}		
 
 	}
 

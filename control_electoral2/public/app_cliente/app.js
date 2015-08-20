@@ -249,6 +249,14 @@ App.config(function($urlRouterProvider, $stateProvider) {
           'titulo':{template:'Exportar Votante'},
           'nombre-proyecto':{templateUrl:'layouts/nombre_proyecto'}
         }  
+       })
+         .state('home.cambiar_clave', {
+        url: "/cambiar-clave",        
+         views:{
+          'contenedor':{templateUrl: "usuario/cambiar_clave" , controller:'UsuarioController'},
+          'titulo':{template:'Cambiar Clave'},
+          'nombre-proyecto':{templateUrl:'layouts/nombre_proyecto'}
+        }  
        });
      
 });

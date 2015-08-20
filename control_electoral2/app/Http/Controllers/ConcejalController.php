@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\models\Concejales;
 use App\models\Lideres;
+use App\models\LiderConcejales;
 use Auth;
 use DB;
 use File;
@@ -52,12 +53,21 @@ public function Crear(){
 
 			$lider=Lideres::where('id_persona','=',Input::get('id_persona'))->get();
 			if (count($lider)==0) {
-				Lideres::create(array(
+				$objLider=Lideres::create(array(
 				'id_persona'=>Input::get('id_persona'),
 				'id_encargado'=>Cookie::get('id_usuario')//Auth::user()->id				
 				));
-			}
 
+				$liderConcejalArray[]=array(
+					'meta'=>0,	
+					'id_lider'=>$objLider['id'],
+					'id_concejal'=>$rs['id']
+				);	
+
+				DB::table('lider_concejales')->insert($liderConcejalArray);
+				
+			}
+			
 			DB::commit();
 			
 			return $rs['id'] > 0 ? array('show'=>true,'alert'=>'success','msg'=>'Concejal guardado satisfactoriamente.') :

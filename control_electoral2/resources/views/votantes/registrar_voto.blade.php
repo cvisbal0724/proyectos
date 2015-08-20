@@ -34,7 +34,7 @@
                                {{result.msg}}
              			</div>
 
-			            <button type="button" class="btn btn-warning" >Registrar Voto</button>  
+			            <button type="button" class="btn btn-warning" ng-click="registrar_voto()">Registrar Voto</button>  
 			        </div>
 
 			      </div>   

@@ -5,7 +5,7 @@ $scope.result={};
 $scope.listaUsuarios=[];
 $scope.criterio='';
 $scope.listaPersonas=[];
-
+$scope.cambiar_claveVO={clave_actual:'',clave_nueva:'',confirmar:''};
 
 $scope.consultar_por_codigo=function(id){
 		
@@ -73,6 +73,27 @@ $scope.consultar=function(page){
 
 $scope.nuevo=function(){
 	$scope.usuarioVO={id:0,usuario:'',id_persona:0,id_perfil:0};
+	$scope.cambiar_clave={clave_actual:'',clave_nueva:'',confirmar:''};
+}
+
+$scope.cambiar_clave=function(){
+	
+	if ($scope.cambiar_claveVO.clave_actual =='') {$scope.result={"show":true,"alert":"warning","msg":"Ingrese la contraseña actual."}; return false;};
+	if ($scope.cambiar_claveVO.clave_nueva =='') {$scope.result={"show":true,"alert":"warning","msg":"INgrese la nueva contraseña."}; return false;};
+	if ($scope.cambiar_claveVO.confirmar =='') {$scope.result={"show":true,"alert":"warning","msg":"Confirme la nueva contraseña."}; return false;};
+	if ($scope.cambiar_claveVO.confirmar != $scope.cambiar_claveVO.clave_nueva) {$scope.result={"show":true,"alert":"warning","msg":"Las contraseñas no coinciden."}; return false;};
+
+	 $http.post("usuario/cambiarclave",$scope.cambiar_claveVO)
+	 .success(function(data, status, headers, config) {
+	 	if (data=='success') {
+	 		$scope.result={"show":true,"alert":"success","msg":"Contraseña cambiada satisfactoriamente."};	
+	 		$scope.nuevo();
+	 	}else{
+	 		$scope.result={"show":true,"alert":"danger","msg":data};
+	 	}
+	 	 
+	 });
+	 	
 }
 
 });

@@ -79,8 +79,8 @@ class DashBoardController extends Controller {
 			
 			$concejales=$consConcejales
 			->select(DB::raw("c.id, c.numero, concat(p.nombre, ' ', p.apellido) as concejal, pt.nombre as partido, al.nombre as alcalde,
-				(select count(id) from votantes v where v.id_categoria_votacion in (2,3) and v.voto=0) as votos,
-				(select count(id) from votantes v where v.id_categoria_votacion in (2,3) and v.voto=1) as registrados,c.foto,c.id_persona"))
+				(select count(id) from votantes v where v.id_concejal=c.id and v.id_categoria_votacion in (2,3) and v.voto=0) as votos,
+				(select count(id) from votantes v where v.id_concejal=c.id and v.id_categoria_votacion in (2,3) and v.voto=1) as registrados,c.foto,c.id_persona"))
 			->where('p.id_alcalde','=',$usuario->persona->id_alcalde)->get();
 
 			$listaConcejal=array();
@@ -91,26 +91,38 @@ class DashBoardController extends Controller {
 
 			$lideres=$consLideres	
 			->select(DB::raw("l.id,concat(p.nombre,' ',p.apellido) as lider,
-			(select count(v.id) from votantes v where v.id_categoria_votacion in (2,3) and v.voto=0) as votos,
-			(select count(id) from votantes v where v.id_categoria_votacion in (2,3) and v.voto=1) as registrados,l.foto"))						
+			(select count(v.id) from votantes v where v.id_lider=l.id and v.id_categoria_votacion in (2,3) and v.voto=0) as votos,
+			(select count(id) from votantes v where  v.id_lider=l.id and v.id_categoria_votacion in (2,3) and v.voto=1) as registrados,l.foto"))						
 			->where('l.id_encargado','=',$usuario->id)
 			->whereNotIn('l.id_persona',$listaConcejal)->get();
 			
 		}else if($usuario->id_perfil==EnumPerfiles::Concejal){
 			
+			//$lideres=$consLideres
+			//->select(DB::raw("l.id,concat(p.nombre,' ',p.apellido) as lider,
+			//(select count(v.id) from votantes v where v.id_lider=l.id and v.voto=0) as votos,
+			//(select count(id) from votantes v where v.id_lider=l.id and v.voto=1) as registrados,l.foto"))		
+			//->where('p.id_alcalde','=',$usuario->persona->id)->get();
+
 			$lideres=$consLideres
-			->select(DB::raw("c.id, c.numero, concat(p.nombre, ' ', p.apellido) as concejal, pt.nombre as partido, al.nombre as alcalde,
-				(select count(id) from votantes v where v.id_concejal=c.id and v.voto=0) as votos,
-				(select count(id) from votantes v where v.id_concejal=c.id and v.voto=1) as registrados,c.foto"))
+			->select(DB::raw("l.id,concat(p.nombre,' ',p.apellido) as lider,
+			(select count(v.id) from votantes v where v.id_lider=l.id and v.voto=0) as votos,
+			(select count(id) from votantes v where v.id_lider=l.id and v.voto=1) as registrados,l.foto"))		
 			->where('l.id_encargado','=',$usuario->id)->get();
 
 		}else if($usuario->id_perfil==EnumPerfiles::Lider){
 			
+			//$lideres=$consLideres
+			//->select(DB::raw("l.id, concat(p.nombre, ' ', p.apellido) as concejal, pt.nombre as partido, al.nombre as alcalde,
+			//	(select count(id) from votantes v where v.id_concejal=l.id and v.voto=0) as votos,
+			//	(select count(id) from votantes v where v.id_concejal=l.id and v.voto=1) as registrados,c.foto"))	
+			//->where('l.id_persona','=',$usuario->persona->id)->get();
+
 			$lideres=$consLideres
-			->select(DB::raw("c.id, c.numero, concat(p.nombre, ' ', p.apellido) as concejal, pt.nombre as partido, al.nombre as alcalde,
-				(select count(id) from votantes v where v.id_concejal=c.id and v.voto=0) as votos,
-				(select count(id) from votantes v where v.id_concejal=c.id and v.voto=1) as registrados,c.foto"))	
-			->where('l.id_persona','=',$usuario->persona->id)->get();
+			->select(DB::raw("l.id,concat(p.nombre,' ',p.apellido) as lider,
+			(select count(v.id) from votantes v where v.id_lider=l.id and v.voto=0) as votos,
+			(select count(id) from votantes v where v.id_lider=l.id and v.voto=1) as registrados,l.foto"))		
+			->where('p.id_alcalde','=',$usuario->persona->id)->get();
 			
 		}
 
