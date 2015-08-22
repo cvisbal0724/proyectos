@@ -233,6 +233,15 @@ Route::get('usuario/cambiar_clave',function(){
 	}
 });
 
+Route::get('reportes/votos_por_partido',function(){	
+	if (Cookie::get('id_usuario')>0) {
+		$lista=Partidos::all();
+		return view('reportes/votos_por_partido',array('partidos'=>$lista));
+	}else{
+		return view('inicio/acceso_denegado');
+	}
+});
+
 Route::get('graficos/graficos','GraficosController@index');
 
 Route::get('tt','GraficosController@test');
@@ -299,6 +308,8 @@ Route::post('usuario/actualizar','UsuarioController@Actualizar');
 Route::post('usuario/consultar','UsuarioController@Consultar');
 Route::get('usuario/consultarporcodigo/{id}','UsuarioController@ConsultarPorCodigo');
 Route::post('usuario/cambiarclave','UsuarioController@CambiarClave');
+Route::post('usuario/bloquearusuario','UsuarioController@BloquearUsuario');
+Route::post('usuario/desbloquearusuario','UsuarioController@DesBloquearUsuario');
 /*Fin Usuario*/
 
 /*Concejal*/
@@ -335,6 +346,8 @@ Route::post('votante/dardebaja','VotanteController@DarDeBaja');
 Route::post('votante/consultarconcejalylider','VotanteController@ConsultarConcejalYLider');
 Route::get('votante/exportarpdf/{concejales}/{lideres}','VotanteController@ExportarPDF');
 Route::post('votante/registrarvoto','VotanteController@RegistrarVoto');
+Route::get('votante/obtenerlugaresdevotacion/{id_zona}','VotanteController@ObtenerLugaresDeVotacion');
+Route::post('votante/obtenervotosporpartidos','VotanteController@ObtenerVotosPorPartidos');
 /*Fin votante*/
 
 /*graficos*/

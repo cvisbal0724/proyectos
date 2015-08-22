@@ -96,4 +96,102 @@ $scope.cambiar_clave=function(){
 	 	
 }
 
+$scope.bloquear_usuario=function (item) {
+	
+	swal({   
+		title: "Esta seguro?",   
+		text: "Desea bloquear el usuario " + item.nombre + ' ' + item.apellido,   
+		type: "warning",   
+		showCancelButton: true,   
+		confirmButtonColor: "#DD6B55",  
+		confirmButtonText: "Si!", 
+		cancelButtonText:'No',  
+		closeOnConfirm: false }, function(){   
+		
+		$http.post("usuario/bloquearusuario",{id:item.id})
+		.success(function(data, status, headers, config) {
+			
+			if (data.result) {
+				swal({
+				title:"Usuario bloqueado satisfactoriamente.", 
+				text:data.msg, 
+				type:"success",
+				confirmButtonColor: "#DD6B55",  
+				confirmButtonText: "Ok", 
+				//cancelButtonText:'No',  
+				closeOnConfirm: true},function(){
+					
+				}); 
+				item.bloqueado=1;
+			};
+			
+			if (!data.result) {
+				swal({
+				title:"No se pudo bloquear el usuario.", 
+				text:data.msg, 
+				type:"error",
+				confirmButtonColor: "#DD6B55",  
+				confirmButtonText: "Ok", 
+				//cancelButtonText:'No',  
+				closeOnConfirm: true},function(){
+					
+				}); 
+			};
+			
+			 	
+		 });
+			
+	
+	});
+}
+
+$scope.desbloquear_usuario=function (item) {
+	
+	swal({   
+		title: "Esta seguro?",   
+		text: "Desea desbloquear el usuario " + item.nombre + ' ' + item.apellido,   
+		type: "warning",   
+		showCancelButton: true,   
+		confirmButtonColor: "#DD6B55",  
+		confirmButtonText: "Si!", 
+		cancelButtonText:'No',  
+		closeOnConfirm: false }, function(){   
+		
+		$http.post("usuario/desbloquearusuario",{id:item.id})
+		.success(function(data, status, headers, config) {
+			
+			if (data.result) {
+				swal({
+				title:"Usuario desbloqueado satisfactoriamente.", 
+				text:data.msg, 
+				type:"success",
+				confirmButtonColor: "#DD6B55",  
+				confirmButtonText: "Ok", 
+				//cancelButtonText:'No',  
+				closeOnConfirm: true},function(){
+				
+				}); 
+				item.bloqueado=0;	
+			};
+			
+			if (!data.result) {
+				swal({
+				title:"No se pudo desbloquear el usuario.", 
+				text:data.msg, 
+				type:"error",
+				confirmButtonColor: "#DD6B55",  
+				confirmButtonText: "Ok", 
+				//cancelButtonText:'No',  
+				closeOnConfirm: true},function(){
+					
+				}); 
+			};
+			
+			 	
+		 });
+			
+	
+	});
+}
+
 });

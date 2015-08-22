@@ -18,4 +18,5 @@ class Votantes extends Model {
 		return $this->belongsTo('App\models\Lideres','id_lider','id');
 	}
 
+	
 }

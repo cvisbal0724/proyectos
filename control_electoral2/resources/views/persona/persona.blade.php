@@ -23,6 +23,11 @@
                 <p class="help-block">(*)Ingrese el apellido</p>
             </div>
              <div class="form-group">
+                <label>Barrio</label>
+                <input class="form-control" type='text' ng-model='personaVO.barrio'>
+                <p class="help-block"></p>
+            </div>
+             <div class="form-group">
                 <label>Alcalde</label>
                 <select class="form-control" ng-model='personaVO.id_alcalde'>
                 	<option value="0">[Seleccionar..]</option>

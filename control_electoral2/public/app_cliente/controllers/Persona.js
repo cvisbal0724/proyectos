@@ -8,6 +8,7 @@ confControllers.controller('PersonaController', function ($scope,$location,authU
 	direccion:'',
 	correo:'',
 	id_alcalde:'0',
+	barrio:''
 	//_token:authUsuario.token()
 	};
 	$scope.result={};
@@ -114,6 +115,7 @@ $scope.actualizar_nueva_persona=function(){
 		$scope.personaVO.direccion='';
 		$scope.personaVO.correo='';
 		$scope.personaVO.id_alcalde='0';
+		$scope.personaVO.barrio='';
 	}
 
 	

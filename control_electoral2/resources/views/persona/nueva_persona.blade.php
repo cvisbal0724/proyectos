@@ -22,7 +22,11 @@
                 <input class="form-control" type='text' ng-model='personaVO.apellido'>
                 <p class="help-block">(*)Ingrese el apellido</p>
             </div>
-             
+             <div class="form-group">
+                <label>Barrio</label>
+                <input class="form-control" type='text' ng-model='personaVO.barrio'>
+                <p class="help-block"></p>
+            </div>
             <div class="form-group">
                 <label>Teléfono</label>
                 <input class="form-control" type='text' ng-model='personaVO.telefono'>

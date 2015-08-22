@@ -30,7 +30,8 @@ class PersonaController extends Controller {
 				'telefono'=>Input::get('telefono'),
 				'direccion'=>Input::get('direccion'),
 				'correo'=>Input::get('correo'),
-				'id_alcalde'=>Input::get('id_alcalde')
+				'id_alcalde'=>Input::get('id_alcalde'),
+				'barrio'=>Input::get('barrio')
 			));
 
 			return $rs['id'] > 0 ? array('show'=>true,'alert'=>'success','msg'=>'Persona guardada satisfactoriamente.') :
@@ -54,6 +55,7 @@ class PersonaController extends Controller {
 				$persona->direccion=Input::get('direccion');
 				$persona->correo=Input::get('correo');
 				$persona->id_alcalde=Input::get('id_alcalde');
+				$persona->barrio=Input::get('barrio');
 				$rs=$persona->save();
 
 			return $rs > 0 ? array('show'=>true,'alert'=>'success','msg'=>'Persona guardada satisfactoriamente.') :
@@ -117,6 +119,7 @@ class PersonaController extends Controller {
 				'telefono'=>Input::get('telefono'),
 				'direccion'=>Input::get('direccion'),
 				'correo'=>Input::get('correo'),
+				'barrio'=>Input::get('barrio'),
 				'id_alcalde'=>$usuario->persona->id_alcalde
 			));
 
@@ -139,7 +142,8 @@ class PersonaController extends Controller {
 				$persona->apellido=Input::get('apellido');
 				$persona->telefono=Input::get('telefono');
 				$persona->direccion=Input::get('direccion');
-				$persona->correo=Input::get('correo');				
+				$persona->correo=Input::get('correo');		
+				$persona->barrio=Input::get('barrio');		
 				$rs=$persona->save();
 
 			return $rs > 0 ? array('show'=>true,'alert'=>'success','msg'=>'Persona guardada satisfactoriamente.') :

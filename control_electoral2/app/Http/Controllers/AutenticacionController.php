@@ -23,7 +23,7 @@ class AutenticacionController extends Controller {
 	public function Loguear(Request $request){
 		try {
 
-			$credenciales=array('usuario' => $request->input('usuario'), 'password' => $request->input('clave'));
+			$credenciales=array('usuario' => $request->input('usuario'), 'password' => $request->input('clave'),'bloqueado'=>0);
 			
 			if (Auth::attempt($credenciales))
 			{

@@ -70,11 +70,20 @@ class LiderController extends Controller {
 			
 			$concejal=Concejales::where('id_persona','=',$usuario->persona->id)->get();
 			if (count($concejal)>0) {
-				 LiderConcejales::create(array(
-			   	'meta'=>Input::get('meta'),
-			   	'id_lider'=>$rs['id'],
-			   	'id_concejal'=>$concejal[0]->id
-			   	));
+				// LiderConcejales::create(array(
+			   	//'meta'=>Input::get('meta'),
+			   	//'id_lider'=>$rs['id'],
+			   	//'id_concejal'=>$concejal[0]->id
+			   	//));
+
+				$liderConcejalArray[]=array(
+					'meta'=>0,	
+					'id_lider'=>$rs['id'],
+					'id_concejal'=>$concejal[0]->id
+				);	
+
+				DB::table('lider_concejales')->insert($liderConcejalArray);
+
 			}
 		  
 	   		DB::commit();

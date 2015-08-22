@@ -9,6 +9,7 @@ use App\models\Partidos;
 use File;
 use Input;
 use Cookie;
+use Image;
 
 class PartidoController extends Controller {
 
@@ -39,11 +40,18 @@ class PartidoController extends Controller {
 					        public_path() . '/app_cliente/logos_partido/', $nombreArchivo
 					    );
 
+						 $imagePath=public_path() . '/app_cliente/logos_partido/'. $nombreArchivo;
+						 $image = Image::make($imagePath);
+						 $image->resize(50, 50);
+						 $image->save($imagePath);
+
 						if ($part->logo!='') {
 							File::delete(public_path().'/app_cliente/logos_partido/'.$part->logo);
 						}
 
 						$part->logo=$nombreArchivo;	
+
+
 
 					}
 				}
@@ -65,6 +73,11 @@ class PartidoController extends Controller {
 						 Input::file('logo')->move(
 					        base_path() . '/public/app_cliente/logos_partido/', $nombreArchivo
 					    );
+
+						 $imagePath=public_path() . '/app_cliente/logos_partido/'. $nombreArchivo;
+						 $image = Image::make($imagePath);
+						 $image->resize(100, 100);
+						 $image->save($imagePath);
 					}
 				}
 				

@@ -17,6 +17,7 @@ use DB;
 use Auth;
 use Input;
 use App\models\Usuarios;
+use App\models\Zonas;
 use Cookie;
 
 class VotanteController extends Controller {
@@ -35,19 +36,21 @@ class VotanteController extends Controller {
 			 select(DB::raw("c.id, concat(p.nombre,' ',p.apellido) as concejal"))->get();
 
 			 $tipoVoto=TipoVoto::all();
-			 $lugarVotacion=LugaresDeVotacion::all();	 
+			 //$lugarVotacion=LugaresDeVotacion::all();	
+			 $zonas=Zonas::all(); 
 			 if (count($concejales)>0) {
 			 	$categoriaVotacion=CategoriaVotacion::all();
 			 }else{
 			 	$categoriaVotacion=CategoriaVotacion::where('id','=',2)->get();
 			 }
 
-			 $variables=array('concejales'=>$concejales,'tipovoto'=>$tipoVoto,'lugarVotacion'=>$lugarVotacion,'categoriaVotacion'=>$categoriaVotacion);
+			 //'lugarVotacion'=>$lugarVotacion,
+			 $variables=array('concejales'=>$concejales,'tipovoto'=>$tipoVoto,'zonas'=>$zonas,'categoriaVotacion'=>$categoriaVotacion);
 
 			 return view('votantes/votante',$variables);
 
 	}	
-	 return 'Usted no tiene acceso a esta pagina porque no esta registrado como lider.';
+	 return '<h3>Usted no tiene acceso a esta pagina porque no esta registrado como lider.</h3>';
 	}
 
 	public function Crear(){
@@ -67,18 +70,18 @@ class VotanteController extends Controller {
 
 			if ($votante) {
 
-				$lider=$votante->lider->persona->nombre . ' ' .$votante->lider->persona->apellido;
+				$nombreLider=$votante->lider->persona->nombre . ' ' .$votante->lider->persona->apellido;
 				if ($votante->id_categoria_votacion==2 && Input::get('id_categoria_votacion')==2)/*Concejo*/ {
 										
-					return array('show'=>true,'alert'=>'warning','msg'=>'No puede guardar el votante porque ya esta a cargo de  ' . $lider . '.');
+					return array('show'=>true,'alert'=>'warning','msg'=>'No puede guardar el votante porque ya esta a cargo de  ' . $nombreLider . '.');
 				}
 				elseif ($votante->id_categoria_votacion==3/*Alcaldia y concejo*/) {
 										
-					return array('show'=>true,'alert'=>'warning','msg'=>'No puede guardar el votante porque ya esta a cargo de  ' . $lider . '.');
+					return array('show'=>true,'alert'=>'warning','msg'=>'No puede guardar el votante porque ya esta a cargo de  ' . $nombreLider . '.');
 
 				}elseif ($votante->id_categoria_votacion==1 && Input::get('id_categoria_votacion')==1/*Alcaldia*/) {
 
-					return array('show'=>true,'alert'=>'warning','msg'=>'No puede guardar el votante porque ya esta a cargo de ' . $lider . '.');
+					return array('show'=>true,'alert'=>'warning','msg'=>'No puede guardar el votante porque ya esta a cargo de ' . $nombreLider . '.');
 				}
 				
 			}
@@ -454,6 +457,57 @@ class VotanteController extends Controller {
 		}	
 	}
 
+	public function ObtenerLugaresDeVotacion($id_zona){
+
+		$lugares=LugaresDeVotacion::where('id_zona','=',$id_zona)->get();
+		return $lugares;
+
+	}
+
+	public function ObtenerVotosPorPartidos()
+	{
+
+		$partido=Input::get('id_partido');
+		$lista=array();
+
+		if ($partido!=200) {
+			$lista=DB::select('select vw.nombre as partido,count(vw.id) as total_votos,vw.logo,
+							(select count(v1.id)
+							from vw_votos_partidos as v1
+							where v1.id_partido=vw.id_partido and v1.voto=0) as por_votar,
+
+							(select count(v2.id)
+							from vw_votos_partidos as v2
+							where v2.id_partido=vw.id_partido and v2.voto=1) as votos_registrados
+							from vw_votos_partidos as vw
+							where vw.id_partido=?
+							group by vw.id_partido',array($partido));
+		}else{
+
+			$lista=DB::select('select vw.nombre as partido,count(vw.id) as total_votos,vw.logo,
+							(select count(v1.id)
+							from vw_votos_partidos as v1
+							where v1.id_partido=vw.id_partido and v1.voto=0) as por_votar,
+
+							(select count(v2.id)
+							from vw_votos_partidos as v2
+							where v2.id_partido=vw.id_partido and v2.voto=1) as votos_registrados
+							from vw_votos_partidos as vw							
+							group by vw.id_partido');
+
+		}
+		
+		return $lista;
+	}
+
 }
 
 
+/*alter view vw_votos_partidos
+as
+select v.id,pr.nombre,c.id_partido,v.voto,pr.logo
+from votantes as v
+inner join lideres as l on v.id_lider=l.id
+inner join usuarios as u on l.id_encargado=u.id
+inner join concejales as c on u.id_persona=c.id_persona
+inner join partidos as pr on c.id_partido=pr.id*/

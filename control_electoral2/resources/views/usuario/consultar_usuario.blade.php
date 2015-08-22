@@ -37,7 +37,7 @@
                	   <th>Nombre</th>
                	   <th>Apellido</th>
                	   <th>Perfil</th>               	                 	   
-                   <th></th>         
+                   <th colspan="2" style="text-align:center;">Opciones</th>         
                </tr>
            </thead>
            <tbody>
@@ -47,10 +47,20 @@
         				<td>{{item.nombre}}</td>
         				<td>{{item.apellido}}</td>
         				<td>{{item.perfil}}</td>	
-               <td>
+               <td style="text-align:center;">
                  <a href="" ng-click='consultar_por_codigo(item)'>
                    <i ui-sref="home.editar_usuarios({id:item.id})" class='fa fa-pencil fa-2x'></i>
                  </a>
+               </td>
+               <td style="text-align:center;">
+                 <a ng-if="item.bloqueado==0" href="" title="Bloquear usuario" ng-click="bloquear_usuario(item)">
+                   <i class="fa fa-thumbs-o-down fa-2x" style="color:red;"></i>
+                 </a>
+
+                 <a ng-if="item.bloqueado==1" href="" title="Desbloquear usuario" ng-click="desbloquear_usuario(item)">
+                   <i class="fa fa-thumbs-o-up fa-2x"></i>
+                 </a>
+
                </td>
              </tr>
            </tbody>

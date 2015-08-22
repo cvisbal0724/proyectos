@@ -20,6 +20,10 @@ $scope.concejales=[];
 $scope.lideres=[];
 $scope.id_concejales='';
 $scope.id_lideres='';
+$scope.listaVotacion=[];
+$scope.id_zona=0;
+$scope.listaVotosPartidos=[];
+$scope.id_partido=0;
 
 $scope.consultar_por_codigo=function(id){
 		
@@ -165,6 +169,28 @@ $scope.registrar_voto=function(){
 		
 		 $scope.result=data;
 		 	
+	 });
+}
+
+$scope.obtener_lugares_votacion=function(){
+	
+	$http.get("votante/obtenerlugaresdevotacion/"+$scope.id_zona)
+	.success(function(data, status, headers, config) {
+		
+		 $scope.listaVotacion=data;
+		 $scope.votanteVO.id_lugar_de_votacion=0;
+
+	 });
+}
+
+
+$scope.obtener_votos_por_partidos=function() {
+
+	$http.post("votante/obtenervotosporpartidos",{id_partido:$scope.id_partido})
+	.success(function(data, status, headers, config) {
+		
+		 $scope.listaVotosPartidos=data;
+
 	 });
 }
 

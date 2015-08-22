@@ -51,11 +51,12 @@ public function Crear(){
 				'foto'=>$nombreArchivo
 			));
 
-			$lider=Lideres::where('id_persona','=',Input::get('id_persona'))->get();
+			/*$lider=Lideres::where('id_persona','=',Input::get('id_persona'))->get();
 			if (count($lider)==0) {
+				
 				$objLider=Lideres::create(array(
-				'id_persona'=>Input::get('id_persona'),
-				'id_encargado'=>Cookie::get('id_usuario')//Auth::user()->id				
+					'id_persona'=>Input::get('id_persona'),
+					'id_encargado'=>$rs['id']//Auth::user()->id				
 				));
 
 				$liderConcejalArray[]=array(
@@ -66,7 +67,7 @@ public function Crear(){
 
 				DB::table('lider_concejales')->insert($liderConcejalArray);
 				
-			}
+			}*/
 			
 			DB::commit();
 			

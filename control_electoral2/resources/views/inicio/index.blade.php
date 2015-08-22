@@ -10,7 +10,7 @@
     <meta name="keyword" content="Dashboard, Bootstrap, Admin, Template, Theme, Responsive, Fluid, Retina">
     <meta name="_token" content="[[csrf_token()]]">
 
-    <title>SB Admin 2 - Bootstrap Admin Theme</title>
+    <title>Control Electoral 2015</title>
 
     <!-- Bootstrap core CSS -->
     <link href="app_cliente/css/bootstrap.css" rel="stylesheet">

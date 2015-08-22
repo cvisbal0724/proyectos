@@ -257,6 +257,14 @@ App.config(function($urlRouterProvider, $stateProvider) {
           'titulo':{template:'Cambiar Clave'},
           'nombre-proyecto':{templateUrl:'layouts/nombre_proyecto'}
         }  
+       })
+        .state('home.votos_por_partido', {
+        url: "/votos-por-partidos",        
+         views:{
+          'contenedor':{templateUrl: "reportes/votos_por_partido" , controller:'VotanteController'},
+          'titulo':{template:'Votos por partido'},
+          'nombre-proyecto':{templateUrl:'layouts/nombre_proyecto'}
+        }  
        });
      
 });

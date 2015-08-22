@@ -53,13 +53,24 @@
                 <p class="help-block"></p>
             </div>
 
+             <div class="form-group">
+                <label>Zona</label>
+                <select class="form-control" ng-model='id_zona' ng-change="obtener_lugares_votacion()">
+                  <option value="0">[Seleccione..]</option>
+                  @foreach($zonas as $item)
+                  <option value="[[$item->id]]">[[$item->nombre]]</option>
+                  @endforeach
+                </select>
+                <p class="help-block"></p>
+            </div>
+
             <div class="form-group">
                 <label>Lugar de votación</label>
                 <select class="form-control" ng-model='votanteVO.id_lugar_de_votacion'>
                   <option value="0">[Seleccione..]</option>
-                  @foreach($lugarVotacion as $item)
-                  <option value="[[$item->id]]">[[$item->nombre]]</option>
-                  @endforeach
+                 
+                  <option ng-repeat="item in listaVotacion" value="{{item.id}}">{{item.nombre}}</option>
+                  
                 </select>
                 <p class="help-block"></p>
             </div>

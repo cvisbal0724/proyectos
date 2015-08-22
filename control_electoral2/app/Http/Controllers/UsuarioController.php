@@ -63,7 +63,7 @@ class UsuarioController extends Controller {
 		$consulta=DB::table('usuarios as u')
 			->join('personas as p','u.id_persona','=','p.id')
 			->join('perfiles as pf','u.id_perfil','=','pf.id')
-			->select('u.id','u.usuario','p.nombre','p.apellido','pf.nombre as perfil');
+			->select('u.id','u.usuario','p.nombre','p.apellido','pf.nombre as perfil','u.bloqueado');
 		$paginado=10;
 		if ($criterio=='') {
 			$lista=$consulta->orderBy('p.nombre','asc')->take(100)->paginate($paginado);
@@ -104,6 +104,36 @@ class UsuarioController extends Controller {
 			return 'Ha ocurrido un error consulte su administrador';
 		}		
 
+	}
+
+	public function BloquearUsuario()
+	{
+		try {
+			
+			 $usu=Usuarios::find(Input::get('id'));
+			 $usu->bloqueado=1;
+			 $usu->save();
+
+			 return array('result'=>true,'msg'=>'Usuario bloqueado satisfactoriamente.');
+
+		} catch (Exception $e) {			
+			return array('result'=>false,'msg'=>'Ha ocurrido un error consulte su administrador');
+		}
+	}
+
+	public function DesBloquearUsuario()
+	{
+		try {
+			
+			 $usu=Usuarios::find(Input::get('id'));
+			 $usu->bloqueado=0;
+			 $usu->save();
+
+			 return array('result'=>true,'msg'=>'Usuario desbloqueado satisfactoriamente.');
+
+		} catch (Exception $e) {			
+			return array('result'=>false,'msg'=>'Ha ocurrido un error consulte su administrador');
+		}
 	}
 
 }

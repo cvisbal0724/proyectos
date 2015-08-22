@@ -8,5 +8,10 @@ class LugaresDeVotacion extends Model {
 	protected $primaryKey='id';
 	protected $guarded = array();
 	public static $rules = array();
+	protected $with=array('zona');
+
+	public function Zona(){
+		return $this->belongsTo('App\models\Zonas','id_zona','id');
+	}
 
 }
