@@ -471,7 +471,7 @@ class VotanteController extends Controller {
 		$lista=array();
 
 		if ($partido!=200) {
-			$lista=DB::select('select vw.nombre as partido,count(vw.id) as total_votos,vw.logo,
+			$lista=DB::select('select vw.id_partido,vw.nombre as partido,count(vw.id) as total_votos,vw.logo,
 							(select count(v1.id)
 							from vw_votos_partidos as v1
 							where v1.id_partido=vw.id_partido and v1.voto=0) as por_votar,

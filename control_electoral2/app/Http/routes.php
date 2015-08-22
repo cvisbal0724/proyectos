@@ -242,6 +242,15 @@ Route::get('reportes/votos_por_partido',function(){
 	}
 });
 
+Route::get('reportes/votos_por_responsables',function(){	
+	if (Cookie::get('id_usuario')>0) {
+		$lista=Partidos::all();
+		return view('reportes/votos_por_responsables',array('partidos'=>$lista));
+	}else{
+		return view('inicio/acceso_denegado');
+	}
+});
+
 Route::get('graficos/graficos','GraficosController@index');
 
 Route::get('tt','GraficosController@test');

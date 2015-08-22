@@ -34,20 +34,21 @@
         <table class="table table-striped table-bordered table-hover" >
            <thead>
                <tr>
-               	   <th>Partido</th>
+               	   <th>Responsable</th>
+                   <th>Tipo</th>
                	   <th>Total Votos</th>
                	   <th>Por Votar</th>
-                   <th>Votos registrados</th>               	            	                 	   
-                       
+                   <th>Votos registrados</th> 
                </tr>
            </thead>
            <tbody>
              <tr ng-repeat='item in listaVotosPartidos'>
               	
-              	<td style="font-weight:bold;">{{item.partido}}</td>
+              	<td style="font-weight:bold;">{{item.responsable}}</td>
+                <td style="font-weight:bold;">{{item.tipo}}</td>
         				<td style="text-align:center;"><a href="">{{item.total_votos}}</a></td>        				
         				<td style="text-align:center;"><a href="">{{item.por_votar}}</a></td>
-                <td style="text-align:center;"> <a href="">{{item.votos_registrados}}</a></td>	
+                <td style="text-align:center;"><a href="">{{item.votos_registrados}}</a></td>	
                               
              </tr>
            </tbody>
