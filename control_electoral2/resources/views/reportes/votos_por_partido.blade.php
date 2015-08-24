@@ -47,12 +47,26 @@
               	
                 <td><img width="50" src="app_cliente/logos_partido/{{item.logo}}"/></td>
               	<td style="font-weight:bold;">{{item.partido}}</td>
-        				<td style="text-align:center;"><a href="">{{item.total_votos}}</a></td>        				
-        				<td style="text-align:center;"><a href="">{{item.por_votar}}</a></td>
-                <td style="text-align:center;"> <a href="">{{item.votos_registrados}}</a></td>	
+        				<td style="text-align:center;font-weight:bold;"><a href="">{{item.total_votos}}</a></td>        				
+        				<td style="text-align:center;font-weight:bold;"><a href="">{{item.por_votar}}</a></td>
+                <td style="text-align:center;font-weight:bold;"> <a href="">{{item.votos_registrados}}</a></td>	
                               
              </tr>
            </tbody>
+           <tfoot>
+             <th colspan="2" style="text-align:right;">
+               Totales:
+             </th>
+             <th style="text-align:center;font-weight:bold;">
+               {{listaVotosPartidos | sumByKey:'total_votos'}}
+             </th>
+              <th style="text-align:center;font-weight:bold;">
+               {{listaVotosPartidos | sumByKey:'por_votar'}}
+             </th>
+              <th style="text-align:center;font-weight:bold;">
+               {{listaVotosPartidos | sumByKey:'votos_registrados'}}
+             </th>
+           </tfoot>
          </table>
 
  		

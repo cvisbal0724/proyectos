@@ -1,7 +1,7 @@
-<div class="col-lg-12" >
+<div class="col-lg-12" ng-init='obtener_votos_por_responsables()'>
  <div class="form-panel">  
    <h4 class="mb"><i class="fa fa-angle-right"></i> 
-   Consultar votos por partidos 
+   Consultar votos por responsables 
    </h4>
 
    	  
@@ -11,14 +11,23 @@
  		<div class="row">
 	        <div class="col-lg-6">
 	        	<div class="form-group">
-                <label>Partidos</label>
-                <select class="form-control ng-valid ng-dirty ng-touched" ng-model="id_partido" ng-change="obtener_votos_por_partidos()">
+                <label>Opción</label>
+                <select class="form-control ng-valid ng-dirty ng-touched" ng-model="id_opcion" ng-change="obtener_concejales_y_lideres()">
 
-                  <option value="0">[Seleccione..]</option>
-                  @foreach($partidos as $item)
-                  <option value="[[$item->id]]">[[$item->nombre]]</option>
-                  @endforeach 
-                  <option value="200">Todos</option>                                   
+                  <option value="0">[Seleccione..]</option>   
+                  @if($id_perfil==1 || $id_perfil==2)               
+                  <option value="1">Concejales</option>      
+                  @endif
+                  <option value="2">Lideres</option>                                   
+                  </select>
+                <p class="help-block"></p>
+            </div>
+            <div class="form-group">
+                <label>Responsables</label>
+                <select class="form-control ng-valid ng-dirty ng-touched" >
+
+                  <option value="0">[Seleccione..]</option>   
+                  <option ng-repeat="item in listaLideresConcejales" value="{{item.id}}">{{item.nombre}}</option>                                
                   </select>
                 <p class="help-block"></p>
             </div>
@@ -42,16 +51,30 @@
                </tr>
            </thead>
            <tbody>
-             <tr ng-repeat='item in listaVotosPartidos'>
+             <tr ng-repeat='item in listaVotosResponsables'>
               	
               	<td style="font-weight:bold;">{{item.responsable}}</td>
                 <td style="font-weight:bold;">{{item.tipo}}</td>
-        				<td style="text-align:center;"><a href="">{{item.total_votos}}</a></td>        				
-        				<td style="text-align:center;"><a href="">{{item.por_votar}}</a></td>
-                <td style="text-align:center;"><a href="">{{item.votos_registrados}}</a></td>	
+        				<td style="text-align:center;font-weight:bold;"><a href="">{{item.total_votos}}</a></td>        				
+        				<td style="text-align:center;font-weight:bold;"><a href="">{{item.por_votar}}</a></td>
+                <td style="text-align:center;font-weight:bold;"><a href="">{{item.votos_registrados}}</a></td>	
                               
              </tr>
            </tbody>
+           <tfoot>
+             <th colspan="2" style="text-align:right;font-weight:bold;">
+               Totales:
+             </th>
+             <th style="text-align:center;font-weight:bold;">
+               {{listaVotosResponsables | sumByKey:'total_votos'}}
+             </th>
+              <th style="text-align:center;font-weight:bold;">
+               {{listaVotosResponsables | sumByKey:'por_votar'}}
+             </th>
+              <th style="text-align:center;font-weight:bold;">
+               {{listaVotosResponsables | sumByKey:'votos_registrados'}}
+             </th>
+           </tfoot>
          </table>
 
  		

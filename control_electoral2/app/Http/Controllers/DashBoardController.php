@@ -43,7 +43,7 @@ class DashBoardController extends Controller {
 	public function Lista()
 	{
 		$usuario=Usuarios::find(Cookie::get('id_usuario'));//Auth::User();
-		$lideres=null;
+		$lideres=array();
 		$concejales=null;
 
 		$consConcejales=DB::table('concejales as c')
@@ -68,11 +68,11 @@ class DashBoardController extends Controller {
 				(select count(v.id) from votantes v where v.id_concejal=c.id and v.voto=1) as registrados,c.foto"))
 			->where('p.id_alcalde','=',$usuario->persona->id_alcalde)->get();
 
-			$lideres=$consLideres
+			/*$lideres=$consLideres
 			->select(DB::raw("l.id,concat(p.nombre,' ',p.apellido) as lider,
 			(select count(v.id) from votantes v where v.id_lider=l.id and v.voto=0) as votos,
 			(select count(id) from votantes v where v.id_lider=l.id and v.voto=1) as registrados,l.foto"))		
-			->where('p.id_alcalde','=',$usuario->persona->id_alcalde)->get();
+			->where('p.id_alcalde','=',$usuario->persona->id_alcalde)->get();*/
 			
 		}		
 		else if ($usuario->id_perfil==EnumPerfiles::Alcalde) {

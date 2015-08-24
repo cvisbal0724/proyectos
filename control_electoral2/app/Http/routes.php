@@ -23,6 +23,7 @@ Route::controllers([
 use App\models\Partidos;
 use App\models\Alcaldes;
 use App\models\Perfiles;
+use App\models\Usuarios;
 use Illuminate\Support\Facades\Cookie;
 use Illuminate\Support\Facades\Hash;
 
@@ -244,8 +245,8 @@ Route::get('reportes/votos_por_partido',function(){
 
 Route::get('reportes/votos_por_responsables',function(){	
 	if (Cookie::get('id_usuario')>0) {
-		$lista=Partidos::all();
-		return view('reportes/votos_por_responsables',array('partidos'=>$lista));
+		$usuario=Usuarios::find(Cookie::get('id_usuario'));
+		return view('reportes/votos_por_responsables',array('id_perfil'=>$usuario->id_perfil));
 	}else{
 		return view('inicio/acceso_denegado');
 	}
@@ -357,6 +358,8 @@ Route::get('votante/exportarpdf/{concejales}/{lideres}','VotanteController@Expor
 Route::post('votante/registrarvoto','VotanteController@RegistrarVoto');
 Route::get('votante/obtenerlugaresdevotacion/{id_zona}','VotanteController@ObtenerLugaresDeVotacion');
 Route::post('votante/obtenervotosporpartidos','VotanteController@ObtenerVotosPorPartidos');
+Route::post('votante/obtenervotosporresponsables','VotanteController@ObtenerVotosPorResponsables');
+Route::get('votante/obtenerconcejalesylideres/{id_opcion}','VotanteController@ObtenerConcejalesYLideres');
 /*Fin votante*/
 
 /*graficos*/

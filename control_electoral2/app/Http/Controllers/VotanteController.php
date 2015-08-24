@@ -500,6 +500,63 @@ class VotanteController extends Controller {
 		return $lista;
 	}
 
+
+	public function ObtenerVotosPorResponsables()
+	{
+
+		try {
+			
+			//$usuario=Usuarios::find(Cookie::get('id_usuario'));
+
+			$lista=DB::select("select concat(p.nombre,' ', p.apellido) as responsable, count(v.id) as total_votos,
+						(select count(v2.id) from votantes as v2 where v2.id_lider=l.id and v.voto=0) as por_votar,
+						(select count(v2.id) from votantes as v2 where v2.id_lider=l.id and v.voto=1) as votos_registrados,
+						'lideres' as tipo
+						from votantes as v
+						inner join lideres as l on v.id_lider=l.id
+						inner join personas as p on l.id_persona=p.id
+						where l.id_persona not in (select c.id_persona from concejales as c)
+						group by l.id
+						union
+						select concat(p.nombre,' ', p.apellido) as responsable, count(v.id) as total_votos,
+						(select count(v2.id) from votantes as v2 where v2.id_lider=l.id and v.voto=0) as por_votar,
+						(select count(v2.id) from votantes as v2 where v2.id_lider=l.id and v.voto=1) as votos_registrados,
+						'concejales' as tipo
+						from votantes as v
+						inner join lideres as l on v.id_lider=l.id
+						inner join personas as p on l.id_persona=p.id
+						inner join concejales c on c.id_persona=l.id_persona
+						group by l.id");
+	
+			return $lista;
+
+
+		} catch (Exception $e) {
+			
+		}
+		
+	}
+
+	public function ObtenerConcejalesYLideres($id_opcion)
+	{
+		$usuario=Usuarios::find(Cookie::get('id_usuario'));
+		$lista=array();
+
+		if ($id_opcion==1) {
+			$lista=DB::table('concejales as c')
+			->join('personas as p','c.id_persona','=','p.id')
+			->select(DB::raw("c.id,concat(p.nombre,' ',p.apellido) as nombre"))
+			->where('p.id_alcalde','=',$usuario->persona->id_alcalde)->get();
+		}else if ($id_opcion==2) {
+			$lista=DB::table('lideres as l')
+			->join('personas as p','l.id_persona','=','p.id')
+			->select(DB::raw("l.id,concat(p.nombre,' ',p.apellido) as nombre"))
+			->where('l.id_encargado','=',$usuario->id)->get();	
+		}
+
+		return $lista;
+	}
+
 }
 
 
