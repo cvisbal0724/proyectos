@@ -26,7 +26,9 @@ $scope.listaVotosPartidos=[];
 $scope.id_partido=0;
 $scope.listaVotosResponsables=[];
 $scope.listaLideresConcejales=[];
+$scope.listaVotosConcejales=[];
 $scope.id_opcion=0;
+$scope.id_encargado=0;
 
 $scope.consultar_por_codigo=function(id){
 		
@@ -197,9 +199,9 @@ $scope.obtener_votos_por_partidos=function() {
 	 });
 }
 
-$scope.obtener_votos_por_responsables=function() {
+$scope.obtener_votos_por_responsables=function(id_encargado) {
 
-	$http.post("votante/obtenervotosporresponsables",{})
+	$http.post("votante/obtenervotosporresponsables",{id_opcion:$scope.id_opcion,id_encargado:id_encargado})
 	.success(function(data, status, headers, config) {
 		
 		 $scope.listaVotosResponsables=data;
@@ -216,6 +218,17 @@ $scope.obtener_concejales_y_lideres=function() {
 
 	 });
 }
+
+$scope.obtener_votos_por_concejales=function() {
+
+	$http.post("votante/obtenervotosporconcejales",{id_partido:$state.params.id_partido})
+	.success(function(data, status, headers, config) {
+		
+		 $scope.listaVotosConcejales=data;
+
+	 });
+}
+
 
 
 });

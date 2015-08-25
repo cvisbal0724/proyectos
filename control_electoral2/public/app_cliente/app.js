@@ -273,6 +273,14 @@ App.config(function($urlRouterProvider, $stateProvider) {
           'titulo':{template:'Votos por responsables'},
           'nombre-proyecto':{templateUrl:'layouts/nombre_proyecto'}
         }  
+       })
+        .state('home.votos_por_concejal', {
+        url: "/votos-por-concejal/:id_partido",        
+         views:{
+          'contenedor':{templateUrl: "reportes/votos_por_concejal" , controller:'VotanteController'},
+          'titulo':{template:'Votos por responsables'},
+          'nombre-proyecto':{templateUrl:'layouts/nombre_proyecto'}
+        }  
        });
      
 });

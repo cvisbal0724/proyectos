@@ -39,7 +39,7 @@
                	   <th>Total Votos</th>
                	   <th>Por Votar</th>
                    <th>Votos registrados</th>               	            	                 	   
-                       
+                    <th></th>   
                </tr>
            </thead>
            <tbody>
@@ -47,10 +47,14 @@
               	
                 <td><img width="50" src="app_cliente/logos_partido/{{item.logo}}"/></td>
               	<td style="font-weight:bold;">{{item.partido}}</td>
-        				<td style="text-align:center;font-weight:bold;"><a href="">{{item.total_votos}}</a></td>        				
-        				<td style="text-align:center;font-weight:bold;"><a href="">{{item.por_votar}}</a></td>
-                <td style="text-align:center;font-weight:bold;"> <a href="">{{item.votos_registrados}}</a></td>	
-                              
+        				<td style="text-align:center;font-weight:bold;">{{item.total_votos}}</td>        				
+        				<td style="text-align:center;font-weight:bold;">{{item.por_votar}}</td>
+                <td style="text-align:center;font-weight:bold;">{{item.votos_registrados}}</td>	
+                <td style="text-align:center;">
+                  <a title="Ver concejales" ui-sref="home.votos_por_concejal({id_partido:item.id_partido})">
+                    <i class="fa fa-eye fa-2x"></i>
+                  </a>
+                </td>              
              </tr>
            </tbody>
            <tfoot>
@@ -66,6 +70,7 @@
               <th style="text-align:center;font-weight:bold;">
                {{listaVotosPartidos | sumByKey:'votos_registrados'}}
              </th>
+             <th></th>
            </tfoot>
          </table>
 

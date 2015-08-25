@@ -471,7 +471,7 @@ class VotanteController extends Controller {
 		$lista=array();
 
 		if ($partido!=200) {
-			$lista=DB::select('select vw.id_partido,vw.nombre as partido,count(vw.id) as total_votos,vw.logo,
+			$lista=DB::select('select vw.id_partido,vw.nombre as partido,count(vw.id) as total_votos,vw.logo,vw.id_partido,
 							(select count(v1.id)
 							from vw_votos_partidos as v1
 							where v1.id_partido=vw.id_partido and v1.voto=0) as por_votar,
@@ -484,7 +484,7 @@ class VotanteController extends Controller {
 							group by vw.id_partido',array($partido));
 		}else{
 
-			$lista=DB::select('select vw.nombre as partido,count(vw.id) as total_votos,vw.logo,
+			$lista=DB::select('select vw.nombre as partido,count(vw.id) as total_votos,vw.logo,vw.id_partido,
 							(select count(v1.id)
 							from vw_votos_partidos as v1
 							where v1.id_partido=vw.id_partido and v1.voto=0) as por_votar,
@@ -506,28 +506,124 @@ class VotanteController extends Controller {
 
 		try {
 			
-			//$usuario=Usuarios::find(Cookie::get('id_usuario'));
+			$id_opcion=Input::get('id_opcion');
+			$id_encargado=Input::get('id_encargado');
+			$usuario=Usuarios::find(Cookie::get('id_usuario'));
+			$lista=array();
+			
+			if ($id_opcion==1) {
+				
+				if ($id_encargado==200) {
+				
+				$lista=DB::select("select concat(p.nombre,' ', p.apellido) as responsable, count(v.id) as total_votos,
+							(select count(v2.id) from votantes as v2 where v2.id_lider=l.id and v.voto=0) as por_votar,
+							(select count(v2.id) from votantes as v2 where v2.id_lider=l.id and v.voto=1) as votos_registrados,
+							'concejales' as tipo
+							from votantes as v
+							inner join lideres as l on v.id_lider=l.id
+							inner join personas as p on l.id_persona=p.id
+							inner join concejales c on c.id_persona=l.id_persona
+							inner join usuarios u on l.id_encargado=u.id							
+							group by l.id");
+				}
+				else if ($id_encargado > 0) {
+				
+				$lista=DB::select("select concat(p.nombre,' ', p.apellido) as responsable, count(v.id) as total_votos,
+							(select count(v2.id) from votantes as v2 where v2.id_lider=l.id and v.voto=0) as por_votar,
+							(select count(v2.id) from votantes as v2 where v2.id_lider=l.id and v.voto=1) as votos_registrados,
+							'concejales' as tipo
+							from votantes as v
+							inner join lideres as l on v.id_lider=l.id
+							inner join personas as p on l.id_persona=p.id
+							inner join concejales c on c.id_persona=l.id_persona	
+							inner join usuarios u on l.id_encargado=u.id		
+							where c.id=?					
+							group by l.id",array($id_encargado));
+				}
+			}
+			else if ($id_opcion==2) {
+				
+				if ($usuario->id_perfil==EnumPerfiles::Concejal || $usuario->id_perfil==EnumPerfiles::Lider) {
 
-			$lista=DB::select("select concat(p.nombre,' ', p.apellido) as responsable, count(v.id) as total_votos,
-						(select count(v2.id) from votantes as v2 where v2.id_lider=l.id and v.voto=0) as por_votar,
-						(select count(v2.id) from votantes as v2 where v2.id_lider=l.id and v.voto=1) as votos_registrados,
-						'lideres' as tipo
-						from votantes as v
-						inner join lideres as l on v.id_lider=l.id
-						inner join personas as p on l.id_persona=p.id
-						where l.id_persona not in (select c.id_persona from concejales as c)
-						group by l.id
-						union
-						select concat(p.nombre,' ', p.apellido) as responsable, count(v.id) as total_votos,
-						(select count(v2.id) from votantes as v2 where v2.id_lider=l.id and v.voto=0) as por_votar,
-						(select count(v2.id) from votantes as v2 where v2.id_lider=l.id and v.voto=1) as votos_registrados,
-						'concejales' as tipo
-						from votantes as v
-						inner join lideres as l on v.id_lider=l.id
-						inner join personas as p on l.id_persona=p.id
-						inner join concejales c on c.id_persona=l.id_persona
-						group by l.id");
-	
+					if ($id_encargado==200) {
+					
+					$lista=DB::select("select concat(p.nombre,' ', p.apellido) as responsable, count(v.id) as total_votos,
+							(select count(v2.id) from votantes as v2 where v2.id_lider=l.id and v.voto=0) as por_votar,
+							(select count(v2.id) from votantes as v2 where v2.id_lider=l.id and v.voto=1) as votos_registrados,
+							'lideres' as tipo
+							from votantes as v
+							inner join lideres as l on v.id_lider=l.id
+							inner join personas as p on l.id_persona=p.id
+							where l.id_encargado=? 
+							group by l.id",array(Cookie::get('id_usuario')));					
+
+					}elseif ($id_encargado>0) {
+						
+						$lista=DB::select("select concat(p.nombre,' ', p.apellido) as responsable, count(v.id) as total_votos,
+								(select count(v2.id) from votantes as v2 where v2.id_lider=l.id and v.voto=0) as por_votar,
+								(select count(v2.id) from votantes as v2 where v2.id_lider=l.id and v.voto=1) as votos_registrados,
+								'lideres' as tipo
+								from votantes as v
+								inner join lideres as l on v.id_lider=l.id
+								inner join personas as p on l.id_persona=p.id
+								where l.id_encargado=? and l.id=? 
+								group by l.id",array(Cookie::get('id_usuario'),$id_encargado));
+
+					}
+
+				}elseif ($usuario->id_perfil==EnumPerfiles::Alcalde) {
+				
+					if ($id_encargado==200) {
+						
+						$lista=DB::select("select concat(p.nombre,' ', p.apellido) as responsable, count(v.id) as total_votos,
+								(select count(v2.id) from votantes as v2 where v2.id_lider=l.id and v.voto=0) as por_votar,
+								(select count(v2.id) from votantes as v2 where v2.id_lider=l.id and v.voto=1) as votos_registrados,
+								'lideres' as tipo
+								from votantes as v
+								inner join lideres as l on v.id_lider=l.id
+								inner join personas as p on l.id_persona=p.id
+								where l.id_encargado=? and l.id_persona not in (select c.id_persona from concejales as c)
+								group by l.id",array(Cookie::get('id_usuario')));					
+
+					}elseif ($id_encargado>0) {
+						
+						$lista=DB::select("select concat(p.nombre,' ', p.apellido) as responsable, count(v.id) as total_votos,
+								(select count(v2.id) from votantes as v2 where v2.id_lider=l.id and v.voto=0) as por_votar,
+								(select count(v2.id) from votantes as v2 where v2.id_lider=l.id and v.voto=1) as votos_registrados,
+								'lideres' as tipo
+								from votantes as v
+								inner join lideres as l on v.id_lider=l.id
+								inner join personas as p on l.id_persona=p.id
+								where l.id_encargado=? and l.id=? and l.id_persona not in (select c.id_persona from concejales as c)
+								group by l.id",array(Cookie::get('id_usuario'),$id_encargado));
+
+					}
+				}
+				
+				
+
+			}
+			else if (false) {
+				$lista=DB::select("select concat(p.nombre,' ', p.apellido) as responsable, count(v.id) as total_votos,
+								(select count(v2.id) from votantes as v2 where v2.id_lider=l.id and v.voto=0) as por_votar,
+								(select count(v2.id) from votantes as v2 where v2.id_lider=l.id and v.voto=1) as votos_registrados,
+								'lideres' as tipo
+								from votantes as v
+								inner join lideres as l on v.id_lider=l.id
+								inner join personas as p on l.id_persona=p.id
+								where l.id_encargado=? and l.id_persona not in (select c.id_persona from concejales as c)
+								group by l.id
+								union
+								select concat(p.nombre,' ', p.apellido) as responsable, count(v.id) as total_votos,
+								(select count(v2.id) from votantes as v2 where v2.id_lider=l.id and v.voto=0) as por_votar,
+								(select count(v2.id) from votantes as v2 where v2.id_lider=l.id and v.voto=1) as votos_registrados,
+								'concejales' as tipo
+								from votantes as v
+								inner join lideres as l on v.id_lider=l.id
+								inner join personas as p on l.id_persona=p.id
+								inner join concejales c on c.id_persona=l.id_persona
+								group by l.id",array(Cookie::get('id_usuario')));
+			}
 			return $lista;
 
 
@@ -557,6 +653,21 @@ class VotanteController extends Controller {
 		return $lista;
 	}
 
+	public function ObtenerVotosPorConcejales(){
+
+		$lista=DB::select("
+			select vw.logo,concat(vw.nombre,' ',vw.apellido) as concejal,vw.partido,
+			(select count(v1.id) from vw_votos_por_concejales_y_partidos v1 where v1.id_concejal=vw.id_concejal) as total_votos,
+			(select count(v2.id) from vw_votos_por_concejales_y_partidos v2 where v2.id_concejal=vw.id_concejal and v2.voto=0) as por_votar,
+			(select count(v3.id) from vw_votos_por_concejales_y_partidos v3 where v3.id_concejal=vw.id_concejal and v3.voto=1) as votos_registrados
+			from vw_votos_por_concejales_y_partidos vw
+			where vw.id_partido=?
+			group by vw.id_concejal",array(Input::get('id_partido')));
+
+		return $lista;
+
+	}
+
 }
 
 
@@ -568,3 +679,15 @@ inner join lideres as l on v.id_lider=l.id
 inner join usuarios as u on l.id_encargado=u.id
 inner join concejales as c on u.id_persona=c.id_persona
 inner join partidos as pr on c.id_partido=pr.id*/
+
+
+/*alter view vw_votos_por_concejales_y_partidos
+as
+select v.id,pr.nombre as partido,p.nombre,p.apellido,c.id_partido,v.voto,pr.logo,
+c.id as id_concejal
+from votantes as v
+inner join lideres as l on v.id_lider=l.id
+inner join usuarios as u on l.id_encargado=u.id
+inner join concejales as c on u.id_persona=c.id_persona
+inner join partidos as pr on c.id_partido=pr.id
+inner join personas as p on c.id_persona=p.id*/

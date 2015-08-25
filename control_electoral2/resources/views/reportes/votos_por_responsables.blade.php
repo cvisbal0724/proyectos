@@ -1,4 +1,4 @@
-<div class="col-lg-12" ng-init='obtener_votos_por_responsables()'>
+<div class="col-lg-12">
  <div class="form-panel">  
    <h4 class="mb"><i class="fa fa-angle-right"></i> 
    Consultar votos por responsables 
@@ -24,10 +24,11 @@
             </div>
             <div class="form-group">
                 <label>Responsables</label>
-                <select class="form-control ng-valid ng-dirty ng-touched" >
+                <select class="form-control ng-valid ng-dirty ng-touched" ng-model="id_encargado" ng-change="obtener_votos_por_responsables(id_encargado)">
 
                   <option value="0">[Seleccione..]</option>   
-                  <option ng-repeat="item in listaLideresConcejales" value="{{item.id}}">{{item.nombre}}</option>                                
+                  <option ng-repeat="item in listaLideresConcejales" value="{{item.id}}">{{item.nombre}}</option>
+                  <option value="200">Todos</option>                               
                   </select>
                 <p class="help-block"></p>
             </div>

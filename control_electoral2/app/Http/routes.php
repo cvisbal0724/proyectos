@@ -26,6 +26,7 @@ use App\models\Perfiles;
 use App\models\Usuarios;
 use Illuminate\Support\Facades\Cookie;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Auth;
 
 Route::get('/', function(){
 	return view('inicio/index');
@@ -44,6 +45,7 @@ Route::get('layouts/notificaciones','DashBoardController@Notificacion');
 Route::get('inicio/home','HomeController@index');
 
 Route::get('partido/partido',function(){
+
 	if (Cookie::get('id_usuario')>0) {
 		return view('partido/partido');
 	}else{
@@ -252,6 +254,15 @@ Route::get('reportes/votos_por_responsables',function(){
 	}
 });
 
+Route::get('reportes/votos_por_concejal',function(){	
+	if (Cookie::get('id_usuario')>0) {
+		$usuario=Usuarios::find(Cookie::get('id_usuario'));
+		return view('reportes/votos_por_concejal');
+	}else{
+		return view('inicio/acceso_denegado');
+	}
+});
+
 Route::get('graficos/graficos','GraficosController@index');
 
 Route::get('tt','GraficosController@test');
@@ -360,6 +371,7 @@ Route::get('votante/obtenerlugaresdevotacion/{id_zona}','VotanteController@Obten
 Route::post('votante/obtenervotosporpartidos','VotanteController@ObtenerVotosPorPartidos');
 Route::post('votante/obtenervotosporresponsables','VotanteController@ObtenerVotosPorResponsables');
 Route::get('votante/obtenerconcejalesylideres/{id_opcion}','VotanteController@ObtenerConcejalesYLideres');
+Route::post('votante/obtenervotosporconcejales','VotanteController@ObtenerVotosPorConcejales');
 /*Fin votante*/
 
 /*graficos*/

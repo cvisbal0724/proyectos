@@ -32,7 +32,8 @@ class AutenticacionController extends Controller {
 					'nombre'=>Auth::User()->persona->nombre . ' ' . Auth::User()->persona->apellido,
 					'_token'=>csrf_token()
 				);
-				Cookie::queue('id_usuario', Auth::User()->id,45000);	
+				Cookie::queue('id_usuario', Auth::User()->id,45000);
+				Cookie::queue('id_perfil', Auth::User()->id_perfil,45000);	
 			    return $usuario;
 			}else{
 				return array('show'=>true,'alert'=>'warning','msg'=>'Creadenciales invalidas.');
