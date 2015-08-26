@@ -27,12 +27,12 @@
     }
 
     .no{width: 10px; text-align: center; }
-    .nom{width: 50px; text-align: center; }
-    .ced{width: 10px; text-align: center; }
-    .dir{width: 10px; text-align: center; }
-    .tel{width: 10px; text-align: center; }
-    .pvot{width: 10px; text-align: center; }
-    .lider{width: 10px; text-align: center; }
+    .nom{width: 60px; text-align: center; }
+    .ced{width: 50px; text-align: center; }
+    .dir{width: 50px; text-align: center; }
+    .tel{width: 50px; text-align: center; }
+    .pvot{width: 50px; text-align: center; }
+    .lider{width: 50px; text-align: center; }
 
     </style>
   
@@ -42,31 +42,27 @@
       <table border="1" cellspacing="0" cellpadding="0" width="100%">
         <thead>
         <tr>
-          <th colspan="7" style="padding:15px;font-size:25px;">LISTA DE VOTANTES</th>
+          <th colspan="5" style="padding:15px;font-size:25px;">VOTOS POR RESPONSABLES</th>
         </tr>
           <tr>          
             <th class="no">No</th>
-            <th class="nom">NOMBRES Y APELLIDOS</th>
-            <th class="ced">CEDULA</th>
-            <th class="dir">DIRECCION</th>
-            <th class="tel">TELEFONO</th>
-            <th class="pvot">PTO VOTACION</th>
-            <th class="lider">LIDER</th>          
+            <th class="nom">RESPONSABLE</th>
+            <th class="ced">TOTAL VOTOS</th>
+            <th class="dir">POR VOTAR</th>
+            <th class="tel">VOTOS RESGISTRADOS</th>                  
           </tr>
         </thead>
         <tbody>
        
-       <?php for ($i=0; $i < 40; $i++) { ?>
+       <?php for ($i=0; $i < count($lista); $i++) { ?>
 
        
          <tr>
             <td class="no">[[ $i+1 ]]</td>
-            <td class="nom">[[ $data['description'] ]]</td>
-            <td class="ced">[[ $data['price'] ]]</td>
-            <td class="dir">[[ $data['total'] ]] </td>
-            <td class="tel">1</td>
-            <td class="pvot">1</td> 
-            <td class="lider">1</td>           
+            <td class="nom">[[ $lista[$i]->responsable ]]</td>
+            <td class="ced">[[ $lista[$i]->total_votos ]]</td>
+            <td class="dir">[[ $lista[$i]->por_votar ]] </td>
+            <td class="tel">[[ $lista[$i]->votos_registrados ]]</td>                     
           </tr>
          
       <?php } ?>

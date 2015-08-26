@@ -22,6 +22,13 @@
                   </select>
                 <p class="help-block"></p>
             </div>
+
+            <div class="form-group">
+              <a href="votante/exportarreporteporpartidos" target="_blank" title="Imprimir resultado">
+                <i class="fa fa-print fa-3x"></i>
+              </a>
+            </div>
+            
 	        </div>    
         </div>	
         <div class="row">

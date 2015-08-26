@@ -144,7 +144,7 @@ class HomeController extends Controller {
 
         $pdf = \App::make('dompdf.wrapper');
         $pdf->loadHTML($view);
-        return $pdf->setPaper('a4')->setOrientation('landscape')->setWarnings(false)->stream('invoice');
+        return $pdf->setPaper('a4')->setOrientation('landscape')->setWarnings(false)->stream('invoice.pdf');
 
        /* $pdf = PDF::loadView('pdf.multipages', ['pages' => $pages]);
 

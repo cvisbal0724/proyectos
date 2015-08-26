@@ -372,6 +372,8 @@ Route::post('votante/obtenervotosporpartidos','VotanteController@ObtenerVotosPor
 Route::post('votante/obtenervotosporresponsables','VotanteController@ObtenerVotosPorResponsables');
 Route::get('votante/obtenerconcejalesylideres/{id_opcion}','VotanteController@ObtenerConcejalesYLideres');
 Route::post('votante/obtenervotosporconcejales','VotanteController@ObtenerVotosPorConcejales');
+Route::get('votante/exportarreporteporresponsables','VotanteController@ReportePorResponsables');
+Route::get('votante/exportarreporteporpartidos','VotanteController@ReportePorPartidos');
 /*Fin votante*/
 
 /*graficos*/

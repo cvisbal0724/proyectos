@@ -32,7 +32,13 @@
                   </select>
                 <p class="help-block"></p>
             </div>
-	        </div>    
+            <div class="form-group">
+              <a href="votante/exportarreporteporresponsables" target="_blank" title="Imprimir resultado">
+                <i class="fa fa-print fa-3x"></i>
+              </a>
+            </div>
+	        </div>  
+
         </div>	
         <div class="row">
         	<div class="col-lg-6">

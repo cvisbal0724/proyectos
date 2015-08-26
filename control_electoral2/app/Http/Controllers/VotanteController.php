@@ -19,6 +19,7 @@ use Input;
 use App\models\Usuarios;
 use App\models\Zonas;
 use Cookie;
+use Session;
 
 class VotanteController extends Controller {
 
@@ -497,6 +498,7 @@ class VotanteController extends Controller {
 
 		}
 		
+		Session::put('reporte_partidos',$lista);
 		return $lista;
 	}
 
@@ -624,6 +626,8 @@ class VotanteController extends Controller {
 								inner join concejales c on c.id_persona=l.id_persona
 								group by l.id",array(Cookie::get('id_usuario')));
 			}
+
+			Session::put('reporte_responsables',$lista);
 			return $lista;
 
 
@@ -666,6 +670,28 @@ class VotanteController extends Controller {
 
 		return $lista;
 
+	}
+
+	public function ReportePorResponsables()
+	{
+		$lista=Session::get('reporte_responsables');
+
+        $view =  \View::make('pdf.reporte_por_responsables', compact('lista'))->render();
+
+        $pdf = \App::make('dompdf.wrapper');
+        $pdf->loadHTML($view);
+        return $pdf->download('reporte-por-responsables.pdf');
+	}
+
+	public function ReportePorPartidos()
+	{
+		$lista=Session::get('reporte_partidos');
+
+        $view =  \View::make('pdf.reporte_por_partidos', compact('lista'))->render();
+
+        $pdf = \App::make('dompdf.wrapper');
+        $pdf->loadHTML($view);
+        return $pdf->stream('reporte-por-partidos.pdf');
 	}
 
 }
